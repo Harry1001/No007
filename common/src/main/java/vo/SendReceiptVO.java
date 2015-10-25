@@ -1,16 +1,16 @@
-package po;
+package vo;
 
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
 
-public class SendReceiptPO extends ReceiptPO{
+public class SendReceiptVO extends ReceiptVO{
 
 	/**
 	 * 寄件单
-	 * ReceiptPO的子类
+	 * ReceiptVO的子类
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	private String senderName;//寄件人姓名
 	private String senderLoc;//寄件人住址
 	private String senderUnit;//寄件人单位
@@ -29,10 +29,10 @@ public class SendReceiptPO extends ReceiptPO{
 	private double money;//金额
 	private myTime predictTime;//预计到达时间
 	
-	public SendReceiptPO(String senderName,String senderLoc,String senderUnit,String senderPhone,
+	public SendReceiptVO(String senderName,String senderLoc,String senderUnit,String senderPhone,
 			String receiverName,String receiverLoc,String receiverUnit,String receiverPhone, int number,
 			double weight, double volume, String name, String expressType, String pack,
-			String expressNumber, double money, myTime predictTime) {
+			String expressNumber,double money, myTime predictTime) {
 		super(ReceiptType.SEND);
 		// TODO Auto-generated constructor stub
 		this.setSenderName(senderName);
@@ -62,22 +62,6 @@ public class SendReceiptPO extends ReceiptPO{
 		this.senderName = senderName;
 	}
 
-	public String getSenderLoc() {
-		return senderLoc;
-	}
-
-	public void setSenderLoc(String senderLoc) {
-		this.senderLoc = senderLoc;
-	}
-
-	public String getSenderUnit() {
-		return senderUnit;
-	}
-
-	public void setSenderUnit(String senderUnit) {
-		this.senderUnit = senderUnit;
-	}
-
 	public String getSenderPhone() {
 		return senderPhone;
 	}
@@ -86,20 +70,12 @@ public class SendReceiptPO extends ReceiptPO{
 		this.senderPhone = senderPhone;
 	}
 
-	public String getReceiverName() {
-		return receiverName;
+	public String getReceiverPhone() {
+		return receiverPhone;
 	}
 
-	public void setReceiverName(String receiverName) {
-		this.receiverName = receiverName;
-	}
-
-	public String getReceiverLoc() {
-		return receiverLoc;
-	}
-
-	public void setReceiverLoc(String receiverLoc) {
-		this.receiverLoc = receiverLoc;
+	public void setReceiverPhone(String receiverPhone) {
+		this.receiverPhone = receiverPhone;
 	}
 
 	public String getReceiverUnit() {
@@ -110,12 +86,36 @@ public class SendReceiptPO extends ReceiptPO{
 		this.receiverUnit = receiverUnit;
 	}
 
-	public String getReceiverPhone() {
-		return receiverPhone;
+	public String getReceiverLoc() {
+		return receiverLoc;
 	}
 
-	public void setReceiverPhone(String receiverPhone) {
-		this.receiverPhone = receiverPhone;
+	public void setReceiverLoc(String receiverLoc) {
+		this.receiverLoc = receiverLoc;
+	}
+
+	public String getReceiverName() {
+		return receiverName;
+	}
+
+	public void setReceiverName(String receiverName) {
+		this.receiverName = receiverName;
+	}
+
+	public String getSenderUnit() {
+		return senderUnit;
+	}
+
+	public void setSenderUnit(String senderUnit) {
+		this.senderUnit = senderUnit;
+	}
+
+	public String getSenderLoc() {
+		return senderLoc;
+	}
+
+	public void setSenderLoc(String senderLoc) {
+		this.senderLoc = senderLoc;
 	}
 
 	public int getNumber() {
@@ -174,14 +174,6 @@ public class SendReceiptPO extends ReceiptPO{
 		this.name = name;
 	}
 
-	public double getMoney() {
-		return money;
-	}
-
-	public void setMoney(double money) {
-		this.money = money;
-	}
-
 	public myTime getPredictTime() {
 		return predictTime;
 	}
@@ -190,4 +182,11 @@ public class SendReceiptPO extends ReceiptPO{
 		this.predictTime = predictTime;
 	}
 
+	public double getMoney() {
+		return money;
+	}
+
+	public void setMoney(double money) {
+		this.money = money;
+	}
 }
