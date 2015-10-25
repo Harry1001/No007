@@ -4,17 +4,23 @@ import typeDefinition.InfoType;
 
 public class AgencyPO extends InfoPO {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String agencyName;
+	private String agencyType;
 	private String agencyID;
 	private String location;
 	private int area;
 	private int rent;
 
-	public AgencyPO(InfoType type,String agencyName,String agencyID,
-			String location,int area,int rent) {
+	public AgencyPO(InfoType type,String agencyName,String agencyType,
+			String agencyID,String location,int area,int rent) {
 		super(type);
 		// TODO Auto-generated constructor stub
 		this.agencyName=agencyName;
+		this.setAgencyType(agencyType);
 		this.setAgencyID(agencyID);
 		this.setLocation(location);
 		this.setArea(area);
@@ -49,6 +55,12 @@ public class AgencyPO extends InfoPO {
 	}
 	public void setRent(int rent) {
 		this.rent = rent;
+	}
+	public String getAgencyType() {
+		return agencyType;
+	}
+	public void setAgencyType(String agencyType) {
+		this.agencyType = agencyType;
 	}
 	
 

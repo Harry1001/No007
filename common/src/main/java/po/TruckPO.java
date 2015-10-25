@@ -15,9 +15,9 @@ public class TruckPO extends InfoPO {
 	private myTime buyTime;		//购买时间
 	private int serveTime;	//服役时间,以年计算	
 	
-	public TruckPO(String truckID,String licenceID,String engineID,
+	public TruckPO(InfoType type,String truckID,String licenceID,String engineID,
 			String chassisID,myTime buyTime,int serveTime) {
-		super(InfoType.TRUCK);
+		super(type);
 		// TODO Auto-generated constructor stub
 		this.setTruckID(truckID);
 		this.setLicenceID(licenceID);

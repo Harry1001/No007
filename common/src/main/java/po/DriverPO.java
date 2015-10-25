@@ -16,9 +16,9 @@ public class DriverPO extends InfoPO {
 	private String gender;
 	private myTime licenseLimit;//行驶证期限
 
-	public DriverPO(String driverID,String name,myTime birthday,
+	public DriverPO(InfoType type,String driverID,String name,myTime birthday,
 			String IDNum,String phoneNum,String gender,myTime licenseLimit) {
-		super(InfoType.DRIVER);
+		super(type);
 		// TODO Auto-generated constructor stub
 		this.driverID=driverID;
 		this.name=name;
