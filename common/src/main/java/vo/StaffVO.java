@@ -1,10 +1,10 @@
-package po;
+package vo;
 
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import typeDefinition.myTime;
 
-public class StaffPO extends InfoPO {
+public class StaffVO extends InfoVO {
 
 	private String staffID;
 	private String name;
@@ -14,8 +14,8 @@ public class StaffPO extends InfoPO {
 	private int basicSalary;
 	private int workFrequency;//只有司机和快递员这项数据有意义，其他人都是0
 	
-	public StaffPO(String staffID,String name,String gender,
-			myTime birthday,Job position,int basicSalary) {
+	public StaffVO(String staffID, String name, String gender, myTime birthday, Job position
+			, int basicSalary, int workFrequency) {
 		super(InfoType.STAFF);
 		// TODO Auto-generated constructor stub
 		this.staffID=staffID;
@@ -24,9 +24,9 @@ public class StaffPO extends InfoPO {
 		this.birthday=birthday;
 		this.position=position;
 		this.basicSalary=basicSalary;
-		this.workFrequency=0;
+		this.workFrequency=workFrequency;
 	}
-
+	
 	public String getStaffID() {
 		return staffID;
 	}
