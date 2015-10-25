@@ -22,7 +22,6 @@ public abstract class ReceiptVO implements Serializable{
 			this.type=type;
 			this.state = ReceiptState.RAW;
 		}
-
 		public ReceiptType getType() {
 			return type;
 		}

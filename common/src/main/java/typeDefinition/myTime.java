@@ -32,6 +32,12 @@ public class myTime implements Serializable{
 	}
 	
 
+	public myTime(int year,int month, int date) {
+		this.setYear(year);
+		this.setMonth(month);
+		this.setDate(date);
+	}
+	
 	public int getYear() {
 		return year;
 	}

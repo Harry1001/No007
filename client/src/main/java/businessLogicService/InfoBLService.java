@@ -21,7 +21,7 @@ public interface InfoBLService {
 	public boolean addInfo(InfoVO infoItem);
 	
 	/*
-	 * 且面层调用此方法请求在数据层中删除对应Info
+	 * 界面层调用此方法请求在数据层中删除对应Info
 	 */
 	public void deleteInfo(InfoVO infoItem);
 	
