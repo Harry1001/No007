@@ -3,6 +3,7 @@ package businessLogic;
 import java.rmi.RemoteException;
 import java.util.Observable;
 
+import businessLogicService.ReceiptBLService;
 import businessLogicService.TransportBLService;
 
 import businessLogic.ReceiptBLImpl;
@@ -17,7 +18,7 @@ import typeDefinition.ReceiptState;
 public class TransportBLImpl extends BLImpl implements TransportBLService {
 	ReceiptType type;
 	
-	public TransportBLImpl(ReceiptDataService a){
+	public TransportBLImpl(ReceiptBLService a){
 	//	this.
 	}
 	public void update(Observable arg0, Object arg1) {
