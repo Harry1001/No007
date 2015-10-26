@@ -42,16 +42,16 @@ public class TransportBLImpl extends BLImpl implements TransportBLService {
 
 	public void submit(ReceiptVO vo) {
 		// TODO Auto-generated method stub
-		boolean result=verify(vo);
-		if(result){
+		//boolean result=verify(vo);
+		//if(result){
 			vo.setState(ReceiptState.SUBMITTED);
-			cal(vo);
+			//cal(vo);
 			ReceiptBLImpl rbl=new ReceiptBLImpl(null);
 			rbl.createReceipt(vo);
-		}	
-		else{
+		//}	
+		//else{
 			
-		}
+		//}
 	}
 
 	public void cal(ReceiptVO vo) {
@@ -64,6 +64,7 @@ public class TransportBLImpl extends BLImpl implements TransportBLService {
 			SendReceiptVO svo=(SendReceiptVO)vo;
 			expressFee=sbl.calExpressFee(vo);
 			svo.setMoney(expressFee);
+			
 		}else{
 			
 		}

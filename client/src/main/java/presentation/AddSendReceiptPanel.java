@@ -5,13 +5,16 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import businessLogicService.TransportBLService;
+import typeDefinition.myTime;
 import vo.SendReceiptVO;
 
 public class AddSendReceiptPanel extends JPanel{
@@ -19,6 +22,8 @@ public class AddSendReceiptPanel extends JPanel{
 	private static final int TEXTLENGTH=15;
 	
 	private TransportBLService transportBL;
+	
+	private SendReceiptVO sendReceipt;
 	
 	private JPanel senderPanel=new JPanel();
 	private JPanel receiverPanel=new JPanel();
@@ -38,15 +43,15 @@ public class AddSendReceiptPanel extends JPanel{
 	private JTextField receiverCompanyText;
 	private JTextField receiverPhoneText;
 	
-	private JTextField goodsNum;
-	private JTextField weight;
-	private JTextField volumn;
-	private JTextField goodsName;
+	private JTextField goodsNumText;
+	private JTextField weightText;
+	private JTextField volumnText;
+	private JTextField goodsNameText;
 	
-	private JTextField orderType;
-	private JTextField wrapType;
-	private JTextField orderNum;
-	private JTextField fee;
+	private JTextField orderTypeText;
+	private JTextField wrapTypeText;
+	private JTextField orderNumText;
+	private JTextField feeText;
 	
 	public AddSendReceiptPanel(TransportBLService trans){
 		this.transportBL=trans;
@@ -70,7 +75,10 @@ public class AddSendReceiptPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				fee.setText("10000");
+				sendReceipt=creatSendreceipt();
+				transportBL.cal(sendReceipt);
+				
+				feeText.setText(sendReceipt.getMoney()+"");
 				//double price=transportBL.cal
 				
 			}
@@ -85,10 +93,94 @@ public class AddSendReceiptPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
+				sendReceipt=creatSendreceipt();
+				
+				if(sendReceipt.getMoney()<0){
+					displayFeeError();
+				}
+				else if(transportBL.verify(sendReceipt)){
+					displaySuccess();
+					transportBL.submit(sendReceipt);
+				}
+				else{
+					displayNumFormatError();
+				}
 			}
 		});
 		
 		this.add(confirmButton,FlowLayout.TRAILING);
+	}
+	
+	private void displayNumFormatError(){
+		final JDialog numErrorDialog=new JDialog();
+		JLabel errorTip=new JLabel("数据格式错误！");
+		JButton okButton=new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				numErrorDialog.setVisible(false);
+			}
+		});
+		//numErrorDialog.setLayout(new FlowLayout(numErrorDialog));
+		numErrorDialog.setSize(200,150);
+		numErrorDialog.setLocationRelativeTo(this);
+	
+		JPanel panel=new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(errorTip);
+		panel.add(okButton);
+		numErrorDialog.getContentPane().add(panel);
+		
+		//numErrorDialog.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+		numErrorDialog.setVisible(true);
+	}
+	
+	
+	private void displaySuccess(){
+		final JDialog addSucDialog=new JDialog();
+		JLabel errorTip=new JLabel("添加成功！");
+		JButton okButton=new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				addSucDialog.setVisible(false);
+			}
+		});
+		//calFeeSucDialog.setLayout(new BoxLayout(calFeeSucDialog, BoxLayout.Y_AXIS));
+		addSucDialog.setSize(200,150);
+		addSucDialog.setLocationRelativeTo(this);
+	
+		JPanel panel=new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(errorTip);
+		panel.add(okButton);
+		addSucDialog.getContentPane().add(panel);
+		addSucDialog.setVisible(true);
+	}
+	
+	private void displayFeeError(){
+		final JDialog calFeeErrorDialog=new JDialog();
+		JLabel errorTip=new JLabel("请重新计算价格！");
+		JButton okButton=new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				calFeeErrorDialog.setVisible(false);
+			}
+		});
+		//calFeeErrorDialog.setLayout(new BoxLayout(calFeeErrorDialog, BoxLayout.Y_AXIS));
+		calFeeErrorDialog.setSize(200,150);
+		calFeeErrorDialog.setLocationRelativeTo(this);
+	
+		JPanel panel=new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(errorTip);
+		panel.add(okButton);
+		calFeeErrorDialog.getContentPane().add(panel);
+		calFeeErrorDialog.setVisible(true);
 	}
 	
 	private void initCancelButton(){
@@ -98,15 +190,61 @@ public class AddSendReceiptPanel extends JPanel{
 			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				deleteInput();
 			}
 		});
 		
 		this.add(cancelButton,FlowLayout.TRAILING);
 	}
 	
+	/*
+	 * 点击取消按钮时清空已输入的数据
+	 */
+	private void deleteInput(){
+		senderNameText.setText(null);
+		senderAddressText.setText(null);
+		senderCompanyText.setText(null);
+		senderPhoneText.setText(null);
+		
+		receiverNameText.setText(null);
+		receiverAddressText.setText(null);
+		receiverCompanyText.setText(null);
+		receiverPhoneText.setText(null);
+		
+		goodsNumText.setText(null);
+		weightText.setText(null);
+		volumnText.setText(null);
+		goodsNameText.setText(null);
+		
+		orderTypeText.setText(null);
+		wrapTypeText.setText(null);
+		orderNumText.setText(null);
+		feeText.setText(null);
+	}
+	
 	private SendReceiptVO creatSendreceipt() {
-		return null;
+		String senderName=senderNameText.getText();//寄件人姓名
+		String senderLoc=senderAddressText.getText();//寄件人住址
+		String senderUnit=senderCompanyText.getText();//寄件人单位
+		String senderPhone=senderPhoneText.getText();//寄件人手机
+		String receiverName=receiverNameText.getText();//收件人姓名
+		String receiverLoc=receiverAddressText.getText();//收件人住址
+		String receiverUnit=receiverCompanyText.getText();//收件人单位
+		String receiverPhone=receiverPhoneText.getText();//收件人手机
+		int number=Integer.parseInt(goodsNumText.getText());//原件数
+		double weight=Double.parseDouble(weightText.getText());//实际重量
+		double volume=Double.parseDouble(volumnText.getText());//体积
+		String name=goodsNameText.getText();//内件品名
+		String expressType=orderTypeText.getText();//快递类型
+		String pack=wrapTypeText.getText();//包装种类
+		String expressNumber=orderNumText.getText();//订单条形码号
+		double money=0.0;//金额
+		myTime predictTime=new myTime();//预计到达时间
+		
+
+		return new SendReceiptVO(senderName, senderLoc, senderUnit, senderPhone, 
+				receiverName, receiverLoc, receiverUnit, receiverPhone, number, weight, 
+				volume, name, expressType, pack, expressNumber, money, predictTime);
 	}
 	
 	private void initSenderPanel(){
@@ -201,17 +339,17 @@ public class AddSendReceiptPanel extends JPanel{
 		goodsInfoField.add(volumnLable);
 		goodsInfoField.add(goodsNameLable);
 		
-		goodsNum=new JTextField(TEXTLENGTH);
-		weight=new JTextField(TEXTLENGTH);
-		volumn=new JTextField(TEXTLENGTH);
-		goodsName=new JTextField(TEXTLENGTH);
+		goodsNumText=new JTextField(TEXTLENGTH);
+		weightText=new JTextField(TEXTLENGTH);
+		volumnText=new JTextField(TEXTLENGTH);
+		goodsNameText=new JTextField(TEXTLENGTH);
 		JPanel goodsInfoTextField=new JPanel();
 		
 		goodsInfoTextField.setLayout(new BoxLayout(goodsInfoTextField, BoxLayout.Y_AXIS));
-		goodsInfoTextField.add(goodsNum);
-		goodsInfoTextField.add(weight);
-		goodsInfoTextField.add(volumn);
-		goodsInfoTextField.add(goodsName);
+		goodsInfoTextField.add(goodsNumText);
+		goodsInfoTextField.add(weightText);
+		goodsInfoTextField.add(volumnText);
+		goodsInfoTextField.add(goodsNameText);
 		
 		goodsInfoPanel.add(goodsInfoField);
 		goodsInfoPanel.add(goodsInfoTextField);
@@ -234,16 +372,16 @@ public class AddSendReceiptPanel extends JPanel{
 		orderField.add(feeLable);
 		
 		JPanel orderTextField=new JPanel();
-		orderType=new JTextField(TEXTLENGTH);
-		wrapType=new JTextField(TEXTLENGTH);
-		orderNum=new JTextField(TEXTLENGTH);
-		fee=new JTextField(TEXTLENGTH);
+		orderTypeText=new JTextField(TEXTLENGTH);
+		wrapTypeText=new JTextField(TEXTLENGTH);
+		orderNumText=new JTextField(TEXTLENGTH);
+		feeText=new JTextField(TEXTLENGTH);
 		
 		orderTextField.setLayout(new BoxLayout(orderTextField, BoxLayout.Y_AXIS));
-		orderTextField.add(orderType);
-		orderTextField.add(wrapType);
-		orderTextField.add(orderNum);
-		orderTextField.add(fee);
+		orderTextField.add(orderTypeText);
+		orderTextField.add(wrapTypeText);
+		orderTextField.add(orderNumText);
+		orderTextField.add(feeText);
 		
 		orderPanel.add(orderField);
 		orderPanel.add(orderTextField);

@@ -26,7 +26,7 @@ public class SendReceiptVO extends ReceiptVO{
 	private String expressType;//快递类型
 	private String pack;//包装种类
 	private String expressNumber;//订单条形码号
-	private double money;//金额
+	private double money=-1.0;//金额初始值为-1用于提交时检查是否点击了计算费用按钮
 	private myTime predictTime;//预计到达时间
 	
 	public SendReceiptVO(String senderName,String senderLoc,String senderUnit,String senderPhone,
