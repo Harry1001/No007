@@ -15,9 +15,9 @@ public class DespatchReceiptPO extends ReceiptPO{
 	private String orderNum;
 	private String despatchMan;
 	
-	public DespatchReceiptPO(ReceiptType type,myTime arrival,String orderNum,
+	public DespatchReceiptPO(myTime arrival,String orderNum,
 			String despatchMan) {
-		super(type);
+		super(ReceiptType.DESPATCH);
 		// TODO Auto-generated constructor stub
 		this.setArrival(arrival);
 		this.setOrderNum(orderNum);

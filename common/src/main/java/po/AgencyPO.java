@@ -15,9 +15,9 @@ public class AgencyPO extends InfoPO {
 	private int area;
 	private int rent;
 
-	public AgencyPO(InfoType type,String agencyName,String agencyType,
+	public AgencyPO(String agencyName,String agencyType,
 			String agencyID,String location,int area,int rent) {
-		super(type);
+		super(InfoType.AGENCY);
 		// TODO Auto-generated constructor stub
 		this.agencyName=agencyName;
 		this.setAgencyType(agencyType);

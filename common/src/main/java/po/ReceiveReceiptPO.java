@@ -14,8 +14,8 @@ public class ReceiveReceiptPO extends ReceiptPO{
 	private String receiver;
 	private myTime receiveTime;
 	
-	public ReceiveReceiptPO(ReceiptType type,String receiveNum,String receiver,myTime receiveTime) {
-		super(type);
+	public ReceiveReceiptPO(String receiveNum,String receiver,myTime receiveTime) {
+		super(ReceiptType.RECEIVE);
 		// TODO Auto-generated constructor stub
 		this.setReceiveNum(receiveNum);
 		this.setReceiver(receiver);

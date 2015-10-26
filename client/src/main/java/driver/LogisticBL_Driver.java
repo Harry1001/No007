@@ -13,5 +13,8 @@ public class LogisticBL_Driver {
 			System.out.println("查询物流信息成功！");
 			System.out.print(orderID+":"+vo.getArrivalTime()+" "+vo.getState());
 		}
+		else{
+			System.out.println("订单号不存在！！");
+		}
 	}
 }

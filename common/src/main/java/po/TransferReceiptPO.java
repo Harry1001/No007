@@ -21,10 +21,10 @@ public class TransferReceiptPO extends ReceiptPO{
 	private int counterID;//货柜号
 	private ArrayList<String> orderID;//本次装箱所有货物的单号
 	
-	public TransferReceiptPO(ReceiptType type,String transferType,myTime transferDate,
+	public TransferReceiptPO(String transferType,myTime transferDate,
 			String transferID,String vehicleID,String departLoc,String arriveLoc,
 			int counterID,ArrayList<String> orderID) {
-		super(type);
+		super(ReceiptType.TRANSFER);
 		// TODO Auto-generated constructor stub
 		this.transferType=transferType;
 		this.transferDate=transferDate;

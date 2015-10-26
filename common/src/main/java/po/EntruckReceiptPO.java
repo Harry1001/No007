@@ -19,9 +19,9 @@ public class EntruckReceiptPO extends ReceiptPO{
 	private ArrayList<String> orderNum;//本次装箱所有订单条形码号
 	private double transportFee;//运费
 	
-	public EntruckReceiptPO(ReceiptType type,myTime entruckDate,String transportID,String arriveLoc,
+	public EntruckReceiptPO(myTime entruckDate,String transportID,String arriveLoc,
 			String truckID,ArrayList<String> orderNum,double transportFee) {
-		super(type);
+		super(ReceiptType.ENTRUCK);
 		// TODO Auto-generated constructor stub
 		this.setEntruckDate(entruckDate);
 		this.setTransportID(transportID);

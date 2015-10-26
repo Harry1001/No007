@@ -15,9 +15,9 @@ public class UserAccountPO extends InfoPO{
 	private String userName;//用户名
 	private String password;
 	
-	public UserAccountPO(InfoType type,String userID,String name,
+	public UserAccountPO(String userID,String name,
 			Job position,String userName,String password) {
-		super(type);
+		super(InfoType.ACCOUNT);
 		// TODO Auto-generated constructor stub
 		this.setUserID(userID);
 		this.setName(name);

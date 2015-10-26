@@ -8,8 +8,8 @@ public class BankAccountPO extends InfoPO{
 
 	private String accountUser;
 	
-	public BankAccountPO(InfoType type,String accountUser) {
-		super(type);
+	public BankAccountPO(String accountUser) {
+		super(InfoType.BANKACCOUNT);
 		// TODO Auto-generated constructor stub
 		this.accountUser=accountUser;
 	}
