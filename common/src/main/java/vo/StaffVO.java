@@ -1,5 +1,6 @@
 package vo;
 
+import po.StaffPO;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import typeDefinition.myTime;
@@ -25,6 +26,17 @@ public class StaffVO extends InfoVO {
 		this.position=position;
 		this.basicSalary=basicSalary;
 		this.workFrequency=workFrequency;
+	}
+	
+	public StaffVO(StaffPO s){
+		super(InfoType.STAFF);
+		this.staffID = s.getStaffID();
+		this.name = s.getName();
+		this.gender = s.getGender();
+		this.birthday = s.getBirthday();
+		this.position = s.getPosition();
+		this.basicSalary = s.getBasicSalary();
+		this.workFrequency = s.getWorkFrequency();
 	}
 	
 	public String getStaffID() {

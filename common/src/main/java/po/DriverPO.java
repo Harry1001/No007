@@ -2,6 +2,7 @@ package po;
 
 import typeDefinition.InfoType;
 import typeDefinition.myTime;
+import vo.DriverVO;
 
 public class DriverPO extends InfoPO {
 
@@ -29,6 +30,17 @@ public class DriverPO extends InfoPO {
 		this.licenseLimit=licenseLimit;
 	}
 
+	public DriverPO(DriverVO d){
+		super(InfoType.DRIVER);
+		this.setDriverID(d.getDriverID());
+		this.setName(d.getName());
+		this.setBirthday(d.getBirthday());
+		this.setIDNum(d.getIDNum());
+		this.setPhoneNum(d.getPhoneNum());
+		this.setGender(d.getGender());
+		this.setLicenseLimit(d.getLicenseLimit());
+	}
+	
 	public String getDriverID() {
 		return driverID;
 	}

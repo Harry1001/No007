@@ -3,6 +3,7 @@ package po;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import typeDefinition.myTime;
+import vo.StaffVO;
 
 public class StaffPO extends InfoPO {
 
@@ -27,6 +28,17 @@ public class StaffPO extends InfoPO {
 		this.workFrequency=0;
 	}
 
+	public StaffPO(StaffVO s){
+		super(InfoType.STAFF);
+		this.staffID = s.getStaffID();
+		this.name = s.getName();
+		this.gender = s.getGender();
+		this.birthday = s.getBirthday();
+		this.position = s.getPosition();
+		this.basicSalary = s.getBasicSalary();
+		this.workFrequency = s.getWorkFrequency();
+	}
+	
 	public String getStaffID() {
 		return staffID;
 	}

@@ -1,5 +1,6 @@
 package vo;
 
+import po.DriverPO;
 import typeDefinition.InfoType;
 import typeDefinition.myTime;
 
@@ -26,6 +27,17 @@ private static final long serialVersionUID = 1L;
 		this.setPhoneNum(phoneNum);
 		this.setGender(gender);
 		this.setLicenseLimit(licenseLimit);
+	}
+	
+	public DriverVO(DriverPO d){
+		super(InfoType.DRIVER);
+		this.setDriverID(d.getDriverID());
+		this.setName(d.getName());
+		this.setBirthday(d.getBirthday());
+		this.setIDNum(d.getIDNum());
+		this.setPhoneNum(d.getPhoneNum());
+		this.setGender(d.getGender());
+		this.setLicenseLimit(d.getLicenseLimit());
 	}
 	
 	public DriverVO(InfoType type) {
