@@ -26,7 +26,7 @@ public class FinanceBL_Stub implements FinanceBLService{
 
 	public double calFee(FeeType feetype, ReceiptVO receiptInputVO) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 20;
 	}
 
 	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) {
@@ -41,7 +41,7 @@ public class FinanceBL_Stub implements FinanceBLService{
 
 	public String addUp() {
 		// TODO Auto-generated method stub
-		return null;
+		return "100";
 	}
 
 	public ProfitVO checkProfit() {
