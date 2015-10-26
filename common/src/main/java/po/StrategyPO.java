@@ -1,13 +1,12 @@
-package vo;
+package po;
 /**
- * 此类为策略的父类
+ * 策略类的父类
  * @author Administrator
  *
  */
-public abstract class StrategyVO {
+public abstract class StrategyPO {
 	private String type;
-	
-	public StrategyVO(String type){
+	public StrategyPO(String type){
 		this.type=type;
 	}
 	public String getType(){
