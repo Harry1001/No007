@@ -1,10 +1,12 @@
 package po;
 
+import java.io.Serializable;
+
 import typeDefinition.Location;
 import typeDefinition.myTime;
 
 
-public class CommodityPO {
+public class CommodityPO implements Serializable{
 
 	private String expressNumber;//快递编号
 	private myTime inTime;//入库日期
