@@ -54,7 +54,7 @@ public class InfoData_Stub implements InfoDataService{
 	 * 在持久化数据中更新一个po
 	 */
 	public void update(String id, InfoPO item) throws RemoteException{
-		
+		System.out.println("已修改！");
 	}
 	
 }
