@@ -1,5 +1,7 @@
 package vo;
 
+import javax.sound.midi.MidiDevice.Info;
+
 import typeDefinition.InfoType;
 
 public class BankAccountVO extends InfoVO{
@@ -8,8 +10,8 @@ public class BankAccountVO extends InfoVO{
 
 	private String accountUser;
 	
-	public BankAccountVO(InfoType type,String accountUser) {
-		super(type);
+	public BankAccountVO(String accountUser) {
+		super(InfoType.BANKACCOUNT);
 		// TODO Auto-generated constructor stub
 		this.accountUser=accountUser;
 	}
