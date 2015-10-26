@@ -6,12 +6,12 @@ import typeDefinition.myTime;
 
 public class StaffVO extends InfoVO {
 
-	private String staffID;
-	private String name;
-	private String gender;
+	private String staffID;//工号
+	private String name;//姓名
+	private String gender;//性别
 	private myTime birthday;
-	private Job position;
-	private int basicSalary;
+	private Job position;//所属部门
+	private int basicSalary;//基本工资
 	private int workFrequency;//只有司机和快递员这项数据有意义，其他人都是0
 	
 	public StaffVO(String staffID, String name, String gender, myTime birthday, Job position
