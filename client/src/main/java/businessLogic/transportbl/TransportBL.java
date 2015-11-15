@@ -1,27 +1,14 @@
 package businessLogic.transportbl;
 
-import java.util.Observable;
-
-import businessLogicService.receiptblservice.ReceiptBLService;
 import businessLogicService.transportblservice.TransportBLService;
 import businessLogic.receiptbl.ReceiptBL;
-import businessLogic.strategybl.StrategyBL;
 import vo.receiptvo.ReceiptVO;
 import vo.receiptvo.SendReceiptVO;
 import typeDefinition.ReceiptType;
-import typeDefinition.ReceiptState;
 
 public class TransportBL implements TransportBLService {
 	ReceiptType type;
 	
-	public TransportBL(ReceiptBLService a){
-	//	this.
-	}
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public boolean verify(ReceiptVO vo) {
 		// TODO Auto-generated method stub
 		type=vo.getType();
@@ -38,32 +25,13 @@ public class TransportBL implements TransportBLService {
 
 	public void submit(ReceiptVO vo) {
 		// TODO Auto-generated method stub
-		//boolean result=verify(vo);
-		//if(result){
-			vo.setState(ReceiptState.SUBMITTED);
-			//cal(vo);
-			ReceiptBL rbl=new ReceiptBL(null);
-			rbl.createReceipt(vo);
-		//}	
-		//else{
-			
-		//}
+		ReceiptBL receiptbl=new ReceiptBL();
+		receiptbl.createReceipt(vo);
 	}
 
-	public void cal(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		double expressFee;
-		double carriage;
-		type=vo.getType();
-		if(type.equals(ReceiptType.SEND)){
-			StrategyBL sbl=new StrategyBL();
-			SendReceiptVO svo=(SendReceiptVO)vo;
-			expressFee=sbl.calExpressFee(vo);
-			svo.setMoney(expressFee);
-			
-		}else{
-			
-		}
+	public double calFee(ReceiptVO vo) {
+		// TODO Auto-generated method stub		
+		return 0;
 		
 	}
 

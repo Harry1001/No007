@@ -15,9 +15,9 @@ public class TransportBL_Stub implements TransportBLService{
 		
 	}
 
-	public void cal(ReceiptVO vo) {
+	public double calFee(ReceiptVO vo) {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 }
