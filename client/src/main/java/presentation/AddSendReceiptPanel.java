@@ -75,7 +75,7 @@ public class AddSendReceiptPanel extends JPanel{
 				// TODO Auto-generated method stub
 				
 				sendReceipt=creatSendreceipt();
-				transportBL.cal(sendReceipt);
+				transportBL.calFee(sendReceipt);
 				
 				feeText.setText(sendReceipt.getMoney()+"");
 				//double price=transportBL.cal

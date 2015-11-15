@@ -4,6 +4,7 @@ import businessLogicService.receiptblservice.ReceiptBLService;
 import dataService.ReceiptDataService;
 import typeDefinition.myTime;
 import vo.receiptvo.ReceiptVO;
+import vo.receiptvo.SendReceiptVO;
 
 import java.util.ArrayList;
 
@@ -11,16 +12,19 @@ import java.util.ArrayList;
  * Created by Harry on 2015/11/15.
  */
 public class SendReceiptBL extends ReceiptBL {
+
+    ArrayList<SendReceiptVO> sendReceiptList;
+
     public SendReceiptBL(ReceiptDataService receiptData) {
         super(receiptData);
     }
 
-    public ArrayList<ReceiptVO> getListByTime(myTime fromTime, myTime toTime){
+    public ArrayList<SendReceiptVO> getListByTime(myTime fromTime, myTime toTime){
 
         return null;
     }
 
-    public void createReceipt(ReceiptVO item) {
+    public void createReceipt(SendReceiptVO item) {
 
     }
 }

@@ -1,5 +1,6 @@
 package vo.infovo;
 
+import po.infopo.TruckPO;
 import typeDefinition.InfoType;
 import typeDefinition.myTime;
 import vo.infovo.InfoVO;
@@ -25,6 +26,10 @@ private static final long serialVersionUID = 1L;
 		this.setChassisID(chassisID);
 		this.setBuyTime(buyTime);
 		this.setServeTime(serveTime);
+	}
+
+	public TruckVO(TruckPO po){
+		this(po.getTruckID(),po.getLicenceID(),po.getEngineID(),po.getChassisID(),po.getBuyTime(),po.getServeTime());
 	}
 
 	public String getTruckID() {

@@ -30,14 +30,8 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	public DriverVO(DriverPO d){
-		super(InfoType.DRIVER);
-		this.setDriverID(d.getDriverID());
-		this.setName(d.getName());
-		this.setBirthday(d.getBirthday());
-		this.setIDNum(d.getIDNum());
-		this.setPhoneNum(d.getPhoneNum());
-		this.setGender(d.getGender());
-		this.setLicenseLimit(d.getLicenseLimit());
+		this(d.getDriverID(),d.getName(),d.getBirthday(),d.getIDNum(),
+				d.getPhoneNum(),d.getGender(),d.getLicenseLimit());
 	}
 	
 	public DriverVO(InfoType type) {

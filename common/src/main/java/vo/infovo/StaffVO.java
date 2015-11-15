@@ -30,14 +30,8 @@ public class StaffVO extends InfoVO {
 	}
 	
 	public StaffVO(StaffPO s){
-		super(InfoType.STAFF);
-		this.staffID = s.getStaffID();
-		this.name = s.getName();
-		this.gender = s.getGender();
-		this.birthday = s.getBirthday();
-		this.position = s.getPosition();
-		this.basicSalary = s.getBasicSalary();
-		this.workFrequency = s.getWorkFrequency();
+		this(s.getStaffID(),s.getName(),s.getGender(),s.getBirthday(),s.getPosition(),
+				s.getBasicSalary(),s.getWorkFrequency());
 	}
 	
 	public String getStaffID() {

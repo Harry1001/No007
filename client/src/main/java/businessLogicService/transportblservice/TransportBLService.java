@@ -14,5 +14,5 @@ public interface TransportBLService {
 	/*
 	 * 输入参数获得运费
 	 */
-	public void cal(ReceiptVO vo);
+	public double calFee(ReceiptVO vo);
 }

@@ -13,7 +13,7 @@ public interface ReceiptDataService {
 	/**
 	 * 按对应type,state,time返回相应ReceiptPO列表
 	 */
-	public ArrayList<ReceiptPO> getList(ReceiptType type, ReceiptState state, myTime time) throws RemoteException;
+	public ArrayList<ReceiptPO> getList(ReceiptType type, ReceiptState state, myTime fromtime, myTime toTime) throws RemoteException;
 	
 	/**
 	 * 在持久化数据中增加一个po
