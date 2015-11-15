@@ -1,4 +1,4 @@
-package stub;
+package data;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import dataService.CommodityDataService;
 import po.commoditypo.CommodityPO;
 
-public class CommodityData_Stub implements CommodityDataService{
+public class CommodityDataImpl implements CommodityDataService{
 
 	public ArrayList<CommodityPO> check(String TransferNum) throws RemoteException {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
