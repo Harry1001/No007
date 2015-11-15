@@ -11,8 +11,8 @@ import typeDefinition.myTime;
 
 public class ReceiptDataImpl implements ReceiptDataService {
 
-	public ArrayList<ReceiptPO> getList(ReceiptType type, ReceiptState state, myTime time) throws RemoteException {
-		// TODO Auto-generated method stub
+
+	public ArrayList<ReceiptPO> getList(ReceiptType type, ReceiptState state, myTime fromtime, myTime toTime) throws RemoteException {
 		return null;
 	}
 

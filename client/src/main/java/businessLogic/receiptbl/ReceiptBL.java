@@ -30,11 +30,30 @@ public class ReceiptBL{
 	}
 	
 
-	public ArrayList<ReceiptVO> getListByTime(myTime fromTime, myTime toTime){
+	public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime, myTime toTime){
 		return null;
 	}
 
 	public void createReceipt(ReceiptVO item) {
+		ReceiptType type = item.getType();
+		try{
+			switch (type){
+				//todo
+				case SEND:receiptData.addItem(new SendReceiptPO((SendReceiptVO)item));break;
+				case DESPATCH:break;
+				case ENTRUCK:break;
+				case TRANSFER:break;
+				case STOREARRIVAL:break;
+				case HUBARRIVAL:break;
+				case DEPOTIN:break;
+				case DEPOTOUT:break;
+				case CHARGE:break;
+				case PAY:break;
+				case RECEIVE:break;
+			}
+		}catch (RemoteException e){
+			System.out.println("create receipt int data layer fail");
+		}
 
 	}
 

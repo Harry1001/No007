@@ -3,6 +3,7 @@ package po.receiptpo;
 import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
+import vo.receiptvo.SendReceiptVO;
 
 public class SendReceiptPO extends ReceiptPO {
 
@@ -53,6 +54,12 @@ public class SendReceiptPO extends ReceiptPO {
 		this.setExpressNumber(expressNumber);
 		this.setMoney(money);
 		this.setPredictTime(predictTime);
+	}
+
+	public SendReceiptPO(SendReceiptVO v){
+		this(v.getSenderName(),v.getSenderLoc(),v.getSenderUnit(),v.getSenderPhone(),v.getReceiverName(),
+				v.getReceiverLoc(),v.getReceiverUnit(),v.getReceiverPhone(),v.getNumber(),v.getWeight(),v.getVolume(),
+				v.getName(),v.getExpressType(),v.getPack(),v.getExpressNumber(),v.getMoney(),v.getPredictTime());
 	}
 
 	public String getSenderName() {

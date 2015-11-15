@@ -3,6 +3,7 @@ package po.infopo;
 import po.infopo.InfoPO;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
+import vo.infovo.UserAccountVO;
 
 public class UserAccountPO extends InfoPO {
 
@@ -13,18 +14,22 @@ public class UserAccountPO extends InfoPO {
 	private String userID;//工号
 	private String name;//姓名
 	private Job position;
-	private String userName;//用户名
+	//private String userName;//用户名
 	private String password;
 	
 	public UserAccountPO(String userID,String name,
-			Job position,String userName,String password) {
+			Job position,String password) {
 		super(InfoType.ACCOUNT);
 		// TODO Auto-generated constructor stub
 		this.setUserID(userID);
 		this.setName(name);
 		this.setPosition(position);
-		this.setUserName(userName);
+		//this.setUserName(userName);
 		this.setPassword(password);
+	}
+
+	public UserAccountPO(UserAccountVO u){
+		this(u.getUserID(),u.getName(),u.getPosition(),u.getPassword());
 	}
 
 	public String getUserID() {
@@ -51,13 +56,9 @@ public class UserAccountPO extends InfoPO {
 		this.position = position;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+
+
 
 	public String getPassword() {
 		return password;

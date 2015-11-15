@@ -24,6 +24,8 @@ public class DespatchReceiptPO extends ReceiptPO {
 		this.setDespatchMan(despatchMan);
 	}
 
+	
+
 	public myTime getArrival() {
 		return arrival;
 	}
