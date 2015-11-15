@@ -1,5 +1,6 @@
 package vo.infovo;
 
+import po.infopo.AgencyPO;
 import typeDefinition.InfoType;
 
 public class AgencyVO extends InfoVO {
@@ -26,6 +27,12 @@ public class AgencyVO extends InfoVO {
 		this.setArea(area);
 		this.setRent(rent);
 	}
+
+	public AgencyVO(AgencyPO po){
+		this(po.getAgencyName(),po.getAgencyType(),po.getAgencyID(),po.getLocation(),po.getArea(),po.getRent());
+	}
+
+
 	public String getAgencyName(){
 		return agencyName;
 	}
@@ -62,9 +69,6 @@ public class AgencyVO extends InfoVO {
 	public void setAgencyType(String agencyType) {
 		this.agencyType = agencyType;
 	}
-	public AgencyVO(InfoType type) {
-		super(type);
-		// TODO Auto-generated constructor stub
-	}
+
 
 }

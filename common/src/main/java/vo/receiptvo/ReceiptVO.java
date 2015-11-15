@@ -16,22 +16,15 @@ public abstract class ReceiptVO implements Serializable{
 	
 	//单据的类型，新建子类单据时必须制定单据类型
 		private ReceiptType type;
-		private ReceiptState state;
+		//private ReceiptState state;
 		
 		public ReceiptVO(ReceiptType type){
 			this.type=type;
-			this.state = ReceiptState.RAW;
+			//this.state = ReceiptState.RAW;
 		}
 		public ReceiptType getType() {
 			return type;
 		}
 
-		public ReceiptState getState() {
-			return state;
-		}
-
-		public void setState(ReceiptState state) {
-			this.state = state;
-		}
 
 }
