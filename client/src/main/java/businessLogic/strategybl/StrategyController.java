@@ -1,64 +1,42 @@
 package businessLogic.strategybl;
 
-import java.util.Observable;
-
-import businessLogicService.strategyblservice.StrategyBLService;
-import typeDefinition.Job;
-import vo.receiptvo.ReceiptVO;
 import vo.strategyvo.CarriageFeeVO;
 import vo.strategyvo.ExpressFeeVO;
 import vo.strategyvo.SalaryVO;
 
-public class StrategyBL implements StrategyBLService{
-
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public double calExpressFee(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public double calCarriage(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public double calSalary(Job job, int times) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+public class StrategyController {
+	StrategyBL strategybl=new StrategyBL();
+	
 	public void setExpressFee(ExpressFeeVO vo) {
 		// TODO Auto-generated method stub
-		
+		strategybl.setExpressFee(vo);
 	}
 
 	public void setCarriage(CarriageFeeVO vo) {
 		// TODO Auto-generated method stub
-		
+		strategybl.setCarriage(vo);
 	}
 
 	public void setSalary(SalaryVO vo) {
 		// TODO Auto-generated method stub
-		
+		strategybl.setSalary(vo);
 	}
 
 	public ExpressFeeVO getExpressFee() {
 		// TODO Auto-generated method stub
+		strategybl.getExpressFee();
 		return null;
 	}
 
 	public CarriageFeeVO getCarriage() {
 		// TODO Auto-generated method stub
+		strategybl.getCarriage();
 		return null;
 	}
 
 	public SalaryVO getSalary() {
 		// TODO Auto-generated method stub
+		strategybl.getSalary();
 		return null;
 	}
-	
 }
