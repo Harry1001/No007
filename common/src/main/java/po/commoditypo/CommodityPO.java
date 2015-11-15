@@ -19,14 +19,14 @@ public class CommodityPO implements Serializable{
 		this.expressNumber=expressNumber;
 		this.inTime=inTime;
 		this.destination=destination;
-		this.storeloc=storeloc;
+		this.setStoreloc(storeloc);
 	}
 	
 	public CommodityPO(Location loc){
 		expressNumber = null;
 		inTime = new myTime();
 		destination = null;
-		storeloc = loc;
+		setStoreloc(loc);
 	}
 
 	public String getExpressNumber() {
@@ -39,5 +39,13 @@ public class CommodityPO implements Serializable{
 	
 	public String getDestination(){
 		return destination;
+	}
+
+	public Location getStoreloc() {
+		return storeloc;
+	}
+
+	public void setStoreloc(Location storeloc) {
+		this.storeloc = storeloc;
 	}
 }
