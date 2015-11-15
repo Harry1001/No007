@@ -1,21 +1,26 @@
 package po.logisticpo;
 
+import java.util.ArrayList;
+
 import typeDefinition.LogisticState;
-import typeDefinition.myTime;
+import vo.logisticvo.LogisticVO;
 
 public class LogisticPO {
 
 	private String orderNum;
-	private myTime arrivalTime;
+	private ArrayList<String> history;
 	private LogisticState state;
 	
-	public LogisticPO(String orderNum,myTime arrivalTime,
-			LogisticState state){
+	public LogisticPO(String orderNum,ArrayList<String> history,LogisticState state){
 		this.setOrderNum(orderNum);
-		this.setArrivalTime(arrivalTime);
+		this.setHistory(history);
 		this.state=state;
 	}
 
+	public LogisticPO(LogisticVO vo){
+		this(vo.getOrderNum(), vo.getHistory(), vo.getState());
+	}
+	
 	public String getOrderNum() {
 		return orderNum;
 	}
@@ -24,16 +29,16 @@ public class LogisticPO {
 		this.orderNum = orderNum;
 	}
 
-	public myTime getArrivalTime() {
-		return arrivalTime;
-	}
-
-	public void setArrivalTime(myTime arrivalTime) {
-		this.arrivalTime = arrivalTime;
-	}
-
 	public LogisticState getState() {
 		return state;
+	}
+
+	public ArrayList<String> getHistory() {
+		return history;
+	}
+
+	public void setHistory(ArrayList<String> history) {
+		this.history=history;
 	}
 
 }

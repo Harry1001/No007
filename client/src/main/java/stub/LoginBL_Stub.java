@@ -11,4 +11,9 @@ public class LoginBL_Stub implements LoginBLService{
 		
 	}
 
+	public void skip() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
