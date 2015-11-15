@@ -3,6 +3,8 @@ package stub;
 import businessLogicService.strategyblservice.StrategyBLService;
 import typeDefinition.Job;
 import vo.receiptvo.ReceiptVO;
+import vo.strategyvo.CarriageFeeVO;
+import vo.strategyvo.ExpressFeeVO;
 import vo.strategyvo.SalaryVO;
 
 public class StrategyBL_Stub implements StrategyBLService{
@@ -17,10 +19,39 @@ public class StrategyBL_Stub implements StrategyBLService{
 		return 50;
 	}
 
-	public SalaryVO setSalary() {
+	public double calSalary(Job job, int times) {
 		// TODO Auto-generated method stub
-		SalaryVO svo=new SalaryVO(Job.ADMINISTRATOR,3000,0);
-		return svo;
+		return 0;
+	}
+
+	public void setExpressFee(ExpressFeeVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setCarriage(CarriageFeeVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setSalary(SalaryVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ExpressFeeVO getExpressFee() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public CarriageFeeVO getCarriage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public SalaryVO getSalary() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
