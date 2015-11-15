@@ -6,9 +6,9 @@ import java.util.Observable;
 import businessLogicService.financeblservice.FinanceBLService;
 import typeDefinition.FeeType;
 import typeDefinition.myTime;
-import vo.FinanceVO;
-import vo.ProfitVO;
-import vo.ReceiptVO;
+import vo.financevo.FinanceVO;
+import vo.financevo.ProfitVO;
+import vo.receiptvo.ReceiptVO;
 
 public class FinanceBL implements FinanceBLService{
 

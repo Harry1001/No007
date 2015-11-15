@@ -1,7 +1,7 @@
 package stub;
 
 import businessLogicService.transportblservice.TransportBLService;
-import vo.ReceiptVO;
+import vo.receiptvo.ReceiptVO;
 
 public class TransportBL_Stub implements TransportBLService{
 

@@ -1,6 +1,6 @@
 package businessLogicService.transportblservice;
 
-import vo.ReceiptVO;
+import vo.receiptvo.ReceiptVO;
 
 public interface TransportBLService {
 	/*

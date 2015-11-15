@@ -6,12 +6,10 @@ import java.util.Observable;
 
 import businessLogicService.infoblservice.InfoBLService;
 import dataService.InfoDataService;
-import po.AgencyPO;
-import po.InfoPO;
-import po.StaffPO;
+import po.infopo.InfoPO;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
-import vo.InfoVO;
+import vo.infovo.InfoVO;
 
 public class InfoBL implements InfoBLService {
 	

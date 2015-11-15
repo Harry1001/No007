@@ -6,8 +6,8 @@ import businessLogicService.infoblservice.InfoBLService;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import typeDefinition.myTime;
-import vo.InfoVO;
-import vo.StaffVO;
+import vo.infovo.InfoVO;
+import vo.infovo.StaffVO;
 
 public class InfoBL_Driver {
 

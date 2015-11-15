@@ -3,7 +3,7 @@ package stub;
 import java.rmi.RemoteException;
 
 import dataService.LogisticDataService;
-import po.LogisticPO;
+import po.logisticpo.LogisticPO;
 import typeDefinition.LogisticState;
 import typeDefinition.myTime;
 

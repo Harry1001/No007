@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import dataService.ReceiptDataService;
-import po.ReceiptPO;
+import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;

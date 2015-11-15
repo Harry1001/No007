@@ -6,8 +6,8 @@ import businessLogicService.receiptblservice.ReceiptBLService;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
-import vo.ReceiptVO;
-import vo.SendReceiptVO;
+import vo.receiptvo.ReceiptVO;
+import vo.receiptvo.SendReceiptVO;
 
 public class ReceiptBL_Driver {
 

@@ -3,7 +3,7 @@ package stub;
 import java.rmi.RemoteException;
 
 import dataService.FinanceDataService;
-import po.FinancePO;
+import po.financepo.FinancePO;
 
 public class FinanceData_Stub implements FinanceDataService{
 

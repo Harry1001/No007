@@ -3,8 +3,8 @@ package businessLogicService.commodityblservice;
 import java.util.ArrayList;
 
 import typeDefinition.myTime;
-import vo.CommodityVO;
-import vo.ReceiptVO;
+import vo.commodityvo.CommodityVO;
+import vo.receiptvo.ReceiptVO;
 
 public interface CommodityBLService {
 

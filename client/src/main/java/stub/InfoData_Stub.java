@@ -4,9 +4,9 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import dataService.InfoDataService;
-import po.AgencyPO;
-import po.InfoPO;
-import po.StaffPO;
+import po.infopo.AgencyPO;
+import po.infopo.InfoPO;
+import po.infopo.StaffPO;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import typeDefinition.myTime;

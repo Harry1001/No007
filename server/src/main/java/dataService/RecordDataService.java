@@ -2,7 +2,7 @@ package dataService;
 
 import java.rmi.RemoteException;
 
-import po.RecordPO;
+import po.recordpo.RecordPO;
 
 public interface RecordDataService {
 

@@ -2,9 +2,9 @@ package dataService;
 
 import java.rmi.RemoteException;
 
-import po.CarriageFeePO;
-import po.ExpressFeePO;
-import po.SalaryStrategyPO;
+import po.strategypo.CarriageFeePO;
+import po.strategypo.ExpressFeePO;
+import po.strategypo.SalaryStrategyPO;
 
 public interface StrategyDataService {
     /*

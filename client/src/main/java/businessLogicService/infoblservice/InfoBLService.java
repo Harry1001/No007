@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import typeDefinition.InfoType;
 import typeDefinition.Job;
-import vo.InfoVO;
+import vo.infovo.InfoVO;
 
 public interface InfoBLService {
 	

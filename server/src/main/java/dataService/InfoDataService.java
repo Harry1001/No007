@@ -3,7 +3,7 @@ package dataService;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import po.InfoPO;
+import po.infopo.InfoPO;
 import typeDefinition.InfoType;
 
 public interface InfoDataService {

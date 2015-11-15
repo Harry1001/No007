@@ -2,7 +2,7 @@ package dataService;
 
 import java.rmi.RemoteException;
 
-import po.LogisticPO;
+import po.logisticpo.LogisticPO;
 
 public interface LogisticDataService {
 

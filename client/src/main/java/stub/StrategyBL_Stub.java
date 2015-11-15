@@ -2,8 +2,8 @@ package stub;
 
 import businessLogicService.strategyblservice.StrategyBLService;
 import typeDefinition.Job;
-import vo.ReceiptVO;
-import vo.SalaryVO;
+import vo.receiptvo.ReceiptVO;
+import vo.strategyvo.SalaryVO;
 
 public class StrategyBL_Stub implements StrategyBLService{
 

@@ -1,6 +1,6 @@
 package businessLogicService.recordblservice;
 
-import vo.RecordVO;
+import vo.recordvo.RecordVO;
 
 public interface RecordBLService {
 

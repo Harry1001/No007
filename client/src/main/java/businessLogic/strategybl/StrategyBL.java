@@ -3,8 +3,8 @@ package businessLogic.strategybl;
 import java.util.Observable;
 
 import businessLogicService.strategyblservice.StrategyBLService;
-import vo.ReceiptVO;
-import vo.SalaryVO;
+import vo.receiptvo.ReceiptVO;
+import vo.strategyvo.SalaryVO;
 
 public class StrategyBL implements StrategyBLService{
 

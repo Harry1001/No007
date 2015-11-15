@@ -1,13 +1,12 @@
 package businessLogicService.financeblservice;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 import typeDefinition.FeeType;
 import typeDefinition.myTime;
-import vo.FinanceVO;
-import vo.ProfitVO;
-import vo.ReceiptVO;
+import vo.financevo.FinanceVO;
+import vo.financevo.ProfitVO;
+import vo.receiptvo.ReceiptVO;
 
 public interface FinanceBLService {
 

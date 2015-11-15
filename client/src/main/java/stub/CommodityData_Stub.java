@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import dataService.CommodityDataService;
-import po.CommodityPO;
+import po.commoditypo.CommodityPO;
 
 public class CommodityData_Stub implements CommodityDataService{
 

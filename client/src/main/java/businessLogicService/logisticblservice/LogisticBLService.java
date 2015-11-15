@@ -1,6 +1,6 @@
 package businessLogicService.logisticblservice;
 
-import vo.LogisticVO;
+import vo.logisticvo.LogisticVO;
 
 public interface LogisticBLService {
 

@@ -3,7 +3,7 @@ package dataService;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import po.ReceiptPO;
+import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;

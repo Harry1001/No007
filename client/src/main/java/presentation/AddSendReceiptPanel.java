@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,7 +14,7 @@ import javax.swing.JTextField;
 
 import businessLogicService.transportblservice.TransportBLService;
 import typeDefinition.myTime;
-import vo.SendReceiptVO;
+import vo.receiptvo.SendReceiptVO;
 
 public class AddSendReceiptPanel extends JPanel{
 	

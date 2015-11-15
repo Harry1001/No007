@@ -3,7 +3,7 @@ package stub;
 import businessLogicService.logisticblservice.LogisticBLService;
 import typeDefinition.LogisticState;
 import typeDefinition.myTime;
-import vo.LogisticVO;
+import vo.logisticvo.LogisticVO;
 
 public class LogisticBL_Stub implements LogisticBLService{
 

@@ -6,9 +6,9 @@ import businessLogicService.infoblservice.InfoBLService;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import typeDefinition.myTime;
-import vo.AgencyVO;
-import vo.InfoVO;
-import vo.StaffVO;
+import vo.infovo.AgencyVO;
+import vo.infovo.InfoVO;
+import vo.infovo.StaffVO;
 
 public class InfoBL_Stub implements InfoBLService{
 

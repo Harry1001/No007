@@ -1,16 +1,13 @@
 package businessLogic.transportbl;
 
-import java.rmi.RemoteException;
 import java.util.Observable;
 
 import businessLogicService.receiptblservice.ReceiptBLService;
 import businessLogicService.transportblservice.TransportBLService;
 import businessLogic.receiptbl.ReceiptBL;
 import businessLogic.strategybl.StrategyBL;
-import dataService.ReceiptDataService;
-import vo.ReceiptVO;
-import vo.SendReceiptVO;
-import po.ReceiptPO;
+import vo.receiptvo.ReceiptVO;
+import vo.receiptvo.SendReceiptVO;
 import typeDefinition.ReceiptType;
 import typeDefinition.ReceiptState;
 

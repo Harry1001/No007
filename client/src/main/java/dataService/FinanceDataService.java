@@ -2,7 +2,7 @@ package dataService;
 
 import java.rmi.RemoteException;
 
-import po.FinancePO;
+import po.financepo.FinancePO;
 
 public interface FinanceDataService {
 	

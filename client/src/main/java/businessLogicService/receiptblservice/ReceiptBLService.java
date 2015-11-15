@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
-import vo.ReceiptVO;
+import vo.receiptvo.ReceiptVO;
 
 public interface ReceiptBLService {
 

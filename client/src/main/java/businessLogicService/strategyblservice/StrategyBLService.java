@@ -1,7 +1,7 @@
 package businessLogicService.strategyblservice;
 
-import vo.ReceiptVO;
-import vo.SalaryVO;
+import vo.receiptvo.ReceiptVO;
+import vo.strategyvo.SalaryVO;
 
 public interface StrategyBLService {
 	/*

@@ -3,7 +3,7 @@ package dataService;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import po.CommodityPO;
+import po.commoditypo.CommodityPO;
 
 public interface CommodityDataService {
 

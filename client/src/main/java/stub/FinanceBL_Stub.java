@@ -1,18 +1,16 @@
 package stub;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import businessLogicService.financeblservice.FinanceBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
 import dataService.FinanceDataService;
-import po.FinancePO;
 import typeDefinition.FeeType;
 import typeDefinition.myTime;
-import vo.AgencyVO;
-import vo.FinanceVO;
-import vo.ProfitVO;
-import vo.ReceiptVO;
+import vo.infovo.AgencyVO;
+import vo.financevo.FinanceVO;
+import vo.financevo.ProfitVO;
+import vo.receiptvo.ReceiptVO;
 
 public class FinanceBL_Stub implements FinanceBLService{
 	

@@ -6,10 +6,10 @@ import java.util.Observable;
 
 import businessLogicService.receiptblservice.ReceiptBLService;
 import dataService.ReceiptDataService;
-import po.ReceiptPO;
-import po.SendReceiptPO;
-import vo.ReceiptVO;
-import vo.SendReceiptVO;
+import po.receiptpo.ReceiptPO;
+import po.receiptpo.SendReceiptPO;
+import vo.receiptvo.ReceiptVO;
+import vo.receiptvo.SendReceiptVO;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
