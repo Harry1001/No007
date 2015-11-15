@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 import po.CarriageFeePO;
 import po.ExpressFeePO;
-import po.SalaryPO;
+import po.SalaryStrategyPO;
 
 public interface StrategyDataService {
     /*
@@ -26,9 +26,9 @@ public interface StrategyDataService {
 	/*
 	 * 提供薪水策略
 	 */
-	public SalaryPO getSalary() throws  RemoteException;
+	public SalaryStrategyPO getSalary() throws  RemoteException;
 	/*
 	 * 更新薪水策略
 	 */
-	public void updateSalaryStrategy(SalaryPO po) throws  RemoteException;
+	public void updateSalaryStrategy(SalaryStrategyPO po) throws  RemoteException;
 }

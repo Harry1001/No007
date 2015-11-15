@@ -2,11 +2,11 @@ package po;
 
 import typeDefinition.Job;
 
-public class SalaryPO extends StrategyPO{
+public class SalaryStrategyPO extends StrategyPO{
 	private Job position;
 	private int baseSalary;
 	private int workFrequency;
-	public SalaryPO(Job p,int bs,int workFrequency) {
+	public SalaryStrategyPO(Job p,int bs,int workFrequency) {
 		super("Salary");
 		// TODO Auto-generated constructor stub
 		this.position=p;
