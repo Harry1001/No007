@@ -1,4 +1,4 @@
-package businessLogicService;
+package businessLogicService.logisticblservice;
 
 import vo.LogisticVO;
 

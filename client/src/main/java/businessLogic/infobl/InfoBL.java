@@ -1,10 +1,10 @@
-package businessLogic;
+package businessLogic.infobl;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import businessLogicService.InfoBLService;
+import businessLogicService.infoblservice.InfoBLService;
 import dataService.InfoDataService;
 import po.AgencyPO;
 import po.InfoPO;
@@ -13,7 +13,7 @@ import typeDefinition.InfoType;
 import typeDefinition.Job;
 import vo.InfoVO;
 
-public class InfoBLImpl extends BLImpl implements InfoBLService {
+public class InfoBL implements InfoBLService {
 	
 	
 	private InfoDataService infoData;
@@ -26,7 +26,7 @@ public class InfoBLImpl extends BLImpl implements InfoBLService {
 	/*
 	 * constructor
 	 */
-	public InfoBLImpl(InfoDataService infoData){
+	public InfoBL(InfoDataService infoData){
 		this.infoData=infoData;
 	}
 	
@@ -78,7 +78,6 @@ public class InfoBLImpl extends BLImpl implements InfoBLService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 	
 
 }

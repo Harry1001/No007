@@ -1,12 +1,12 @@
-package businessLogic;
+package businessLogic.strategybl;
 
 import java.util.Observable;
 
-import businessLogicService.StrategyBLService;
+import businessLogicService.strategyblservice.StrategyBLService;
 import vo.ReceiptVO;
 import vo.SalaryVO;
 
-public class StrategyBLImpl extends BLImpl implements StrategyBLService{
+public class StrategyBL implements StrategyBLService{
 
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub

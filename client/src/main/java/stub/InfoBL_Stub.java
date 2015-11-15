@@ -2,8 +2,7 @@ package stub;
 
 import java.util.ArrayList;
 
-import businessLogic.BLImpl;
-import businessLogicService.InfoBLService;
+import businessLogicService.infoblservice.InfoBLService;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import typeDefinition.myTime;
@@ -87,13 +86,6 @@ public class InfoBL_Stub implements InfoBLService{
 		return Job.COURIER;
 	}
 
-	/*
-	 * 监听者调用此方法向被监听者（即this）注册
-	 */
-	public void register(BLImpl listener) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 }

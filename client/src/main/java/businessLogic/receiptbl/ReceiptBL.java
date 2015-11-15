@@ -1,10 +1,10 @@
-package businessLogic;
+package businessLogic.receiptbl;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import businessLogicService.ReceiptBLService;
+import businessLogicService.receiptblservice.ReceiptBLService;
 import dataService.ReceiptDataService;
 import po.ReceiptPO;
 import po.SendReceiptPO;
@@ -14,7 +14,7 @@ import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
 
-public class ReceiptBLImpl extends BLImpl implements ReceiptBLService{
+public class ReceiptBL implements ReceiptBLService{
 
 	private ReceiptDataService receiptData;
 	private ArrayList<ReceiptPO> sendReceiptPOList;
@@ -24,7 +24,7 @@ public class ReceiptBLImpl extends BLImpl implements ReceiptBLService{
 	/*
 	 * constructor
 	 */
-	public ReceiptBLImpl(ReceiptDataService receiptData){
+	public ReceiptBL(ReceiptDataService receiptData){
 		this.receiptData=receiptData;
 	}
 	
@@ -80,11 +80,5 @@ public class ReceiptBLImpl extends BLImpl implements ReceiptBLService{
 					vo.getExpressType(),vo.getPack(),vo.getExpressNumber(),vo.getMoney(),vo.getPredictTime());
 		}		
 	}
-
-	public void register(businessLogic.BLImpl listener) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }

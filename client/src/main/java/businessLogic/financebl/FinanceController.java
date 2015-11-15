@@ -1,24 +1,18 @@
-package stub;
+package businessLogic.financebl;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import businessLogicService.financeblservice.FinanceBLService;
-import businessLogicService.receiptblservice.ReceiptBLService;
-import dataService.FinanceDataService;
-import po.FinancePO;
 import typeDefinition.FeeType;
 import typeDefinition.myTime;
-import vo.AgencyVO;
 import vo.FinanceVO;
 import vo.ProfitVO;
 import vo.ReceiptVO;
 
-public class FinanceBL_Stub implements FinanceBLService{
-	
-	ReceiptBLService rbs;
-	FinanceDataService fds = new FinanceData_Stub();
+public class FinanceController implements FinanceBLService{
 
+	FinanceBL financeBL = new FinanceBL();
+	
 	public void submit(ReceiptVO receiptInputVO) {
 		// TODO Auto-generated method stub
 		
@@ -26,17 +20,12 @@ public class FinanceBL_Stub implements FinanceBLService{
 
 	public FinanceVO getCredit(int year) {
 		// TODO Auto-generated method stub
-		FinanceVO f = new FinanceVO(2015);
-		ArrayList<AgencyVO> a = new ArrayList<AgencyVO>();
-		a.add(new AgencyVO(new String("鼓楼营业厅"),new String("营业厅"),new String("025001"),new String("南京市鼓楼区**路**号"),
-				15, 2500));
-		f.setAgencies(a);
-		return f;
+		return null;
 	}
 
 	public double calFee(FeeType feetype, ReceiptVO receiptInputVO) {
 		// TODO Auto-generated method stub
-		return 20;
+		return 0;
 	}
 
 	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) {
@@ -51,11 +40,12 @@ public class FinanceBL_Stub implements FinanceBLService{
 
 	public String addUp() {
 		// TODO Auto-generated method stub
-		return "100";
+		return null;
 	}
 
 	public ProfitVO checkProfit() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

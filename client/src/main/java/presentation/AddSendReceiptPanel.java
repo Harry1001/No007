@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import businessLogicService.TransportBLService;
+import businessLogicService.transportblservice.TransportBLService;
 import typeDefinition.myTime;
 import vo.SendReceiptVO;
 

@@ -1,13 +1,12 @@
-package businessLogic;
+package businessLogic.transportbl;
 
 import java.rmi.RemoteException;
 import java.util.Observable;
 
-import businessLogicService.ReceiptBLService;
-import businessLogicService.TransportBLService;
-
-import businessLogic.ReceiptBLImpl;
-import businessLogic.StrategyBLImpl;
+import businessLogicService.receiptblservice.ReceiptBLService;
+import businessLogicService.transportblservice.TransportBLService;
+import businessLogic.receiptbl.ReceiptBL;
+import businessLogic.strategybl.StrategyBL;
 import dataService.ReceiptDataService;
 import vo.ReceiptVO;
 import vo.SendReceiptVO;
@@ -15,10 +14,10 @@ import po.ReceiptPO;
 import typeDefinition.ReceiptType;
 import typeDefinition.ReceiptState;
 
-public class TransportBLImpl extends BLImpl implements TransportBLService {
+public class TransportBL implements TransportBLService {
 	ReceiptType type;
 	
-	public TransportBLImpl(ReceiptBLService a){
+	public TransportBL(ReceiptBLService a){
 	//	this.
 	}
 	public void update(Observable arg0, Object arg1) {
@@ -46,7 +45,7 @@ public class TransportBLImpl extends BLImpl implements TransportBLService {
 		//if(result){
 			vo.setState(ReceiptState.SUBMITTED);
 			//cal(vo);
-			ReceiptBLImpl rbl=new ReceiptBLImpl(null);
+			ReceiptBL rbl=new ReceiptBL(null);
 			rbl.createReceipt(vo);
 		//}	
 		//else{
@@ -60,7 +59,7 @@ public class TransportBLImpl extends BLImpl implements TransportBLService {
 		double carriage;
 		type=vo.getType();
 		if(type.equals(ReceiptType.SEND)){
-			StrategyBLImpl sbl=new StrategyBLImpl();
+			StrategyBL sbl=new StrategyBL();
 			SendReceiptVO svo=(SendReceiptVO)vo;
 			expressFee=sbl.calExpressFee(vo);
 			svo.setMoney(expressFee);

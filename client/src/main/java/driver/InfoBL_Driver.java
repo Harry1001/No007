@@ -2,7 +2,7 @@ package driver;
 
 import java.util.ArrayList;
 
-import businessLogicService.InfoBLService;
+import businessLogicService.infoblservice.InfoBLService;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import typeDefinition.myTime;

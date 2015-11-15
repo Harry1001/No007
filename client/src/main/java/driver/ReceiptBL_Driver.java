@@ -2,7 +2,7 @@ package driver;
 
 import java.util.ArrayList;
 
-import businessLogicService.ReceiptBLService;
+import businessLogicService.receiptblservice.ReceiptBLService;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;

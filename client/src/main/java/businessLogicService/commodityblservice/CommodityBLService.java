@@ -1,4 +1,4 @@
-package businessLogicService;
+package businessLogicService.commodityblservice;
 
 import java.util.ArrayList;
 

@@ -1,16 +1,16 @@
-package businessLogic;
+package businessLogic.financebl;
 
 import java.util.ArrayList;
 import java.util.Observable;
 
-import businessLogicService.FinanceBLService;
+import businessLogicService.financeblservice.FinanceBLService;
 import typeDefinition.FeeType;
 import typeDefinition.myTime;
 import vo.FinanceVO;
 import vo.ProfitVO;
 import vo.ReceiptVO;
 
-public class FinanceBLImpl extends BLImpl implements FinanceBLService{
+public class FinanceBL implements FinanceBLService{
 
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub

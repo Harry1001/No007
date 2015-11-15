@@ -1,6 +1,6 @@
 package stub;
 
-import businessLogicService.LoginBLService;
+import businessLogicService.loginblservice.LoginBLService;
 import typeDefinition.Job;
 
 public class LoginBL_Stub implements LoginBLService{

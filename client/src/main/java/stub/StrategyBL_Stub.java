@@ -1,7 +1,6 @@
 package stub;
 
-import businessLogic.BLImpl;
-import businessLogicService.StrategyBLService;
+import businessLogicService.strategyblservice.StrategyBLService;
 import typeDefinition.Job;
 import vo.ReceiptVO;
 import vo.SalaryVO;
@@ -22,11 +21,6 @@ public class StrategyBL_Stub implements StrategyBLService{
 		// TODO Auto-generated method stub
 		SalaryVO svo=new SalaryVO(Job.ADMINISTRATOR,3000,0);
 		return svo;
-	}
-
-	public void register(BLImpl listener) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

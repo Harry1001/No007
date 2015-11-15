@@ -1,6 +1,6 @@
 package stub;
 
-import businessLogicService.LogisticBLService;
+import businessLogicService.logisticblservice.LogisticBLService;
 import typeDefinition.LogisticState;
 import typeDefinition.myTime;
 import vo.LogisticVO;

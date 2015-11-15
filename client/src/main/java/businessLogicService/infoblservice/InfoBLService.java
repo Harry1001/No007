@@ -1,8 +1,7 @@
-package businessLogicService;
+package businessLogicService.infoblservice;
 
 import java.util.ArrayList;
 
-import businessLogic.BLImpl;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import vo.InfoVO;
@@ -34,9 +33,4 @@ public interface InfoBLService {
 	 * 验证用户名和密码是否正确，正确与不正确都返回对应job
 	 */
 	public Job verifyPassword(String id, String password);
-	
-	/*
-	 * 监听者调用此方法向被监听者（即this）注册
-	 */
-	public void register(BLImpl listener);
 }

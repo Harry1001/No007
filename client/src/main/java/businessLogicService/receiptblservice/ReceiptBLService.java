@@ -1,8 +1,7 @@
-package businessLogicService;
+package businessLogicService.receiptblservice;
 
 import java.util.ArrayList;
 
-import businessLogic.BLImpl;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
@@ -35,10 +34,5 @@ public interface ReceiptBLService {
 	 * 传入已计算费用的单据，新增单据以更新单据持久化数据
 	 */
 	public void createReceipt(ReceiptVO item);
-	
-	/*
-	 * 监听者调用此方法向被监听者（即this）注册,当单据状态改变时获得通知
-	 */
-	public void register(BLImpl listener);
 	
 }

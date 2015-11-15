@@ -1,6 +1,6 @@
 package driver;
 
-import businessLogicService.LoginBLService;
+import businessLogicService.loginblservice.LoginBLService;
 import typeDefinition.Job;
 
 public class LoginBL_Driver {

@@ -1,6 +1,6 @@
 package driver;
 
-import businessLogicService.LogisticBLService;
+import businessLogicService.logisticblservice.LogisticBLService;
 import vo.LogisticVO;
 
 public class LogisticBL_Driver {

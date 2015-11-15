@@ -2,8 +2,7 @@ package stub;
 
 import java.util.ArrayList;
 
-import businessLogic.BLImpl;
-import businessLogicService.ReceiptBLService;
+import businessLogicService.receiptblservice.ReceiptBLService;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
@@ -48,11 +47,6 @@ public class ReceiptBL_Stub implements ReceiptBLService{
 	public void createReceipt(ReceiptVO item) {
 		// TODO Auto-generated method stub
 		System.out.println("create succeed!");
-	}
-
-	public void register(BLImpl listener) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

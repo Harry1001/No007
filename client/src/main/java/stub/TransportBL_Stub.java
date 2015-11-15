@@ -1,7 +1,6 @@
 package stub;
 
-import businessLogic.BLImpl;
-import businessLogicService.TransportBLService;
+import businessLogicService.transportblservice.TransportBLService;
 import vo.ReceiptVO;
 
 public class TransportBL_Stub implements TransportBLService{
@@ -12,11 +11,6 @@ public class TransportBL_Stub implements TransportBLService{
 	}
 
 	public void submit(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void register(BLImpl listener) {
 		// TODO Auto-generated method stub
 		
 	}
