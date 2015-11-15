@@ -10,7 +10,7 @@ import vo.infovo.StaffVO;
 
 public class FinancePO implements Serializable{
 
-	int year;
+	public int year;
 	private ArrayList<StaffPO> staffs;
 	private ArrayList<DriverPO> drivers;
 	private ArrayList<AgencyPO> agencies;

@@ -10,6 +10,13 @@ import vo.infovo.DriverVO;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import po.commoditypo.CommodityPO;
+import po.financepo.FinancePO;
+import po.infopo.AgencyPO;
+import po.infopo.DriverPO;
+import po.infopo.StaffPO;
+import po.infopo.TruckPO;
+
 public class FinanceVO implements Serializable{
 
 	private int year;
@@ -29,6 +36,45 @@ public class FinanceVO implements Serializable{
 		this.setTrucks(new ArrayList<TruckVO>());
 		this.setCommodity(new ArrayList<CommodityVO>());
 		this.setBankAccounts(new ArrayList<BankAccountVO>());
+	}
+	
+	public FinanceVO(FinancePO f){
+		this.year = f.year;
+		ArrayList<StaffVO> sVOs = new ArrayList<StaffVO>();
+		for(StaffPO s: f.getStaffs()){
+			StaffVO sVO = new StaffVO(s);
+			sVOs.add(sVO);
+		}
+		this.setStaffs(sVOs);
+		
+		ArrayList<DriverVO> dVOs = new ArrayList<DriverVO>();
+		for(DriverPO d: f.getDrivers()){
+			DriverVO dVO = new DriverVO(d);
+			dVOs.add(dVO);
+		}
+		this.setDrivers(dVOs);
+		
+		ArrayList<AgencyVO> aVOs = new ArrayList<AgencyVO>();
+		for(AgencyPO a: f.getAgencies()){
+			AgencyVO aVO = new AgencyVO(a);
+			aVOs.add(aVO);
+		}
+		this.setAgencies(aVOs);
+		
+		ArrayList<TruckVO> tVOs = new ArrayList<TruckVO>();
+		for(TruckPO t: f.getTrucks()){
+			TruckVO tVO = new TruckVO(t);
+			tVOs.add(tVO);
+		}
+		this.setTrucks(tVOs);
+		
+		ArrayList<CommodityVO> cVOs = new ArrayList<CommodityVO>();
+		for(CommodityPO c: f.getCommodity()){
+			CommodityVO cVO = new CommodityVO(c);
+			cVOs.add(cVO);
+		}
+		this.setCommodity(cVOs);
+		
 	}
 
 	public int getYear() {

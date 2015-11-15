@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import typeDefinition.FeeType;
 import typeDefinition.myTime;
+import vo.salaryfeevo.SalaryFeeVO;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;
 import vo.receiptvo.ReceiptVO;
+import vo.strategyvo.SalaryVO;
 
 public interface FinanceBLService {
 
@@ -30,7 +32,7 @@ public interface FinanceBLService {
 	 * @param receiptInputVO
 	 * @return 计算收款（付款）金额
 	 */
-	public double calFee(FeeType feetype, ReceiptVO receiptInputVO);
+	public ArrayList<SalaryFeeVO> calSalary();
 
 	/**
 	 * 
@@ -53,7 +55,7 @@ public interface FinanceBLService {
 	 * 前置条件：已经获取收款单数据列表
 	 * @return 返回所有收款单金额合计
 	 */
-	public String addUp();
+	public double addUp();
 	
 	/**
 	 * 

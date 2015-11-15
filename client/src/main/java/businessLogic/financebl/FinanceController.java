@@ -8,6 +8,7 @@ import typeDefinition.myTime;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;
 import vo.receiptvo.ReceiptVO;
+import vo.salaryfeevo.SalaryFeeVO;
 
 public class FinanceController implements FinanceBLService{
 
@@ -15,37 +16,42 @@ public class FinanceController implements FinanceBLService{
 	
 	public void submit(ReceiptVO receiptInputVO) {
 		// TODO Auto-generated method stub
-		
+		financeBL.submit(receiptInputVO);
 	}
 
 	public FinanceVO getCredit(int year) {
 		// TODO Auto-generated method stub
-		return null;
+		FinanceVO financeVO = financeBL.getCredit(year);
+		return financeVO;
 	}
 
-	public double calFee(FeeType feetype, ReceiptVO receiptInputVO) {
+	public ArrayList<SalaryFeeVO> calSalary() {
 		// TODO Auto-generated method stub
-		return 0;
+		ArrayList<SalaryFeeVO> salaryFeeVOs = financeBL.calSalary();
+		return salaryFeeVOs;
 	}
 
 	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ReceiptVO> receiptVOs = financeBL.seeRecord(fromTime, toTime);
+		return receiptVOs;
 	}
 
 	public ArrayList<ReceiptVO> checkStore(myTime fromTime, myTime toTime, String StoreNum) {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ReceiptVO> receiptVOs = financeBL.checkStore(fromTime, toTime, StoreNum);
+		return receiptVOs;
 	}
 
-	public String addUp() {
+	public double addUp() {
 		// TODO Auto-generated method stub
-		return null;
+		double sum = financeBL.addUp();
+		return sum;
 	}
 
 	public ProfitVO checkProfit() {
 		// TODO Auto-generated method stub
-		return null;
+		ProfitVO profitVO = financeBL.checkProfit();
+		return profitVO;
 	}
-
 }

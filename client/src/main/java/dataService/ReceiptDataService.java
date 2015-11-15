@@ -20,13 +20,14 @@ public interface ReceiptDataService {
 	 */
 	public void addItem(ReceiptPO item) throws RemoteException;
 	
-	/*
-	 *  向持久化数据中更新一个具有相同单号的po
-	 */
-	public void update(ReceiptPO item) throws RemoteException;
-	
+
 	/**
 	 * 清空持久化数据中所有type类型的单据
 	 */
-	public void deleteAll(ReceiptType type) throws RemoteException;
+	public void deleteAllByType(ReceiptType type) throws RemoteException;
+
+	/**
+	 * 清空持久化数据中的所有单据
+	 */
+	public void deleteAll() throws RemoteException;
 }

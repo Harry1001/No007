@@ -22,15 +22,11 @@ public interface InfoBLService {
 	/*
 	 * 界面层调用此方法请求在数据层中删除对应Info
 	 */
-	public void deleteInfo(InfoVO infoItem);
+	public void deleteInfo(InfoType type, String id);
 	
 	/*
 	 * 将type类型的编号为id的信息修改为传入的vo中的信息，如果修改失败则返回false，成功返回true
 	 */
 	public boolean modifyInfo(InfoType type, String id, InfoVO infoItem);
-	
-	/*
-	 * 验证用户名和密码是否正确，正确与不正确都返回对应job
-	 */
-	public Job verifyPassword(String id, String password);
+
 }

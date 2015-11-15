@@ -3,7 +3,7 @@ package typeDefinition;
 import java.io.Serializable;
 import java.util.Calendar;
 
-public class myTime implements Serializable{
+public class myTime implements Serializable, Comparable{
 	
 	private int year;
 	private int month;
@@ -37,7 +37,38 @@ public class myTime implements Serializable{
 		this.setMonth(month);
 		this.setDate(date);
 	}
-	
+
+	/**
+	 * 比较方法不比较时分秒，只要日期相同则认为相等
+	 */
+	public int compareTo(Object oo) {
+		myTime o=(myTime)oo;
+		int result=-1;//默认时间比o的时间小
+		if (this.getYear()>o.getYear()){
+			return 1;
+		}
+
+		if (this.getYear()<o.getYear()){
+			return -1;
+		}
+
+		if(this.getMonth()>o.getMonth())
+			return 1;
+
+		if (this.getMonth()<o.getMonth())
+			return -1;
+
+		if (this.getDate()>o.getDate())
+			return 1;
+
+		if (this.getDate()<o.getDate())
+			return -1;
+
+		return 0;
+	}
+
+
+
 	public int getYear() {
 		return year;
 	}
@@ -97,4 +128,6 @@ public class myTime implements Serializable{
 	public void setSecond(int second) {
 		this.second = second;
 	}
+
+
 }
