@@ -41,7 +41,6 @@ public class InfoController implements InfoBLService {
     private void createInfoBL(InfoType type){
         switch (type){
             case STAFF:infoBL=new StaffInfoBL();break;
-            //todo
             case AGENCY:infoBL=new AgencyInfoBL();break;
             case TRUCK:infoBL=new TruckInfoBL();break;
             case DRIVER:infoBL=new DriverInfoBL();break;
