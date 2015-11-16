@@ -3,16 +3,16 @@ package vo.strategyvo;
 public class ExpressFeeVO extends StrategyVO {
 	private double weight;
 	private double volumn;
-	private double distance;
+	//private double distance;
 	private String expressType;
 	private String packType;
 	private double price;
-	public ExpressFeeVO(double w,double v,double dis,String eType,String pType,double price) {
+	public ExpressFeeVO(double w,double v,String eType,String pType,double price) {
 		super("expressFee");
 		// TODO Auto-generated constructor stub
 		this.weight=w;
 		this.volumn=v;
-		this.distance=dis;
+		//this.distance=dis;
 		this.expressType=eType;
 		this.packType=pType;
 		this.price=price;
@@ -23,9 +23,9 @@ public class ExpressFeeVO extends StrategyVO {
 	public double getVolumn(){
 		return  volumn;
 	}
-	public double getDistance(){
+	/*public double getDistance(){
 		return distance;
-	}
+	}*/
 	public String getExpressType(){
 		return expressType;
 	}
@@ -41,9 +41,9 @@ public class ExpressFeeVO extends StrategyVO {
 	public void setVolumn(double v){
 		this.volumn= v;
 	}
-	public void setDistance(double dis){
+	/*public void setDistance(double dis){
 		this.distance= dis;
-	}
+	}*/
 	public void setExpressType(String eType){
 		this.expressType= eType;
 	}

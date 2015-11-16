@@ -2,6 +2,7 @@ package businessLogicService.strategyblservice;
 
 import typeDefinition.Job;
 import vo.receiptvo.ReceiptVO;
+import vo.receiptvo.SendReceiptVO;
 import vo.strategyvo.CarriageFeeVO;
 import vo.strategyvo.ExpressFeeVO;
 import vo.strategyvo.SalaryVO;
@@ -10,7 +11,7 @@ public interface StrategyBLService {
 	/*
 	 * 计算快递费
 	 */
-	public double calExpressFee(ReceiptVO vo);
+	public double calExpressFee(SendReceiptVO vo);
 	/*
 	 * 计算运费
 	 */

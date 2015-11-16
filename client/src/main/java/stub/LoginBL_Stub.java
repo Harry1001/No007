@@ -7,7 +7,7 @@ public class LoginBL_Stub implements LoginBLService{
 
 	public Job getPermission(String id,String password){
 		
-		return Job.STROESALSMAN;
+		return Job.STORESALESMAN;
 		
 	}
 

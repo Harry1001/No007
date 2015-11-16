@@ -4,27 +4,28 @@ public class CarriageFeeVO extends StrategyVO {
 	private String transportType;
 	private String departure;
 	private String destination;
-	private double distance;
-	
-	public CarriageFeeVO(String tranType,String depa,String dest,double dis) {
+	//private double distance;
+	private double price;
+	public CarriageFeeVO(String tranType,String depa,String dest,double p) {
 		super("carriageFee");
 		// TODO Auto-generated constructor stub
 		this.transportType=tranType;
 		this.departure=depa;
 		this.destination=dest;
-		this.distance=dis;
+		//this.distance=dis;
+		this.price=p;
 	}
-	public String setTransportType(String tranType){
-		return tranType;
+	public void setTransportType(String tranType){
+		this.transportType= tranType;
 	}
-	public String setDeparture(String depa){
-		return depa;
+	public void setDeparture(String depa){
+		this.departure=depa;
 	}
-	public String setDestination(String dest){
-		return dest;
+	public void setDestination(String dest){
+		this.destination= dest;
 	}
-	public double setDiatance(double dis){
-		return dis;
+	public void setPrice(double p){
+		this.price= p;
 	}
 	public String getTransportType(){
 		return transportType;
@@ -35,7 +36,7 @@ public class CarriageFeeVO extends StrategyVO {
 	public String getDestination(){
 		return destination;
 	}
-	public double getDistance(){
-		return distance;
+	public double getPrice(){
+		return price;
 	}
 }

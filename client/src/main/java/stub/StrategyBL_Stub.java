@@ -3,13 +3,14 @@ package stub;
 import businessLogicService.strategyblservice.StrategyBLService;
 import typeDefinition.Job;
 import vo.receiptvo.ReceiptVO;
+import vo.receiptvo.SendReceiptVO;
 import vo.strategyvo.CarriageFeeVO;
 import vo.strategyvo.ExpressFeeVO;
 import vo.strategyvo.SalaryVO;
 
 public class StrategyBL_Stub implements StrategyBLService{
 
-	public double calExpressFee(ReceiptVO vo) {
+	public double calExpressFee(SendReceiptVO vo) {
 		// TODO Auto-generated method stub
 		return 5;
 	}

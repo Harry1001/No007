@@ -1,11 +1,10 @@
-package vo.strategyvo;
+package po.strategypo;
 
+import po.strategypo.StrategyPO;
 
+import vo.strategyvo.SalaryVO;
 
-import vo.strategyvo.StrategyVO;
-
-public class SalaryVO extends StrategyVO {
-
+public class SalaryPO extends StrategyPO {
 	private int mailerBaseSalary;
 	private int driverBaseSalary;
 	private int managerBaseSalary;
@@ -16,7 +15,7 @@ public class SalaryVO extends StrategyVO {
 	private int administerBaseSalary;
 	private int mailerAllowance;
 	private int driverAllowance;
-	public SalaryVO(int mbs,int dbs,int manbs,int acbs,int ssbs,int hbs,int skbs,int adbs,int mal,int dal) {
+	public SalaryPO(int mbs,int dbs,int manbs,int acbs,int ssbs,int hbs,int skbs,int adbs,int mal,int dal) {
 		super("Salary");
 		// TODO Auto-generated constructor stub
 		this.mailerBaseSalary=mbs;
@@ -30,7 +29,13 @@ public class SalaryVO extends StrategyVO {
 		this.mailerAllowance=mal;
 		this.driverAllowance=dal;
 	}
-	
+	/*public SalaryPO(SalaryVO vo){
+		super("Salary");
+		this.position=vo.getJob();
+		this.baseSalary=vo.getBaseSalary();
+		//this.workFrequency=po.getWorkFrequency();
+		this.allowance=vo.getAllowance();
+	}*/
 	public void setMailerBS(int mbs){
 		this.mailerBaseSalary=mbs;
 	}
