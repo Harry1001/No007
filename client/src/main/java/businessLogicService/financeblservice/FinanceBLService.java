@@ -62,4 +62,11 @@ public interface FinanceBLService {
 	 * @return 返回截止当前日期的总收入、总支出、总利润
 	 */
 	public ProfitVO checkProfit();
+	
+	/**
+	 * 
+	 * @param year
+	 */
+	public void	makeCredit(int year);
+		
 }

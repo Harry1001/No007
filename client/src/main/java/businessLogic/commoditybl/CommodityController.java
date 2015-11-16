@@ -9,6 +9,7 @@ import data.CommodityDataImpl;
 import dataService.CommodityDataService;
 import po.commoditypo.CommodityPO;
 import typeDefinition.myTime;
+import vo.commodityvo.CheckResultVO;
 import vo.commodityvo.CommodityVO;
 import vo.receiptvo.ReceiptVO;
 
@@ -20,16 +21,16 @@ public class CommodityController implements CommodityBLService{
 		commodityBL.submit(vo);
 	}
 
-	public ArrayList<CommodityVO> getList(String TransferNum) {
+	public ArrayList<CommodityVO> getList(String transferNum) {
 		// TODO Auto-generated method stub
-		ArrayList<CommodityVO> commodityVOs = commodityBL.getList(TransferNum);
+		ArrayList<CommodityVO> commodityVOs = commodityBL.getList(transferNum);
 		return commodityVOs;
 	}
 
-	public ArrayList<CommodityVO> getList(String TransferNum, myTime fromTime, myTime toTime) {
+	public CheckResultVO getList(String transferNum, myTime fromTime, myTime toTime) {
 		// TODO Auto-generated method stub
-		ArrayList<CommodityVO> commodityVOs = commodityBL.getList(TransferNum, fromTime, toTime);
-		return commodityVOs;
+		CheckResultVO result = commodityBL.getList(transferNum, fromTime, toTime);
+		return result;
 	}
 
 	public ArrayList<CommodityVO> getTotal() {
