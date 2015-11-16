@@ -9,12 +9,7 @@ public class LoginController implements LoginBLService{
 
 	public Job getPermission(String id, String password) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void skip() {
-		// TODO Auto-generated method stub
-		
+		return 	new LoginBL().getPermission(id, password);
 	}
 
 }

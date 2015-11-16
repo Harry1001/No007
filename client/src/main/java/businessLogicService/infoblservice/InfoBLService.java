@@ -11,7 +11,7 @@ public interface InfoBLService {
 	/*
 	 * 返回type类型的InfoVO列表
 	 */
-	public ArrayList<? extends InfoVO> getInfoList(InfoType type);
+	public ArrayList<? extends InfoVO> getInfoList();
 	
 	/*
 	 * 界面层要求添加一个Info
@@ -22,11 +22,11 @@ public interface InfoBLService {
 	/*
 	 * 界面层调用此方法请求在数据层中删除对应Info
 	 */
-	public void deleteInfo(InfoType type, String id);
+	public void deleteInfo(String id);
 	
 	/*
 	 * 将type类型的编号为id的信息修改为传入的vo中的信息，如果修改失败则返回false，成功返回true
 	 */
-	public boolean modifyInfo(InfoType type, String id, InfoVO infoItem);
+	public boolean modifyInfo( String id, InfoVO infoItem);
 
 }

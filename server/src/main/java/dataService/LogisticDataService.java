@@ -17,7 +17,7 @@ public interface LogisticDataService {
 	public LogisticPO read(String num) throws RemoteException;
 	
 	/*
-	 * 初始化物流信息持久化数据
+	 * 删除物流信息持久化数据，被update调用
 	 */
-	public void init() throws RemoteException;
+	public void remove(String num) throws RemoteException;
 }

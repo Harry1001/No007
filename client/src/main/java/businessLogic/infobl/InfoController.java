@@ -13,27 +13,35 @@ import java.util.ArrayList;
 public class InfoController implements InfoBLService {
 
     InfoBL infoBL;
-    InfoDataService infoData ;
+    //InfoDataService infoData ;
 
-    public ArrayList<? extends InfoVO> getInfoList(InfoType type) {
-        return null;
+    public InfoController(InfoType type){
+        createInfoBL(type);
+    }
+
+    public ArrayList<? extends InfoVO> getInfoList() {
+
+        return infoBL.getInfoList();
     }
 
     public boolean addInfo(InfoVO infoItem) {
-        return false;
+
+        return infoBL.addInfo(infoItem);
     }
 
-    public void deleteInfo(InfoType type, String id) {
-
+    public void deleteInfo(String id) {
+        infoBL.deleteInfo(id);
     }
 
-    public boolean modifyInfo(InfoType type, String id, InfoVO infoItem) {
-        return false;
+    public boolean modifyInfo(String id, InfoVO infoItem) {
+
+        return infoBL.modifyInfo(id, infoItem);
     }
 
     private void createInfoBL(InfoType type){
         switch (type){
-           
+            case STAFF:infoBL=new StaffInfoBL();break;
+            //todo
         }
     }
 }

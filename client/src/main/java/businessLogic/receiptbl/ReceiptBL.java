@@ -6,11 +6,8 @@ import java.util.ArrayList;
 import businessLogicService.receiptblservice.ReceiptBLService;
 import data.ReceiptDataImpl;
 import dataService.ReceiptDataService;
-import po.receiptpo.ReceiptPO;
-import po.receiptpo.SendReceiptPO;
-import vo.receiptvo.ReceiptVO;
-import vo.receiptvo.SendReceiptVO;
-import typeDefinition.ReceiptState;
+import po.receiptpo.*;
+import vo.receiptvo.*;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
 
@@ -34,16 +31,73 @@ public class ReceiptBL implements ReceiptBLService{
 		//如果起始时间小于终止时间，报错
 		//todo
 
-		ArrayList<? extends ReceiptVO> receiptVOs= new ArrayList<ReceiptVO>();
+		ArrayList<ReceiptVO> receiptVOs= new ArrayList<ReceiptVO>();
 		try{
-			ArrayList<ReceiptPO> receiptPOs= receiptData.getList(type,fromTime,toTime);
-			for(ReceiptPO po: receiptPOs){
-				//todo
+			ArrayList<? extends ReceiptPO> receiptPOs= receiptData.getList(type,fromTime,toTime);
+
+			switch (type){
+				case SEND:{
+					for(SendReceiptPO po: (ArrayList<SendReceiptPO>)receiptPOs){
+						receiptVOs.add(new SendReceiptVO(po));
+					}
+					break;
+				}
+				case DESPATCH:{
+					for(DespatchReceiptPO po: (ArrayList<DespatchReceiptPO>)receiptPOs){
+						receiptVOs.add(new DespatchReceiptVO(po));
+					}
+					break;
+				}
+				case ENTRUCK:{
+					for(EntruckReceiptPO po: (ArrayList<EntruckReceiptPO>)receiptPOs){
+						receiptVOs.add(new EntruckReceiptVO(po));
+					}
+					break;
+				}
+				case TRANSFER: {
+					for (TransferReceiptPO po : (ArrayList<TransferReceiptPO>) receiptPOs) {
+						receiptVOs.add(new TransferReceiptVO(po));
+					}
+					break;
+				}
+				case STOREARRIVAL:{
+					for (StoreArrivalReceiptPO po : (ArrayList<StoreArrivalReceiptPO>) receiptPOs) {
+						receiptVOs.add(new StoreArrivalReceiptVO(po));
+					}
+					break;
+				}
+				case HUBARRIVAL:{
+					for (HubArrivalReceiptPO po : (ArrayList<HubArrivalReceiptPO>) receiptPOs) {
+						receiptVOs.add(new HubArrivalReceiptVO(po));
+					}
+					break;
+				}
+				case DEPOTIN:{
+					for (DepotInReceiptPO po : (ArrayList<DepotInReceiptPO>) receiptPOs) {
+						receiptVOs.add(new DepotInReceiptVO(po));
+					}
+					break;
+				}
+				case DEPOTOUT:{
+					for (DepotOutReceiptPO po : (ArrayList<DepotOutReceiptPO>) receiptPOs) {
+						receiptVOs.add(new DepotOutReceiptVO(po));
+					}
+					break;
+				}
+				case CHARGE:break;//todo
+				case PAY:break;
+				case RECEIVE:{
+					for (ReceiveReceiptPO po : (ArrayList<ReceiveReceiptPO>) receiptPOs) {
+						receiptVOs.add(new ReceiveReceiptVO(po));
+					}
+					break;
+				}
 			}
+
 		}catch (RemoteException e){
 			System.out.println("get receipt list from data layer fail");
 		}
-		return null;
+		return receiptVOs;
 	}
 
 	public void createReceipt(ReceiptVO item) {
@@ -52,16 +106,16 @@ public class ReceiptBL implements ReceiptBLService{
 			switch (type){
 				//todo
 				case SEND:receiptData.addItem(new SendReceiptPO((SendReceiptVO)item));break;
-				case DESPATCH:break;
-				case ENTRUCK:break;
-				case TRANSFER:break;
-				case STOREARRIVAL:break;
-				case HUBARRIVAL:break;
-				case DEPOTIN:break;
-				case DEPOTOUT:break;
-				case CHARGE:break;
-				case PAY:break;
-				case RECEIVE:break;
+				case DESPATCH:receiptData.addItem(new DespatchReceiptPO((DespatchReceiptVO)item));break;
+				case ENTRUCK:receiptData.addItem(new EntruckReceiptPO((EntruckReceiptVO)item));break;
+				case TRANSFER:receiptData.addItem(new TransferReceiptPO((TransferReceiptVO)item));break;
+				case STOREARRIVAL:receiptData.addItem(new StoreArrivalReceiptPO((StoreArrivalReceiptVO)item));break;
+				case HUBARRIVAL:receiptData.addItem(new HubArrivalReceiptPO((HubArrivalReceiptVO)item));break;
+				case DEPOTIN:receiptData.addItem(new DepotInReceiptPO((DepotInReceiptVO)item));break;
+				case DEPOTOUT:receiptData.addItem(new DepotOutReceiptPO((DepotOutReceiptVO)item));break;
+				case CHARGE:receiptData.addItem(new ChargeReceiptPO((ChargeReceiptVO)item));break;
+				case PAY:receiptData.addItem(new PayReceiptPO((PayReceiptVO)item));break;
+				case RECEIVE:receiptData.addItem(new ReceiveReceiptPO((ReceiveReceiptVO)item));break;
 			}
 		}catch (RemoteException e){
 			System.out.println("create receipt int data layer fail");

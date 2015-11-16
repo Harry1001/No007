@@ -2,7 +2,7 @@ package vo.financevo;
 
 public class ProfitVO {
 
-	int income;
-	int outcome;
-	int profit;
+	public long income;
+	public long outcome;
+	public long profit;
 }

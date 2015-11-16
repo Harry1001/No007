@@ -12,7 +12,9 @@ import java.util.ArrayList;
  */
 public class ReceiptController implements ReceiptBLService{
 
-    public ArrayList<ReceiptVO> getListByTime(myTime fromTime, myTime toTime, ReceiptType type) {
-        return null;
+    private ReceiptBL receiptBL=new ReceiptBL();
+
+    public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime, myTime toTime, ReceiptType type) {
+        return receiptBL.getListByTime(fromTime, toTime, type);
     }
 }
