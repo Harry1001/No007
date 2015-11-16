@@ -4,6 +4,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import businessLogic.infobl.InfoBL;
+import businessLogic.infobl.StaffInfoBL;
 import businessLogic.receiptbl.ReceiptBL;
 import businessLogic.strategybl.StrategyBL;
 import businessLogicService.financeblservice.FinanceBLService;
@@ -47,13 +49,15 @@ public class FinanceBL implements FinanceBLService{
 	public ArrayList<SalaryFeeVO> calSalary() {
 		// TODO Auto-generated method stub
 		StrategyBL strategy = new StrategyBL();
+		ArrayList<SalaryFeeVO> salaryList = new ArrayList<SalaryFeeVO>();
 		
 		return null;
 	}
 
 	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) {
 		// TODO Auto-generated method stub
-		
+		ReceiptBL receipt = new ReceiptBL();
+
 		return null;
 	}
 
