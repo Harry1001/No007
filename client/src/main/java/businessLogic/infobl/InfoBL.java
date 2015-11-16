@@ -45,4 +45,6 @@ public class InfoBL implements InfoBLService {
 		return false;
 	}
 
+
+
 }
