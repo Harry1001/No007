@@ -14,8 +14,16 @@ public class EntruckBL extends TransportBL{
 	public boolean verify(ReceiptVO vo) {
 		EntruckReceiptVO rvo=(EntruckReceiptVO)vo;
 		String s1=rvo.getTransportID();
-		ArrayList<String> as2=rvo.getOrderNum();
 		String s3=rvo.getTruckID();
+		if(s1.length()!=19||s3.length()!=9){
+			return false;
+		}
+		ArrayList<String> as2=rvo.getOrderNum();
+		for(String temp:as2){
+			if(temp.length()!=10){
+				return false;
+			}
+		}
 		Date date=null;
 		SimpleDateFormat format=new SimpleDateFormat("yyyyMMdd");
 		try {
@@ -26,16 +34,6 @@ public class EntruckBL extends TransportBL{
 		}
 		if(date==null){
 			return false;
-		}
-		else if(s3.length()!=9){
-			return false;
-		}
-		else{
-			for(String temp:as2){
-				if(temp.length()!=10){
-					return false;
-				}
-			}
 		}
 		return true;	
 	}
