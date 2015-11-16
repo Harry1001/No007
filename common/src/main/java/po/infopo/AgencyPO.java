@@ -1,6 +1,7 @@
 package po.infopo;
 
 import typeDefinition.InfoType;
+import vo.infovo.AgencyVO;
 
 public class AgencyPO extends InfoPO {
 	
@@ -26,6 +27,11 @@ public class AgencyPO extends InfoPO {
 		this.setArea(area);
 		this.setRent(rent);
 	}
+
+	public AgencyPO(AgencyVO vo){
+		this(vo.getAgencyName(),vo.getAgencyType(),vo.getAgencyID(),vo.getLocation(),vo.getArea(),vo.getRent());
+	}
+
 	public String getAgencyName(){
 		return agencyName;
 	}

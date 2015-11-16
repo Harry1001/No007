@@ -42,6 +42,11 @@ public class InfoController implements InfoBLService {
         switch (type){
             case STAFF:infoBL=new StaffInfoBL();break;
             //todo
+            case AGENCY:infoBL=new AgencyInfoBL();break;
+            case TRUCK:infoBL=new TruckInfoBL();break;
+            case DRIVER:infoBL=new DriverInfoBL();break;
+            case BANKACCOUNT:infoBL=new BankAccountInfoBL();break;
+            case ACCOUNT:infoBL=new UserAccountInfoBL();break;
         }
     }
 }

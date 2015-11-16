@@ -2,6 +2,7 @@ package po.infopo;
 
 import po.infopo.InfoPO;
 import typeDefinition.InfoType;
+import vo.infovo.BankAccountVO;
 
 public class BankAccountPO extends InfoPO {
 
@@ -15,6 +16,10 @@ public class BankAccountPO extends InfoPO {
 		// TODO Auto-generated constructor stub
 		this.accountUser=accountUser;
 		this.balance=balance;
+	}
+
+	public BankAccountPO(BankAccountVO vo){
+		this(vo.getAccountUser(),vo.getBalance());
 	}
 
 	public String getAccountUser() {
