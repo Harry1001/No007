@@ -64,7 +64,7 @@ public class CommodityBL implements CommodityBLService{
 		for(DepotOutReceiptVO depotOutReceipt: depotOutReceipts){
 	//transID的前四位为中转中心编号
 			String transID = depotOutReceipt.getTransID();
-			String transNum = transID.substring(0, 3);
+			String transNum = transID.substring(0, 4);
 			if(transferNum.equals(transNum))	depotoutnum++;
 		}
 		result.setDepotoutnum(depotoutnum);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import businessLogicService.financeblservice.FinanceBLService;
 import typeDefinition.FeeType;
 import typeDefinition.myTime;
+import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;
 import vo.receiptvo.ReceiptVO;
@@ -43,9 +44,9 @@ public class FinanceController implements FinanceBLService{
 		return receiptVOs;
 	}
 
-	public double addUp() {
+	public AddUpResultVO addUp() {
 		// TODO Auto-generated method stub
-		double sum = financeBL.addUp();
+		AddUpResultVO sum = financeBL.addUp();
 		return sum;
 	}
 

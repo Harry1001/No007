@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import typeDefinition.FeeType;
 import typeDefinition.myTime;
 import vo.salaryfeevo.SalaryFeeVO;
+import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;
 import vo.receiptvo.ReceiptVO;
@@ -38,7 +39,7 @@ public interface FinanceBLService {
 	 * 
 	 * @param fromTime
 	 * @param toTime
-	 * @return 返回该时间段内的所有入库单和出库单数据列表
+	 * @return 返回该时间段内的所有收款单和付款单数据列表
 	 */
 	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime);
 
@@ -55,7 +56,7 @@ public interface FinanceBLService {
 	 * 前置条件：已经获取收款单数据列表
 	 * @return 返回所有收款单金额合计
 	 */
-	public double addUp();
+	public AddUpResultVO addUp();
 	
 	/**
 	 * 
