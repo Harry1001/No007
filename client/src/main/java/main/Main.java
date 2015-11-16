@@ -24,7 +24,7 @@ public class Main {
 		mFrame.setLocation(300, 300);
 		mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		TransportBLService transBL = new TransportBL(receiptBL);
+		TransportBLService transBL = new TransportBL();
 		JPanel panel = new AddSendReceiptPanel(transBL);
 		mFrame.getContentPane().add(panel);
 		mFrame.setVisible(true);
