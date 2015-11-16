@@ -9,7 +9,7 @@ import vo.infovo.InfoVO;
 public interface InfoBLService {
 	
 	/*
-	 * 返回type类型的InfoVO列表
+	 * 根据创建controller时的type类型返回对应的InfoVO列表
 	 */
 	public ArrayList<? extends InfoVO> getInfoList();
 	

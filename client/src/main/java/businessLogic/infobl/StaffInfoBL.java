@@ -27,11 +27,13 @@ public class StaffInfoBL extends InfoBL {
         super(infoData);
 
         //只要创建该bl就先从data层读取员工信息列表
-        staffPOs=(ArrayList<StaffPO>)super.getList(InfoType.STAFF);
+        //staffPOs=(ArrayList<StaffPO>)super.getList(InfoType.STAFF);
     }
 
     //@override
     public ArrayList<StaffVO> getInfoList(){
+
+        staffPOs=(ArrayList<StaffPO>)super.getList(InfoType.STAFF);
         ArrayList<StaffVO> staffVOs=new ArrayList<StaffVO>();
 
         for(StaffPO po:staffPOs){

@@ -4,6 +4,7 @@ package po.infopo;
 import po.infopo.InfoPO;
 import typeDefinition.InfoType;
 import typeDefinition.myTime;
+import vo.infovo.TruckVO;
 
 public class TruckPO extends InfoPO {
 
@@ -26,6 +27,10 @@ public class TruckPO extends InfoPO {
 		this.setChassisID(chassisID);
 		this.setBuyTime(buyTime);
 		this.setServeTime(serveTime);
+	}
+
+	public TruckPO(TruckVO vo){
+		this(vo.getTruckID(),vo.getLicenceID(),vo.getEngineID(),vo.getChassisID(),vo.getBuyTime(),vo.getServeTime());
 	}
 
 	public String getTruckID() {

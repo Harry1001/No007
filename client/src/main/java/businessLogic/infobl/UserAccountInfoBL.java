@@ -24,11 +24,13 @@ public class UserAccountInfoBL extends InfoBL {
     public UserAccountInfoBL(InfoDataService infoData) {
 
         super(infoData);
-        userAccountPOs=(ArrayList<UserAccountPO>)super.getList(InfoType.ACCOUNT);
+       // userAccountPOs=(ArrayList<UserAccountPO>)super.getList(InfoType.ACCOUNT);
     }
 
     @Override
     public ArrayList<? extends InfoVO> getInfoList() {
+
+        userAccountPOs=(ArrayList<UserAccountPO>)super.getList(InfoType.ACCOUNT);
         ArrayList<UserAccountVO> userAccountVOs=new ArrayList<UserAccountVO>();
 
         for(UserAccountPO po:userAccountPOs){
