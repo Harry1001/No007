@@ -54,4 +54,9 @@ public class FinanceController implements FinanceBLService{
 		ProfitVO profitVO = financeBL.checkProfit();
 		return profitVO;
 	}
+
+	public void makeCredit(int year) {
+		// TODO Auto-generated method stub
+		financeBL.makeCredit(year);
+	}
 }

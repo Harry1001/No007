@@ -17,10 +17,12 @@ import dataService.FinanceDataService;
 import dataService.ReceiptDataService;
 import po.financepo.FinancePO;
 import po.infopo.AgencyPO;
+import po.infopo.StaffPO;
 import typeDefinition.FeeType;
 import typeDefinition.myTime;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;
+import vo.infovo.StaffVO;
 import vo.receiptvo.ReceiptVO;
 import vo.salaryfeevo.SalaryFeeVO;
 
@@ -50,14 +52,20 @@ public class FinanceBL implements FinanceBLService{
 		// TODO Auto-generated method stub
 		StrategyBL strategy = new StrategyBL();
 		ArrayList<SalaryFeeVO> salaryList = new ArrayList<SalaryFeeVO>();
-		
-		return null;
+		StaffInfoBL staff = new StaffInfoBL();
+		for(StaffVO s : staff.getStaffList()){
+			SalaryFeeVO salary = new SalaryFeeVO();
+			salary.setName(s.getName());
+			salary.setPosition(s.getPosition());
+			salary.setStaffID(s.getStaffID());
+			salary.setSalary(strategy.calSalary(s.getPosition(), s.getWorkFrequency()));
+			salaryList.add(salary);
+		}
+		return salaryList;
 	}
 
 	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) {
 		// TODO Auto-generated method stub
-		ReceiptBL receipt = new ReceiptBL();
-
 		return null;
 	}
 
@@ -73,8 +81,14 @@ public class FinanceBL implements FinanceBLService{
 
 	public ProfitVO checkProfit() {
 		// TODO Auto-generated method stub
-		
+		FinanceDataService finance = new FinanceDataImpl();
+		ProfitVO profit = new ProfitVO();
 		return null;
+	}
+
+	public void makeCredit(int year) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
