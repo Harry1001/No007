@@ -11,7 +11,7 @@ import typeDefinition.InfoType;
 import typeDefinition.Job;
 import vo.infovo.InfoVO;
 
-public abstract class InfoBL implements InfoBLService {
+public abstract class InfoBL {
 	
 	
 	InfoDataService infoData;
@@ -24,25 +24,55 @@ public abstract class InfoBL implements InfoBLService {
 		this.infoData=infoData;
 	}
 
-	public ArrayList<? extends InfoVO> getInfoList(InfoType type) {
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
+	public abstract ArrayList<? extends InfoVO> getInfoList();
 
-	public boolean addInfo(InfoVO infoItem) {
+	protected ArrayList<? extends InfoPO> getList(InfoType type) {
 		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void deleteInfo(InfoType type, String id) {
-		// TODO Auto-generated method stub
+		try{
+			return infoData.getList(type);
+		}catch (RemoteException e){
+			System.out.println("get info list from data layer fail");
+			return null;
+		}
 
 	}
 
-	public boolean modifyInfo(InfoType type, String id, InfoVO infoItem) {
+	public abstract boolean addInfo(InfoVO infoItem);
+
+	protected boolean add(InfoPO infoItem) {
 		// TODO Auto-generated method stub
-		return false;
+		try{
+			infoData.addItem(infoItem);
+			return true;
+		}catch (RemoteException e){
+			System.out.println("add info to data layer fail");
+			return false;
+		}
+	}
+
+	public abstract void deleteInfo(String id);
+
+	protected void delete(InfoType type, String id) {
+		// TODO Auto-generated method stub
+		try{
+			infoData.deleteItem(type,id);
+		}catch (RemoteException e){
+			System.out.println("delete info from data layer fail");
+		}
+	}
+
+	public abstract boolean modifyInfo(String id, InfoVO infoItem);
+
+	protected boolean modify(String id, InfoPO infoItem) {
+		// TODO Auto-generated method stub
+		try{
+			infoData.update(id, infoItem);
+			return true;
+		}catch (RemoteException e){
+			System.out.println("modify info at data layer fail");
+			return false;
+		}
+
 	}
 
 
