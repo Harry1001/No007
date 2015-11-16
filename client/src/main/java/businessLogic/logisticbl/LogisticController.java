@@ -7,8 +7,8 @@ public class LogisticController implements LogisticBLService{
 
 	public LogisticVO getLogistic(String orderID) {
 		// TODO Auto-generated method stub
-		
-		return null;
+		LogisticBL logisticbl=new LogisticBL();
+		return logisticbl.getLogistic(orderID);
 	}
 
 }

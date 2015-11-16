@@ -3,15 +3,14 @@ package vo.logisticvo;
 import java.util.ArrayList;
 
 import po.logisticpo.LogisticPO;
-import typeDefinition.LogisticState;
 
 public class LogisticVO {
 
 	private String orderNum;
 	private ArrayList<String> history;
-	private LogisticState state;
+	private String state;
 	
-	public LogisticVO(String orderNum,ArrayList<String> history,LogisticState state){
+	public LogisticVO(String orderNum,ArrayList<String> history,String state){
 		this.setOrderNum(orderNum);
 		this.setHistory(history);
 		this.state=state;
@@ -29,7 +28,7 @@ public class LogisticVO {
 		this.orderNum = orderNum;
 	}
 
-	public LogisticState getState() {
+	public String getState() {
 		return state;
 	}
 
