@@ -15,7 +15,7 @@ public class InfoController implements InfoBLService {
     InfoBL infoBL;
     InfoDataService infoData ;
 
-    public ArrayList<InfoVO> getInfoList(InfoType type) {
+    public ArrayList<? extends InfoVO> getInfoList(InfoType type) {
         return null;
     }
 

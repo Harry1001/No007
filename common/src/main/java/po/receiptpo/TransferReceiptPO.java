@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
+import vo.receiptvo.TransferReceiptVO;
 
 public class TransferReceiptPO extends ReceiptPO {
 
 	/**
 	 * 中转单
 	 */
-	private static final long serialVersionUID = 1L;
+
 
 	private String transferType;//中转方式
 	private myTime transferDate;//中转日期
@@ -35,6 +36,11 @@ public class TransferReceiptPO extends ReceiptPO {
 		this.arriveLoc=arriveLoc;
 		this.counterID=counterID;
 		this.orderID=orderID;
+	}
+
+	public TransferReceiptPO(TransferReceiptVO vo){
+		this(vo.getTransferType(),vo.getTransferDate(),vo.getTransferID(),vo.getVehicleID(),
+				vo.getDepartLoc(),vo.getArriveLoc(),vo.getCounterID(),vo.getOrderID());
 	}
 
 	public String getTransferType() {

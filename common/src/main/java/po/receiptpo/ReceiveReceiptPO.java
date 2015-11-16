@@ -3,13 +3,14 @@ package po.receiptpo;
 import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
+import vo.receiptvo.ReceiveReceiptVO;
 
 public class ReceiveReceiptPO extends ReceiptPO {
 
 	/**
 	 * 收件单
 	 */
-	private static final long serialVersionUID = 1L;
+
 
 	private String receiveNum;
 	private String receiver;
@@ -22,6 +23,11 @@ public class ReceiveReceiptPO extends ReceiptPO {
 		this.setReceiver(receiver);
 		this.setReceiveTime(receiveTime);
 	}
+
+	public ReceiveReceiptPO(ReceiveReceiptVO vo){
+		this(vo.getReceiveNum(),vo.getReceiver(),vo.getReceiveTime());
+	}
+
 
 	public String getReceiveNum() {
 		return receiveNum;

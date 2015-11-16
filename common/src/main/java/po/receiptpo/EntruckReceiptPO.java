@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
+import vo.receiptvo.EntruckReceiptVO;
 
 public class EntruckReceiptPO extends ReceiptPO {
 
 	/**
 	 * 装车单
 	 */
-	private static final long serialVersionUID = 1L;
+
 
 	private myTime entruckDate;//装车日期
 	private String transportID;//营业厅／中转中心汽运编号
@@ -29,6 +30,11 @@ public class EntruckReceiptPO extends ReceiptPO {
 		this.setTruckID(truckID);
 		this.setOrderNum(orderNum);
 		this.setTransportFee(transportFee);
+	}
+
+	public EntruckReceiptPO(EntruckReceiptVO vo){
+		this(vo.getEntruckDate(),vo.getTransportID(),vo.getArriveLoc(),
+				vo.getTruckID(),vo.getOrderNum(),vo.getTransportFee());
 	}
 
 	public myTime getEntruckDate() {

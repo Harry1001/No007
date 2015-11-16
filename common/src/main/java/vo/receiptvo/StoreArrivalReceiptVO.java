@@ -1,18 +1,20 @@
-package po.receiptpo;
+package vo.receiptvo;
 
+import po.receiptpo.StoreArrivalReceiptPO;
 import typeDefinition.PackArrivalState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
-import vo.receiptvo.StoreArrivalReceiptVO;
 
-public class StoreArrivalReceiptPO extends ReceiptPO{
-
+/**
+ * Created by Harry on 2015/11/16.
+ */
+public class StoreArrivalReceiptVO extends ReceiptVO {
     private myTime arriveTime;
     private String transReceiptID;
     private String fromPosition;
     private PackArrivalState arriveState;
 
-    public StoreArrivalReceiptPO(myTime time, String transID, String fromPosi, PackArrivalState state) {
+    public StoreArrivalReceiptVO(myTime time, String transID, String fromPosi, PackArrivalState state) {
         super(ReceiptType.STOREARRIVAL);
         this.arriveTime=time;
         this.transReceiptID=transID;
@@ -20,8 +22,8 @@ public class StoreArrivalReceiptPO extends ReceiptPO{
         this.arriveState=state;
     }
 
-    public StoreArrivalReceiptPO(StoreArrivalReceiptVO vo){
-        this(vo.getArriveTime(),vo.getTransReceiptID(),vo.getFromPosition(),vo.getArriveState());
+    public StoreArrivalReceiptVO(StoreArrivalReceiptPO po){
+        this(po.getArriveTime(),po.getTransReceiptID(),po.getFromPosition(),po.getArriveState());
     }
 
     public myTime getArriveTime() {

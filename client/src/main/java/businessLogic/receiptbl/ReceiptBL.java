@@ -14,7 +14,7 @@ import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
 
-public class ReceiptBL{
+public class ReceiptBL implements ReceiptBLService{
 
 
 	private ReceiptDataService receiptData;
@@ -30,7 +30,19 @@ public class ReceiptBL{
 	}
 	
 
-	public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime, myTime toTime){
+	public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime, myTime toTime, ReceiptType type){
+		//如果起始时间小于终止时间，报错
+		//todo
+
+		ArrayList<? extends ReceiptVO> receiptVOs= new ArrayList<ReceiptVO>();
+		try{
+			ArrayList<ReceiptPO> receiptPOs= receiptData.getList(type,fromTime,toTime);
+			for(ReceiptPO po: receiptPOs){
+				//todo
+			}
+		}catch (RemoteException e){
+			System.out.println("get receipt list from data layer fail");
+		}
 		return null;
 	}
 

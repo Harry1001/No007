@@ -11,10 +11,10 @@ import typeDefinition.InfoType;
 import typeDefinition.Job;
 import vo.infovo.InfoVO;
 
-public class InfoBL implements InfoBLService {
+public abstract class InfoBL implements InfoBLService {
 	
 	
-	private InfoDataService infoData;
+	InfoDataService infoData;
 	
 
 	/*
@@ -24,7 +24,7 @@ public class InfoBL implements InfoBLService {
 		this.infoData=infoData;
 	}
 
-	public ArrayList<InfoVO> getInfoList(InfoType type) {
+	public ArrayList<? extends InfoVO> getInfoList(InfoType type) {
 		// TODO Auto-generated method stub
 		
 		return null;

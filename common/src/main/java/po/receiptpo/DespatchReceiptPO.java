@@ -2,6 +2,8 @@ package po.receiptpo;
 
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
+import vo.receiptvo.DespatchReceiptVO;
+
 /*
  * 派件单
  * ReceiptPO的子类
@@ -11,7 +13,7 @@ public class DespatchReceiptPO extends ReceiptPO {
 	
 	private static final long serialVersionUID = 1L;
 
-	private myTime arrival;
+	private myTime arrivalTime;
 	private String orderNum;
 	private String despatchMan;
 	
@@ -19,19 +21,21 @@ public class DespatchReceiptPO extends ReceiptPO {
 			String despatchMan) {
 		super(ReceiptType.DESPATCH);
 		// TODO Auto-generated constructor stub
-		this.setArrival(arrival);
+		this.setArrivalTime(arrival);
 		this.setOrderNum(orderNum);
 		this.setDespatchMan(despatchMan);
 	}
 
-	
-
-	public myTime getArrival() {
-		return arrival;
+	public DespatchReceiptPO(DespatchReceiptVO vo){
+		this(vo.getArrivalTime(),vo.getOrderNum(),vo.getDespatchMan());
 	}
 
-	public void setArrival(myTime arrival) {
-		this.arrival = arrival;
+	public myTime getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(myTime arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 
 	public String getOrderNum() {

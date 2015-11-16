@@ -11,7 +11,7 @@ public interface InfoBLService {
 	/*
 	 * 返回type类型的InfoVO列表
 	 */
-	public ArrayList<InfoVO> getInfoList(InfoType type);
+	public ArrayList<? extends InfoVO> getInfoList(InfoType type);
 	
 	/*
 	 * 界面层要求添加一个Info

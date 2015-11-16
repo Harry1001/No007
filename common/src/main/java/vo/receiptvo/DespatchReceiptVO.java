@@ -1,5 +1,6 @@
 package vo.receiptvo;
 
+import po.receiptpo.DespatchReceiptPO;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
 
@@ -8,7 +9,7 @@ import typeDefinition.myTime;
  */
 public class DespatchReceiptVO extends ReceiptVO {
 
-    private myTime arrival;
+    private myTime arrivalTime;
     private String orderNum;
     private String despatchMan;
 
@@ -16,17 +17,21 @@ public class DespatchReceiptVO extends ReceiptVO {
                              String despatchMan) {
         super(ReceiptType.DESPATCH);
         // TODO Auto-generated constructor stub
-        this.setArrival(arrival);
+        this.setArrivalTime(arrival);
         this.setOrderNum(orderNum);
         this.setDespatchMan(despatchMan);
     }
 
-    public myTime getArrival() {
-        return arrival;
+    public DespatchReceiptVO(DespatchReceiptPO po){
+        this(po.getArrivalTime(),po.getOrderNum(),po.getDespatchMan());
     }
 
-    public void setArrival(myTime arrival) {
-        this.arrival = arrival;
+    public myTime getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(myTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 
     public String getOrderNum() {
