@@ -1,5 +1,6 @@
 package businessLogic.infobl;
 
+import businessLogicService.infoblservice.GetUserAccoutInfoBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
 import po.infopo.UserAccountPO;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by Harry on 2015/11/16.
  */
-public class UserAccountInfoBL extends InfoBL {
+public class UserAccountInfoBL extends InfoBL implements GetUserAccoutInfoBLService {
 
     private ArrayList<UserAccountPO> userAccountPOs;
 
@@ -28,7 +29,7 @@ public class UserAccountInfoBL extends InfoBL {
     }
 
     @Override
-    public ArrayList<? extends InfoVO> getInfoList() {
+    public ArrayList<UserAccountVO> getInfoList() {
 
         userAccountPOs=(ArrayList<UserAccountPO>)super.getList(InfoType.ACCOUNT);
         ArrayList<UserAccountVO> userAccountVOs=new ArrayList<UserAccountVO>();

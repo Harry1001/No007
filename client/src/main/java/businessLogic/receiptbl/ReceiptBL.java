@@ -3,7 +3,8 @@ package businessLogic.receiptbl;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import businessLogicService.receiptblservice.ReceiptBLService;
+import businessLogicService.receiptblservice.CreateReceiptBLService;
+import businessLogicService.receiptblservice.GetReceiptBLService;
 import data.ReceiptDataImpl;
 import dataService.ReceiptDataService;
 import po.receiptpo.*;
@@ -11,7 +12,7 @@ import vo.receiptvo.*;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
 
-public class ReceiptBL implements ReceiptBLService{
+public class ReceiptBL implements GetReceiptBLService, CreateReceiptBLService{
 
 
 	private ReceiptDataService receiptData;
@@ -84,8 +85,18 @@ public class ReceiptBL implements ReceiptBLService{
 					}
 					break;
 				}
-				case CHARGE:break;//todo
-				case PAY:break;
+				case CHARGE:{
+					for (ChargeReceiptPO po : (ArrayList<ChargeReceiptPO>) receiptPOs) {
+						receiptVOs.add(new ChargeReceiptVO(po));
+					}
+					break;
+				}
+				case PAY:{
+					for (PayReceiptPO po : (ArrayList<PayReceiptPO>) receiptPOs) {
+						receiptVOs.add(new PayReceiptVO(po));
+					}
+					break;
+				}
 				case RECEIVE:{
 					for (ReceiveReceiptPO po : (ArrayList<ReceiveReceiptPO>) receiptPOs) {
 						receiptVOs.add(new ReceiveReceiptVO(po));
@@ -104,7 +115,7 @@ public class ReceiptBL implements ReceiptBLService{
 		ReceiptType type = item.getType();
 		try{
 			switch (type){
-				//todo
+
 				case SEND:receiptData.addItem(new SendReceiptPO((SendReceiptVO)item));break;
 				case DESPATCH:receiptData.addItem(new DespatchReceiptPO((DespatchReceiptVO)item));break;
 				case ENTRUCK:receiptData.addItem(new EntruckReceiptPO((EntruckReceiptVO)item));break;

@@ -1,5 +1,6 @@
 package businessLogic.infobl;
 
+import businessLogicService.infoblservice.GetStaffInfoBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
 import po.infopo.InfoPO;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by Harry on 2015/11/15.
  */
-public class StaffInfoBL extends InfoBL {
+public class StaffInfoBL extends InfoBL implements GetStaffInfoBLService {
 
 
     private ArrayList<StaffPO> staffPOs;

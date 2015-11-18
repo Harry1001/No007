@@ -4,7 +4,6 @@ import businessLogicService.transportblservice.TransportBLService;
 import businessLogic.logisticbl.LogisticBL;
 import businessLogic.receiptbl.ReceiptBL;
 import vo.receiptvo.ReceiptVO;
-import vo.receiptvo.SendReceiptVO;
 import typeDefinition.ReceiptType;
 
 public class TransportBL implements TransportBLService {

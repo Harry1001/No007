@@ -1,13 +1,8 @@
 package businessLogic.commoditybl;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import businessLogic.receiptbl.ReceiptBL;
 import businessLogicService.commodityblservice.CommodityBLService;
-import data.CommodityDataImpl;
-import dataService.CommodityDataService;
-import po.commoditypo.CommodityPO;
 import typeDefinition.myTime;
 import vo.commodityvo.CheckResultVO;
 import vo.commodityvo.CommodityVO;

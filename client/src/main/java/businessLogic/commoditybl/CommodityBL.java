@@ -8,7 +8,6 @@ import businessLogicService.commodityblservice.CommodityBLService;
 import data.CommodityDataImpl;
 import dataService.CommodityDataService;
 import po.commoditypo.CommodityPO;
-import po.receiptpo.DepotInReceiptPO;
 import typeDefinition.Location;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;

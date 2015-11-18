@@ -1,5 +1,6 @@
 package businessLogic.infobl;
 
+import businessLogicService.infoblservice.GetAgencyInfoBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
 import po.infopo.AgencyPO;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Harry on 2015/11/16.
  */
-public class AgencyInfoBL extends InfoBL {
+public class AgencyInfoBL extends InfoBL implements GetAgencyInfoBLService {
 
     private ArrayList<AgencyPO> agencyPOs;
 
@@ -26,7 +27,7 @@ public class AgencyInfoBL extends InfoBL {
     }
 
     @Override
-    public ArrayList<? extends InfoVO> getInfoList() {
+    public ArrayList<AgencyVO> getInfoList() {
 
         agencyPOs=(ArrayList<AgencyPO>)super.getList(InfoType.AGENCY);//界面层每次修改完都要refresh一下重新getInfoList，也要刷新一下po
         ArrayList<AgencyVO> agencyVOs=new ArrayList<AgencyVO>();

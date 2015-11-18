@@ -1,5 +1,6 @@
 package businessLogic.infobl;
 
+import businessLogicService.infoblservice.GetDriverInfoBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
 import po.infopo.DriverPO;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Harry on 2015/11/16.
  */
-public class DriverInfoBL extends InfoBL {
+public class DriverInfoBL extends InfoBL implements GetDriverInfoBLService {
     private ArrayList<DriverPO> driverPOs;
 
     public DriverInfoBL(){
@@ -25,7 +26,7 @@ public class DriverInfoBL extends InfoBL {
     }
 
     @Override
-    public ArrayList<? extends InfoVO> getInfoList() {
+    public ArrayList<DriverVO> getInfoList() {
 
         driverPOs=(ArrayList<DriverPO>)super.getList(InfoType.DRIVER);
         ArrayList<DriverVO> driverVOs=new ArrayList<DriverVO>();
