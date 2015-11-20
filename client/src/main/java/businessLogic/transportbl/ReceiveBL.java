@@ -1,11 +1,12 @@
 package businessLogic.transportbl;
 
-import vo.receiptvo.ReceiptVO;
+import businessLogic.receiptbl.ReceiptController;
+import businessLogicService.receiptblservice.ReceiptBLService;
 import vo.receiptvo.ReceiveReceiptVO;
 
-public class ReceiveBL extends TransportBL {
+public class ReceiveBL{
 
-	public boolean verify(ReceiptVO vo) {
+	public boolean verify(ReceiveReceiptVO vo) {
 		ReceiveReceiptVO rvo=(ReceiveReceiptVO)vo;
 		String s=rvo.getReceiveNum();
 		if(s.length()!=10){
@@ -14,10 +15,9 @@ public class ReceiveBL extends TransportBL {
 		return true;	
 	}
 
-	@Override
-	public double calFee(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void submit(ReceiveReceiptVO vo) {
+		ReceiptBLService receiptblservice=new ReceiptController();
+		receiptblservice.createReceipt(vo);
 	}
 	
 }

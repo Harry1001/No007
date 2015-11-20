@@ -5,15 +5,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import businessLogic.infobl.TruckInfoBL;
+import businessLogic.logisticbl.LogisticBL;
+import businessLogic.receiptbl.ReceiptController;
 import businessLogic.strategybl.StrategyBL;
-import businessLogicService.infoblservice.GetTruckInfoBLService;
+import businessLogicService.receiptblservice.ReceiptBLService;
 import vo.receiptvo.EntruckReceiptVO;
 import vo.receiptvo.ReceiptVO;
 
-public class EntruckBL extends TransportBL{
+public class EntruckBL{
 
-	public boolean verify(ReceiptVO vo) {
+	public boolean verify(EntruckReceiptVO vo) {
 		EntruckReceiptVO rvo=(EntruckReceiptVO)vo;
 		String s1=rvo.getTransportID();
 		String s3=rvo.getTruckID();
@@ -46,7 +47,14 @@ public class EntruckBL extends TransportBL{
 		return true;	
 	}
 
-	public double calFee(ReceiptVO vo) {
+	public void submit(EntruckReceiptVO vo) {
+		ReceiptBLService receiptblservice=new ReceiptController();
+		receiptblservice.createReceipt(vo);
+		LogisticBL logisticbl=new LogisticBL();
+		logisticbl.update(vo);
+	}
+	
+	public double calFee(EntruckReceiptVO vo) {
 		StrategyBL strategybl=new StrategyBL();
 		return strategybl.calCarriage(vo);
 	}

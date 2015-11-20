@@ -4,12 +4,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import vo.receiptvo.ReceiptVO;
+import businessLogic.receiptbl.ReceiptController;
+import businessLogicService.receiptblservice.ReceiptBLService;
 import vo.receiptvo.StoreArrivalReceiptVO;
 
-public class ArriveStoreBL extends TransportBL {
+public class ArriveStoreBL{
 
-	public boolean verify(ReceiptVO vo) {
+	public boolean verify(StoreArrivalReceiptVO vo) {
 		StoreArrivalReceiptVO savo=(StoreArrivalReceiptVO)vo;
 		String s1=savo.getTransReceiptID();		
 		if(s1.length()!=19){
@@ -28,11 +29,10 @@ public class ArriveStoreBL extends TransportBL {
 		}
 		return true;	
 	}
-
-	@Override
-	public double calFee(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	public void submit(StoreArrivalReceiptVO vo) {
+		ReceiptBLService receiptblservice=new ReceiptController();
+		receiptblservice.createReceipt(vo);
 	}
 	
 }
