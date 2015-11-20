@@ -140,7 +140,7 @@ public class FinanceBL implements FinanceBLService{
 		StaffInfoBL staffInfoBL = new StaffInfoBL();
 		TruckInfoBL truckInfoBL = new TruckInfoBL();
 		ArrayList<CommodityVO> commodity = commodityBL.getTotal();
-		ArrayList<AgencyVO> agency = (ArrayList<AgencyVO>)agencyInfoBL.getAgencyList();
+		ArrayList<AgencyVO> agency = (ArrayList<AgencyVO>)agencyInfoBL.getInfoList();
 		ArrayList<BankAccountVO> bankaccount = (ArrayList<BankAccountVO>)
 									bankAccountInfoBL.getInfoList();
 		ArrayList<DriverVO> driver = (ArrayList<DriverVO>)driverInfoBL.getInfoList();
