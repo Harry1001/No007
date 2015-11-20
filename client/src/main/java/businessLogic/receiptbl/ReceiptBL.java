@@ -3,8 +3,7 @@ package businessLogic.receiptbl;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import businessLogicService.receiptblservice.CreateReceiptBLService;
-import businessLogicService.receiptblservice.GetReceiptBLService;
+import businessLogicService.receiptblservice.ReceiptBLService;
 import data.ReceiptDataImpl;
 import dataService.ReceiptDataService;
 import po.receiptpo.*;
@@ -12,7 +11,7 @@ import vo.receiptvo.*;
 import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
 
-public class ReceiptBL implements GetReceiptBLService, CreateReceiptBLService{
+public class ReceiptBL implements ReceiptBLService{
 
 
 	private ReceiptDataService receiptData;

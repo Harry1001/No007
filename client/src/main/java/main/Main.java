@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import businessLogic.receiptbl.ReceiptBL;
 import businessLogic.transportbl.TransportBL;
-import businessLogicService.receiptblservice.GetReceiptBLService;
+import businessLogicService.receiptblservice.ReceiptBLService;
 import businessLogicService.transportblservice.TransportBLService;
 import data.ReceiptDataImpl;
 import dataService.ReceiptDataService;
@@ -18,7 +18,7 @@ public class Main {
 	public static void main(String[] args){
 		
 		ReceiptDataService receiptData=new ReceiptDataImpl();
-		GetReceiptBLService receiptBL=new ReceiptBL(receiptData);
+		ReceiptBLService receiptBL=new ReceiptBL(receiptData);
 		JFrame mFrame = new JFrame();
 		mFrame.setSize(550, 400);
 		mFrame.setLocation(300, 300);
