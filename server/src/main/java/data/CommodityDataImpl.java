@@ -4,29 +4,41 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import dataService.CommodityDataService;
+import database.CommodityDBManager;
 import po.commoditypo.CommodityPO;
 
 public class CommodityDataImpl implements CommodityDataService{
 
-	public ArrayList<CommodityPO> check(String TransferNum) throws RemoteException {
+	public ArrayList<CommodityPO> check(String transferNum) throws RemoteException {
 		// TODO Auto-generated method stub
-		
-		return null;
+		CommodityDBManager commodityDBManager = new CommodityDBManager();
+		ArrayList<CommodityPO> commodityPOs = commodityDBManager.getByTransferNum(transferNum);
+		return commodityPOs;
 	}
 
 	public ArrayList<CommodityPO> getAll() throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		CommodityDBManager commodityDBManager = new CommodityDBManager();
+		ArrayList<CommodityPO> commodityPOs = commodityDBManager.getAll();
+		return commodityPOs;
 	}
 
-	public void renew() throws RemoteException {
+	public void renew(String transferNum) throws RemoteException {
 		// TODO Auto-generated method stub
-		
+		CommodityDBManager commodityDBManager = new CommodityDBManager();
+		commodityDBManager.clear(transferNum);
 	}
 
-	public void update(CommodityPO commodityPO) throws RemoteException {
+	public void add(CommodityPO commodityPO) throws RemoteException {
 		// TODO Auto-generated method stub
-		
+		CommodityDBManager commodityDBManager = new CommodityDBManager();
+		commodityDBManager.addCommodity(commodityPO);
+	}
+
+	public void delete(String expressNum) throws RemoteException {
+		// TODO Auto-generated method stub
+		CommodityDBManager commodityDBManager = new CommodityDBManager();
+		commodityDBManager.removeCommodity(expressNum);
 	}
 
 }

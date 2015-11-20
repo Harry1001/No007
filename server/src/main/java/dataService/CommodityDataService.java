@@ -27,13 +27,20 @@ public interface CommodityDataService {
 	 * 初始化库存数据库
 	 * @throws RemoteException
 	 */
-	public void renew() throws RemoteException;
+	public void renew(String transferNum) throws RemoteException;
 	
 	/**
-	 * 库存数据块更新库存信息
+	 * 库存数据块新增库存信息
 	 * @param commodityPO
 	 * @throws RemoteException
 	 */
-	public void update(CommodityPO commodityPO) throws RemoteException;
+	public void add(CommodityPO commodityPO) throws RemoteException;
+	
+	/**
+	 * 库存数据库删除库存信息
+	 * @param transferNum
+	 * @throws RemoteException
+	 */
+	public void delete(String expressNum) throws RemoteException;
 	
 }
