@@ -3,10 +3,10 @@ package myexceptions;
 /**
  * Created by Harry on 2015/11/20.
  */
-public class AgencyBLException extends Exception {
+public class InfoBLException extends Exception {
     private String message;
 
-    public AgencyBLException(String value){
+    public InfoBLException(String value){
         this.message=value;
     }
 

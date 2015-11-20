@@ -1,6 +1,5 @@
 package businessLogic.infobl;
 
-import businessLogicService.infoblservice.GetAgencyInfoBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
 import po.infopo.AgencyPO;

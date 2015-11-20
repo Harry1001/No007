@@ -17,4 +17,8 @@ public class ReceiptController implements ReceiptBLService {
     public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime, myTime toTime, ReceiptType type) {
         return receiptBL.getListByTime(fromTime, toTime, type);
     }
+
+    public void createReceipt(ReceiptVO item) {
+        receiptBL.createReceipt(item);
+    }
 }

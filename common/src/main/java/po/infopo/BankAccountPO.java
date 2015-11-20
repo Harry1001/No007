@@ -1,17 +1,18 @@
 package po.infopo;
 
-import po.infopo.InfoPO;
 import typeDefinition.InfoType;
 import vo.infovo.BankAccountVO;
+
+import java.math.BigDecimal;
 
 public class BankAccountPO extends InfoPO {
 
 	private static final long serialVersionUID = 1L;
 
 	private String accountUser;
-	private double balance;
+	private BigDecimal balance;
 	
-	public BankAccountPO(String accountUser, double balance) {
+	public BankAccountPO(String accountUser, BigDecimal balance) {
 		super(InfoType.BANKACCOUNT);
 		// TODO Auto-generated constructor stub
 		this.accountUser=accountUser;
@@ -30,11 +31,11 @@ public class BankAccountPO extends InfoPO {
 		this.accountUser = accountUser;
 	}
 
-	public double getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
-	public void setBalance(double balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 }
