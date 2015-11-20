@@ -28,5 +28,11 @@ public class ArriveHubBL extends TransportBL {
 		}
 		return true;	
 	}
+
+	@Override
+	public double calFee(ReceiptVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

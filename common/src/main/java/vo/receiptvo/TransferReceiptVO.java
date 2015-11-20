@@ -18,12 +18,13 @@ public class TransferReceiptVO extends ReceiptVO {
     private String arriveLoc;//到达地
     private int counterID;//货柜号
     private ArrayList<String> orderID;//本次装箱所有货物的单号
+	private double transferFee;
 
     public TransferReceiptVO(String transferType,myTime transferDate,
                              String transferID,String vehicleID,String departLoc,String arriveLoc,
-                             int counterID,ArrayList<String> orderID) {
+                             int counterID,ArrayList<String> orderID,double transferFee) {
         super(ReceiptType.TRANSFER);
-        // TODO Auto-generated constructor stub
+        
         this.transferType=transferType;
         this.transferDate=transferDate;
         this.transferID=transferID;
@@ -32,11 +33,12 @@ public class TransferReceiptVO extends ReceiptVO {
         this.arriveLoc=arriveLoc;
         this.counterID=counterID;
         this.orderID=orderID;
+        this.setTransferFee(transferFee);
     }
 
     public TransferReceiptVO(TransferReceiptPO po){
         this(po.getTransferType(),po.getTransferDate(),po.getTransferID(),po.getVehicleID(),
-                po.getDepartLoc(),po.getArriveLoc(),po.getCounterID(),po.getOrderID());
+                po.getDepartLoc(),po.getArriveLoc(),po.getCounterID(),po.getOrderID(),po.getTransferFee());
     }
 
     public String getTransferType() {
@@ -102,5 +104,13 @@ public class TransferReceiptVO extends ReceiptVO {
     public void setOrderID(ArrayList<String> orderID) {
         this.orderID = orderID;
     }
+
+	public double getTransferFee() {
+		return transferFee;
+	}
+
+	public void setTransferFee(double transferFee) {
+		this.transferFee = transferFee;
+	}
 
 }

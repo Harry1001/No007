@@ -22,19 +22,18 @@ public class LogisticBL implements LogisticBLService{
 
 	LogisticDataService logisticdata=new LogisticDataImpl();
 	public LogisticVO getLogistic(String orderID) {
-		// TODO Auto-generated method stub
+		// TODO
 		LogisticPO po=null;
 		try {
 			po=logisticdata.read(orderID);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
+			// TODO
 			e.printStackTrace();
 		}
 		LogisticVO vo=new LogisticVO(po);
 		return vo;
 	}
 	
-//待修改！！！
 	public void update(ReceiptVO vo){
 		ReceiptType type=vo.getType();
 		String orderID=null;
@@ -68,19 +67,7 @@ public class LogisticBL implements LogisticBLService{
 			}else{
 				
 			}
-			if(transportID.substring(4, 5)=="0"){
-				String storeID=transportID.substring(3, 6);
-				String store = null;
-				if(storeID.equals("000")){
-					store="鼓楼营业厅";
-				}else if(storeID.equals("001")){
-					store="栖霞营业厅";
-				}else{
-					store="浦口营业厅";
-				}
-				logisticstate="到达"+city+store;
-			}
-			else{
+			if(transportID.substring(4, 5)=="2"){
 				String hubID=transportID.substring(3, 4);
 				String hub = null;
 				if(hubID.equals("0")){
@@ -91,6 +78,18 @@ public class LogisticBL implements LogisticBLService{
 					hub="浦口中转中心";
 				}
 				logisticstate="到达"+city+hub;
+			}
+			else{
+				String storeID=transportID.substring(3, 6);
+				String store = null;
+				if(storeID.equals("000")){
+					store="鼓楼营业厅";
+				}else if(storeID.equals("001")){
+					store="栖霞营业厅";
+				}else{
+					store="浦口营业厅";
+				}
+				logisticstate="到达"+city+store;
 			}
 			ArrayList<String> all=evo.getOrderNum();
 			LogisticPO po1 = null;
@@ -122,7 +121,7 @@ public class LogisticBL implements LogisticBLService{
 			try {
 				po2=logisticdata.read(orderID);
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
+				// TODO
 				e.printStackTrace();
 			}
 			if(po2!=null){
@@ -132,7 +131,7 @@ public class LogisticBL implements LogisticBLService{
 				try {
 					logisticdata.update(po);
 				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
+					// TODO
 					e1.printStackTrace();
 				}
 			}
@@ -150,7 +149,7 @@ public class LogisticBL implements LogisticBLService{
 		try {
 			logisticdata.remove(num);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
+			// TODO
 			e.printStackTrace();
 		}
 	}

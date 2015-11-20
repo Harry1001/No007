@@ -1,5 +1,6 @@
 package businessLogic.transportbl;
 
+import businessLogic.logisticbl.LogisticBL;
 import businessLogicService.transportblservice.TransportBLService;
 import typeDefinition.ReceiptType;
 import vo.receiptvo.ReceiptVO;
@@ -39,8 +40,6 @@ public class TransportController implements TransportBLService{
 	}
 	
 	public boolean verify(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		
 		type=vo.getType();
 		judgeType(type);
 		if(transportBL==null){
@@ -56,15 +55,17 @@ public class TransportController implements TransportBLService{
 	 *先检查再提交
 	 */
 	public void submit(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		
-		new TransportBL().submit(vo);
-		
+		// TODO 
+		type=vo.getType();
+		judgeType(type);
+		transportBL.submit(vo);
+		if(type==ReceiptType.SEND||type==ReceiptType.ENTRUCK||type==ReceiptType.DESPATCH||type==ReceiptType.RECEIVE){
+			LogisticBL logisticbl=new LogisticBL();
+			logisticbl.update(vo);
+		}	
 	}
 
 	public double calFee(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		
 		type=vo.getType();
 		if(type==ReceiptType.SEND||type==ReceiptType.TRANSFER||type==ReceiptType.ENTRUCK){
 			judgeType(type);

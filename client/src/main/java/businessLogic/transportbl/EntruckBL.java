@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import businessLogic.infobl.TruckInfoBL;
 import businessLogic.strategybl.StrategyBL;
+import businessLogicService.infoblservice.GetTruckInfoBLService;
 import vo.receiptvo.EntruckReceiptVO;
 import vo.receiptvo.ReceiptVO;
 
@@ -15,7 +17,8 @@ public class EntruckBL extends TransportBL{
 		EntruckReceiptVO rvo=(EntruckReceiptVO)vo;
 		String s1=rvo.getTransportID();
 		String s3=rvo.getTruckID();
-		if(s1.length()!=19||s3.length()!=9){
+		double fee=rvo.getTransportFee();
+		if(s1.length()!=19||s3.length()!=9||fee==-1.0){
 			return false;
 		}
 		ArrayList<String> as2=rvo.getOrderNum();
@@ -26,10 +29,15 @@ public class EntruckBL extends TransportBL{
 		}
 		Date date=null;
 		SimpleDateFormat format=new SimpleDateFormat("yyyyMMdd");
+		String temp=null;
+		if(s1.substring(4, 5)=="2")
+			temp=s1.substring(4,12);
+		else
+			temp=s1.substring(6,14);
 		try {
-			date=format.parse(s1.substring(6,14));
+			date=format.parse(temp);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			// TODO
 			e.printStackTrace();
 		}
 		if(date==null){
