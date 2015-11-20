@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Harry on 2015/11/16.
  */
-public class AgencyInfoBL extends InfoBL implements GetAgencyInfoBLService {
+public class AgencyInfoBL extends InfoBL  {
 
     private ArrayList<AgencyPO> agencyPOs;
 
