@@ -1,5 +1,6 @@
 package businessLogic.infobl.controller;
 
+import businessLogic.infobl.bl.AgencyInfoBL;
 import businessLogicService.infoblservice.AgencyBLService;
 import myexceptions.InfoBLException;
 import vo.infovo.AgencyVO;
@@ -12,20 +13,21 @@ import java.util.ArrayList;
  */
 public class AgencyBLController implements AgencyBLService {
 
+    private AgencyInfoBL agencyInfoBL=new AgencyInfoBL();
 
     public ArrayList<AgencyVO> getAgencyList() throws RemoteException{
-        return null;
+        return agencyInfoBL.getAgencyList();
     }
 
     public void addAgency(AgencyVO vo) throws InfoBLException,RemoteException {
-
+        agencyInfoBL.addAgency(vo);
     }
 
     public void deleteAgency(String id) throws RemoteException {
-
+        agencyInfoBL.deleteAgency(id);
     }
 
     public void modifyAgency(String id, AgencyVO vo) throws InfoBLException, RemoteException {
-
+        agencyInfoBL.modifyAgency(id, vo);
     }
 }
