@@ -1,12 +1,14 @@
-package businessLogic.infobl;
+package businessLogic.infobl.bl;
 
 import data.InfoDataImpl;
 import dataService.InfoDataService;
+import myexceptions.InfoBLException;
 import po.infopo.AgencyPO;
 import typeDefinition.InfoType;
 import vo.infovo.AgencyVO;
 import vo.infovo.InfoVO;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -25,8 +27,7 @@ public class AgencyInfoBL extends InfoBL  {
         //agencyPOs=(ArrayList<AgencyPO>)super.getList(InfoType.AGENCY);
     }
 
-    @Override
-    public ArrayList<AgencyVO> getInfoList() {
+    public ArrayList<AgencyVO> getAgencyList() throws RemoteException{
 
         agencyPOs=(ArrayList<AgencyPO>)super.getList(InfoType.AGENCY);//界面层每次修改完都要refresh一下重新getInfoList，也要刷新一下po
         ArrayList<AgencyVO> agencyVOs=new ArrayList<AgencyVO>();
@@ -38,44 +39,38 @@ public class AgencyInfoBL extends InfoBL  {
         return agencyVOs;
     }
 
-    @Override
-    public boolean addInfo(InfoVO infoItem) {
+
+    public void addAgency(InfoVO infoItem) throws RemoteException, InfoBLException{
         AgencyVO vo=(AgencyVO)infoItem;
-        if(!containsInfo(vo.getAgencyID())){//如果不含新加的员工
-            return super.add(new AgencyPO(vo));
-        }
+
+            super.add(new AgencyPO(vo));
+
 
         //todo 需要在界面层提示
         System.out.println("已包含该机构");
-        return false;
+
     }
 
-    @Override
-    public void deleteInfo(String id) {
+
+    public void deleteAgency(String id) throws RemoteException{
         super.delete(InfoType.AGENCY, id);
     }
 
-    @Override
-    public boolean modifyInfo(String id, InfoVO infoItem) {
+
+    public void modifyAgency(String id, InfoVO infoItem) throws RemoteException, InfoBLException{
 
         AgencyVO vo=(AgencyVO)infoItem;
-        if(!vo.getAgencyID().equals(id)){//修改了原来的编号
-            if(containsInfo(vo.getAgencyID())){
-                System.out.println("已包含该机构");
-                return false;
-            }
-        }
+       // if(!vo.getAgencyID().equals(id)){//修改了原来的编号
+        //    if(containsInfo(vo.getAgencyID())){
+       //         System.out.println("已包含该机构");
+        //        return false;
+       //     }
+        //}
         //机构编号没变
-        deleteInfo(id);
+       super.modify(id, new AgencyPO(vo));
 
-        return addInfo(infoItem);
+       // return addInfo(infoItem);
     }
 
-    private boolean containsInfo(String id){
-        for(AgencyPO po:agencyPOs){
-            if(po.getAgencyID().equals(id))
-                return true;
-        }
-        return false;
-    }
+
 }

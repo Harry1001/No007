@@ -1,7 +1,7 @@
-package businessLogic.infobl;
+package businessLogic.infobl.controller;
 
+import businessLogic.infobl.bl.*;
 import businessLogicService.infoblservice.InfoBLService;
-import dataService.InfoDataService;
 import typeDefinition.InfoType;
 import vo.infovo.InfoVO;
 

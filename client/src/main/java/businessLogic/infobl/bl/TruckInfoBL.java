@@ -1,6 +1,6 @@
-package businessLogic.infobl;
+package businessLogic.infobl.bl;
 
-import businessLogicService.infoblservice.GetTruckInfoBLService;
+import businessLogicService.infoblservice.TruckBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
 import po.infopo.TruckPO;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Harry on 2015/11/16.
  */
-public class TruckInfoBL extends InfoBL implements GetTruckInfoBLService {
+public class TruckInfoBL extends InfoBL implements TruckBLService {
     private ArrayList<TruckPO> truckPOs;
 
     public TruckInfoBL(){

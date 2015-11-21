@@ -1,22 +1,19 @@
-package businessLogic.infobl;
+package businessLogic.infobl.bl;
 
-import businessLogicService.infoblservice.GetStaffInfoBLService;
+import businessLogicService.infoblservice.StaffBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
-import po.infopo.InfoPO;
 import po.infopo.StaffPO;
 import typeDefinition.InfoType;
-import typeDefinition.Job;
 import vo.infovo.InfoVO;
 import vo.infovo.StaffVO;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
  * Created by Harry on 2015/11/15.
  */
-public class StaffInfoBL extends InfoBL implements GetStaffInfoBLService {
+public class StaffInfoBL extends InfoBL implements StaffBLService {
 
 
     private ArrayList<StaffPO> staffPOs;
