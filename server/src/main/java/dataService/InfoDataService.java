@@ -3,6 +3,7 @@ package dataService;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import myexceptions.InfoBLException;
 import po.infopo.InfoPO;
 import typeDefinition.InfoType;
 
@@ -16,7 +17,7 @@ public interface InfoDataService {
 	/**
 	 * 在持久化数据中增加一个po条目
 	 */
-	public void addItem(InfoPO item) throws RemoteException;
+	public void addItem(InfoPO item) throws RemoteException, InfoBLException;
 	
 	/**
 	 * 在持久化数据中删除一个po
@@ -26,5 +27,5 @@ public interface InfoDataService {
 	/**
 	 * 在持久化数据中更新一个po
 	 */
-	public void update(String id, InfoPO item) throws RemoteException;
+	public void update(String id, InfoPO item) throws RemoteException, InfoBLException;
 }
