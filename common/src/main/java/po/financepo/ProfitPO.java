@@ -1,7 +1,9 @@
 package po.financepo;
 
+import java.math.BigDecimal;
+
 public class ProfitPO {
 
-	public long income;
-	public long outcome;
+	public BigDecimal income;
+	public BigDecimal outcome;
 }

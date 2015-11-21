@@ -18,7 +18,6 @@ public class DBManager {
 			connection  = DriverManager.getConnection(url, user, password);
 			if(!connection.isClosed())	System.out.println("Successfully connected to the database!");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Sorry, can't find the database");
 			e.printStackTrace();
 		} catch (SQLException e) {

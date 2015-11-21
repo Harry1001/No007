@@ -1,12 +1,16 @@
 package data;
 
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 
 import dataService.FinanceDataService;
+import database.ProfitDBManager;
 import po.financepo.FinancePO;
 
 public class FinanceDataImpl implements FinanceDataService{
-
+	
+	private ProfitDBManager profitDBManager = new ProfitDBManager();
+	
 	public void add(FinancePO financePO) throws RemoteException {
 		// TODO Auto-generated method stub
 		
@@ -17,34 +21,32 @@ public class FinanceDataImpl implements FinanceDataService{
 		return null;
 	}
 
-	public void updateIn(int income) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void addIncome(double income) throws RemoteException {
+		profitDBManager.addIncome(income);
 	}
 
-	public void renewIn() throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void renewIncome() throws RemoteException {
+		profitDBManager.renewIncome();
 	}
 
-	public long getIn() throws RemoteException {
-		// TODO Auto-generated method stub
-		return 0;
+	public BigDecimal getIncome() throws RemoteException {
+		BigDecimal income = profitDBManager.getIncome();
+		return income;
 	}
 
-	public void updateOut(int outcome) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void addOutcome(double outcome) throws RemoteException {
+		profitDBManager.addOutcome(outcome);
 	}
 
-	public void renewOut() throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void renewOutcome() throws RemoteException {
+		profitDBManager.renewOutcome();		
 	}
 
-	public long getOut() throws RemoteException {
-		// TODO Auto-generated method stub
-		return 0;
+	public BigDecimal getOutcome() throws RemoteException {
+		BigDecimal outcome = profitDBManager.getOutcome();
+		return outcome;
 	}
+
+
 
 }

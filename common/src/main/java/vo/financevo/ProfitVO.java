@@ -1,8 +1,10 @@
 package vo.financevo;
 
+import java.math.BigDecimal;
+
 public class ProfitVO {
 
-	public long income;
-	public long outcome;
-	public long profit;
+	public BigDecimal income;
+	public BigDecimal outcome;
+	public BigDecimal profit;
 }

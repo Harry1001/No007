@@ -1,5 +1,6 @@
 package dataService;
 
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 
 import po.financepo.FinancePO;
@@ -26,39 +27,39 @@ public interface FinanceDataService {
 	 * @param income
 	 * @throws RemoteException
 	 */
-	public void updateIn(int income) throws RemoteException;
+	public void addIncome(double income) throws RemoteException;
 	
 	/**
 	 * 初始化数据端的总收入数据
 	 * @throws RemoteException
 	 */
-	public void renewIn() throws RemoteException;
+	public void renewIncome() throws RemoteException;
 	
 	/**
 	 * 
 	 * @return 返回账目数据库中的总收入数据
 	 * @throws RemoteException
 	 */
-	public long getIn() throws RemoteException;
+	public BigDecimal getIncome() throws RemoteException;
 	
 	/**
 	 * 更新数据端的总支出数据
 	 * @param outcome
 	 * @throws RemoteException
 	 */
-	public void updateOut(int outcome) throws RemoteException;
+	public void addOutcome(double outcome) throws RemoteException;
 
 	/**
 	 * 初始化账目数据端的总支出数据
 	 * @throws RemoteException
 	 */
-	public void renewOut() throws RemoteException;
+	public void renewOutcome() throws RemoteException;
 
 	/**
 	 * 
 	 * @return 返回账目数据库中的总支出数据
 	 * @throws RemoteException
 	 */
-	public long getOut() throws RemoteException;
+	public BigDecimal getOutcome() throws RemoteException;
 }
 
