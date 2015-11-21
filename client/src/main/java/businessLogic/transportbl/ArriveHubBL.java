@@ -6,11 +6,12 @@ import java.util.Date;
 
 import businessLogic.receiptbl.ReceiptController;
 import businessLogicService.receiptblservice.ReceiptBLService;
+import myexceptions.TransportBLException;
 import vo.receiptvo.HubArrivalReceiptVO;
 
 public class ArriveHubBL{
 
-	public boolean verify(HubArrivalReceiptVO vo) {
+	public boolean verify(HubArrivalReceiptVO vo){
 		String s1=vo.getTransReceiptID();
 		if(s1.length()!=19){
 			return false;

@@ -1,16 +1,15 @@
 package businessLogic.transportbl;
 
-import businessLogic.logisticbl.LogisticBL;
+import businessLogic.logisticbl.LogisticController;
 import businessLogic.receiptbl.ReceiptController;
+import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
 import vo.receiptvo.DespatchReceiptVO;
-import vo.receiptvo.ReceiptVO;
 
 public class DespatchBL{
 
 	public boolean verify(DespatchReceiptVO vo) {
-		DespatchReceiptVO dvo=(DespatchReceiptVO)vo;
-		String s=dvo.getOrderNum();
+		String s=vo.getOrderNum();
 		if(s.length()!=10){
 			return false;
 		}
@@ -20,9 +19,8 @@ public class DespatchBL{
 	public void submit(DespatchReceiptVO vo) {
 		ReceiptBLService receiptblservice=new ReceiptController();
 		receiptblservice.createReceipt(vo);
-		LogisticBL logisticbl=new LogisticBL();
-		logisticbl.update(vo);
+		LogisticBLService logisticblservice=new LogisticController();
+		logisticblservice.update(vo);
 	}
-
 	
 }

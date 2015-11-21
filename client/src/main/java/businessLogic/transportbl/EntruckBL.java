@@ -5,24 +5,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import businessLogic.logisticbl.LogisticBL;
+import businessLogic.logisticbl.LogisticController;
 import businessLogic.receiptbl.ReceiptController;
 import businessLogic.strategybl.StrategyBL;
+import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
 import vo.receiptvo.EntruckReceiptVO;
-import vo.receiptvo.ReceiptVO;
 
 public class EntruckBL{
 
 	public boolean verify(EntruckReceiptVO vo) {
-		EntruckReceiptVO rvo=(EntruckReceiptVO)vo;
-		String s1=rvo.getTransportID();
-		String s3=rvo.getTruckID();
-		double fee=rvo.getTransportFee();
+		String s1=vo.getTransportID();
+		String s3=vo.getTruckID();
+		double fee=vo.getTransportFee();
 		if(s1.length()!=19||s3.length()!=9||fee==-1.0){
 			return false;
 		}
-		ArrayList<String> as2=rvo.getOrderNum();
+		ArrayList<String> as2=vo.getOrderNum();
 		for(String temp:as2){
 			if(temp.length()!=10){
 				return false;
@@ -50,11 +49,12 @@ public class EntruckBL{
 	public void submit(EntruckReceiptVO vo) {
 		ReceiptBLService receiptblservice=new ReceiptController();
 		receiptblservice.createReceipt(vo);
-		LogisticBL logisticbl=new LogisticBL();
-		logisticbl.update(vo);
+		LogisticBLService logisticblservice=new LogisticController();
+		logisticblservice.update(vo);
 	}
 	
 	public double calFee(EntruckReceiptVO vo) {
+		//TODO
 		StrategyBL strategybl=new StrategyBL();
 		return strategybl.calCarriage(vo);
 	}

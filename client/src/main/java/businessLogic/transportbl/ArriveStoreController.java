@@ -1,9 +1,9 @@
 package businessLogic.transportbl;
 
-import businessLogicService.transportblservice.ArrivaStoreBLService;
+import businessLogicService.transportblservice.ArriveStoreBLService;
 import vo.receiptvo.StoreArrivalReceiptVO;
 
-public class ArriveStoreController implements ArrivaStoreBLService{
+public class ArriveStoreController implements ArriveStoreBLService{
 
 	ArriveStoreBL arrivestorebl=new ArriveStoreBL();
 	
