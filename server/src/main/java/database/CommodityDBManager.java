@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.Connection;
+//import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,10 +30,24 @@ public class CommodityDBManager extends DBManager{
 				"INSERT INTO Commodity"
 				+ " VALUES ('"+ expressNum +"', "+year+", "+month+", "+day+", '"+desination+"', "
 				+ "'"+transferNum+"', "+regionID+", "+rowID+", "+shelfID+", "+postID+")";
+//		String commodityInsert = "INSERT INTO Commodity"
+//				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection connection = connectToDB();
 		try {
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(commodityInsert);
+//			PreparedStatement statement = connection.prepareStatement(commodityInsert);
+//			statement.setString(1, expressNum);
+//			statement.setInt(2, year);
+//			statement.setInt(3, month);
+//			statement.setInt(4, day);
+//			statement.setString(5, desination);
+//			statement.setString(6, transferNum);
+//			statement.setInt(7, regionID);
+//			statement.setInt(8, rowID);
+//			statement.setInt(9, shelfID);
+//			statement.setInt(10, postID);
+//			statement.executeUpdate();
 		} catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException e){
 			System.out.println("该位置已经存放货物");
 		}
@@ -47,10 +62,16 @@ public class CommodityDBManager extends DBManager{
 		String commodityDelete =
 				"DELETE FROM Commodity"
 				+ " WHERE expressNumber = '"+expressNum + "'";
+//		String commodityDelete =
+//				"DELETE FROM Commodity"
+//				+ " WHERE expressNumber = ?";
 		Connection connection = connectToDB();
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate(commodityDelete);
+//			PreparedStatement statement = connection.prepareStatement(commodityDelete);
+//			statement.setString(1, expressNum);
+			int i = statement.executeUpdate(commodityDelete);
+			System.out.println(i + " rows have been changed.");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

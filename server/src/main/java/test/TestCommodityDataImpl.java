@@ -17,11 +17,10 @@ public class TestCommodityDataImpl {
 	public void test() {
 		myTime inTime = new myTime(2015, 11, 20);
 		Location location = new Location("0251", 1, 2, 5, 24);
-		CommodityPO commodityPO = new CommodityPO("100000003", inTime, "江苏省南京市鼓楼区南京大学", location);
+		CommodityPO commodityPO = new CommodityPO("100000005", inTime, "江苏省南京市鼓楼区南京大学", location);
 		CommodityDataImpl commodityDataImpl = new CommodityDataImpl();
 		try {
-			commodityDataImpl.add(commodityPO);
-			commodityDataImpl.check("0251");
+			commodityDataImpl.delete("100000005");
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

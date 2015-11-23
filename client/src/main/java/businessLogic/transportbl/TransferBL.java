@@ -5,20 +5,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import businessLogic.receiptbl.ReceiptController;
 import businessLogic.strategybl.StrategyBL;
-import vo.receiptvo.ReceiptVO;
+import businessLogicService.receiptblservice.ReceiptBLService;
 import vo.receiptvo.TransferReceiptVO;
 
-public class TransferBL extends TransportBL {
+public class TransferBL{
 
-	public boolean verify(ReceiptVO vo) {
-		TransferReceiptVO tvo=(TransferReceiptVO)vo;
-		String s1=tvo.getTransferID();
-		double fee=tvo.getTransferFee();
+	public boolean verify(TransferReceiptVO vo) {
+		String s1=vo.getTransferID();
+		double fee=vo.getTransferFee();
 		if(s1.length()!=19||fee==-1.0){
 			return false;
 		}
-		ArrayList<String> as2=tvo.getOrderID();
+		ArrayList<String> as2=vo.getOrderID();
 		for(String temp:as2){
 			if(temp.length()!=10){
 				return false;
@@ -39,7 +39,13 @@ public class TransferBL extends TransportBL {
 		return true;	
 	}
 	
-	public double calFee(ReceiptVO vo) {
+	public void submit(TransferReceiptVO vo) {
+		ReceiptBLService receiptblservice=new ReceiptController();
+		receiptblservice.createReceipt(vo);
+	}
+	
+	public double calFee(TransferReceiptVO vo) {
+		//TODO
 		StrategyBL strategybl=new StrategyBL();
 		return strategybl.calCarriage(vo);
 	}

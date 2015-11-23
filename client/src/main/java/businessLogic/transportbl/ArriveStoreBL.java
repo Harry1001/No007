@@ -11,8 +11,7 @@ import vo.receiptvo.StoreArrivalReceiptVO;
 public class ArriveStoreBL{
 
 	public boolean verify(StoreArrivalReceiptVO vo) {
-		StoreArrivalReceiptVO savo=(StoreArrivalReceiptVO)vo;
-		String s1=savo.getTransReceiptID();		
+		String s1=vo.getTransReceiptID();		
 		if(s1.length()!=19){
 			return false;
 		}

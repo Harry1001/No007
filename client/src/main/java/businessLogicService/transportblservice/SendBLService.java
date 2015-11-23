@@ -1,12 +1,13 @@
 package businessLogicService.transportblservice;
 
+import myexceptions.TransportBLException;
 import vo.receiptvo.SendReceiptVO;
 
 public interface SendBLService {
 	/**
 	 * 检查寄件单输入内容的正确性以决定页面是否跳转
 	 */
-	public boolean verify(SendReceiptVO vo);
+	public boolean verify(SendReceiptVO vo) throws TransportBLException;
 	/**
 	 * 寄件单提交等待审批
 	 */
