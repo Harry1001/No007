@@ -40,15 +40,8 @@ public class AgencyInfoBL extends InfoBL  {
     }
 
 
-    public void addAgency(InfoVO infoItem) throws RemoteException, InfoBLException{
-        AgencyVO vo=(AgencyVO)infoItem;
-
+    public void addAgency(AgencyVO vo) throws RemoteException, InfoBLException{
             super.add(new AgencyPO(vo));
-
-
-        //todo 需要在界面层提示
-        System.out.println("已包含该机构");
-
     }
 
 
@@ -57,19 +50,12 @@ public class AgencyInfoBL extends InfoBL  {
     }
 
 
-    public void modifyAgency(String id, InfoVO infoItem) throws RemoteException, InfoBLException{
+    public void modifyAgency(String id, AgencyVO vo) throws RemoteException, InfoBLException{
 
-        AgencyVO vo=(AgencyVO)infoItem;
-       // if(!vo.getAgencyID().equals(id)){//修改了原来的编号
-        //    if(containsInfo(vo.getAgencyID())){
-       //         System.out.println("已包含该机构");
-        //        return false;
-       //     }
-        //}
-        //机构编号没变
+
        super.modify(id, new AgencyPO(vo));
 
-       // return addInfo(infoItem);
+
     }
 
 

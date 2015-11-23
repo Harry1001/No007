@@ -3,17 +3,19 @@ package businessLogic.infobl.bl;
 import businessLogicService.infoblservice.TruckBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
+import myexceptions.InfoBLException;
 import po.infopo.TruckPO;
 import typeDefinition.InfoType;
 import vo.infovo.InfoVO;
 import vo.infovo.TruckVO;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
  * Created by Harry on 2015/11/16.
  */
-public class TruckInfoBL extends InfoBL implements TruckBLService {
+public class TruckInfoBL extends InfoBL{
     private ArrayList<TruckPO> truckPOs;
 
     public TruckInfoBL(){
@@ -25,8 +27,7 @@ public class TruckInfoBL extends InfoBL implements TruckBLService {
         //truckPOs=(ArrayList<TruckPO>)super.getList(InfoType.TRUCK);
     }
 
-    @Override
-    public ArrayList<TruckVO> getInfoList() {
+    public ArrayList<TruckVO> getTruckList() throws RemoteException {
 
         truckPOs=(ArrayList<TruckPO>)super.getList(InfoType.TRUCK);
         ArrayList<TruckVO> truckVOs=new ArrayList<TruckVO>();
@@ -38,43 +39,18 @@ public class TruckInfoBL extends InfoBL implements TruckBLService {
         return truckVOs;
     }
 
-    @Override
-    public boolean addInfo(InfoVO infoItem) {
-        TruckVO vo=(TruckVO)infoItem;
-        if(!containsInfo(vo.getTruckID())){//如果不含新加的车辆信息
-            return super.add(new TruckPO(vo));
-        }
-
-        //todo 需要在界面层提示
-        System.out.println("已包含该车辆");
-        return false;
+    public void addTruck(TruckVO vo) throws RemoteException, InfoBLException {
+       super.add(new TruckPO(vo));
     }
 
-    @Override
-    public void deleteInfo(String id) {
+    public void deleteTuck(String id) throws RemoteException {
         super.delete(InfoType.TRUCK, id);
     }
 
-    @Override
-    public boolean modifyInfo(String id, InfoVO infoItem) {
-        TruckVO vo=(TruckVO)infoItem;
-        if(!vo.getTruckID().equals(id)){//修改了原来的编号
-            if(containsInfo(vo.getTruckID())){
-                System.out.println("已包含该车辆");
-                return false;
-            }
-        }
-        //机构编号没变
-        deleteInfo(id);
 
-        return addInfo(infoItem);
+    public void modifyTruck(String id, TruckVO vo) throws RemoteException, InfoBLException {
+
+       super.modify(id, new TruckPO(vo));
     }
 
-    private boolean containsInfo(String id){
-        for(TruckPO po:truckPOs){
-            if(po.getTruckID().equals(id))
-                return true;
-        }
-        return false;
-    }
 }

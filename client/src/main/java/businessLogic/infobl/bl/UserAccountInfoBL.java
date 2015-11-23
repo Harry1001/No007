@@ -3,18 +3,20 @@ package businessLogic.infobl.bl;
 import businessLogicService.infoblservice.UserAccoutBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
+import myexceptions.InfoBLException;
 import po.infopo.UserAccountPO;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import vo.infovo.InfoVO;
 import vo.infovo.UserAccountVO;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
  * Created by Harry on 2015/11/16.
  */
-public class UserAccountInfoBL extends InfoBL implements UserAccoutBLService {
+public class UserAccountInfoBL extends InfoBL {
 
     private ArrayList<UserAccountPO> userAccountPOs;
 
@@ -28,8 +30,8 @@ public class UserAccountInfoBL extends InfoBL implements UserAccoutBLService {
        // userAccountPOs=(ArrayList<UserAccountPO>)super.getList(InfoType.ACCOUNT);
     }
 
-    @Override
-    public ArrayList<UserAccountVO> getInfoList() {
+
+    public ArrayList<UserAccountVO> getUserAccountList() throws RemoteException {
 
         userAccountPOs=(ArrayList<UserAccountPO>)super.getList(InfoType.ACCOUNT);
         ArrayList<UserAccountVO> userAccountVOs=new ArrayList<UserAccountVO>();
@@ -40,53 +42,25 @@ public class UserAccountInfoBL extends InfoBL implements UserAccoutBLService {
         return userAccountVOs;
     }
 
-    @Override
-    public boolean addInfo(InfoVO infoItem) {
-        UserAccountVO vo=(UserAccountVO)infoItem;
-        if(!containsInfo(vo.getUserID())){//如果不含新加的员工
-            return super.add(new UserAccountPO(vo));
-        }
 
-        //todo 需要在界面层提示
-        System.out.println("已包含该账户");
-        return false;
+    public void addUserAccount(UserAccountVO vo) throws RemoteException, InfoBLException {
+        super.add(new UserAccountPO(vo));
     }
 
-    @Override
-    public void deleteInfo(String id) {
+
+    public void deleteUserAccount(String id) throws RemoteException {
         super.delete(InfoType.ACCOUNT, id);
     }
 
-    @Override
-    public boolean modifyInfo(String id, InfoVO infoItem) {
-        UserAccountVO vo=(UserAccountVO)infoItem;
-        if(!vo.getUserID().equals(id)){//修改了原来的工号
-            if(containsInfo(vo.getUserID())){
-                System.out.println("已包含该账户");
-                return false;
-            }
-        }
-        //工号没变
-        deleteInfo(id);
 
-        return addInfo(infoItem);
+    public void modifyUserAccount(String id, UserAccountVO vo) throws RemoteException, InfoBLException {
+        super.modify(id, new UserAccountPO(vo));
     }
 
-    public Job verifyPassword(String id, String password){
-        //todo
-        for(UserAccountPO po:userAccountPOs){
-            if(po.getUserID().equals(id)){
-                return po.getPosition();
-            }
-        }
+    public Job verifyPassword(String id, String password) throws RemoteException{
+        //todo 密码验证应该在数据层执行，为了安全密码不可以传到逻辑层
+
         return Job.NOTFOUND;
     }
 
-    private boolean containsInfo(String id){
-        for(UserAccountPO po:userAccountPOs){
-            if(po.getUserID().equals(id))
-                return true;
-        }
-        return false;
-    }
 }

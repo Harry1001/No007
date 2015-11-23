@@ -5,6 +5,7 @@ import typeDefinition.ReceiptType;
 import typeDefinition.myTime;
 import vo.receiptvo.ReceiptVO;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -14,11 +15,12 @@ public class ReceiptController implements ReceiptBLService {
 
     private ReceiptBL receiptBL=new ReceiptBL();
 
-    public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime, myTime toTime, ReceiptType type) {
+    public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime,
+                                                        myTime toTime, ReceiptType type) throws RemoteException {
         return receiptBL.getListByTime(fromTime, toTime, type);
     }
 
-    public void createReceipt(ReceiptVO item) {
+    public void createReceipt(ReceiptVO item) throws RemoteException {
         receiptBL.createReceipt(item);
     }
 }

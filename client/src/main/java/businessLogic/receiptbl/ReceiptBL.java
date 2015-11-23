@@ -27,12 +27,13 @@ public class ReceiptBL implements ReceiptBLService{
 	}
 	
 
-	public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime, myTime toTime, ReceiptType type){
+	public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime, myTime toTime,
+														ReceiptType type) throws RemoteException {
 		//如果起始时间小于终止时间，报错
 		//todo
 
 		ArrayList<ReceiptVO> receiptVOs= new ArrayList<ReceiptVO>();
-		try{
+
 			ArrayList<? extends ReceiptPO> receiptPOs= receiptData.getList(type,fromTime,toTime);
 
 			switch (type){
@@ -104,15 +105,13 @@ public class ReceiptBL implements ReceiptBLService{
 				}
 			}
 
-		}catch (RemoteException e){
-			System.out.println("get receipt list from data layer fail");
-		}
+
 		return receiptVOs;
 	}
 
-	public void createReceipt(ReceiptVO item) {
+	public void createReceipt(ReceiptVO item) throws RemoteException {
 		ReceiptType type = item.getType();
-		try{
+
 			switch (type){
 
 				case SEND:receiptData.addItem(new SendReceiptPO((SendReceiptVO)item));break;
@@ -127,9 +126,7 @@ public class ReceiptBL implements ReceiptBLService{
 				case PAY:receiptData.addItem(new PayReceiptPO((PayReceiptVO)item));break;
 				case RECEIVE:receiptData.addItem(new ReceiveReceiptPO((ReceiveReceiptVO)item));break;
 			}
-		}catch (RemoteException e){
-			System.out.println("create receipt int data layer fail");
-		}
+
 
 	}
 

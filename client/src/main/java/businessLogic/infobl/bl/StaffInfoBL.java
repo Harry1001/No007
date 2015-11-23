@@ -3,17 +3,19 @@ package businessLogic.infobl.bl;
 import businessLogicService.infoblservice.StaffBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
+import myexceptions.InfoBLException;
 import po.infopo.StaffPO;
 import typeDefinition.InfoType;
 import vo.infovo.InfoVO;
 import vo.infovo.StaffVO;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
  * Created by Harry on 2015/11/15.
  */
-public class StaffInfoBL extends InfoBL implements StaffBLService {
+public class StaffInfoBL extends InfoBL{
 
 
     private ArrayList<StaffPO> staffPOs;
@@ -24,12 +26,10 @@ public class StaffInfoBL extends InfoBL implements StaffBLService {
     public StaffInfoBL(InfoDataService infoData) {
         super(infoData);
 
-        //只要创建该bl就先从data层读取员工信息列表
-        //staffPOs=(ArrayList<StaffPO>)super.getList(InfoType.STAFF);
+
     }
 
-    //@override
-    public ArrayList<StaffVO> getInfoList(){
+    public ArrayList<StaffVO> getStaffList() throws RemoteException{
 
         staffPOs=(ArrayList<StaffPO>)super.getList(InfoType.STAFF);
         ArrayList<StaffVO> staffVOs=new ArrayList<StaffVO>();
@@ -41,43 +41,19 @@ public class StaffInfoBL extends InfoBL implements StaffBLService {
        return staffVOs;
     }
 
-    public boolean addInfo(InfoVO o){
-        StaffVO vo=(StaffVO)o;
-        if(!containsInfo(vo.getStaffID())){//如果不含新加的员工
-            return super.add(new StaffPO(vo));
-        }
+    public void addStaff(StaffVO vo) throws RemoteException, InfoBLException {
 
-        //todo 需要在界面层提示
-        System.out.println("已包含该员工");
-        return false;
+            super.add(new StaffPO(vo));
+
     }
 
-    public void deleteInfo( String id){
+    public void deleteStaff( String id) throws RemoteException {
         super.delete(InfoType.STAFF, id);
     }
 
-    public boolean modifyInfo(String id, InfoVO infoItem){
-        StaffVO vo=(StaffVO)infoItem;
-        if(!vo.getStaffID().equals(id)){//修改了原来的工号
-            if(containsInfo(vo.getStaffID())){
-                System.out.println("已包含该员工");
-                return false;
-            }
-        }
-        //工号没变
-        deleteInfo(id);
+    public void modifyStaff(String id, StaffVO vo) throws RemoteException, InfoBLException {
+       super.modify(id, new StaffPO(vo));
 
-        return addInfo(infoItem);
-
-    }
-
-    //私有方法，仅自己使用
-    private boolean containsInfo(String id){
-        for(StaffPO po:staffPOs){
-            if(id.equals(po.getStaffID()))
-                return true;
-        }
-        return false;
     }
 
 }
