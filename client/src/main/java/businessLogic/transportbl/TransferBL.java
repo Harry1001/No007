@@ -1,27 +1,30 @@
 package businessLogic.transportbl;
 
+import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import businessLogic.receiptbl.ReceiptController;
+import blfactory.BLFactory;
 import businessLogic.strategybl.StrategyBL;
 import businessLogicService.receiptblservice.ReceiptBLService;
+import myexceptions.TransportBLException;
 import vo.receiptvo.TransferReceiptVO;
 
 public class TransferBL{
 
-	public boolean verify(TransferReceiptVO vo) {
+	public boolean verify(TransferReceiptVO vo) throws TransportBLException {
 		String s1=vo.getTransferID();
 		double fee=vo.getTransferFee();
-		if(s1.length()!=19||fee==-1.0){
-			return false;
-		}
+		if(s1.length()!=19)
+			throw new TransportBLException("中转单编号应该为19位！");
+		if(fee==-1.0)
+			throw new TransportBLException("请计算运费！");
 		ArrayList<String> as2=vo.getOrderID();
 		for(String temp:as2){
 			if(temp.length()!=10){
-				return false;
+				throw new TransportBLException("托运单号应该为10位！");
 			}
 		}
 		Date date=null;
@@ -34,13 +37,13 @@ public class TransferBL{
 			e.printStackTrace();
 		}
 		if(date==null){
-			return false;
+			throw new TransportBLException("中转单编号应该为4位中转中心编号＋8位日期＋7位数字！");
 		}
 		return true;	
 	}
 	
-	public void submit(TransferReceiptVO vo) {
-		ReceiptBLService receiptblservice=new ReceiptController();
+	public void submit(TransferReceiptVO vo) throws RemoteException{
+		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
 	}
 	

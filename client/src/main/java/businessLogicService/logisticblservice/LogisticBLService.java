@@ -1,11 +1,14 @@
 package businessLogicService.logisticblservice;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
 import vo.logisticvo.LogisticVO;
 import vo.receiptvo.ReceiptVO;
 
 public interface LogisticBLService {
 
-	public LogisticVO getLogistic(String orderID);
-	public void update(ReceiptVO vo);
+	public ArrayList<LogisticVO> getLogistic(String orderID) throws RemoteException;
+	public void update(ReceiptVO vo) throws RemoteException;
 	
 }

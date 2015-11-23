@@ -1,25 +1,27 @@
 package businessLogic.transportbl;
 
-import businessLogic.logisticbl.LogisticController;
-import businessLogic.receiptbl.ReceiptController;
+import java.rmi.RemoteException;
+
+import blfactory.BLFactory;
 import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
+import myexceptions.TransportBLException;
 import vo.receiptvo.ReceiveReceiptVO;
 
 public class ReceiveBL{
 
-	public boolean verify(ReceiveReceiptVO vo) {
+	public boolean verify(ReceiveReceiptVO vo) throws TransportBLException {
 		String s=vo.getReceiveNum();
 		if(s.length()!=10){
-			return false;
+			throw new TransportBLException("收件编号应该为10位！");
 		}
 		return true;	
 	}
 
-	public void submit(ReceiveReceiptVO vo) {
-		ReceiptBLService receiptblservice=new ReceiptController();
+	public void submit(ReceiveReceiptVO vo) throws RemoteException {
+		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
-		LogisticBLService logisticblservice=new LogisticController();
+		LogisticBLService logisticblservice=BLFactory.getLogisticBLService();
 		logisticblservice.update(vo);
 	}
 	
