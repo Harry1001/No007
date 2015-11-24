@@ -22,5 +22,5 @@ public class Images {
         return new ImageIcon(path);
     }
 
-    public static final Image LOGIN_IMAGE=createImage("images/LOGIN_IMAGE.jpg");
+    public static final Image LOGIN_IMAGE=createImage("imagesFiles/LOGIN_IMAGE.jpg");
 }

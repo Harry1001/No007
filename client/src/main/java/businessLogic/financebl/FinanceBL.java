@@ -3,15 +3,17 @@ package businessLogic.financebl;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import blfactory.BLFactory;
 import businessLogic.commoditybl.CommodityBL;
-import businessLogic.infobl.AgencyInfoBL;
-import businessLogic.infobl.BankAccountInfoBL;
-import businessLogic.infobl.DriverInfoBL;
-import businessLogic.infobl.StaffInfoBL;
-import businessLogic.infobl.TruckInfoBL;
+import businessLogic.infobl.bl.AgencyInfoBL;
+import businessLogic.infobl.bl.BankAccountInfoBL;
+import businessLogic.infobl.bl.DriverInfoBL;
+import businessLogic.infobl.bl.StaffInfoBL;
+import businessLogic.infobl.bl.TruckInfoBL;
 import businessLogic.receiptbl.ReceiptBL;
 import businessLogic.strategybl.StrategyBL;
 import businessLogicService.financeblservice.FinanceBLService;
+import businessLogicService.receiptblservice.ReceiptBLService;
 import data.FinanceDataImpl;
 import dataService.FinanceDataService;
 import po.financepo.FinancePO;
@@ -36,9 +38,9 @@ public class FinanceBL implements FinanceBLService{
 	myTime time;
 	String storeNo;
 	
-	public void submit(ReceiptVO receiptInputVO) {
+	public void submit(ReceiptVO receiptInputVO) throws RemoteException{
 		// TODO Auto-generated method stub
-		ReceiptBL receiptBL = new ReceiptBL();
+		ReceiptBLService receiptBL = BLFactory.getReceiptBLService();
 		receiptBL.createReceipt(receiptInputVO);
 	}
 
@@ -56,12 +58,12 @@ public class FinanceBL implements FinanceBLService{
 		return fVO;
 	}
 
-	public ArrayList<SalaryFeeVO> calSalary() {
+	public ArrayList<SalaryFeeVO> calSalary() throws RemoteException{
 		// TODO Auto-generated method stub
 		StrategyBL strategy = new StrategyBL();
 		ArrayList<SalaryFeeVO> salaryList = new ArrayList<SalaryFeeVO>();
 		StaffInfoBL staff = new StaffInfoBL();
-		for(StaffVO s : staff.getInfoList()){
+		for(StaffVO s : staff.getStaffList()){
 			SalaryFeeVO salary = new SalaryFeeVO();
 			salary.setName(s.getName());
 			salary.setPosition(s.getPosition());
@@ -72,7 +74,7 @@ public class FinanceBL implements FinanceBLService{
 		return salaryList;
 	}
 
-	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) {
+	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) throws RemoteException{
 		// TODO Auto-generated method stub
 		ReceiptBL receipt = new ReceiptBL();
 		ArrayList<ReceiptVO> charges = (ArrayList<ReceiptVO>)
@@ -84,7 +86,7 @@ public class FinanceBL implements FinanceBLService{
 		return result;
 	}
 
-	public ArrayList<ReceiptVO> checkStore(myTime fromTime, myTime toTime, String StoreNum) {
+	public ArrayList<ReceiptVO> checkStore(myTime fromTime, myTime toTime, String StoreNum) throws RemoteException{
 		// TODO Auto-generated method stub																						
 		ReceiptBL receipt = new ReceiptBL();
 		ArrayList<ReceiptVO> charges = (ArrayList<ReceiptVO>)
@@ -122,7 +124,7 @@ public class FinanceBL implements FinanceBLService{
 		try {
 			profit.income = finance.getIn();
 			profit.outcome = finance.getOut();
-			profit.profit = profit.income - profit.outcome;
+			profit.profit = profit.income.subtract(profit.outcome);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,7 +132,7 @@ public class FinanceBL implements FinanceBLService{
 		return profit;
 	}
 
-	public void makeCredit(int year) {
+	public void makeCredit(int year) throws RemoteException{
 		// TODO Auto-generated method stub
 		FinanceDataService financeData = new FinanceDataImpl();
 		CommodityBL commodityBL = new CommodityBL();
@@ -140,12 +142,11 @@ public class FinanceBL implements FinanceBLService{
 		StaffInfoBL staffInfoBL = new StaffInfoBL();
 		TruckInfoBL truckInfoBL = new TruckInfoBL();
 		ArrayList<CommodityVO> commodity = commodityBL.getTotal();
-		ArrayList<AgencyVO> agency = (ArrayList<AgencyVO>)agencyInfoBL.getInfoList();
-		ArrayList<BankAccountVO> bankaccount = (ArrayList<BankAccountVO>)
-									bankAccountInfoBL.getInfoList();
-		ArrayList<DriverVO> driver = (ArrayList<DriverVO>)driverInfoBL.getInfoList();
-		ArrayList<StaffVO> staff = (ArrayList<StaffVO>)staffInfoBL.getInfoList();
-		ArrayList<TruckVO> truck = (ArrayList<TruckVO>)truckInfoBL.getInfoList();
+		ArrayList<AgencyVO> agency = agencyInfoBL.getAgencyList();
+		ArrayList<BankAccountVO> bankaccount = 	bankAccountInfoBL.getBankAccountList();
+		ArrayList<DriverVO> driver = driverInfoBL.getDriverList();
+		ArrayList<StaffVO> staff = staffInfoBL.getStaffList();
+		ArrayList<TruckVO> truck =truckInfoBL.getTruckList();
 		
 		FinanceVO finance = new FinanceVO(year);
 		finance.setAgencies(agency);

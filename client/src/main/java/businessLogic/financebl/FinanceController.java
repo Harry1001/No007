@@ -1,5 +1,6 @@
 package businessLogic.financebl;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import businessLogicService.financeblservice.FinanceBLService;
@@ -15,7 +16,7 @@ public class FinanceController implements FinanceBLService{
 
 	FinanceBL financeBL = new FinanceBL();
 	
-	public void submit(ReceiptVO receiptInputVO) {
+	public void submit(ReceiptVO receiptInputVO) throws RemoteException {
 		// TODO Auto-generated method stub
 		financeBL.submit(receiptInputVO);
 	}
@@ -26,19 +27,19 @@ public class FinanceController implements FinanceBLService{
 		return financeVO;
 	}
 
-	public ArrayList<SalaryFeeVO> calSalary() {
+	public ArrayList<SalaryFeeVO> calSalary() throws RemoteException {
 		// TODO Auto-generated method stub
 		ArrayList<SalaryFeeVO> salaryFeeVOs = financeBL.calSalary();
 		return salaryFeeVOs;
 	}
 
-	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) {
+	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) throws RemoteException {
 		// TODO Auto-generated method stub
 		ArrayList<ReceiptVO> receiptVOs = financeBL.seeRecord(fromTime, toTime);
 		return receiptVOs;
 	}
 
-	public ArrayList<ReceiptVO> checkStore(myTime fromTime, myTime toTime, String StoreNum) {
+	public ArrayList<ReceiptVO> checkStore(myTime fromTime, myTime toTime, String StoreNum) throws RemoteException{
 		// TODO Auto-generated method stub
 		ArrayList<ReceiptVO> receiptVOs = financeBL.checkStore(fromTime, toTime, StoreNum);
 		return receiptVOs;
@@ -56,7 +57,7 @@ public class FinanceController implements FinanceBLService{
 		return profitVO;
 	}
 
-	public void makeCredit(int year) {
+	public void makeCredit(int year) throws RemoteException {
 		// TODO Auto-generated method stub
 		financeBL.makeCredit(year);
 	}

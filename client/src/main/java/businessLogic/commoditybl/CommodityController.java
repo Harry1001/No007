@@ -1,5 +1,6 @@
 package businessLogic.commoditybl;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import businessLogicService.commodityblservice.CommodityBLService;
@@ -11,7 +12,7 @@ import vo.receiptvo.ReceiptVO;
 public class CommodityController implements CommodityBLService{
 	CommodityBL commodityBL = new CommodityBL();
 	
-	public void submit(ReceiptVO vo) {
+	public void submit(ReceiptVO vo) throws RemoteException{
 		// TODO Auto-generated method stub
 		commodityBL.submit(vo);
 	}
@@ -22,7 +23,7 @@ public class CommodityController implements CommodityBLService{
 		return commodityVOs;
 	}
 
-	public CheckResultVO getList(String transferNum, myTime fromTime, myTime toTime) {
+	public CheckResultVO getList(String transferNum, myTime fromTime, myTime toTime) throws RemoteException {
 		// TODO Auto-generated method stub
 		CheckResultVO result = commodityBL.getList(transferNum, fromTime, toTime);
 		return result;

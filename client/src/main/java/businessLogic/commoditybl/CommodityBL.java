@@ -19,7 +19,7 @@ import vo.receiptvo.ReceiptVO;
 
 public class CommodityBL implements CommodityBLService{
 
-	public void submit(ReceiptVO vo) {
+	public void submit(ReceiptVO vo) throws RemoteException{
 		// TODO Auto-generated method stub
 		ReceiptBL receipt = new ReceiptBL();
 		receipt.createReceipt(vo);
@@ -42,7 +42,7 @@ public class CommodityBL implements CommodityBLService{
 		return commodityVOs;
 	}
 
-	public CheckResultVO getList(String transferNum, myTime fromTime, myTime toTime) {
+	public CheckResultVO getList(String transferNum, myTime fromTime, myTime toTime) throws RemoteException{
 		// TODO Auto-generated method stub
 		CheckResultVO result = new CheckResultVO();
 		ReceiptBL receipt = new ReceiptBL();

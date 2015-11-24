@@ -1,5 +1,6 @@
 package businessLogicService.financeblservice;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import typeDefinition.FeeType;
@@ -18,7 +19,7 @@ public interface FinanceBLService {
 	 * 并且更新总收入，总支出数据
 	 * @param receiptInputVO
 	 */
-	public void submit(ReceiptVO receiptInputVO);
+	public void submit(ReceiptVO receiptInputVO) throws RemoteException;
 	
 	/**
 	 * 期初建账后的账目查询
@@ -33,7 +34,7 @@ public interface FinanceBLService {
 	 * @param receiptInputVO
 	 * @return 计算收款（付款）金额
 	 */
-	public ArrayList<SalaryFeeVO> calSalary();
+	public ArrayList<SalaryFeeVO> calSalary() throws RemoteException;
 
 	/**
 	 * 
@@ -41,7 +42,7 @@ public interface FinanceBLService {
 	 * @param toTime
 	 * @return 返回该时间段内的所有收款单和付款单数据列表
 	 */
-	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime);
+	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) throws RemoteException;
 
 	/**
 	 * 
@@ -50,7 +51,7 @@ public interface FinanceBLService {
 	 * @param StoreNum
 	 * @return 返回指定营业厅指定日期的收款单数据列表
 	 */
-	public ArrayList<ReceiptVO> checkStore(myTime fromTime, myTime toTime, String StoreNum);
+	public ArrayList<ReceiptVO> checkStore(myTime fromTime, myTime toTime, String StoreNum) throws RemoteException;
 
 	/**
 	 * 前置条件：已经获取收款单数据列表
@@ -68,6 +69,6 @@ public interface FinanceBLService {
 	 * 
 	 * @param year
 	 */
-	public void	makeCredit(int year);
+	public void	makeCredit(int year) throws RemoteException;
 		
 }
