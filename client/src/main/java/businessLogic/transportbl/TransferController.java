@@ -17,7 +17,7 @@ public class TransferController implements TransferBLService{
 		transferbl.submit(vo);
 	}
 
-	public double calFee(TransferReceiptVO vo) {
+	public double calFee(TransferReceiptVO vo) throws RemoteException{
 		return transferbl.calFee(vo);
 	}
 

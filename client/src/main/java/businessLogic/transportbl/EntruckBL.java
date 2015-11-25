@@ -10,6 +10,7 @@ import blfactory.BLFactory;
 import businessLogic.strategybl.StrategyBL;
 import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
+import businessLogicService.strategyblservice.CalCarriageService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.EntruckReceiptVO;
 
@@ -68,9 +69,9 @@ public class EntruckBL{
 		logisticblservice.update(vo);
 	}
 	
-	public double calFee(EntruckReceiptVO vo) {
+	public double calFee(EntruckReceiptVO vo) throws RemoteException{
 		//TODO
-		StrategyBL strategybl=new StrategyBL();
+		CalCarriageService strategybl=BLFactory.getCalCarriageService();
 		return strategybl.calCarriage(vo);
 	}
 	

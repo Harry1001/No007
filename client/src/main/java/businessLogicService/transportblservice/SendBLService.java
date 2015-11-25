@@ -19,5 +19,5 @@ public interface SendBLService {
 	/**
 	 * 输入参数获得寄件费
 	 */
-	public double calFee(SendReceiptVO vo);
+	public double calFee(SendReceiptVO vo) throws RemoteException;
 }

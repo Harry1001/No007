@@ -14,6 +14,7 @@ import businessLogic.receiptbl.ReceiptBL;
 import businessLogic.strategybl.StrategyBL;
 import businessLogicService.financeblservice.FinanceBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
+import businessLogicService.strategyblservice.CalSalaryService;
 import data.FinanceDataImpl;
 import dataService.FinanceDataService;
 import po.financepo.FinancePO;
@@ -60,7 +61,7 @@ public class FinanceBL implements FinanceBLService{
 
 	public ArrayList<SalaryFeeVO> calSalary() throws RemoteException{
 		// TODO Auto-generated method stub
-		StrategyBL strategy = new StrategyBL();
+		CalSalaryService strategy=BLFactory.getCalSalaryService();
 		ArrayList<SalaryFeeVO> salaryList = new ArrayList<SalaryFeeVO>();
 		StaffInfoBL staff = new StaffInfoBL();
 		for(StaffVO s : staff.getStaffList()){

@@ -9,6 +9,7 @@ import java.util.Date;
 import blfactory.BLFactory;
 import businessLogic.strategybl.StrategyBL;
 import businessLogicService.receiptblservice.ReceiptBLService;
+import businessLogicService.strategyblservice.CalCarriageService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.TransferReceiptVO;
 
@@ -47,9 +48,9 @@ public class TransferBL{
 		receiptblservice.createReceipt(vo);
 	}
 	
-	public double calFee(TransferReceiptVO vo) {
+	public double calFee(TransferReceiptVO vo) throws RemoteException{
 		//TODO
-		StrategyBL strategybl=new StrategyBL();
+		CalCarriageService strategybl=BLFactory.getCalCarriageService();
 		return strategybl.calCarriage(vo);
 	}
 	

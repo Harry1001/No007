@@ -18,7 +18,7 @@ public class EntruckController implements EntruckBLService{
 		entruckbl.submit(vo);
 	}
 
-	public double calFee(EntruckReceiptVO vo) {
+	public double calFee(EntruckReceiptVO vo) throws RemoteException {
 		return entruckbl.calFee(vo);
 	}
 

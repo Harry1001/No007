@@ -19,5 +19,5 @@ public interface EntruckBLService {
 	/**
 	 * 输入参数获得运费
 	 */
-	public double calFee(EntruckReceiptVO vo);
+	public double calFee(EntruckReceiptVO vo) throws RemoteException;
 }

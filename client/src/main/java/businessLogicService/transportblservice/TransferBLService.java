@@ -19,5 +19,5 @@ public interface TransferBLService {
 	/**
 	 * 输入参数获得运费
 	 */
-	public double calFee(TransferReceiptVO vo);
+	public double calFee(TransferReceiptVO vo) throws RemoteException;
 }

@@ -4,6 +4,9 @@ import businessLogic.infobl.controller.*;
 import businessLogic.loginbl.LoginController;
 import businessLogic.logisticbl.LogisticController;
 import businessLogic.receiptbl.ReceiptController;
+import businessLogic.strategybl.CalCarriageFeeBL;
+import businessLogic.strategybl.CalExpressFeeBL;
+import businessLogic.strategybl.CalSalaryBL;
 import businessLogic.transportbl.ArriveHubController;
 import businessLogic.transportbl.ArriveStoreController;
 import businessLogic.transportbl.DespatchController;
@@ -15,6 +18,9 @@ import businessLogicService.infoblservice.*;
 import businessLogicService.loginblservice.LoginBLService;
 import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
+import businessLogicService.strategyblservice.CalCarriageService;
+import businessLogicService.strategyblservice.CalExpressfeeService;
+import businessLogicService.strategyblservice.CalSalaryService;
 import businessLogicService.transportblservice.ArriveHubBLService;
 import businessLogicService.transportblservice.ArriveStoreBLService;
 import businessLogicService.transportblservice.DespatchBLService;
@@ -93,5 +99,17 @@ public class BLFactory {
     
     public static TransferBLService getTransferBLService(){
     	return new TransferController();
+    }
+
+    public static CalCarriageService getCalCarriageService(){
+        return new CalCarriageFeeBL();
+    }
+
+    public static CalExpressfeeService getCalExpressfeeService(){
+        return new CalExpressFeeBL();
+    }
+
+    public static CalSalaryService getCalSalaryService(){
+        return new CalSalaryBL();
     }
 }

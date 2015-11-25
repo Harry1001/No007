@@ -18,7 +18,7 @@ public class SendController implements SendBLService{
 		sendbl.submit(vo);
 	}
 
-	public double calFee(SendReceiptVO vo) {
+	public double calFee(SendReceiptVO vo) throws RemoteException {
 		return sendbl.calFee(vo);
 	}
 
