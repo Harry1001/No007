@@ -18,7 +18,7 @@ public class TestCommodityDataImpl {
 	public void test() {
 		Date inTime = new Date(System.currentTimeMillis());
 		Location location = new Location("0251", 1, 2, 5, 24);
-		CommodityPO commodityPO = new CommodityPO("100000025", inTime, "江苏省南京市鼓楼区南京大学", location);
+		CommodityPO commodityPO = new CommodityPO("100000026", inTime, "江苏省南京市鼓楼区南京大学", location);
 		CommodityDataImpl commodityDataImpl = new CommodityDataImpl();
 		try {
 			try {
