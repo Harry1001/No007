@@ -3,58 +3,49 @@ package po.strategypo;
 import vo.strategyvo.CarriageFeeVO;
 
 public class CarriageFeePO extends StrategyPO {
+	private double planePrice;
+	private double trainPrice;
+	private double busPrice;
 	
-	private String transportType;
-	private String departure;
-	private String destination;
-	//private double distance;
-	private double price;
 	
-	public CarriageFeePO(String tranType,String depa,String dest,double p) {
+	public CarriageFeePO(double pp,double tp,double bp) {
 		super("carriageFee");
-		// TODO Auto-generated constructor stub
-		this.transportType=tranType;
-		this.departure=depa;
-		this.destination=dest;
-		//this.distance=dis;
-		this.price=p;
+		this.planePrice=pp;
+		this.trainPrice=tp;
+		this.busPrice=bp;
+		
 	}
+	
 	public CarriageFeePO(CarriageFeeVO vo){
 		super("carriageFee");
-		this.transportType=vo.getTransportType();
-		this.departure=vo.getDeparture();
-		this.destination=vo.getDestination();
-		//this.distance=dis;
-		this.price=vo.getPrice();
+		this.planePrice=vo.getPlanePrice();
+		this.trainPrice=vo.getTrainPrice();
+		this.busPrice=vo.getBusPrice();
+		
 	}
-	public void setTransportType(String tranType){
-		this.transportType= tranType;
+	
+	public void setPlanePrice(double pp){
+		this.planePrice=pp;
 	}
-	public void setDeparture(String depa){
-		this.departure= depa;
+	
+	public double getPlanePrice(){
+		return planePrice;
 	}
-	public void setDestination(String dest){
-		this.destination= dest;
+	public void setTrainPrice(double tp){
+		this.trainPrice=tp;
 	}
-	/*public double setDiatance(double dis){
-		return dis;
-	}*/
-	public void setPrice(double p){
-		this.price= p;
+	
+	public double getTrainPrice(){
+		return trainPrice;
+	
 	}
-	public String getTransportType(){
-		return transportType;
+	
+	
+	public void setBusPrice(double bp){
+		this.busPrice=bp;
 	}
-	public String getDeparture(){
-		return departure;
-	}
-	public String getDestination(){
-		return destination;
-	}
-	/*public double getDistance(){
-		return distance;
-	}*/
-	public double getPrice(){
-		return price;
+	
+	public double getBusPrice(){
+		return busPrice;
 	}
 }

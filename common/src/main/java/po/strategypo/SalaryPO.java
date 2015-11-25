@@ -1,8 +1,9 @@
 package po.strategypo;
 
 import po.strategypo.StrategyPO;
-
 import vo.strategyvo.SalaryVO;
+
+
 
 public class SalaryPO extends StrategyPO {
 	private int mailerBaseSalary;
@@ -30,13 +31,20 @@ public class SalaryPO extends StrategyPO {
 		this.mailerAllowance=mal;
 		this.driverAllowance=dal;
 	}
-	/*public SalaryPO(SalaryVO vo){
+	public SalaryPO(SalaryVO vo) {
 		super("Salary");
-		this.position=vo.getJob();
-		this.baseSalary=vo.getBaseSalary();
-		//this.workFrequency=po.getWorkFrequency();
-		this.allowance=vo.getAllowance();
-	}*/
+		this.mailerBaseSalary=vo.getMailerBS();
+		this.driverBaseSalary=vo.getDriverBS();
+		this.managerBaseSalary=vo.getManagerBS();
+		this.accountantBaseSalary=vo.getAccountantBS();
+		this.storesalesmanBaseSalary=vo.getStoresalesmanBS();
+		this.hubsalesmanBaseSalary=vo.getHubsalesmanBS();
+		this.storekeeperBaseSalary=vo.getStorekeeperBS();
+		this.administerBaseSalary=vo.getAdministerBS();
+		this.mailerAllowance=vo.getMailerAl();
+		this.driverAllowance=vo.getDriverAl();
+	}
+	
 	public void setMailerBS(int mbs){
 		this.mailerBaseSalary=mbs;
 	}

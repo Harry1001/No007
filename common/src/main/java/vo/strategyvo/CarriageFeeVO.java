@@ -1,42 +1,52 @@
 package vo.strategyvo;
 
-public class CarriageFeeVO extends StrategyVO {
-	private String transportType;
-	private String departure;
-	private String destination;
-	//private double distance;
-	private double price;
-	public CarriageFeeVO(String tranType,String depa,String dest,double p) {
+import po.strategypo.CarriageFeePO;
+import po.strategypo.StrategyPO;
+
+public class CarriageFeeVO extends StrategyPO {
+	private double planePrice;
+	private double trainPrice;
+	private double busPrice;
+	
+	
+	public CarriageFeeVO(double pp,double tp,double bp) {
 		super("carriageFee");
-		// TODO Auto-generated constructor stub
-		this.transportType=tranType;
-		this.departure=depa;
-		this.destination=dest;
-		//this.distance=dis;
-		this.price=p;
+		this.planePrice=pp;
+		this.trainPrice=tp;
+		this.busPrice=bp;
+		
 	}
-	public void setTransportType(String tranType){
-		this.transportType= tranType;
+	
+	public CarriageFeeVO(CarriageFeePO po){
+		super("carriageFee");
+		this.planePrice=po.getPlanePrice();
+		this.trainPrice=po.getTrainPrice();
+		this.busPrice=po.getBusPrice();
+		
 	}
-	public void setDeparture(String depa){
-		this.departure=depa;
+	
+	public void setPlanePrice(double pp){
+		this.planePrice=pp;
 	}
-	public void setDestination(String dest){
-		this.destination= dest;
+	
+	public double getPlanePrice(){
+		return planePrice;
 	}
-	public void setPrice(double p){
-		this.price= p;
+	public void setTrainPrice(double tp){
+		this.trainPrice=tp;
 	}
-	public String getTransportType(){
-		return transportType;
+	
+	public double getTrainPrice(){
+		return trainPrice;
+	
 	}
-	public String getDeparture(){
-		return departure;
+	
+	
+	public void setBusPrice(double bp){
+		this.busPrice=bp;
 	}
-	public String getDestination(){
-		return destination;
-	}
-	public double getPrice(){
-		return price;
+	
+	public double getBusPrice(){
+		return busPrice;
 	}
 }

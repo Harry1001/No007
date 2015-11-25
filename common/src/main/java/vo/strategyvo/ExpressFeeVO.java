@@ -1,56 +1,45 @@
 package vo.strategyvo;
 
+import po.strategypo.ExpressFeePO;
+
 public class ExpressFeeVO extends StrategyVO {
-	private double weight;
-	private double volumn;
-	//private double distance;
-	private String expressType;
-	private String packType;
-	private double price;
-	public ExpressFeeVO(double w,double v,String eType,String pType,double price) {
+	private double economicPrice;//经济快递的单价
+	private double standardPrice;//标准快递的单价
+	private double specialPrice;//次晨特快的单价
+	public ExpressFeeVO(double ep,double stdp,double sp){
 		super("expressFee");
-		// TODO Auto-generated constructor stub
-		this.weight=w;
-		this.volumn=v;
-		//this.distance=dis;
-		this.expressType=eType;
-		this.packType=pType;
-		this.price=price;
+		this.economicPrice=ep;
+		this.standardPrice=stdp;
+		this.specialPrice=sp;
 	}
-	public double getWeight(){
-		return weight;
+	
+	public ExpressFeeVO(ExpressFeePO po){
+		super("expressFee");
+		this.economicPrice=po.getEcoPrice();
+		this.standardPrice=po.getStdPrice();
+		this.specialPrice=po.getSpePrice();
 	}
-	public double getVolumn(){
-		return  volumn;
+	public void setEcoPrice(double ep){
+		this.economicPrice=ep;
 	}
-	/*public double getDistance(){
-		return distance;
-	}*/
-	public String getExpressType(){
-		return expressType;
+	
+	public double getEcoPrice(){
+		return economicPrice;
 	}
-	public String getPackType(){
-		return packType;
+	
+	public void setStdPrice(double stdp){
+		this.standardPrice=stdp;
 	}
-	public double getPrice(){
-		return price;
+	
+	public double getStdPrice(){
+		return standardPrice;
 	}
-	public void setWeight(double w){
-		this.weight= w;
+	
+	public void setSpePrice(double sp){
+		this.specialPrice=sp;
 	}
-	public void setVolumn(double v){
-		this.volumn= v;
-	}
-	/*public void setDistance(double dis){
-		this.distance= dis;
-	}*/
-	public void setExpressType(String eType){
-		this.expressType= eType;
-	}
-	public void setPackType(String pType){
-		this.packType= pType;
-	}
-	public void setPrice(double price){
-		this.price=price;
+	
+	public double getSpePrice(){
+		return specialPrice;
 	}
 }

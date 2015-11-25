@@ -13,6 +13,12 @@ public class ExpressFeePO extends StrategyPO {
 		this.specialPrice=sp;
 	}
 	
+	public ExpressFeePO(ExpressFeeVO vo){
+		super("expressFee");
+		this.economicPrice=vo.getEcoPrice();
+		this.standardPrice=vo.getStdPrice();
+		this.specialPrice=vo.getSpePrice();
+	}
 	public void setEcoPrice(double ep){
 		this.economicPrice=ep;
 	}
@@ -24,5 +30,16 @@ public class ExpressFeePO extends StrategyPO {
 	public void setStdPrice(double stdp){
 		this.standardPrice=stdp;
 	}
-	//public double get
+	
+	public double getStdPrice(){
+		return standardPrice;
+	}
+	
+	public void setSpePrice(double sp){
+		this.specialPrice=sp;
+	}
+	
+	public double getSpePrice(){
+		return specialPrice;
+	}
 }

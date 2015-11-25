@@ -4,19 +4,20 @@ import data.StrategyDataImpl;
 import dataService.StrategyDataService;
 import po.strategypo.SalaryPO;
 import typeDefinition.Job;
-import vo.strategyvo.SalaryVO;
 
 import java.rmi.RemoteException;
 
-public class SalaryStrategyBL extends StrategyBL{
+import businessLogicService.strategyblservice.CalSalaryService;
+
+public class CalSalaryBL extends StrategyBL implements CalSalaryService{
 	StrategyDataService sd;
 	SalaryPO po;
 
-	public SalaryStrategyBL(){
+	public CalSalaryBL(){
 		this(new StrategyDataImpl());
 	}
 
-	public SalaryStrategyBL(StrategyDataService dataService){
+	public CalSalaryBL(StrategyDataService dataService){
 		this.sd=dataService;
 		initPO();
 	}
@@ -39,15 +40,7 @@ public class SalaryStrategyBL extends StrategyBL{
 		return salary;
 		
 	}
-	public void setSalary(SalaryVO vo) {
-		// TODO Auto-generated method stub
-		//SalaryPO po=new SalaryPO(vo);
-	}
-	public SalaryVO getSalary() {
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
+	
 
 	private void initPO(){
 		try{
