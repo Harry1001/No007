@@ -1,8 +1,8 @@
 package businessLogic.logisticbl;
 
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 import businessLogicService.logisticblservice.LogisticBLService;
 import data.LogisticDataImpl;
@@ -34,7 +34,7 @@ public class LogisticBL implements LogisticBLService{
 		ReceiptType type=vo.getType();
 		String orderID=null;
 		String logisticstate=null;
-		Date arrivaltime=new Date();
+		Date arrivaltime=new Date(System.currentTimeMillis());
 		LogisticPO po;
 		switch(type){
 		case SEND:			

@@ -1,6 +1,6 @@
 package vo.infovo;
 
-import java.util.Date;
+import java.sql.Date;
 
 import po.infopo.StaffPO;
 import typeDefinition.InfoType;

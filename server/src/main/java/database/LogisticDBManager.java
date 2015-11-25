@@ -14,16 +14,9 @@ public class LogisticDBManager extends DBManager{
 	public void update(LogisticPO po){
 		String orderID=po.getOrderNum();
 		Date arrivaltime=po.getArrivalTime();
-		int year = arrivaltime.getYear();
-		int month = arrivaltime.getMonth();
-		int day = arrivaltime.getDate();
-		int hour=arrivaltime.getHour();
-		int minute=arrivaltime.getMinute();
-		int second=arrivaltime.getSecond();
 		String logisticState=po.getState();
 		Connection connection=connectToDB();
-		String history="INSERT INTO Logistic VALUES ('"+orderID+"', "+year+", "+month+", "+day+", "
-		+hour+", "+minute+", "+second+", '"+logisticState+"')";
+		String history="INSERT INTO Logistic VALUES ('"+orderID+"', "+arrivaltime+", '"+logisticState+"')";
 		try {
 			Statement statement=connection.createStatement();
 			statement.executeUpdate(history);

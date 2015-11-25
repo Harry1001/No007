@@ -1,7 +1,6 @@
 package po.infopo;
 
-
-import java.util.Date;
+import java.sql.Date;
 
 import po.infopo.InfoPO;
 import typeDefinition.InfoType;

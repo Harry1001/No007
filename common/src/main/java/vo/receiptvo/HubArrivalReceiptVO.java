@@ -1,6 +1,6 @@
 package vo.receiptvo;
 
-import java.util.Date;
+import java.sql.Date;
 
 import po.receiptpo.HubArrivalReceiptPO;
 import typeDefinition.PackArrivalState;

@@ -1,7 +1,7 @@
 package po.commoditypo;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 import typeDefinition.Location;
 
@@ -24,7 +24,7 @@ public class CommodityPO implements Serializable{
 	
 	public CommodityPO(Location loc){
 		expressNumber = null;
-		inTime = new Date();
+		inTime = new Date(System.currentTimeMillis());
 		destination = null;
 		setStoreloc(loc);
 	}
