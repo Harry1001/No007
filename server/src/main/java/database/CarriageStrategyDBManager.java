@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -34,7 +35,7 @@ public class CarriageStrategyDBManager extends DBManager{
 	 * @throws SQLException
 	 */
 	public void updateCarriageStrategy(CarriageFeePO po) throws SQLException{
-		String carriageDelete="TRUNCATE TABLE carriage";
+		String carriageDelete="TRUNCATE TABLE carriagefee";
 		
 		Connection connection=connectToDB();
 		Statement statement=connection.createStatement();
@@ -43,8 +44,19 @@ public class CarriageStrategyDBManager extends DBManager{
 		
 		addCarriageStrategy(po);
 	}
-	
-	/*public CarriageFeePO get(){
-		String 
-	}*/
+	/**
+	 * 获得运费计算的策略
+	 * @return
+	 * @throws SQLException
+	 */
+	public CarriageFeePO get() throws SQLException{
+		String carriageGet="SELECT * FROM carriagefee";
+		Connection connection=connectToDB();
+		Statement statement=connection.createStatement();
+		ResultSet resultset=statement.executeQuery(carriageGet);
+		resultset.next();
+		
+		CarriageFeePO po=new CarriageFeePO(resultset.getDouble(1), resultset.getDouble(2), resultset.getDouble(3));
+		return po;
+	}
 }
