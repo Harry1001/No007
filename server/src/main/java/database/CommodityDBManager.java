@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 import po.commoditypo.CommodityPO;
 import typeDefinition.Location;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 
 public class CommodityDBManager extends DBManager{
 	
 	public void addCommodity(CommodityPO c){
 		String expressNum = c.getExpressNumber();
-		myTime time = c.getInTime();
+		Date time = c.getInTime();
 		int year = time.getYear();
 		int month = time.getMonth();
 		int day = time.getDate();
@@ -88,7 +88,7 @@ public class CommodityDBManager extends DBManager{
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(commodityList);
 			while(resultSet.next()){
-				myTime inTime = new myTime(resultSet.getInt(2), resultSet.getInt(3), resultSet.getInt(4));
+				Date inTime = new Date(resultSet.getInt(2), resultSet.getInt(3), resultSet.getInt(4));
 				Location storeloc = new Location(resultSet.getString(6), resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9), resultSet.getInt(10));
 				CommodityPO commodityPO = new CommodityPO(resultSet.getString(1), inTime, resultSet.getString(5), storeloc);
 				commodity.add(commodityPO);
@@ -126,7 +126,7 @@ public class CommodityDBManager extends DBManager{
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(commoditycheck);
 			while(resultSet.next()){
-				myTime inTime = new myTime(resultSet.getInt(2), resultSet.getInt(3), resultSet.getInt(4));
+				Date inTime = new Date(resultSet.getInt(2), resultSet.getInt(3), resultSet.getInt(4));
 				Location storeloc = new Location(resultSet.getString(6), resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9), resultSet.getInt(10));
 				CommodityPO commodityPO = new CommodityPO(resultSet.getString(1), inTime, resultSet.getString(5), storeloc);
 				c.add(commodityPO);

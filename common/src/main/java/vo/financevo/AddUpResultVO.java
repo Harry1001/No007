@@ -1,11 +1,11 @@
 package vo.financevo;
 
-import typeDefinition.myTime;
+import typeDefinition.Date;
 
 public class AddUpResultVO {
 
 	private String storeNo;
-	private myTime time;
+	private Date time;
 	private double incomesum;
 	public String getStoreNo() {
 		return storeNo;
@@ -13,10 +13,10 @@ public class AddUpResultVO {
 	public void setStoreNo(String storeNo) {
 		this.storeNo = storeNo;
 	}
-	public myTime getTime() {
+	public Date getTime() {
 		return time;
 	}
-	public void setTime(myTime time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 	public double getIncomesum() {

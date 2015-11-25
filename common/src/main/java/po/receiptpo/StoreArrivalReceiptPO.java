@@ -1,19 +1,20 @@
 package po.receiptpo;
 
+import java.util.Date;
+
 import typeDefinition.PackArrivalState;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 import vo.receiptvo.StoreArrivalReceiptVO;
 
 public class StoreArrivalReceiptPO extends ReceiptPO{
 
 	private String orderID;
-	private myTime arriveTime;
+	private Date arriveTime;
     private String transReceiptID;
     private String fromPosition;
     private PackArrivalState arriveState;
 
-    public StoreArrivalReceiptPO(String orderID,myTime time, String transID, String fromPosi, PackArrivalState state) {
+    public StoreArrivalReceiptPO(String orderID,Date time, String transID, String fromPosi, PackArrivalState state) {
         super(ReceiptType.STOREARRIVAL);
         this.orderID=orderID;
         this.arriveTime=time;
@@ -34,11 +35,11 @@ public class StoreArrivalReceiptPO extends ReceiptPO{
 		this.orderID = orderID;
 	}
 
-	public myTime getArriveTime() {
+	public Date getArriveTime() {
         return arriveTime;
     }
 
-    public void setArriveTime(myTime arriveTime) {
+    public void setArriveTime(Date arriveTime) {
         this.arriveTime = arriveTime;
     }
 

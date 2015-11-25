@@ -2,7 +2,7 @@ package businessLogic.receiptbl;
 
 import businessLogicService.receiptblservice.ReceiptBLService;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 import vo.receiptvo.ReceiptVO;
 
 import java.rmi.RemoteException;
@@ -15,8 +15,8 @@ public class ReceiptController implements ReceiptBLService {
 
     private ReceiptBL receiptBL=new ReceiptBL();
 
-    public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime,
-                                                        myTime toTime, ReceiptType type) throws RemoteException {
+    public ArrayList<? extends ReceiptVO> getListByTime(Date fromTime,
+                                                        Date toTime, ReceiptType type) throws RemoteException {
         return receiptBL.getListByTime(fromTime, toTime, type);
     }
 

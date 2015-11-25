@@ -3,7 +3,7 @@ package businessLogicService.receiptblservice;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 import vo.receiptvo.ReceiptVO;
 
 public interface ReceiptBLService {
@@ -11,7 +11,7 @@ public interface ReceiptBLService {
 	/**
 	 * 返回对应时间段内对应type的单据列表
 	 */
-	public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime, myTime toTime,
+	public ArrayList<? extends ReceiptVO> getListByTime(Date fromTime, Date toTime,
 			ReceiptType type) throws RemoteException;
 
 	/**

@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import typeDefinition.FeeType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 import vo.salaryfeevo.SalaryFeeVO;
 import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;
@@ -42,7 +42,7 @@ public interface FinanceBLService {
 	 * @param toTime
 	 * @return 返回该时间段内的所有收款单和付款单数据列表
 	 */
-	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) throws RemoteException;
+	public ArrayList<ReceiptVO> seeRecord(Date fromTime, Date toTime) throws RemoteException;
 
 	/**
 	 * 
@@ -51,7 +51,7 @@ public interface FinanceBLService {
 	 * @param StoreNum
 	 * @return 返回指定营业厅指定日期的收款单数据列表
 	 */
-	public ArrayList<ReceiptVO> checkStore(myTime fromTime, myTime toTime, String StoreNum) throws RemoteException;
+	public ArrayList<ReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException;
 
 	/**
 	 * 前置条件：已经获取收款单数据列表

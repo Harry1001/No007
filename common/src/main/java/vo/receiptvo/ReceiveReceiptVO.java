@@ -1,8 +1,9 @@
 package vo.receiptvo;
 
+import java.util.Date;
+
 import po.receiptpo.ReceiveReceiptPO;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 
 /**
  * Created by Harry on 2015/11/16.
@@ -10,9 +11,9 @@ import typeDefinition.myTime;
 public class ReceiveReceiptVO extends ReceiptVO {
     private String receiveNum;
     private String receiver;
-    private myTime receiveTime;
+    private Date receiveTime;
 
-    public ReceiveReceiptVO(String receiveNum,String receiver,myTime receiveTime) {
+    public ReceiveReceiptVO(String receiveNum,String receiver,Date receiveTime) {
         super(ReceiptType.RECEIVE);
         // TODO Auto-generated constructor stub
         this.setReceiveNum(receiveNum);
@@ -40,11 +41,11 @@ public class ReceiveReceiptVO extends ReceiptVO {
         this.receiver = receiver;
     }
 
-    public myTime getReceiveTime() {
+    public Date getReceiveTime() {
         return receiveTime;
     }
 
-    public void setReceiveTime(myTime receiveTime) {
+    public void setReceiveTime(Date receiveTime) {
         this.receiveTime = receiveTime;
     }
 }

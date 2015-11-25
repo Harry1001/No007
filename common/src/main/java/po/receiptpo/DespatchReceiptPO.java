@@ -1,7 +1,8 @@
 package po.receiptpo;
 
+import java.util.Date;
+
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 import vo.receiptvo.DespatchReceiptVO;
 
 /*
@@ -13,11 +14,11 @@ public class DespatchReceiptPO extends ReceiptPO {
 	
 	private static final long serialVersionUID = 1L;
 
-	private myTime arrivalTime;
+	private Date arrivalTime;
 	private String orderNum;
 	private String despatchMan;
 	
-	public DespatchReceiptPO(myTime arrival,String orderNum,
+	public DespatchReceiptPO(Date arrival,String orderNum,
 			String despatchMan) {
 		super(ReceiptType.DESPATCH);
 		// TODO Auto-generated constructor stub
@@ -30,11 +31,11 @@ public class DespatchReceiptPO extends ReceiptPO {
 		this(vo.getArrivalTime(),vo.getOrderNum(),vo.getDespatchMan());
 	}
 
-	public myTime getArrivalTime() {
+	public Date getArrivalTime() {
 		return arrivalTime;
 	}
 
-	public void setArrivalTime(myTime arrivalTime) {
+	public void setArrivalTime(Date arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 

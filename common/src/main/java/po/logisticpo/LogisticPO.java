@@ -1,15 +1,16 @@
 package po.logisticpo;
 
-import typeDefinition.myTime;
+import java.util.Date;
+
 import vo.logisticvo.LogisticVO;
 
 public class LogisticPO {
 
 	private String orderNum;
-	private myTime arrivalTime;
+	private Date arrivalTime;
 	private String state;
 	
-	public LogisticPO(String orderNum,myTime arrivalTime,
+	public LogisticPO(String orderNum,Date arrivalTime,
 			String state){
 		this.orderNum=orderNum;
 		this.arrivalTime=arrivalTime;
@@ -36,7 +37,7 @@ public class LogisticPO {
 		this.state=state;
 	}
 	
-	public myTime getArrivalTime() {
+	public Date getArrivalTime() {
 		return arrivalTime;
 	}
 

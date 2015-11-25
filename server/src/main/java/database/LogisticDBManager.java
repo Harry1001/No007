@@ -7,13 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import po.logisticpo.LogisticPO;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 
 public class LogisticDBManager extends DBManager{
 
 	public void update(LogisticPO po){
 		String orderID=po.getOrderNum();
-		myTime arrivaltime=po.getArrivalTime();
+		Date arrivaltime=po.getArrivalTime();
 		int year = arrivaltime.getYear();
 		int month = arrivaltime.getMonth();
 		int day = arrivaltime.getDate();
@@ -43,7 +43,7 @@ public class LogisticDBManager extends DBManager{
 			ResultSet resultSet = statement.executeQuery(reader);
 			while(resultSet.next()){
 				String orderID=resultSet.getString(1);
-				myTime arrivaltime=new myTime(resultSet.getInt(2),resultSet.getInt(3),resultSet.getInt(4),
+				Date arrivaltime=new Date(resultSet.getInt(2),resultSet.getInt(3),resultSet.getInt(4),
 						resultSet.getInt(5),resultSet.getInt(6),resultSet.getInt(7));
 				String logisticState=resultSet.getString(8);
 				LogisticPO temppo=new LogisticPO(orderID,arrivaltime,logisticState);

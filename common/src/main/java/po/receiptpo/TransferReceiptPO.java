@@ -1,10 +1,10 @@
 package po.receiptpo;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 import vo.receiptvo.TransferReceiptVO;
 
 public class TransferReceiptPO extends ReceiptPO {
@@ -15,7 +15,7 @@ public class TransferReceiptPO extends ReceiptPO {
 
 
 	private String transferType;//中转方式
-	private myTime transferDate;//中转日期
+	private Date transferDate;//中转日期
 	private String transferID;//中转单编号
 	private String vehicleID;//飞机／铁路）班次或者汽车的车牌号
 	private String departLoc;//出发地
@@ -24,7 +24,7 @@ public class TransferReceiptPO extends ReceiptPO {
 	private ArrayList<String> orderID;//本次装箱所有货物的单号
 	private double transferFee;
 	
-	public TransferReceiptPO(String transferType,myTime transferDate,
+	public TransferReceiptPO(String transferType,Date transferDate,
 			String transferID,String vehicleID,String departLoc,String arriveLoc,
 			int counterID,ArrayList<String> orderID,double transferFee) {
 		super(ReceiptType.TRANSFER);
@@ -53,11 +53,11 @@ public class TransferReceiptPO extends ReceiptPO {
 		this.transferType = transferType;
 	}
 
-	public myTime getTransferDate() {
+	public Date getTransferDate() {
 		return transferDate;
 	}
 
-	public void setTransferDate(myTime transferDate) {
+	public void setTransferDate(Date transferDate) {
 		this.transferDate = transferDate;
 	}
 

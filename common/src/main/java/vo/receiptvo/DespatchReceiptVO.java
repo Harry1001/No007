@@ -1,19 +1,20 @@
 package vo.receiptvo;
 
+import java.util.Date;
+
 import po.receiptpo.DespatchReceiptPO;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 
 /**
  * Created by Harry on 2015/11/15.
  */
 public class DespatchReceiptVO extends ReceiptVO {
 
-    private myTime arrivalTime;
+    private Date arrivalTime;
     private String orderNum;
     private String despatchMan;
 
-    public DespatchReceiptVO(myTime arrival,String orderNum,
+    public DespatchReceiptVO(Date arrival,String orderNum,
                              String despatchMan) {
         super(ReceiptType.DESPATCH);
         // TODO Auto-generated constructor stub
@@ -26,11 +27,11 @@ public class DespatchReceiptVO extends ReceiptVO {
         this(po.getArrivalTime(),po.getOrderNum(),po.getDespatchMan());
     }
 
-    public myTime getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(myTime arrivalTime) {
+    public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 

@@ -1,23 +1,23 @@
 package po.receiptpo;
 
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 import vo.receiptvo.ChargeReceiptVO;
 import vo.receiptvo.ReceiptVO;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Harry on 2015/11/16.
  */
 public class ChargeReceiptPO extends ReceiptPO {
 
-    private myTime chargeTime;//收款日期
+    private Date chargeTime;//收款日期
     private double fee;
     private String courier;//TODO 收款快递员，应该名字和工号都需要，待改进
     private ArrayList<String> orderIDs;//所有订单条形码号
 
-    public ChargeReceiptPO(myTime time, double money, String courier, ArrayList<String> orderList) {
+    public ChargeReceiptPO(Date time, double money, String courier, ArrayList<String> orderList) {
         super(ReceiptType.CHARGE);
         this.chargeTime=time;
         this.fee=money;
@@ -29,11 +29,11 @@ public class ChargeReceiptPO extends ReceiptPO {
         this(vo.getChargeTime(),vo.getFee(),vo.getCourier(),vo.getOrderIDs());
     }
 
-    public myTime getChargeTime() {
+    public Date getChargeTime() {
         return chargeTime;
     }
 
-    public void setChargeTime(myTime chargeTime) {
+    public void setChargeTime(Date chargeTime) {
         this.chargeTime = chargeTime;
     }
 

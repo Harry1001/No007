@@ -1,8 +1,9 @@
 package po.receiptpo;
 
+import java.util.Date;
+
 import typeDefinition.Location;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 import vo.receiptvo.DepotInReceiptVO;
 
 /**
@@ -11,11 +12,11 @@ import vo.receiptvo.DepotInReceiptVO;
 public class DepotInReceiptPO extends ReceiptPO {
 
     private String packID;
-    private myTime inTime;
+    private Date inTime;
     private String destination;
     private Location location;
 
-    public DepotInReceiptPO(String packID, myTime time, String desti, Location loc) {
+    public DepotInReceiptPO(String packID, Date time, String desti, Location loc) {
         super(ReceiptType.DEPOTIN);
         this.packID=packID;
         this.inTime=time;
@@ -35,11 +36,11 @@ public class DepotInReceiptPO extends ReceiptPO {
         this.packID = packID;
     }
 
-    public myTime getInTime() {
+    public Date getInTime() {
         return inTime;
     }
 
-    public void setInTime(myTime inTime) {
+    public void setInTime(Date inTime) {
         this.inTime = inTime;
     }
 

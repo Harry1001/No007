@@ -9,7 +9,7 @@ import dataService.ReceiptDataService;
 import po.receiptpo.*;
 import vo.receiptvo.*;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 
 public class ReceiptBL implements ReceiptBLService{
 
@@ -27,7 +27,7 @@ public class ReceiptBL implements ReceiptBLService{
 	}
 	
 
-	public ArrayList<? extends ReceiptVO> getListByTime(myTime fromTime, myTime toTime,
+	public ArrayList<? extends ReceiptVO> getListByTime(Date fromTime, Date toTime,
 														ReceiptType type) throws RemoteException {
 		//如果起始时间小于终止时间，报错
 		//todo

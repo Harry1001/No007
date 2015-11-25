@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import businessLogicService.commodityblservice.CommodityBLService;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 import vo.commodityvo.CheckResultVO;
 import vo.commodityvo.CommodityVO;
 import vo.receiptvo.ReceiptVO;
@@ -23,7 +23,7 @@ public class CommodityController implements CommodityBLService{
 		return commodityVOs;
 	}
 
-	public CheckResultVO getList(String transferNum, myTime fromTime, myTime toTime) throws RemoteException {
+	public CheckResultVO getList(String transferNum, Date fromTime, Date toTime) throws RemoteException {
 		// TODO Auto-generated method stub
 		CheckResultVO result = commodityBL.getList(transferNum, fromTime, toTime);
 		return result;

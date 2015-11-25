@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import po.receiptpo.ReceiptPO;
 import po.receiptpo.SendReceiptPO;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 
 public class SendReceiptDBManager extends DBManager{
 
-	public ArrayList<SendReceiptPO> getList(myTime fromtime, myTime toTime){
+	public ArrayList<SendReceiptPO> getList(Date fromtime, Date toTime){
 		ArrayList<SendReceiptPO> po=new ArrayList<SendReceiptPO>();
 		String sendReceipt="SELECT * FROM SendReceipt WHERE time = '"+fromtime+"'";
 		

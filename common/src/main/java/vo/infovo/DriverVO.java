@@ -2,7 +2,7 @@ package vo.infovo;
 
 import po.infopo.DriverPO;
 import typeDefinition.InfoType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 
 public class DriverVO extends InfoVO {
 
@@ -10,14 +10,14 @@ private static final long serialVersionUID = 1L;
 	
 	private String driverID;
 	private String name;
-	private myTime birthday;
+	private Date birthday;
 	private String IDNum;	//身份证号
 	private String phoneNum;
 	private String gender;
-	private myTime licenseLimit;//行驶证期限
+	private Date licenseLimit;//行驶证期限
 
-	public DriverVO(String driverID,String name,myTime birthday,
-			String IDNum,String phoneNum,String gender,myTime licenseLimit) {
+	public DriverVO(String driverID,String name,Date birthday,
+			String IDNum,String phoneNum,String gender,Date licenseLimit) {
 		super(InfoType.DRIVER);
 		// TODO Auto-generated constructor stub
 		this.setDriverID(driverID);
@@ -39,11 +39,11 @@ private static final long serialVersionUID = 1L;
 		// TODO Auto-generated constructor stub
 	}
 
-	public myTime getLicenseLimit() {
+	public Date getLicenseLimit() {
 		return licenseLimit;
 	}
 
-	public void setLicenseLimit(myTime licenseLimit) {
+	public void setLicenseLimit(Date licenseLimit) {
 		this.licenseLimit = licenseLimit;
 	}
 
@@ -71,11 +71,11 @@ private static final long serialVersionUID = 1L;
 		IDNum = iDNum;
 	}
 
-	public myTime getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(myTime birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 

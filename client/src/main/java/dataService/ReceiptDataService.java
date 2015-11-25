@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 
 public interface ReceiptDataService {
 	
 	/**
 	 * 按对应type,state,time返回相应ReceiptPO列表
 	 */
-	public ArrayList<ReceiptPO> getList(ReceiptType type, myTime fromTime, myTime toTime) throws RemoteException;
+	public ArrayList<ReceiptPO> getList(ReceiptType type, Date fromTime, Date toTime) throws RemoteException;
 	
 	/**
 	 * 在持久化数据中增加一个po

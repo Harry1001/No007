@@ -8,7 +8,7 @@ import data.LogisticDataImpl;
 import dataService.LogisticDataService;
 import po.logisticpo.LogisticPO;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 import vo.logisticvo.LogisticVO;
 import vo.receiptvo.DespatchReceiptVO;
 import vo.receiptvo.HubArrivalReceiptVO;
@@ -34,7 +34,7 @@ public class LogisticBL implements LogisticBLService{
 		ReceiptType type=vo.getType();
 		String orderID=null;
 		String logisticstate=null;
-		myTime arrivaltime=new myTime();
+		Date arrivaltime=new Date();
 		LogisticPO po;
 		switch(type){
 		case SEND:			

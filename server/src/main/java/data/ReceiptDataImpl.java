@@ -7,12 +7,12 @@ import dataService.ReceiptDataService;
 import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 
 public class ReceiptDataImpl implements ReceiptDataService {
 
 
-	public ArrayList<ReceiptPO> getList(ReceiptType type, myTime fromtime, myTime toTime) throws RemoteException {
+	public ArrayList<ReceiptPO> getList(ReceiptType type, Date fromtime, Date toTime) throws RemoteException {
 		return null;
 	}
 

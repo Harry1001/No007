@@ -1,8 +1,9 @@
 package po.infopo;
 
+import java.util.Date;
+
 import typeDefinition.InfoType;
 import typeDefinition.Job;
-import typeDefinition.myTime;
 import vo.infovo.StaffVO;
 
 public class StaffPO extends InfoPO {
@@ -10,13 +11,13 @@ public class StaffPO extends InfoPO {
 	private String staffID;
 	private String name;
 	private String gender;
-	private myTime birthday;
+	private Date birthday;
 	private Job position;
 	private int basicSalary;
 	private int workFrequency;//只有司机和快递员这项数据有意义，其他人都是0
 	
 	public StaffPO(String staffID,String name,String gender,
-			myTime birthday,Job position,int basicSalary) {
+			Date birthday,Job position,int basicSalary) {
 		super(InfoType.STAFF);
 		// TODO Auto-generated constructor stub
 		this.staffID=staffID;
@@ -71,11 +72,11 @@ public class StaffPO extends InfoPO {
 		this.position = position;
 	}
 
-	public myTime getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(myTime birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 

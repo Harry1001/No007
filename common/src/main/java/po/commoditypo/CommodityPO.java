@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import typeDefinition.Location;
-import typeDefinition.myTime;
 
 
 public class CommodityPO implements Serializable{
@@ -15,7 +14,7 @@ public class CommodityPO implements Serializable{
 	private Location storeloc;//存储位置
 	
 	
-	public CommodityPO(String expressNumber,myTime inTime,
+	public CommodityPO(String expressNumber,Date inTime,
 			String destination,Location storeloc){
 		this.expressNumber=expressNumber;
 		this.inTime=inTime;
@@ -25,7 +24,7 @@ public class CommodityPO implements Serializable{
 	
 	public CommodityPO(Location loc){
 		expressNumber = null;
-		inTime = new myTime();
+		inTime = new Date();
 		destination = null;
 		setStoreloc(loc);
 	}
@@ -34,7 +33,7 @@ public class CommodityPO implements Serializable{
 		return expressNumber;
 	}
 	
-	public myTime getInTime(){
+	public Date getInTime(){
 		return inTime;
 	}
 	

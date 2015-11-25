@@ -10,7 +10,7 @@ import dataService.CommodityDataService;
 import po.commoditypo.CommodityPO;
 import typeDefinition.Location;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 import vo.commodityvo.CheckResultVO;
 import vo.commodityvo.CommodityVO;
 import vo.receiptvo.DepotInReceiptVO;
@@ -42,7 +42,7 @@ public class CommodityBL implements CommodityBLService{
 		return commodityVOs;
 	}
 
-	public CheckResultVO getList(String transferNum, myTime fromTime, myTime toTime) throws RemoteException{
+	public CheckResultVO getList(String transferNum, Date fromTime, Date toTime) throws RemoteException{
 		// TODO Auto-generated method stub
 		CheckResultVO result = new CheckResultVO();
 		ReceiptBL receipt = new ReceiptBL();

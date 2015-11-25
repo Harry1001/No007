@@ -2,7 +2,7 @@ package vo.infovo;
 
 import po.infopo.TruckPO;
 import typeDefinition.InfoType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 import vo.infovo.InfoVO;
 
 public class TruckVO extends InfoVO {
@@ -13,11 +13,11 @@ private static final long serialVersionUID = 1L;
 	private String licenceID;	//车牌号
 	private String engineID;	//发动机号
 	private String chassisID;	//底盘号
-	private myTime buyTime;		//购买时间
+	private Date buyTime;		//购买时间
 	private int serveTime;	//服役时间,以年计算	
 	
 	public TruckVO(String truckID,String licenceID,String engineID,
-			String chassisID,myTime buyTime,int serveTime) {
+			String chassisID,Date buyTime,int serveTime) {
 		super(InfoType.TRUCK);
 		// TODO Auto-generated constructor stub
 		this.setTruckID(truckID);
@@ -64,11 +64,11 @@ private static final long serialVersionUID = 1L;
 		this.chassisID = chassisID;
 	}
 
-	public myTime getBuyTime() {
+	public Date getBuyTime() {
 		return buyTime;
 	}
 
-	public void setBuyTime(myTime buyTime) {
+	public void setBuyTime(Date buyTime) {
 		this.buyTime = buyTime;
 	}
 

@@ -1,18 +1,19 @@
 package vo.commodityvo;
 
+import java.util.Date;
+
 import po.commoditypo.CommodityPO;
 import typeDefinition.Location;
-import typeDefinition.myTime;
 
 public class CommodityVO {
 
 	private String expressNumber;//快递编号
-	private myTime inTime;//入库日期
+	private Date inTime;//入库日期
 	private String destination;//目的地
 	private Location storeloc;//存储位置
 	
 	
-	public CommodityVO(String expressNumber,myTime inTime,
+	public CommodityVO(String expressNumber,Date inTime,
 			String destination,Location storeloc){
 		this.expressNumber=expressNumber;
 		this.inTime=inTime;
@@ -29,7 +30,7 @@ public class CommodityVO {
 	
 	public CommodityVO(Location loc){
 		expressNumber = null;
-		inTime = new myTime();
+		inTime = new Date();
 		destination = null;
 		storeloc = loc;
 	}
@@ -38,7 +39,7 @@ public class CommodityVO {
 		return expressNumber;
 	}
 	
-	public myTime getInTime(){
+	public Date getInTime(){
 		return inTime;
 	}
 	

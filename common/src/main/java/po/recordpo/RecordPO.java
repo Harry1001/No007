@@ -1,15 +1,16 @@
 package po.recordpo;
 
-import typeDefinition.myTime;
+import java.util.Date;
+
 import vo.recordvo.RecordVO;
 
 public class RecordPO {
 
 	private String operation;//操作名称
-	private myTime opeTime;//发生时间
+	private Date opeTime;//发生时间
 	private String operator;//操作人员
 	
-	public RecordPO(String operation,myTime opeTime,String operator){
+	public RecordPO(String operation,Date opeTime,String operator){
 		this.operation=operation;
 		this.opeTime=opeTime;
 		this.operator=operator;
@@ -28,11 +29,11 @@ public class RecordPO {
 		this.operation = operation;
 	}
 
-	public myTime getOpeTime() {
+	public Date getOpeTime() {
 		return opeTime;
 	}
 
-	public void setOpeTime(myTime opeTime) {
+	public void setOpeTime(Date opeTime) {
 		this.opeTime = opeTime;
 	}
 	

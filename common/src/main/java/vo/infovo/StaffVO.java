@@ -3,7 +3,7 @@ package vo.infovo;
 import po.infopo.StaffPO;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 import vo.infovo.InfoVO;
 
 public class StaffVO extends InfoVO {
@@ -11,12 +11,12 @@ public class StaffVO extends InfoVO {
 	private String staffID;//工号
 	private String name;//姓名
 	private String gender;//性别
-	private myTime birthday;
+	private Date birthday;
 	private Job position;//所属部门
 	private int basicSalary;//基本工资
 	private int workFrequency;//只有司机和快递员这项数据有意义，其他人都是0
 	
-	public StaffVO(String staffID, String name, String gender, myTime birthday, Job position
+	public StaffVO(String staffID, String name, String gender, Date birthday, Job position
 			, int basicSalary, int workFrequency) {
 		super(InfoType.STAFF);
 		// TODO Auto-generated constructor stub
@@ -66,11 +66,11 @@ public class StaffVO extends InfoVO {
 		this.position = position;
 	}
 
-	public myTime getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(myTime birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 

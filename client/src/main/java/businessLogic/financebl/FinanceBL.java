@@ -19,7 +19,7 @@ import data.FinanceDataImpl;
 import dataService.FinanceDataService;
 import po.financepo.FinancePO;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
+import typeDefinition.Date;
 import vo.commodityvo.CommodityVO;
 import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;
@@ -36,7 +36,7 @@ import vo.salaryfeevo.SalaryFeeVO;
 public class FinanceBL implements FinanceBLService{
 
 	double incomesum;
-	myTime time;
+	Date time;
 	String storeNo;
 	
 	public void submit(ReceiptVO receiptInputVO) throws RemoteException{
@@ -75,7 +75,7 @@ public class FinanceBL implements FinanceBLService{
 		return salaryList;
 	}
 
-	public ArrayList<ReceiptVO> seeRecord(myTime fromTime, myTime toTime) throws RemoteException{
+	public ArrayList<ReceiptVO> seeRecord(Date fromTime, Date toTime) throws RemoteException{
 		// TODO Auto-generated method stub
 		ReceiptBL receipt = new ReceiptBL();
 		ArrayList<ReceiptVO> charges = (ArrayList<ReceiptVO>)
@@ -87,7 +87,7 @@ public class FinanceBL implements FinanceBLService{
 		return result;
 	}
 
-	public ArrayList<ReceiptVO> checkStore(myTime fromTime, myTime toTime, String StoreNum) throws RemoteException{
+	public ArrayList<ReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException{
 		// TODO Auto-generated method stub																						
 		ReceiptBL receipt = new ReceiptBL();
 		ArrayList<ReceiptVO> charges = (ArrayList<ReceiptVO>)

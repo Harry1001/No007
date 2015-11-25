@@ -1,9 +1,9 @@
 package po.receiptpo;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 import vo.receiptvo.EntruckReceiptVO;
 
 public class EntruckReceiptPO extends ReceiptPO {
@@ -13,14 +13,14 @@ public class EntruckReceiptPO extends ReceiptPO {
 	 */
 
 
-	private myTime entruckDate;//装车日期
+	private Date entruckDate;//装车日期
 	private String transportID;//营业厅／中转中心汽运编号
 	private String arriveLoc;//到达地
 	private String truckID;//车辆代号
 	private ArrayList<String> orderNum;//本次装箱所有订单条形码号
 	private double transportFee;//运费
 	
-	public EntruckReceiptPO(myTime entruckDate,String transportID,String arriveLoc,
+	public EntruckReceiptPO(Date entruckDate,String transportID,String arriveLoc,
 			String truckID,ArrayList<String> orderNum,double transportFee) {
 		super(ReceiptType.ENTRUCK);
 		// TODO Auto-generated constructor stub
@@ -37,11 +37,11 @@ public class EntruckReceiptPO extends ReceiptPO {
 				vo.getTruckID(),vo.getOrderNum(),vo.getTransportFee());
 	}
 
-	public myTime getEntruckDate() {
+	public Date getEntruckDate() {
 		return entruckDate;
 	}
 
-	public void setEntruckDate(myTime entruckDate) {
+	public void setEntruckDate(Date entruckDate) {
 		this.entruckDate = entruckDate;
 	}
 

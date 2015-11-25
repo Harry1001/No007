@@ -1,21 +1,22 @@
 package vo.receiptvo;
 
+import java.util.Date;
+
 import po.receiptpo.DepotOutReceiptPO;
 import typeDefinition.ReceiptType;
 import typeDefinition.Vehicle;
-import typeDefinition.myTime;
 
 /**
  * Created by Harry on 2015/11/16.
  */
 public class DepotOutReceiptVO extends ReceiptVO {
     private String packID;
-    private myTime outTime;
+    private Date outTime;
     private String destination;
     private Vehicle vehicle;//装运形式
     private String transID;//中转单编号或者汽运编号
 
-    public DepotOutReceiptVO(String packID, myTime time, String desti, Vehicle ve, String transID) {
+    public DepotOutReceiptVO(String packID, Date time, String desti, Vehicle ve, String transID) {
         super(ReceiptType.DEPOTOUT);
         this.packID=packID;
         this.outTime=time;
@@ -36,11 +37,11 @@ public class DepotOutReceiptVO extends ReceiptVO {
         this.packID = packID;
     }
 
-    public myTime getOutTime() {
+    public Date getOutTime() {
         return outTime;
     }
 
-    public void setOutTime(myTime outTime) {
+    public void setOutTime(Date outTime) {
         this.outTime = outTime;
     }
 

@@ -1,9 +1,10 @@
 package vo.receiptvo;
 
+import java.util.Date;
+
 import po.receiptpo.HubArrivalReceiptPO;
 import typeDefinition.PackArrivalState;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 
 /**
  * Created by Harry on 2015/11/16.
@@ -12,12 +13,12 @@ public class HubArrivalReceiptVO extends ReceiptVO {
     
 	private String orderID;
 	private String hubID;
-    private myTime arriveTime;
+    private Date arriveTime;
     private  String transReceiptID;
     private  String fromPosition;
     private PackArrivalState arriveState;
 
-    public HubArrivalReceiptVO(String orderID,String hubID, myTime arriveTime, String transReceiptID,
+    public HubArrivalReceiptVO(String orderID,String hubID, Date arriveTime, String transReceiptID,
                                String fromPosition, PackArrivalState state) {
         super(ReceiptType.HUBARRIVAL);
         this.orderID=orderID;
@@ -49,11 +50,11 @@ public class HubArrivalReceiptVO extends ReceiptVO {
         this.hubID = hubID;
     }
 
-    public myTime getArriveTime() {
+    public Date getArriveTime() {
         return arriveTime;
     }
 
-    public void setArriveTime(myTime arriveTime) {
+    public void setArriveTime(Date arriveTime) {
         this.arriveTime = arriveTime;
     }
 

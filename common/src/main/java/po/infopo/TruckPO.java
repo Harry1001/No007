@@ -1,9 +1,10 @@
 package po.infopo;
 
 
+import java.util.Date;
+
 import po.infopo.InfoPO;
 import typeDefinition.InfoType;
-import typeDefinition.myTime;
 import vo.infovo.TruckVO;
 
 public class TruckPO extends InfoPO {
@@ -14,11 +15,11 @@ public class TruckPO extends InfoPO {
 	private String licenceID;	//车牌号
 	private String engineID;	//发动机号
 	private String chassisID;	//底盘号
-	private myTime buyTime;		//购买时间
+	private Date buyTime;		//购买时间
 	private int serveTime;	//服役时间,以年计算	
 	
 	public TruckPO(String truckID,String licenceID,String engineID,
-			String chassisID,myTime buyTime,int serveTime) {
+			String chassisID,Date buyTime,int serveTime) {
 		super(InfoType.TRUCK);
 		// TODO Auto-generated constructor stub
 		this.setTruckID(truckID);
@@ -65,11 +66,11 @@ public class TruckPO extends InfoPO {
 		this.chassisID = chassisID;
 	}
 
-	public myTime getBuyTime() {
+	public Date getBuyTime() {
 		return buyTime;
 	}
 
-	public void setBuyTime(myTime buyTime) {
+	public void setBuyTime(Date buyTime) {
 		this.buyTime = buyTime;
 	}
 

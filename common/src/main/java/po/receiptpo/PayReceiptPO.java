@@ -1,8 +1,9 @@
 package po.receiptpo;
 
+import java.util.Date;
+
 import typeDefinition.FeeType;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 import vo.receiptvo.PayReceiptVO;
 
 /**
@@ -10,13 +11,13 @@ import vo.receiptvo.PayReceiptVO;
  */
 public class PayReceiptPO extends ReceiptPO {
 
-    private myTime payTime;
+    private Date payTime;
     private double fee;
     private String payMan;//付款人
     private String payAccount;//付款帐号
     private FeeType payType;//付款条目
 
-    public PayReceiptPO(myTime time, double money, String man, String account, FeeType type) {
+    public PayReceiptPO(Date time, double money, String man, String account, FeeType type) {
         super(ReceiptType.PAY);
         this.payTime=time;
         this.fee=money;
@@ -29,11 +30,11 @@ public class PayReceiptPO extends ReceiptPO {
         this(vo.getPayTime(),vo.getFee(),vo.getPayMan(),vo.getPayAccount(),vo.getPayType());
     }
 
-    public myTime getPayTime() {
+    public Date getPayTime() {
         return payTime;
     }
 
-    public void setPayTime(myTime payTime) {
+    public void setPayTime(Date payTime) {
         this.payTime = payTime;
     }
 

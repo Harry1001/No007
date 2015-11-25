@@ -3,7 +3,7 @@ package businessLogicService.commodityblservice;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import typeDefinition.myTime;
+import typeDefinition.Date;
 import vo.commodityvo.CheckResultVO;
 import vo.commodityvo.CommodityVO;
 import vo.receiptvo.ReceiptVO;
@@ -14,7 +14,7 @@ public interface CommodityBLService {
 	
 	public ArrayList<CommodityVO> getList(String transferNum);
 	
-	public CheckResultVO getList(String transferNum,myTime fromTime,myTime toTime) throws RemoteException;
+	public CheckResultVO getList(String transferNum,Date fromTime,Date toTime) throws RemoteException;
 	
 	public ArrayList<CommodityVO> getTotal();
 	
