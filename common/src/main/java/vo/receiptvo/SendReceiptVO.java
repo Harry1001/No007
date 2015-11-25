@@ -1,8 +1,9 @@
 package vo.receiptvo;
 
+import java.util.Date;
+
 import po.receiptpo.SendReceiptPO;
 import typeDefinition.ReceiptType;
-import typeDefinition.myTime;
 import vo.receiptvo.ReceiptVO;
 
 public class SendReceiptVO extends ReceiptVO {
@@ -29,12 +30,12 @@ public class SendReceiptVO extends ReceiptVO {
 	private String pack;//包装种类
 	private String expressNumber;//订单条形码号
 	private double money=-1.0;//金额初始值为-1用于提交时检查是否点击了计算费用按钮
-	private myTime predictTime;//预计到达时间
+	private Date time;//预计到达时间
 	
 	public SendReceiptVO(String senderName,String senderLoc,String senderUnit,String senderPhone,
 			String receiverName,String receiverLoc,String receiverUnit,String receiverPhone, int number,
 			double weight, double volume, String name, String expressType, String pack,
-			String expressNumber,double money, myTime predictTime) {
+			String expressNumber,double money, Date time) {
 		super(ReceiptType.SEND);
 		// TODO Auto-generated constructor stub
 		this.setSenderName(senderName);
@@ -53,7 +54,7 @@ public class SendReceiptVO extends ReceiptVO {
 		this.setPack(pack);
 		this.setExpressNumber(expressNumber);
 		this.setMoney(money);
-		this.setPredictTime(predictTime);
+		this.setTime(time);
 	}
 
 	public SendReceiptVO(SendReceiptPO v){
@@ -182,12 +183,12 @@ public class SendReceiptVO extends ReceiptVO {
 		this.name = name;
 	}
 
-	public myTime getPredictTime() {
-		return predictTime;
+	public Date getTime() {
+		return time;
 	}
 
-	public void setPredictTime(myTime predictTime) {
-		this.predictTime = predictTime;
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 	public double getMoney() {

@@ -2,6 +2,7 @@ package database;
 
 import java.util.ArrayList;
 
+import po.receiptpo.ReceiptPO;
 import po.receiptpo.SendReceiptPO;
 import typeDefinition.myTime;
 
@@ -13,4 +14,13 @@ public class SendReceiptDBManager extends DBManager{
 		
 		return po;
 	}
+	
+	public void addItem(ReceiptPO item){
+		
+	}
+	
+	public void deleteAll(){
+		
+	}
+	
 }
