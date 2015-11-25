@@ -1,8 +1,9 @@
 package vo.infovo;
 
+import java.util.Date;
+
 import po.infopo.DriverPO;
 import typeDefinition.InfoType;
-import typeDefinition.Date;
 
 public class DriverVO extends InfoVO {
 

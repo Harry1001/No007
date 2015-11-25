@@ -1,8 +1,9 @@
 package vo.infovo;
 
+import java.util.Date;
+
 import po.infopo.TruckPO;
 import typeDefinition.InfoType;
-import typeDefinition.Date;
 import vo.infovo.InfoVO;
 
 public class TruckVO extends InfoVO {

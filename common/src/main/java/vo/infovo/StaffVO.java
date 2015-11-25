@@ -1,9 +1,10 @@
 package vo.infovo;
 
+import java.util.Date;
+
 import po.infopo.StaffPO;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
-import typeDefinition.Date;
 import vo.infovo.InfoVO;
 
 public class StaffVO extends InfoVO {
