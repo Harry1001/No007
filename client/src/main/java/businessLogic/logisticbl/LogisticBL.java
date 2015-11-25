@@ -2,13 +2,13 @@ package businessLogic.logisticbl;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import businessLogicService.logisticblservice.LogisticBLService;
 import data.LogisticDataImpl;
 import dataService.LogisticDataService;
 import po.logisticpo.LogisticPO;
 import typeDefinition.ReceiptType;
-import typeDefinition.Date;
 import vo.logisticvo.LogisticVO;
 import vo.receiptvo.DespatchReceiptVO;
 import vo.receiptvo.HubArrivalReceiptVO;

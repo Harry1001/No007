@@ -30,14 +30,13 @@ public class SendReceiptVO extends ReceiptVO {
 	private String pack;//包装种类
 	private String expressNumber;//订单条形码号
 	private double money=-1.0;//金额初始值为-1用于提交时检查是否点击了计算费用按钮
-	private Date time;//预计到达时间
+	private Date time;//到达时间
 	
 	public SendReceiptVO(String senderName,String senderLoc,String senderUnit,String senderPhone,
 			String receiverName,String receiverLoc,String receiverUnit,String receiverPhone, int number,
 			double weight, double volume, String name, String expressType, String pack,
 			String expressNumber,double money, Date time) {
 		super(ReceiptType.SEND);
-		// TODO Auto-generated constructor stub
 		this.setSenderName(senderName);
 		this.setSenderLoc(senderLoc);
 		this.setSenderUnit(senderUnit);
@@ -60,7 +59,7 @@ public class SendReceiptVO extends ReceiptVO {
 	public SendReceiptVO(SendReceiptPO v){
 		this(v.getSenderName(),v.getSenderLoc(),v.getSenderUnit(),v.getSenderPhone(),v.getReceiverName(),
 				v.getReceiverLoc(),v.getReceiverUnit(),v.getReceiverPhone(),v.getNumber(),v.getWeight(),v.getVolume(),
-				v.getName(),v.getExpressType(),v.getPack(),v.getExpressNumber(),v.getMoney(),v.getPredictTime());
+				v.getName(),v.getExpressType(),v.getPack(),v.getExpressNumber(),v.getMoney(),v.getTime());
 	}
 
 	public String getSenderName() {

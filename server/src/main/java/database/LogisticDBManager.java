@@ -2,12 +2,12 @@ package database;
 
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import po.logisticpo.LogisticPO;
-import typeDefinition.Date;
 
 public class LogisticDBManager extends DBManager{
 
