@@ -31,4 +31,7 @@ public class Images {
     public static final ImageIcon AGENCY_IMAGE=createIcon("ImageFiles/agency.png");
     public static final ImageIcon RECORD_IMAGE=createIcon("ImageFiles/record.png");
     public static final ImageIcon BAOBIAO_IMAGE=createIcon("ImageFiles/baobiao.png");
+    public static final ImageIcon SEND_IMAGE=createIcon("ImageFiles/send.png");
+    public static final ImageIcon RECEIVE_IMAGE=createIcon("ImageFiles/receive.png");
+
 }

@@ -19,5 +19,6 @@ public class StaffPanel extends JPanel {
        staffVOs=staffBLService.getStaffList();//may throw RemoteException
 
        String [] names={"工号","姓名","性别","出生年月","职位"};
+
     }
 }

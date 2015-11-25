@@ -19,7 +19,9 @@ public class UserPanel extends JPanel {
 
         JButton logout=new JButton("退出 ");
 
-        gbc.insets=new Insets(10, 10,10,0);
+        gbc.insets=new Insets(10, 10,10,20);
+       // gbc.fill=GridBagConstraints.BOTH;
+        gbc.anchor=GridBagConstraints.NORTH;
         gbc.gridx=0;
         gbc.gridy=0;
         gbc.gridheight=2;
@@ -27,7 +29,7 @@ public class UserPanel extends JPanel {
 
         gbc.gridx=1;
         gbc.gridy=0;
-        gbc.anchor=GridBagConstraints.NORTH;
+
         this.add(welcome,gbc);
         gbc.gridy=1;
         gbc.anchor=GridBagConstraints.SOUTH;
@@ -36,5 +38,6 @@ public class UserPanel extends JPanel {
         gbc.gridx=0;
         gbc.gridy=2;
         this.add(logout,gbc);
+        this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
     }
 }
