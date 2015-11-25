@@ -1,6 +1,7 @@
 package po.commoditypo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import typeDefinition.Location;
 import typeDefinition.myTime;
@@ -9,7 +10,7 @@ import typeDefinition.myTime;
 public class CommodityPO implements Serializable{
 
 	private String expressNumber;//快递编号
-	private myTime inTime;//入库日期
+	private Date inTime;//入库日期
 	private String destination;//目的地
 	private Location storeloc;//存储位置
 	
