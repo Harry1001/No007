@@ -1,5 +1,6 @@
 package vo.recordvo;
 
+import po.recordpo.RecordPO;
 import typeDefinition.myTime;
 
 public class RecordVO {
@@ -12,6 +13,12 @@ public class RecordVO {
 		this.operation=operation;
 		this.opeTime=opeTime;
 		this.operator=operator;
+	}
+
+	public RecordVO(RecordPO po){
+		this.operation=po.getOperation();
+		this.opeTime=po.getOpeTime();
+		this.operator=po.getOperator();
 	}
 
 	public String getOperation() {
