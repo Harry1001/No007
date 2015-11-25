@@ -1,11 +1,10 @@
 package businessLogic.financebl;
 
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import businessLogicService.financeblservice.FinanceBLService;
-import typeDefinition.FeeType;
-import typeDefinition.Date;
 import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;

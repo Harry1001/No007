@@ -2,15 +2,10 @@ package businessLogic.infobl.bl;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.sql.*;
-import businessLogicService.infoblservice.InfoBLService;
 import dataService.InfoDataService;
 import myexceptions.InfoBLException;
 import po.infopo.InfoPO;
 import typeDefinition.InfoType;
-import typeDefinition.Job;
-import vo.infovo.InfoVO;
 
 public abstract class InfoBL {
 	

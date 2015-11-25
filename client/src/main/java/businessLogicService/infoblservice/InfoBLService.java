@@ -2,8 +2,6 @@ package businessLogicService.infoblservice;
 
 import java.util.ArrayList;
 
-import typeDefinition.InfoType;
-import typeDefinition.Job;
 import vo.infovo.InfoVO;
 
 public interface InfoBLService {

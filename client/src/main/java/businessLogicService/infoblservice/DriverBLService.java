@@ -4,7 +4,6 @@ package businessLogicService.infoblservice;
 import myexceptions.InfoBLException;
 import vo.infovo.DriverVO;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 

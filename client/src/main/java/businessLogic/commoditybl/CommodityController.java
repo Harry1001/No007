@@ -1,10 +1,10 @@
 package businessLogic.commoditybl;
 
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import businessLogicService.commodityblservice.CommodityBLService;
-import typeDefinition.Date;
 import vo.commodityvo.CheckResultVO;
 import vo.commodityvo.CommodityVO;
 import vo.receiptvo.ReceiptVO;

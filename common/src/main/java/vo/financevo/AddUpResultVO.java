@@ -1,6 +1,6 @@
 package vo.financevo;
 
-import typeDefinition.Date;
+import java.sql.Date;
 
 public class AddUpResultVO {
 

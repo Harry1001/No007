@@ -1,6 +1,6 @@
 package vo.recordvo;
 
-import java.util.Date;
+import java.sql.Date;
 
 import po.recordpo.RecordPO;
 

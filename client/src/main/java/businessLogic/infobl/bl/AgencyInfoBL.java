@@ -6,8 +6,6 @@ import myexceptions.InfoBLException;
 import po.infopo.AgencyPO;
 import typeDefinition.InfoType;
 import vo.infovo.AgencyVO;
-import vo.infovo.InfoVO;
-
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 

@@ -1,12 +1,11 @@
 package dataService;
 
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import po.receiptpo.ReceiptPO;
-import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
-import typeDefinition.Date;
 
 public interface ReceiptDataService {
 	

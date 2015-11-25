@@ -1,12 +1,10 @@
 package businessLogic.infobl.bl;
 
-import businessLogicService.infoblservice.TruckBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
 import myexceptions.InfoBLException;
 import po.infopo.TruckPO;
 import typeDefinition.InfoType;
-import vo.infovo.InfoVO;
 import vo.infovo.TruckVO;
 
 import java.rmi.RemoteException;

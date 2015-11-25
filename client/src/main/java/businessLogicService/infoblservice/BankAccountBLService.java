@@ -1,7 +1,6 @@
 package businessLogicService.infoblservice;
 
 import myexceptions.InfoBLException;
-import vo.infovo.AgencyVO;
 import vo.infovo.BankAccountVO;
 
 import java.rmi.RemoteException;

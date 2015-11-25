@@ -2,10 +2,9 @@ package po.receiptpo;
 
 import typeDefinition.ReceiptType;
 import vo.receiptvo.ChargeReceiptVO;
-import vo.receiptvo.ReceiptVO;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Harry on 2015/11/16.

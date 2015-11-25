@@ -1,6 +1,6 @@
 package vo.commodityvo;
 
-import java.util.Date;
+import java.sql.Date;
 
 import po.commoditypo.CommodityPO;
 import typeDefinition.Location;
@@ -30,7 +30,7 @@ public class CommodityVO {
 	
 	public CommodityVO(Location loc){
 		expressNumber = null;
-		inTime = new Date();
+		inTime = new Date(System.currentTimeMillis());
 		destination = null;
 		storeloc = loc;
 	}

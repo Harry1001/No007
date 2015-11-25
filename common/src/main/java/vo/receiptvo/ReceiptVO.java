@@ -2,7 +2,6 @@ package vo.receiptvo;
 
 import java.io.Serializable;
 
-import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 
 /**

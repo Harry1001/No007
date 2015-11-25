@@ -1,6 +1,7 @@
 package businessLogic.commoditybl;
 
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import businessLogic.receiptbl.ReceiptBL;
@@ -10,7 +11,6 @@ import dataService.CommodityDataService;
 import po.commoditypo.CommodityPO;
 import typeDefinition.Location;
 import typeDefinition.ReceiptType;
-import typeDefinition.Date;
 import vo.commodityvo.CheckResultVO;
 import vo.commodityvo.CommodityVO;
 import vo.receiptvo.DepotInReceiptVO;

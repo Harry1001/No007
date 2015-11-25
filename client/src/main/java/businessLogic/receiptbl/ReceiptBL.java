@@ -1,6 +1,7 @@
 package businessLogic.receiptbl;
 
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import businessLogicService.receiptblservice.ReceiptBLService;
@@ -9,7 +10,6 @@ import dataService.ReceiptDataService;
 import po.receiptpo.*;
 import vo.receiptvo.*;
 import typeDefinition.ReceiptType;
-import typeDefinition.Date;
 
 public class ReceiptBL implements ReceiptBLService{
 

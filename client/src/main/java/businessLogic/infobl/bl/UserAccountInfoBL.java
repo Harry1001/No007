@@ -1,13 +1,11 @@
 package businessLogic.infobl.bl;
 
-import businessLogicService.infoblservice.UserAccoutBLService;
 import data.InfoDataImpl;
 import dataService.InfoDataService;
 import myexceptions.InfoBLException;
 import po.infopo.UserAccountPO;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
-import vo.infovo.InfoVO;
 import vo.infovo.UserAccountVO;
 
 import java.rmi.RemoteException;

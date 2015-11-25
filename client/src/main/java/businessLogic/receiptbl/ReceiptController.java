@@ -2,10 +2,10 @@ package businessLogic.receiptbl;
 
 import businessLogicService.receiptblservice.ReceiptBLService;
 import typeDefinition.ReceiptType;
-import typeDefinition.Date;
 import vo.receiptvo.ReceiptVO;
 
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
