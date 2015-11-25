@@ -3,24 +3,31 @@ package test;
 import static org.junit.Assert.*;
 
 import java.rmi.RemoteException;
+import java.sql.Date;
+import java.sql.SQLException;
 
 import org.junit.Test;
 
 import data.CommodityDataImpl;
 import po.commoditypo.CommodityPO;
 import typeDefinition.Location;
-import typeDefinition.Date;
 
 public class TestCommodityDataImpl {
 
 	@Test
 	public void test() {
-		Date inTime = new Date(2015, 11, 20);
+		Date inTime = new Date(System.currentTimeMillis());
 		Location location = new Location("0251", 1, 2, 5, 24);
-		CommodityPO commodityPO = new CommodityPO("100000005", inTime, "江苏省南京市鼓楼区南京大学", location);
+		CommodityPO commodityPO = new CommodityPO("100000025", inTime, "江苏省南京市鼓楼区南京大学", location);
 		CommodityDataImpl commodityDataImpl = new CommodityDataImpl();
 		try {
-			commodityDataImpl.delete("100000005");
+			try {
+				commodityDataImpl.add(commodityPO);
+				commodityDataImpl.delete("100000000");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

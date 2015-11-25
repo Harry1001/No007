@@ -1,7 +1,8 @@
 package database;
 
 import java.sql.Connection;
-//import java.sql.PreparedStatement;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,16 +10,12 @@ import java.util.ArrayList;
 
 import po.commoditypo.CommodityPO;
 import typeDefinition.Location;
-import typeDefinition.Date;
 
 public class CommodityDBManager extends DBManager{
 	
-	public void addCommodity(CommodityPO c){
+	public void addCommodity(CommodityPO c) throws SQLException{
 		String expressNum = c.getExpressNumber();
 		Date time = c.getInTime();
-		int year = time.getYear();
-		int month = time.getMonth();
-		int day = time.getDate();
 		String desination = c.getDestination();
 		Location location = c.getStoreloc();
 		String transferNum = location.getTransferNum();
@@ -26,35 +23,19 @@ public class CommodityDBManager extends DBManager{
 		int rowID = location.getRowID();
 		int shelfID = location.getShelfID();
 		int postID = location.getPostID();
-		String commodityInsert = 
-				"INSERT INTO Commodity"
-				+ " VALUES ('"+ expressNum +"', "+year+", "+month+", "+day+", '"+desination+"', "
-				+ "'"+transferNum+"', "+regionID+", "+rowID+", "+shelfID+", "+postID+")";
-//		String commodityInsert = "INSERT INTO Commodity"
-//				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String commodityInsert = "INSERT INTO Commodity"
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection connection = connectToDB();
-		try {
-			Statement statement = connection.createStatement();
-			statement.executeUpdate(commodityInsert);
-//			PreparedStatement statement = connection.prepareStatement(commodityInsert);
-//			statement.setString(1, expressNum);
-//			statement.setInt(2, year);
-//			statement.setInt(3, month);
-//			statement.setInt(4, day);
-//			statement.setString(5, desination);
-//			statement.setString(6, transferNum);
-//			statement.setInt(7, regionID);
-//			statement.setInt(8, rowID);
-//			statement.setInt(9, shelfID);
-//			statement.setInt(10, postID);
-//			statement.executeUpdate();
-		} catch(com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException e){
-			System.out.println("该位置已经存放货物");
-		}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+		PreparedStatement statement = connection.prepareStatement(commodityInsert);
+		statement.setString(1, expressNum);
+		statement.setDate(2, time);;
+		statement.setString(3, desination);
+		statement.setString(4, transferNum);
+		statement.setInt(5, regionID);
+		statement.setInt(6, rowID);
+		statement.setInt(7, shelfID);
+		statement.setInt(8, postID);
+		statement.executeUpdate();
 		stopconnection(connection);
 	}
 	
@@ -62,14 +43,9 @@ public class CommodityDBManager extends DBManager{
 		String commodityDelete =
 				"DELETE FROM Commodity"
 				+ " WHERE expressNumber = '"+expressNum + "'";
-//		String commodityDelete =
-//				"DELETE FROM Commodity"
-//				+ " WHERE expressNumber = ?";
 		Connection connection = connectToDB();
 		try {
 			Statement statement = connection.createStatement();
-//			PreparedStatement statement = connection.prepareStatement(commodityDelete);
-//			statement.setString(1, expressNum);
 			int i = statement.executeUpdate(commodityDelete);
 			System.out.println(i + " rows have been changed.");
 		} catch (SQLException e) {
@@ -79,61 +55,49 @@ public class CommodityDBManager extends DBManager{
 		stopconnection(connection);		
 	}
 	
-	public ArrayList<CommodityPO> getAll(){
+	public ArrayList<CommodityPO> getAll() throws SQLException{
 		ArrayList<CommodityPO> commodity = new ArrayList<CommodityPO>();
 		String commodityList =
 				"Select * FROM Commodity";
 		Connection connection = connectToDB();
-		try {
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(commodityList);
-			while(resultSet.next()){
-				Date inTime = new Date(resultSet.getInt(2), resultSet.getInt(3), resultSet.getInt(4));
-				Location storeloc = new Location(resultSet.getString(6), resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9), resultSet.getInt(10));
-				CommodityPO commodityPO = new CommodityPO(resultSet.getString(1), inTime, resultSet.getString(5), storeloc);
-				commodity.add(commodityPO);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(commodityList);
+		while(resultSet.next()){
+			Date inTime = resultSet.getDate(2);
+			Location storeloc = new Location(resultSet.getString(4), resultSet.getInt(5),
+							resultSet.getInt(6), resultSet.getInt(7), resultSet.getInt(8));
+			CommodityPO commodityPO = new CommodityPO(resultSet.getString(1), inTime, 
+							resultSet.getString(3), storeloc);
+			commodity.add(commodityPO);
 		}
 		stopconnection(connection);
 		return commodity;
 	}
 
-	public void clear(String transferNum){
+	public void clear(String transferNum) throws SQLException{
 		String commodityclear =
 				"DELETE FROM Commodity"
 				+ " WHERE transferNum = '"+transferNum+"'";
 		Connection connection = connectToDB();
-		try {
-			Statement statement = connection.createStatement();
-			statement.executeUpdate(commodityclear);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Statement statement = connection.createStatement();
+		statement.executeUpdate(commodityclear);
 		stopconnection(connection);
 	}
 	
-	public ArrayList<CommodityPO> getByTransferNum(String transferNum){
+	public ArrayList<CommodityPO> getByTransferNum(String transferNum) throws SQLException{
 		ArrayList<CommodityPO> c = new ArrayList<CommodityPO>();
 		String commoditycheck =
 				"SELECT * FROM Commodity"
 				+ " WHERE transferNum = '"+transferNum+"'";
 		Connection connection = connectToDB();
-		try {
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(commoditycheck);
-			while(resultSet.next()){
-				Date inTime = new Date(resultSet.getInt(2), resultSet.getInt(3), resultSet.getInt(4));
-				Location storeloc = new Location(resultSet.getString(6), resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9), resultSet.getInt(10));
-				CommodityPO commodityPO = new CommodityPO(resultSet.getString(1), inTime, resultSet.getString(5), storeloc);
-				c.add(commodityPO);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(commoditycheck);
+		while(resultSet.next()){
+			Date inTime = resultSet.getDate(2);
+			Location storeloc = new Location(resultSet.getString(4), resultSet.getInt(5),
+								resultSet.getInt(6), resultSet.getInt(7), resultSet.getInt(8));
+			CommodityPO commodityPO = new CommodityPO(resultSet.getString(1), inTime, resultSet.getString(3), storeloc);
+			c.add(commodityPO);
 		}
 		stopconnection(connection);
 		return c;
