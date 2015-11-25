@@ -7,13 +7,15 @@ import vo.receiptvo.StoreArrivalReceiptVO;
 
 public class StoreArrivalReceiptPO extends ReceiptPO{
 
-    private myTime arriveTime;
+	private String orderID;
+	private myTime arriveTime;
     private String transReceiptID;
     private String fromPosition;
     private PackArrivalState arriveState;
 
-    public StoreArrivalReceiptPO(myTime time, String transID, String fromPosi, PackArrivalState state) {
+    public StoreArrivalReceiptPO(String orderID,myTime time, String transID, String fromPosi, PackArrivalState state) {
         super(ReceiptType.STOREARRIVAL);
+        this.orderID=orderID;
         this.arriveTime=time;
         this.transReceiptID=transID;
         this.fromPosition=fromPosi;
@@ -21,10 +23,18 @@ public class StoreArrivalReceiptPO extends ReceiptPO{
     }
 
     public StoreArrivalReceiptPO(StoreArrivalReceiptVO vo){
-        this(vo.getArriveTime(),vo.getTransReceiptID(),vo.getFromPosition(),vo.getArriveState());
+        this(vo.getOrderID(),vo.getArriveTime(),vo.getTransReceiptID(),vo.getFromPosition(),vo.getArriveState());
     }
 
-    public myTime getArriveTime() {
+    public String getOrderID() {
+		return orderID;
+	}
+
+	public void setOrderID(String orderID) {
+		this.orderID = orderID;
+	}
+
+	public myTime getArriveTime() {
         return arriveTime;
     }
 

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.HubArrivalReceiptVO;
@@ -22,7 +23,6 @@ public class ArriveHubBL{
 		try {
 			date=format.parse(s1.substring(4,12));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(date==null){
@@ -34,6 +34,8 @@ public class ArriveHubBL{
 	public void submit(HubArrivalReceiptVO vo) throws RemoteException {
 		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
+		LogisticBLService logisticblservice=BLFactory.getLogisticBLService();
+		logisticblservice.update(vo);
 	}
 	
 }

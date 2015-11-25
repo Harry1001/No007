@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import blfactory.BLFactory;
-import businessLogic.strategybl.StrategyBL;
-import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
 import businessLogicService.strategyblservice.CalCarriageService;
 import myexceptions.TransportBLException;
@@ -40,7 +38,6 @@ public class EntruckBL{
 			try {
 				date=format.parse(temp);
 			} catch (ParseException e) {
-				// TODO
 				e.printStackTrace();
 			}
 			if(date==null){
@@ -52,7 +49,6 @@ public class EntruckBL{
 			try {
 				date=format.parse(temp);
 			} catch (ParseException e) {
-				// TODO
 				e.printStackTrace();
 			}
 			if(date==null){
@@ -65,12 +61,9 @@ public class EntruckBL{
 	public void submit(EntruckReceiptVO vo) throws RemoteException {
 		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
-		LogisticBLService logisticblservice=BLFactory.getLogisticBLService();
-		logisticblservice.update(vo);
 	}
 	
 	public double calFee(EntruckReceiptVO vo) throws RemoteException{
-		//TODO
 		CalCarriageService strategybl=BLFactory.getCalCarriageService();
 		return strategybl.calCarriage(vo);
 	}

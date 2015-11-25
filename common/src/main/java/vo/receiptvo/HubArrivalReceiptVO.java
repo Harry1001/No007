@@ -9,15 +9,18 @@ import typeDefinition.myTime;
  * Created by Harry on 2015/11/16.
  */
 public class HubArrivalReceiptVO extends ReceiptVO {
-    private String hubID;
+    
+	private String orderID;
+	private String hubID;
     private myTime arriveTime;
     private  String transReceiptID;
     private  String fromPosition;
     private PackArrivalState arriveState;
 
-    public HubArrivalReceiptVO(String hubID, myTime arriveTime, String transReceiptID,
+    public HubArrivalReceiptVO(String orderID,String hubID, myTime arriveTime, String transReceiptID,
                                String fromPosition, PackArrivalState state) {
         super(ReceiptType.HUBARRIVAL);
+        this.orderID=orderID;
         this.hubID=hubID;
         this.arriveTime=arriveTime;
         this.transReceiptID=transReceiptID;
@@ -26,11 +29,19 @@ public class HubArrivalReceiptVO extends ReceiptVO {
     }
 
     public HubArrivalReceiptVO(HubArrivalReceiptPO po){
-        this(po.getHubID(),po.getArrveTime(),po.getTransReceiptID(),po.getFromPosition(),
+        this(po.getOrderID(),po.getHubID(),po.getArriveTime(),po.getTransReceiptID(),po.getFromPosition(),
                 po.getArriveState());
     }
 
-    public String getHubID() {
+    public String getOrderID() {
+		return orderID;
+	}
+
+	public void setOrderID(String orderID) {
+		this.orderID = orderID;
+	}
+
+	public String getHubID() {
         return hubID;
     }
 
@@ -38,11 +49,11 @@ public class HubArrivalReceiptVO extends ReceiptVO {
         this.hubID = hubID;
     }
 
-    public myTime getArrveTime() {
+    public myTime getArriveTime() {
         return arriveTime;
     }
 
-    public void setArrveTime(myTime arriveTime) {
+    public void setArriveTime(myTime arriveTime) {
         this.arriveTime = arriveTime;
     }
 

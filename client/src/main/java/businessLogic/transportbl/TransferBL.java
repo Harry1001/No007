@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import blfactory.BLFactory;
-import businessLogic.strategybl.StrategyBL;
 import businessLogicService.receiptblservice.ReceiptBLService;
 import businessLogicService.strategyblservice.CalCarriageService;
 import myexceptions.TransportBLException;
@@ -34,7 +33,6 @@ public class TransferBL{
 		try {
 			date=format.parse(temp);
 		} catch (ParseException e) {
-			// TODO
 			e.printStackTrace();
 		}
 		if(date==null){
@@ -49,7 +47,6 @@ public class TransferBL{
 	}
 	
 	public double calFee(TransferReceiptVO vo) throws RemoteException{
-		//TODO
 		CalCarriageService strategybl=BLFactory.getCalCarriageService();
 		return strategybl.calCarriage(vo);
 	}

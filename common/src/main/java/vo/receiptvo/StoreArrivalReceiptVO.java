@@ -9,13 +9,15 @@ import typeDefinition.myTime;
  * Created by Harry on 2015/11/16.
  */
 public class StoreArrivalReceiptVO extends ReceiptVO {
-    private myTime arriveTime;
+	private String orderID;
+	private myTime arriveTime;
     private String transReceiptID;
     private String fromPosition;
     private PackArrivalState arriveState;
 
-    public StoreArrivalReceiptVO(myTime time, String transID, String fromPosi, PackArrivalState state) {
+    public StoreArrivalReceiptVO(String orderID,myTime time, String transID, String fromPosi, PackArrivalState state) {
         super(ReceiptType.STOREARRIVAL);
+        this.orderID=orderID;
         this.arriveTime=time;
         this.transReceiptID=transID;
         this.fromPosition=fromPosi;
@@ -23,10 +25,18 @@ public class StoreArrivalReceiptVO extends ReceiptVO {
     }
 
     public StoreArrivalReceiptVO(StoreArrivalReceiptPO po){
-        this(po.getArriveTime(),po.getTransReceiptID(),po.getFromPosition(),po.getArriveState());
+        this(po.getOrderID(),po.getArriveTime(),po.getTransReceiptID(),po.getFromPosition(),po.getArriveState());
     }
 
-    public myTime getArriveTime() {
+    public String getOrderID() {
+		return orderID;
+	}
+
+	public void setOrderID(String orderID) {
+		this.orderID = orderID;
+	}
+
+	public myTime getArriveTime() {
         return arriveTime;
     }
 

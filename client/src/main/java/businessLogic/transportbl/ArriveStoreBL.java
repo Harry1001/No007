@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import blfactory.BLFactory;
+import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.StoreArrivalReceiptVO;
@@ -34,6 +35,8 @@ public class ArriveStoreBL{
 	public void submit(StoreArrivalReceiptVO vo) throws RemoteException {
 		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
+		LogisticBLService logisticblservice=BLFactory.getLogisticBLService();
+		logisticblservice.update(vo);
 	}
 	
 }

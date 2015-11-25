@@ -3,7 +3,6 @@ package businessLogic.transportbl;
 import java.rmi.RemoteException;
 
 import blfactory.BLFactory;
-import businessLogic.strategybl.StrategyBL;
 import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
 import businessLogicService.strategyblservice.CalExpressfeeService;
@@ -41,7 +40,6 @@ public class SendBL{
 	}
 	
 	public double calFee(SendReceiptVO vo) throws RemoteException{
-		//TODO
 		CalExpressfeeService strategybl=BLFactory.getCalExpressfeeService();
 		return strategybl.calExpressFee(vo);
 	}
