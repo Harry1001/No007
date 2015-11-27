@@ -1,8 +1,10 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
 import po.recordpo.RecordPO;
@@ -23,5 +25,18 @@ public class RecordDBManager extends DBManager{
 		stopconnection(connection);
 	}
 	
-	//public 
+	public ArrayList<RecordPO> getAll() throws SQLException{
+		RecordPO po;
+		ArrayList<RecordPO> apo=new ArrayList<RecordPO>();
+		String recordGet="SELECT * FROM Record";
+		Connection connection=connectToDB();
+		Statement statement=connection.createStatement();
+		ResultSet resultset=statement.executeQuery(recordGet);
+		while(resultset.next()){
+			resultset.next();
+			po=new RecordPO(resultset.getString(1),resultset.getDate(2),resultset.getString(3));
+			apo.add(po);
+		}
+		return apo;
+	}
 }

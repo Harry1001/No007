@@ -16,8 +16,12 @@ public class RecordBL implements RecordBLService{
 		// TODO Auto-generated method stub
 		ArrayList<RecordPO> apo=rd.getRecord();
 		
-		ArrayList<RecordVO> avo=new ArrayList<new RecordVO(apo)>();
-		return null;
+		ArrayList<RecordVO> avo=new ArrayList<RecordVO>();
+		for(int i=0;i<apo.size();i++){
+			avo.add(new RecordVO(apo.get(i)));
+		}
+		
+		return avo;
 	}
 
 	public void add(RecordVO vo) throws RemoteException {
