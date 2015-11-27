@@ -1,6 +1,7 @@
 package businessLogic.transportbl;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import businessLogicService.transportblservice.TransferBLService;
 import myexceptions.TransportBLException;
@@ -17,7 +18,7 @@ public class TransferController implements TransferBLService{
 		transferbl.submit(vo);
 	}
 
-	public double calFee(TransferReceiptVO vo) throws RemoteException{
+	public double calFee(TransferReceiptVO vo) throws RemoteException, SQLException{
 		return transferbl.calFee(vo);
 	}
 

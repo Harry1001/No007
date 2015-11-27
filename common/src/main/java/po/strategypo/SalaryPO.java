@@ -17,7 +17,7 @@ public class SalaryPO extends StrategyPO {
 	private int mailerAllowance;
 	private int driverAllowance;
 	
-	public SalaryPO(int mbs,int dbs,int manbs,int acbs,int ssbs,int hbs,int skbs,int adbs,int mal,int dal) {
+	public SalaryPO(int acbs,int adbs,int dbs,int hbs,int mbs,int manbs,int skbs,int ssbs,int dal,int mal) {
 		super("Salary");
 		// TODO Auto-generated constructor stub
 		this.mailerBaseSalary=mbs;

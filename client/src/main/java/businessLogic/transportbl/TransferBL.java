@@ -1,6 +1,7 @@
 package businessLogic.transportbl;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class TransferBL{
 		receiptblservice.createReceipt(vo);
 	}
 	
-	public double calFee(TransferReceiptVO vo) throws RemoteException{
+	public double calFee(TransferReceiptVO vo) throws RemoteException, SQLException{
 		CalCarriageService strategybl=BLFactory.getCalCarriageService();
 		return strategybl.calCarriage(vo);
 	}

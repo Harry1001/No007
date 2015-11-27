@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -47,10 +48,15 @@ public class SalaryStrategyDBManager extends DBManager{
 		stopconnection(connection);
 	}
 	
-	/*public SalaryPO getAll() throws SQLException{
+	public SalaryPO getAll() throws SQLException{
 		String salaryGet="SELECT * FROM Salary";
 		Connection connection=connectToDB();
 		Statement statement=connection.createStatement();
-		
-	}*/
+		ResultSet resultset=statement.executeQuery(salaryGet);
+		resultset.next();
+		SalaryPO po=new SalaryPO(resultset.getInt(1),resultset.getInt(2),resultset.getInt(3),
+				resultset.getInt(4),resultset.getInt(5),resultset.getInt(6),resultset.getInt(7),
+				resultset.getInt(8),resultset.getInt(9),resultset.getInt(10));
+		return po;
+	}
 }

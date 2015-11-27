@@ -1,6 +1,7 @@
 package businessLogic.transportbl;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import businessLogicService.transportblservice.EntruckBLService;
 import myexceptions.TransportBLException;
@@ -18,7 +19,7 @@ public class EntruckController implements EntruckBLService{
 		entruckbl.submit(vo);
 	}
 
-	public double calFee(EntruckReceiptVO vo) throws RemoteException {
+	public double calFee(EntruckReceiptVO vo) throws RemoteException, SQLException {
 		return entruckbl.calFee(vo);
 	}
 

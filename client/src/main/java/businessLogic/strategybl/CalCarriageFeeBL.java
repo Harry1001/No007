@@ -1,6 +1,7 @@
 package businessLogic.strategybl;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import businessLogicService.strategyblservice.CalCarriageService;
 import data.StrategyDataImpl;
@@ -11,8 +12,7 @@ import vo.receiptvo.TransferReceiptVO;
 
 public class CalCarriageFeeBL extends StrategyBL implements CalCarriageService{
 	StrategyDataImpl sd=new StrategyDataImpl();
-	public double calCarriage(ReceiptVO vo) throws RemoteException {
-		// TODO Auto-generated method stub
+	public double calCarriage(ReceiptVO vo) throws RemoteException, SQLException {
 		
 		CarriageFeePO po=sd.getCarriageFee();
 		double totalPrice=0;

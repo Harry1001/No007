@@ -1,6 +1,7 @@
 package businessLogic.transportbl;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import blfactory.BLFactory;
 import businessLogicService.logisticblservice.LogisticBLService;
@@ -39,7 +40,7 @@ public class SendBL{
 		logisticblservice.update(vo);
 	}
 	
-	public double calFee(SendReceiptVO vo) throws RemoteException{
+	public double calFee(SendReceiptVO vo) throws RemoteException, SQLException{
 		CalExpressfeeService strategybl=BLFactory.getCalExpressfeeService();
 		return strategybl.calExpressFee(vo);
 	}

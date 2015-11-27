@@ -1,6 +1,7 @@
 package businessLogic.strategybl;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import businessLogicService.strategyblservice.CalExpressfeeService;
 import data.StrategyDataImpl;
@@ -10,8 +11,7 @@ import vo.receiptvo.SendReceiptVO;
 public class CalExpressFeeBL extends StrategyBL implements CalExpressfeeService{
 	StrategyDataImpl sd=new StrategyDataImpl();
 	
-	public double calExpressFee(SendReceiptVO vo) throws RemoteException {
-		// TODO Auto-generated method stub
+	public double calExpressFee(SendReceiptVO vo) throws RemoteException, SQLException {
 		ExpressFeePO po=sd.getExpressFee();
 		double totalPrice=0;
 		double w=vo.getWeight();
