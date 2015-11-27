@@ -1,6 +1,6 @@
 package vo.receiptvo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import po.receiptpo.DespatchReceiptPO;
 import typeDefinition.ReceiptType;

@@ -1,6 +1,6 @@
 package po.receiptpo;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 import po.receiptpo.ReceiptPO;

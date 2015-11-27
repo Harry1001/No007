@@ -1,7 +1,7 @@
 package businessLogicService.receiptblservice;
 
 import java.rmi.RemoteException;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import typeDefinition.ReceiptType;
 import vo.receiptvo.ReceiptVO;

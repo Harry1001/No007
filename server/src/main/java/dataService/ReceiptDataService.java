@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
-import typeDefinition.Date;
+import java.util.Date;
 
 public interface ReceiptDataService {
 	

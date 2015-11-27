@@ -1,11 +1,13 @@
 package businessLogic.logisticbl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 import businessLogicService.logisticblservice.LogisticBLService;
-import data.LogisticDataImpl;
 import dataService.LogisticDataService;
 import po.logisticpo.LogisticPO;
 import typeDefinition.ReceiptType;
@@ -19,7 +21,13 @@ import vo.receiptvo.StoreArrivalReceiptVO;
 
 public class LogisticBL implements LogisticBLService{
 
-	LogisticDataService logisticdata=new LogisticDataImpl();
+	private LogisticDataService logisticdata;
+	
+	public LogisticBL() throws MalformedURLException, RemoteException, NotBoundException{
+		String url="rmi://localhost:8888/central_logistic";
+		this.logisticdata=(LogisticDataService)Naming.lookup(url);
+	}
+	
 	public ArrayList<LogisticVO> getLogistic(String orderID) throws RemoteException {
 		ArrayList<LogisticVO> vo=new ArrayList<LogisticVO>();
 		ArrayList<LogisticPO> po=logisticdata.read(orderID);
@@ -34,7 +42,7 @@ public class LogisticBL implements LogisticBLService{
 		ReceiptType type=vo.getType();
 		String orderID=null;
 		String logisticstate=null;
-		Date arrivaltime=new Date(System.currentTimeMillis());
+		Date arrivaltime=new Date();
 		LogisticPO po;
 		switch(type){
 		case SEND:			

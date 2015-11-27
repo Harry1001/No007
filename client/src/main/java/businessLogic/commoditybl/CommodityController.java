@@ -1,5 +1,7 @@
 package businessLogic.commoditybl;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.sql.SQLException;
@@ -17,7 +19,7 @@ import vo.receiptvo.ReceiptVO;
 public class CommodityController implements CommodityBLService{
 	private CommodityBL commodityBL;
 	
-	public CommodityController() throws NamingException{
+	public CommodityController() throws NamingException, MalformedURLException, RemoteException, NotBoundException{
 		this.commodityBL = new CommodityBL();
 	}
 

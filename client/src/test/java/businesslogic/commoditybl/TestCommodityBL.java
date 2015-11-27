@@ -19,7 +19,7 @@ public class TestCommodityBL {
 		CommodityBL commodityBL = new CommodityBL();
 		Date inTime = new Date();
 		Location storeloc = new Location("0250", 1, 6, 8, 25);
-		DepotInReceiptVO vo = new DepotInReceiptVO("100000009", inTime, "江苏省南京市鼓楼区", storeloc);
+		DepotInReceiptVO vo = new DepotInReceiptVO("100000077", inTime, "江苏省南京市鼓楼区", storeloc);
 		commodityBL.submitIn(vo);		
 	}
 }

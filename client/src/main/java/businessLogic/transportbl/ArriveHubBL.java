@@ -1,5 +1,7 @@
 package businessLogic.transportbl;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +33,7 @@ public class ArriveHubBL{
 		return true;	
 	}
 
-	public void submit(HubArrivalReceiptVO vo) throws RemoteException {
+	public void submit(HubArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException {
 		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
 		LogisticBLService logisticblservice=BLFactory.getLogisticBLService();

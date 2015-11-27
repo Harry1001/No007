@@ -7,7 +7,7 @@ import dataService.ReceiptDataService;
 import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
-import typeDefinition.Date;
+import java.util.Date;
 
 public class ReceiptDataImpl implements ReceiptDataService {
 

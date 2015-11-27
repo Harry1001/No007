@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.naming.NamingException;
 
-import typeDefinition.FeeType;
 import vo.salaryfeevo.SalaryFeeVO;
 import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;
@@ -15,7 +14,6 @@ import vo.financevo.ProfitVO;
 import vo.receiptvo.ChargeReceiptVO;
 import vo.receiptvo.PayReceiptVO;
 import vo.receiptvo.ReceiptVO;
-import vo.strategyvo.SalaryVO;
 
 public interface FinanceBLService {
 
