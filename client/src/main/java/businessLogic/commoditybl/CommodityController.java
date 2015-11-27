@@ -1,23 +1,27 @@
 package businessLogic.commoditybl;
 
 import java.rmi.RemoteException;
-import java.sql.Date;
+import java.util.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.naming.NamingException;
 
 import businessLogicService.commodityblservice.CommodityBLService;
 import vo.commodityvo.CheckResultVO;
 import vo.commodityvo.CommodityVO;
+import vo.receiptvo.DepotInReceiptVO;
+import vo.receiptvo.DepotOutReceiptVO;
 import vo.receiptvo.ReceiptVO;
 
 public class CommodityController implements CommodityBLService{
-	CommodityBL commodityBL = new CommodityBL();
+	private CommodityBL commodityBL;
 	
-	public void submit(ReceiptVO vo) throws RemoteException{
-		// TODO Auto-generated method stub
-		commodityBL.submit(vo);
+	public CommodityController() throws NamingException{
+		this.commodityBL = new CommodityBL();
 	}
 
-	public ArrayList<CommodityVO> getList(String transferNum) {
+	public ArrayList<CommodityVO> getList(String transferNum) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		ArrayList<CommodityVO> commodityVOs = commodityBL.getList(transferNum);
 		return commodityVOs;
@@ -29,15 +33,25 @@ public class CommodityController implements CommodityBLService{
 		return result;
 	}
 
-	public ArrayList<CommodityVO> getTotal() {
+	public ArrayList<CommodityVO> getTotal() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		ArrayList<CommodityVO> commodityVOs = commodityBL.getTotal();
 		return commodityVOs;
 	}
 
-	public void renew() {
+	public void renew(String transferNum) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
-		commodityBL.renew();
+		commodityBL.renew(transferNum);
+	}
+
+	public void submitIn(DepotInReceiptVO vo) throws RemoteException, NamingException, SQLException {
+		// TODO Auto-generated method stub
+		commodityBL.submitIn(vo);
+	}
+
+	public void submitOut(DepotOutReceiptVO vo) throws RemoteException, NamingException, SQLException {
+		// TODO Auto-generated method stub
+		commodityBL.submitOut(vo);
 	}
 
 

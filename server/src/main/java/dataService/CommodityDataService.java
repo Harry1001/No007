@@ -1,12 +1,13 @@
 package dataService;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import po.commoditypo.CommodityPO;
 
-public interface CommodityDataService {
+public interface CommodityDataService extends Remote{
 
 	/**
 	 * 

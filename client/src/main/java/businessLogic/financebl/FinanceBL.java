@@ -1,8 +1,15 @@
 package businessLogic.financebl;
 
 import java.rmi.RemoteException;
-import java.sql.Date;
+import java.util.Date;
+import java.util.Enumeration;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NameClassPair;
+import javax.naming.NamingException;
 
 import blfactory.BLFactory;
 import businessLogic.commoditybl.CommodityBL;
@@ -30,6 +37,7 @@ import vo.infovo.DriverVO;
 import vo.infovo.StaffVO;
 import vo.infovo.TruckVO;
 import vo.receiptvo.ChargeReceiptVO;
+import vo.receiptvo.PayReceiptVO;
 import vo.receiptvo.ReceiptVO;
 import vo.salaryfeevo.SalaryFeeVO;
 
@@ -39,22 +47,37 @@ public class FinanceBL implements FinanceBLService{
 	Date time;
 	String storeNo;
 	
-	public void submit(ReceiptVO receiptInputVO) throws RemoteException{
+	private FinanceDataService financeData;
+	
+	public FinanceBL() throws NamingException{
+		Context namingContext = new InitialContext();
+		
+		System.out.println("RMI registry bindings:");
+		Enumeration<NameClassPair> e = namingContext.list("rmi://localhost/");
+		while(e.hasMoreElements())
+			System.out.println(e.nextElement().getName());
+		
+		String url = "rmi://localhost/central_finance";
+		this.financeData = (FinanceDataService)namingContext.lookup(url);
+		
+	}
+	
+	public void submitIn(ChargeReceiptVO vo) throws RemoteException{
 		// TODO Auto-generated method stub
 		ReceiptBLService receiptBL = BLFactory.getReceiptBLService();
-		receiptBL.createReceipt(receiptInputVO);
+		receiptBL.createReceipt(vo);
+		financeData.addIncome(vo.getFee());
+	}
+	
+	public void submitOut(PayReceiptVO vo) throws RemoteException{
+		ReceiptBLService receiptBL = BLFactory.getReceiptBLService();
+		receiptBL.createReceipt(vo);
+		financeData.addOutcome(vo.getFee());
 	}
 
-	public FinanceVO getCredit(int year) {
+	public FinanceVO getCredit(int year) throws RemoteException {
 		// TODO Auto-generated method stub
-		FinanceDataService financeDataService = new FinanceDataImpl();
-		FinancePO credit = new FinancePO(null);
-		try {
-			credit = financeDataService.find(year);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		FinancePO credit = financeData.find(year);
 		FinanceVO fVO = new FinanceVO(credit);
 		return fVO;
 	}
@@ -118,22 +141,16 @@ public class FinanceBL implements FinanceBLService{
 		return result;
 	}
 
-	public ProfitVO checkProfit() {
+	public ProfitVO checkProfit() throws RemoteException {
 		// TODO Auto-generated method stub
-		FinanceDataService finance = new FinanceDataImpl();
 		ProfitVO profit = new ProfitVO();
-		try {
-			profit.income = finance.getIn();
-			profit.outcome = finance.getOut();
-			profit.profit = profit.income.subtract(profit.outcome);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		profit.income = financeData.getIncome();
+		profit.outcome = financeData.getOutcome();
+		profit.profit = profit.income.subtract(profit.outcome);
 		return profit;
 	}
 
-	public void makeCredit(int year) throws RemoteException{
+	public void makeCredit(int year) throws RemoteException, NamingException, SQLException{
 		// TODO Auto-generated method stub
 		FinanceDataService financeData = new FinanceDataImpl();
 		CommodityBL commodityBL = new CommodityBL();

@@ -2,13 +2,18 @@ package data;
 
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import dataService.FinanceDataService;
 import database.ProfitDBManager;
 import po.financepo.FinancePO;
 
-public class FinanceDataImpl implements FinanceDataService{
+public class FinanceDataImpl extends UnicastRemoteObject implements FinanceDataService{
 	
+	public FinanceDataImpl() throws RemoteException {
+		super();
+	}
+
 	private ProfitDBManager profitDBManager = new ProfitDBManager();
 	
 	public void add(FinancePO financePO) throws RemoteException {

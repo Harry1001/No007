@@ -1,11 +1,12 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import po.commoditypo.CommodityPO;
@@ -23,12 +24,14 @@ public class CommodityDBManager extends DBManager{
 		int rowID = location.getRowID();
 		int shelfID = location.getShelfID();
 		int postID = location.getPostID();
+		Timestamp inTime = new Timestamp(time.getTime());
+		
 		String commodityInsert = "INSERT INTO Commodity"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection connection = connectToDB();
 		PreparedStatement statement = connection.prepareStatement(commodityInsert);
 		statement.setString(1, expressNum);
-		statement.setDate(2, time);;
+		statement.setTimestamp(2, inTime);;
 		statement.setString(3, desination);
 		statement.setString(4, transferNum);
 		statement.setInt(5, regionID);
@@ -63,7 +66,7 @@ public class CommodityDBManager extends DBManager{
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(commodityList);
 		while(resultSet.next()){
-			Date inTime = resultSet.getDate(2);
+			Date inTime = new Date(resultSet.getTimestamp(2).getTime());
 			Location storeloc = new Location(resultSet.getString(4), resultSet.getInt(5),
 							resultSet.getInt(6), resultSet.getInt(7), resultSet.getInt(8));
 			CommodityPO commodityPO = new CommodityPO(resultSet.getString(1), inTime, 
@@ -93,7 +96,7 @@ public class CommodityDBManager extends DBManager{
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(commoditycheck);
 		while(resultSet.next()){
-			Date inTime = resultSet.getDate(2);
+			Date inTime = new Date(resultSet.getTimestamp(2).getTime());
 			Location storeloc = new Location(resultSet.getString(4), resultSet.getInt(5),
 								resultSet.getInt(6), resultSet.getInt(7), resultSet.getInt(8));
 			CommodityPO commodityPO = new CommodityPO(resultSet.getString(1), inTime, resultSet.getString(3), storeloc);

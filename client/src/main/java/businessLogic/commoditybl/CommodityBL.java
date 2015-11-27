@@ -1,41 +1,54 @@
 package businessLogic.commoditybl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.naming.NamingException;
 
 import businessLogic.receiptbl.ReceiptBL;
 import businessLogicService.commodityblservice.CommodityBLService;
-import data.CommodityDataImpl;
 import dataService.CommodityDataService;
 import po.commoditypo.CommodityPO;
 import typeDefinition.Location;
-import typeDefinition.ReceiptType;
 import vo.commodityvo.CheckResultVO;
 import vo.commodityvo.CommodityVO;
 import vo.receiptvo.DepotInReceiptVO;
 import vo.receiptvo.DepotOutReceiptVO;
-import vo.receiptvo.ReceiptVO;
 
 public class CommodityBL implements CommodityBLService{
 
-	public void submit(ReceiptVO vo) throws RemoteException{
-		// TODO Auto-generated method stub
+	private CommodityDataService commodityData;
+	
+	public CommodityBL() throws NamingException, MalformedURLException, RemoteException, NotBoundException{
+		String url = "rmi://localhost:8888/central_commodity";
+		this.commodityData = (CommodityDataService) Naming.lookup(url);
+	}
+	
+	public void submitIn(DepotInReceiptVO vo) throws RemoteException, SQLException{
 		ReceiptBL receipt = new ReceiptBL();
 		receipt.createReceipt(vo);
+		String expressNumber = vo.getPackID();
+		Date inTime = new Date();
+		String destination = vo.getDestination();
+		Location location = vo.getLocation();
+		CommodityPO commodityPO = new CommodityPO(expressNumber, inTime, destination, location);
+		commodityData.add(commodityPO);		
+	}
+	
+	public void submitOut(DepotOutReceiptVO vo) throws RemoteException, SQLException{
+		ReceiptBL receipt = new ReceiptBL();
+		receipt.createReceipt(vo);
+		String expressNumber = vo.getPackID();
+		commodityData.delete(expressNumber);
 	}
 
-	public ArrayList<CommodityVO> getList(String transferNum) {
-		// TODO Auto-generated method stub
-		CommodityDataService commodityData = new CommodityDataImpl();
+	public ArrayList<CommodityVO> getList(String transferNum) throws SQLException, RemoteException {
 		ArrayList<CommodityVO> commodityVOs = new ArrayList<CommodityVO>();
-		ArrayList<CommodityPO> commodityPOs = new ArrayList<CommodityPO>();
-		try {
-			commodityPOs = commodityData.check(transferNum);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ArrayList<CommodityPO> commodityPOs = commodityData.check(transferNum);
 		for(CommodityPO c:commodityPOs){
 			commodityVOs.add(new CommodityVO(c));
 		}
@@ -43,53 +56,43 @@ public class CommodityBL implements CommodityBLService{
 	}
 
 	public CheckResultVO getList(String transferNum, Date fromTime, Date toTime) throws RemoteException{
-		// TODO Auto-generated method stub
-		CheckResultVO result = new CheckResultVO();
-		ReceiptBL receipt = new ReceiptBL();
-		ArrayList<DepotInReceiptVO> depotInReceipts = (ArrayList<DepotInReceiptVO>)
-												receipt.getListByTime(fromTime, toTime, ReceiptType.DEPOTIN);
-		ArrayList<Location> locations = new ArrayList<Location>();
-		for(DepotInReceiptVO depotinreceipt: depotInReceipts)
-			if(depotinreceipt.getLocation().getTransferNum().equals(transferNum))
-				locations.add(depotinreceipt.getLocation());
-		result.setLocations(locations);
-		
-		int depotinnum = locations.size();
-		result.setDepotinnum(depotinnum);
-		
-		ArrayList<DepotOutReceiptVO> depotOutReceipts = (ArrayList<DepotOutReceiptVO>)
-												receipt.getListByTime(fromTime, toTime, ReceiptType.DEPOTOUT);
-		int depotoutnum = 0;
-		for(DepotOutReceiptVO depotOutReceipt: depotOutReceipts){
-	//transID的前四位为中转中心编号
-			String transID = depotOutReceipt.getTransID();
-			String transNum = transID.substring(0, 4);
-			if(transferNum.equals(transNum))	depotoutnum++;
-		}
-		result.setDepotoutnum(depotoutnum);
-		return result;
+//		CheckResultVO result = new CheckResultVO();
+//		ReceiptBL receipt = new ReceiptBL();
+//		ArrayList<DepotInReceiptVO> depotInReceipts = (ArrayList<DepotInReceiptVO>)
+//												receipt.getListByTime(fromTime, toTime, ReceiptType.DEPOTIN);
+//		ArrayList<Location> locations = new ArrayList<Location>();
+//		for(DepotInReceiptVO depotinreceipt: depotInReceipts)
+//			if(depotinreceipt.getLocation().getTransferNum().equals(transferNum))
+//				locations.add(depotinreceipt.getLocation());
+//		result.setLocations(locations);
+//		
+//		int depotinnum = locations.size();
+//		result.setDepotinnum(depotinnum);
+//		
+//		ArrayList<DepotOutReceiptVO> depotOutReceipts = (ArrayList<DepotOutReceiptVO>)
+//												receipt.getListByTime(fromTime, toTime, ReceiptType.DEPOTOUT);
+//		int depotoutnum = 0;
+//		for(DepotOutReceiptVO depotOutReceipt: depotOutReceipts){
+//	//transID的前四位为中转中心编号
+//			String transID = depotOutReceipt.getTransID();
+//			String transNum = transID.substring(0, 4);
+//			if(transferNum.equals(transNum))	depotoutnum++;
+//		}
+//		result.setDepotoutnum(depotoutnum);
+//		return result;
 	}
 
-	public ArrayList<CommodityVO> getTotal() {
-		// TODO Auto-generated method stub
-		CommodityDataService commodityData = new CommodityDataImpl();
+	public ArrayList<CommodityVO> getTotal() throws RemoteException, SQLException {
 		ArrayList<CommodityVO> commodityVOs = new ArrayList<CommodityVO>();
-		ArrayList<CommodityPO> commodityPOs = new ArrayList<CommodityPO>();
+		ArrayList<CommodityPO> commodityPOs = commodityData.getAll();
 		for(CommodityPO c: commodityPOs){
 			commodityVOs.add(new CommodityVO(c));
 		}
 		return commodityVOs;
 	}
 
-	public void renew() {
-		// TODO Auto-generated method stub
-		CommodityDataService commodityData = new CommodityDataImpl();
-		try {
-			commodityData.renew();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void renew(String transferNum) throws RemoteException, SQLException {
+		commodityData.renew(transferNum);
 	}
 
 }
