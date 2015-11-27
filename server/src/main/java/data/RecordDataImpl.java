@@ -1,13 +1,14 @@
 package data;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import dataService.RecordDataService;
 import po.recordpo.RecordPO;
 
 public class RecordDataImpl implements RecordDataService{
 
-	public RecordPO getRecord() throws RemoteException {
+	public ArrayList<RecordPO> getRecord() throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}

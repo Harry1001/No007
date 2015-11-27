@@ -1,6 +1,7 @@
 package dataService;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import po.recordpo.RecordPO;
 
@@ -9,7 +10,7 @@ public interface RecordDataService {
 	/*
 	 * 读系统日志
 	 */
-	public RecordPO getRecord() throws  RemoteException;
+	public ArrayList<RecordPO> getRecord() throws  RemoteException;
 	
 	/*
 	 * 写系统日志

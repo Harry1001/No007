@@ -1,6 +1,7 @@
 package businessLogic.recordbl;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import businessLogicService.recordblservice.RecordBLService;
 import data.RecordDataImpl;
@@ -11,11 +12,12 @@ import vo.recordvo.RecordVO;
 public class RecordBL implements RecordBLService{
 
 	RecordDataService rd=new RecordDataImpl();
-	public RecordVO lookup() throws RemoteException {
+	public ArrayList<RecordVO> lookup() throws RemoteException {
 		// TODO Auto-generated method stub
-		RecordPO po=rd.getRecord();
-		RecordVO vo=new RecordVO(po);
-		return vo;
+		ArrayList<RecordPO> apo=rd.getRecord();
+		
+		ArrayList<RecordVO> avo=new ArrayList<new RecordVO(apo)>();
+		return null;
 	}
 
 	public void add(RecordVO vo) throws RemoteException {

@@ -8,6 +8,11 @@ import po.strategypo.SalaryPO;
 
 public class SalaryStrategyDBManager extends DBManager{
 
+	/**
+	 * 添加薪水策略
+	 * @param po
+	 * @throws SQLException
+	 */
 	public void addSalaryStrategy(SalaryPO po) throws SQLException{
 		int acbs=po.getAccountantBS();
 		int adbs=po.getAdministerBS();
@@ -27,5 +32,9 @@ public class SalaryStrategyDBManager extends DBManager{
 		Statement statement=connection.createStatement();
 		statement.executeUpdate(salaryInsert);
 		stopconnection(connection);
+	}
+	
+	public void updateSalaryStrategy(SalaryPO po){
+		//String 
 	}
 }
