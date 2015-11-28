@@ -24,6 +24,10 @@ public class RecordBL implements RecordBLService{
 		return avo;
 	}
 
+	/**
+	 * 系统对主要操作（车辆信息变动、司机信息变动、银行账户信息变动、人员信息变动、机构信息变动、用户账户信息变动、薪水策略变动、
+	 * 价格/距离策略变动）有日志记录
+	 */
 	public void add(RecordVO vo) throws RemoteException {
 		// TODO Auto-generated method stub
 		RecordPO po=new RecordPO(vo);

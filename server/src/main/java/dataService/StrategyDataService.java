@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import po.strategypo.CarriageFeePO;
+import po.strategypo.DistancePO;
 import po.strategypo.ExpressFeePO;
 import po.strategypo.SalaryPO;
 
@@ -32,4 +33,12 @@ public interface StrategyDataService {
 	 * 更新薪水策略
 	 */
 	public void updateSalaryStrategy(SalaryPO po) throws  RemoteException, SQLException;
+	/*
+	 * 提供城市距离常量
+	 */
+	public double getDistance(String city1,String city2);
+	/*
+	 * 更新城市距离常量
+	 */
+	public void updataDistanceStrategy(DistancePO po);
 }

@@ -8,6 +8,7 @@ import database.CarriageStrategyDBManager;
 import database.ExpressFeeStrategyDBManager;
 import database.SalaryStrategyDBManager;
 import po.strategypo.CarriageFeePO;
+import po.strategypo.DistancePO;
 import po.strategypo.ExpressFeePO;
 import po.strategypo.SalaryPO;
 
@@ -51,6 +52,16 @@ public class StrategyDataImpl implements StrategyDataService{
 		// TODO Auto-generated method stub
 		SalaryStrategyDBManager s=new SalaryStrategyDBManager();
 		s.addSalaryStrategy(po);
+	}
+
+	public double getDistance(String city1,String city2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void updataDistanceStrategy(DistancePO po) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
