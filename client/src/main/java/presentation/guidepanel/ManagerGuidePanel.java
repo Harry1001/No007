@@ -1,4 +1,4 @@
-package presentation;
+package presentation.guidepanel;
 
 import presentation.Images.Images;
 

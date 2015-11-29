@@ -1,7 +1,10 @@
 package UITest;
 
-import presentation.*;
-import presentation.Images.Images;
+import presentation.commonpanel.HeadPanel;
+import presentation.commonpanel.UserPanel;
+import presentation.guidepanel.AdministratorGuidePanel;
+import presentation.guidepanel.HubGuidePanel;
+import presentation.guidepanel.StoreGuidePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +23,13 @@ public class tester {
 
         //frame.getContentPane().add(new ReceivePanel(frame),gbc);
         JPanel userp=new UserPanel("董本超","快递员");
-        JLabel headl=new HeadLabel();
+        JPanel headp=new HeadPanel();
         JPanel contentp=new JPanel(new CardLayout());
-        contentp.setPreferredSize(new Dimension(600,500));
+        contentp.setPreferredSize(new Dimension(800,500));
 
 
 
-        JPanel guidep=new CourierGuidePanel(contentp, frame);
+        JPanel guidep=new AdministratorGuidePanel(contentp, frame);
 
         Container contentPane=frame.getContentPane();
 
@@ -38,7 +41,7 @@ public class tester {
         gbc.fill=GridBagConstraints.BOTH;
         gbc.gridx=1;
         gbc.gridy=0;
-        contentPane.add(headl,gbc);
+        contentPane.add(headp,gbc);
 
         gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.gridx=0;
@@ -52,9 +55,9 @@ public class tester {
         gbc.weighty=1.0;
         contentPane.add(contentp,gbc);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         try{
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
             SwingUtilities.updateComponentTreeUI(frame);
         }catch (Exception e){
             System.out.println("look and feel set fail");
@@ -63,4 +66,14 @@ public class tester {
         frame.pack();
         frame.setVisible(true);
     }
+
+    /*
+    public static void main(String [] argv){
+        JFrame f=new JFrame();
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        f.getContentPane().add(new ChargeReceiptPanel(f));
+        f.pack();
+        f.setVisible(true);
+    }
+    */
 }

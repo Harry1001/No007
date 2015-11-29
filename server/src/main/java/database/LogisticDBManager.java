@@ -39,8 +39,8 @@ public class LogisticDBManager extends DBManager{
 				Date arrivaltime=new Date(resultSet.getInt(2),resultSet.getInt(3),resultSet.getInt(4),
 						resultSet.getInt(5),resultSet.getInt(6),resultSet.getInt(7));
 				String logisticState=resultSet.getString(8);
-				LogisticPO temppo=new LogisticPO(orderID,arrivaltime,logisticState);
-				po.add(temppo);
+				//LogisticPO temppo=new LogisticPO(orderID,arrivaltime,logisticState);
+				//po.add(temppo);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
