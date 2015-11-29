@@ -1,58 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71302fa9-7a8e-4e93-b6b4-92c0ab607ecd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/AdministratorGuidePanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/AgencyInfoPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/AgencyListPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/ChargeReceiptPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/DepotInPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/DepotOutPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/DespatchPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/DriverInfoPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/DriverListPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/EntruckPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/HeadPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/HubArrivePanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/HubGuidePanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/RecordListPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/StaffInfoPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/StoreArrivePanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/StoreGuidePanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/TransferPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/TruckInfoPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/TruckListPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/UserAccountInfoPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/UserAccountListPanel.java" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\LOGIN_IMAGE.jpg" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\agency.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\baobiao.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\money_distance.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\receipt.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\receive.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\record.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\salary.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\send.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\staff.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\ImageFiles\userHead.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\Github\No007\client\src\main\java\presentation\HeadLabel.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/target/classes/dataService/CommodityDataService.class" afterPath="$PROJECT_DIR$/server/target/classes/dataService/CommodityDataService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/target/classes/dataService/ReceiptDataService.class" afterPath="$PROJECT_DIR$/server/target/classes/dataService/ReceiptDataService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/typeDefinition/ReceiptState.class" afterPath="$PROJECT_DIR$/common/target/classes/typeDefinition/ReceiptState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/Images/Images.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/Images/Images.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/database/LogisticDBManager.java" afterPath="$PROJECT_DIR$/server/src/main/java/database/LogisticDBManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/test/java/UITest/tester.java" afterPath="$PROJECT_DIR$/client/src/test/java/UITest/tester.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\Github\No007\client\src\main\java\presentation\CourierGuidePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/CourierGuidePanel.java" />
-      <change type="MOVED" beforePath="D:\Github\No007\client\src\main\java\presentation\LoginPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/LoginPanel.java" />
-      <change type="MOVED" beforePath="D:\Github\No007\client\src\main\java\presentation\LogisticPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/LogisticPanel.java" />
-      <change type="MOVED" beforePath="D:\Github\No007\client\src\main\java\presentation\ManagerGuidePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/ManagerGuidePanel.java" />
-      <change type="MOVED" beforePath="D:\Github\No007\client\src\main\java\presentation\ReceivePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/ReceivePanel.java" />
-      <change type="MOVED" beforePath="D:\Github\No007\client\src\main\java\presentation\SendPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/SendPanel.java" />
-      <change type="MOVED" beforePath="D:\Github\No007\client\src\main\java\presentation\StaffPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/StaffListPanel.java" />
-      <change type="MOVED" beforePath="D:\Github\No007\client\src\main\java\presentation\UserPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/UserPanel.java" />
-    </list>
+    <list default="true" id="71302fa9-7a8e-4e93-b6b4-92c0ab607ecd" name="Default" comment="" />
     <ignored path="No007.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/client/target/" />
@@ -767,6 +716,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="businessLogic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commoditybl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -1408,14 +1391,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogicService/commodityblservice/CommodityBLService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1847575">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/src/main/java/vo/receiptvo/DepotInReceiptVO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.32332563">
@@ -1464,18 +1439,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/commoditybl/CommodityController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38106236">
-          <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/main/java/dataService/CommodityDataService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33256352">
           <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogicService/commodityblservice/CommodityBLService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33256352">
+          <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/commoditybl/CommodityController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09237875">
+          <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
           <folding />
         </state>
       </provider>

@@ -1,5 +1,7 @@
 package businessLogicService.transportblservice;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import myexceptions.TransportBLException;
@@ -14,6 +16,8 @@ public interface ArriveStoreBLService {
 	/**
 	 * 营业厅到达单提交等待审批
 	 * @throws RemoteException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void submit(StoreArrivalReceiptVO vo) throws RemoteException;
+	public void submit(StoreArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException;
 }

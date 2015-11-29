@@ -1,6 +1,6 @@
 package vo.logisticvo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import po.logisticpo.LogisticPO;
 

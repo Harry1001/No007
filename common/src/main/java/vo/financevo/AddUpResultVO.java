@@ -1,6 +1,6 @@
 package vo.financevo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class AddUpResultVO {
 
@@ -16,8 +16,8 @@ public class AddUpResultVO {
 	public Date getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
-		this.time = time;
+	public void setTime(Date time2) {
+		this.time = time2;
 	}
 	public double getIncomesum() {
 		return incomesum;

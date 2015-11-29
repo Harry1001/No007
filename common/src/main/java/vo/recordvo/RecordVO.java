@@ -1,6 +1,6 @@
 package vo.recordvo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import po.recordpo.RecordPO;
 
@@ -10,7 +10,7 @@ public class RecordVO {
 	private Date opeTime;//发生时间
 	private String operator;//操作人员
 	
-	public RecordVO(String operation,Date opeTime,String operator){
+	public RecordVO(Date opeTime,String operator,String operation){
 		this.operation=operation;
 		this.opeTime=opeTime;
 		this.operator=operator;

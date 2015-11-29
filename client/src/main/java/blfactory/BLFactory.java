@@ -1,5 +1,9 @@
 package blfactory;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
 import businessLogic.infobl.controller.*;
 import businessLogic.loginbl.LoginController;
 import businessLogic.logisticbl.LogisticController;
@@ -69,7 +73,7 @@ public class BLFactory {
     	return new LoginController();
     }
     
-    public static LogisticBLService getLogisticBLService(){
+    public static LogisticBLService getLogisticBLService() throws MalformedURLException, RemoteException, NotBoundException{
 		return new LogisticController();   	
     }
     

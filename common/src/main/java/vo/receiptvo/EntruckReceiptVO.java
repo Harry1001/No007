@@ -3,7 +3,7 @@ package vo.receiptvo;
 import po.receiptpo.EntruckReceiptPO;
 import typeDefinition.ReceiptType;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 /**

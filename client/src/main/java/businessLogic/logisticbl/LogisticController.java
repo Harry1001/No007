@@ -1,5 +1,7 @@
 package businessLogic.logisticbl;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -9,7 +11,11 @@ import vo.receiptvo.ReceiptVO;
 
 public class LogisticController implements LogisticBLService{
 	
-	LogisticBL logisticbl=new LogisticBL();
+	LogisticBL logisticbl;
+	
+	public LogisticController() throws MalformedURLException, RemoteException, NotBoundException {
+		this.logisticbl = new LogisticBL();
+	}
 	
 	public ArrayList<LogisticVO> getLogistic(String orderID) throws RemoteException {	
 		return logisticbl.getLogistic(orderID);

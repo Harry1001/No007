@@ -1,6 +1,7 @@
 package businessLogicService.transportblservice;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import myexceptions.TransportBLException;
 import vo.receiptvo.EntruckReceiptVO;
@@ -18,6 +19,7 @@ public interface EntruckBLService {
 	public void submit(EntruckReceiptVO vo) throws RemoteException;
 	/**
 	 * 输入参数获得运费
+	 * @throws SQLException 
 	 */
-	public double calFee(EntruckReceiptVO vo) throws RemoteException;
+	public double calFee(EntruckReceiptVO vo) throws RemoteException, SQLException;
 }

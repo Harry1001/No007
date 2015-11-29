@@ -1,6 +1,6 @@
 package vo.commodityvo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import po.commoditypo.CommodityPO;
 import typeDefinition.Location;
@@ -18,21 +18,21 @@ public class CommodityVO {
 		this.expressNumber=expressNumber;
 		this.inTime=inTime;
 		this.destination=destination;
-		this.storeloc=storeloc;
+		this.setStoreloc(storeloc);
 	}
 	
 	public CommodityVO(CommodityPO c){
 		this.expressNumber = c.getExpressNumber();
 		this.inTime = c.getInTime();
 		this.destination = c.getDestination();
-		this.storeloc = c.getStoreloc();
+		this.setStoreloc(c.getStoreloc());
 	}
 	
 	public CommodityVO(Location loc){
 		expressNumber = null;
 		inTime = new Date(System.currentTimeMillis());
 		destination = null;
-		storeloc = loc;
+		setStoreloc(loc);
 	}
 
 	public String getExpressNumber() {
@@ -45,6 +45,14 @@ public class CommodityVO {
 	
 	public String getDestination(){
 		return destination;
+	}
+
+	public Location getStoreloc() {
+		return storeloc;
+	}
+
+	public void setStoreloc(Location storeloc) {
+		this.storeloc = storeloc;
 	}
 
 }

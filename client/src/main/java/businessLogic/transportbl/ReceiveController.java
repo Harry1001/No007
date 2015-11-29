@@ -1,5 +1,7 @@
 package businessLogic.transportbl;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import businessLogicService.transportblservice.ReceiveBLService;
@@ -14,7 +16,7 @@ public class ReceiveController implements ReceiveBLService{
 		return receivebl.verify(vo);
 	}
 
-	public void submit(ReceiveReceiptVO vo) throws RemoteException {
+	public void submit(ReceiveReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException {
 		receivebl.submit(vo);
 	}
 

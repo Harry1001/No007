@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -8,6 +9,11 @@ import po.strategypo.SalaryPO;
 
 public class SalaryStrategyDBManager extends DBManager{
 
+	/**
+	 * 添加薪水策略
+	 * @param po
+	 * @throws SQLException
+	 */
 	public void addSalaryStrategy(SalaryPO po) throws SQLException{
 		int acbs=po.getAccountantBS();
 		int adbs=po.getAdministerBS();
@@ -27,5 +33,30 @@ public class SalaryStrategyDBManager extends DBManager{
 		Statement statement=connection.createStatement();
 		statement.executeUpdate(salaryInsert);
 		stopconnection(connection);
+	}
+	
+	public void updateSalaryStrategy(SalaryPO po) throws SQLException{
+		String salaryUpdate="UPDATE Salary"
+				+"SET AccounantBaseSalary ="+po.getAccountantBS()+"SET AdnimisterBaseSalary ="+po.getAdministerBS()
+				+"SET DriverBaseSalary ="+po.getDriverBS()+"SET HubsalesmanBaseSalary ="+po.getHubsalesmanBS()
+				+"SET MailerBaseSalary ="+po.getMailerBS()+"SET ManagerBaseSalary ="+po.getManagerBS()
+				+"SET StorekeeperBaseSalary ="+po.getStorekeeperBS()+"SET StoresalesmanBaseSalary ="+po.getStoresalesmanBS()
+				+"SET DriverAllowance ="+po.getDriverAl()+"SET MailerAllowance ="+po.getMailerAl();
+		Connection connection=connectToDB();
+		Statement statement=connection.createStatement();
+		statement.executeUpdate(salaryUpdate);
+		stopconnection(connection);
+	}
+	
+	public SalaryPO getAll() throws SQLException{
+		String salaryGet="SELECT * FROM Salary";
+		Connection connection=connectToDB();
+		Statement statement=connection.createStatement();
+		ResultSet resultset=statement.executeQuery(salaryGet);
+		resultset.next();
+		SalaryPO po=new SalaryPO(resultset.getInt(1),resultset.getInt(2),resultset.getInt(3),
+				resultset.getInt(4),resultset.getInt(5),resultset.getInt(6),resultset.getInt(7),
+				resultset.getInt(8),resultset.getInt(9),resultset.getInt(10));
+		return po;
 	}
 }

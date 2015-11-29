@@ -1,6 +1,7 @@
 package data;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -8,7 +9,16 @@ import dataService.CommodityDataService;
 import database.CommodityDBManager;
 import po.commoditypo.CommodityPO;
 
-public class CommodityDataImpl implements CommodityDataService{
+public class CommodityDataImpl extends UnicastRemoteObject implements CommodityDataService{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public CommodityDataImpl() throws RemoteException {
+		super();
+	}
 
 	public ArrayList<CommodityPO> check(String transferNum) throws RemoteException, SQLException {
 		CommodityDBManager commodityDBManager = new CommodityDBManager();

@@ -13,7 +13,7 @@ import dataService.FinanceDataService;
 public class TestFinanceDataImpl {
 
 	@Test
-	public void test() {
+	public void test() throws RemoteException {
 		FinanceDataService financeData = new FinanceDataImpl();
 		BigDecimal outcome = null;
 		try {

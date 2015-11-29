@@ -1,6 +1,9 @@
 package businessLogic.transportbl;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import businessLogicService.transportblservice.SendBLService;
 import myexceptions.TransportBLException;
@@ -14,11 +17,11 @@ public class SendController implements SendBLService{
 		return sendbl.verify(vo);
 	}
 
-	public void submit(SendReceiptVO vo) throws RemoteException {
+	public void submit(SendReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException {
 		sendbl.submit(vo);
 	}
 
-	public double calFee(SendReceiptVO vo) throws RemoteException {
+	public double calFee(SendReceiptVO vo) throws RemoteException, SQLException {
 		return sendbl.calFee(vo);
 	}
 

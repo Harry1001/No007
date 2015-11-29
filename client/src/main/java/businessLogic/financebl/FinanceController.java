@@ -1,26 +1,31 @@
 package businessLogic.financebl;
 
 import java.rmi.RemoteException;
-import java.sql.Date;
+import java.util.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.naming.NamingException;
 
 import businessLogicService.financeblservice.FinanceBLService;
 import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;
+import vo.receiptvo.ChargeReceiptVO;
+import vo.receiptvo.PayReceiptVO;
 import vo.receiptvo.ReceiptVO;
 import vo.salaryfeevo.SalaryFeeVO;
 
 public class FinanceController implements FinanceBLService{
 
-	FinanceBL financeBL = new FinanceBL();
+	private FinanceBL financeBL;
 	
-	public void submit(ReceiptVO receiptInputVO) throws RemoteException {
-		// TODO Auto-generated method stub
-		financeBL.submit(receiptInputVO);
+	public FinanceController() throws NamingException{
+		super();
+		this.financeBL = new FinanceBL();
 	}
 
-	public FinanceVO getCredit(int year) {
+	public FinanceVO getCredit(int year) throws RemoteException {
 		// TODO Auto-generated method stub
 		FinanceVO financeVO = financeBL.getCredit(year);
 		return financeVO;
@@ -50,14 +55,26 @@ public class FinanceController implements FinanceBLService{
 		return sum;
 	}
 
-	public ProfitVO checkProfit() {
+	public ProfitVO checkProfit() throws RemoteException {
 		// TODO Auto-generated method stub
 		ProfitVO profitVO = financeBL.checkProfit();
 		return profitVO;
 	}
 
-	public void makeCredit(int year) throws RemoteException {
+	public void makeCredit(int year) throws RemoteException, NamingException, SQLException {
 		// TODO Auto-generated method stub
 		financeBL.makeCredit(year);
+	}
+
+
+
+	public void submitIn(ChargeReceiptVO vo) throws RemoteException {
+		financeBL.submitIn(vo);		
+	}
+
+
+
+	public void submitOut(PayReceiptVO vo) throws RemoteException {
+		financeBL.submitOut(vo);
 	}
 }

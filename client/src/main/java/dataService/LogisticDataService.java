@@ -1,11 +1,12 @@
 package dataService;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.logisticpo.LogisticPO;
 
-public interface LogisticDataService {
+public interface LogisticDataService extends Remote{
 
 	/*
 	 * 更新物流信息po
