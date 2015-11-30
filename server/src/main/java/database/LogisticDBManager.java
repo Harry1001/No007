@@ -28,7 +28,7 @@ public class LogisticDBManager extends DBManager{
 		ArrayList<LogisticPO> po=new ArrayList<LogisticPO>();
 		String reader ="SELECT * FROM Logistic WHERE orderID = '"+num+"'";
 		Connection connection = connectToDB();
-<<<<<<< HEAD
+
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(reader);
 		while(resultSet.next()){
@@ -37,22 +37,6 @@ public class LogisticDBManager extends DBManager{
 			String logisticState=resultSet.getString(3);
 			LogisticPO temppo=new LogisticPO(orderID,arrivaltime,logisticState);
 			po.add(temppo);
-=======
-		try {
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(reader);
-			while(resultSet.next()){
-				String orderID=resultSet.getString(1);
-				Date arrivaltime=new Date(resultSet.getInt(2),resultSet.getInt(3),resultSet.getInt(4),
-						resultSet.getInt(5),resultSet.getInt(6),resultSet.getInt(7));
-				String logisticState=resultSet.getString(8);
-				//LogisticPO temppo=new LogisticPO(orderID,arrivaltime,logisticState);
-				//po.add(temppo);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
->>>>>>> origin/master
 		}
 		stopconnection(connection);
 		return po;		
