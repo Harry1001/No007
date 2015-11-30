@@ -1,4 +1,4 @@
-package presentation;
+package presentation.contentpanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

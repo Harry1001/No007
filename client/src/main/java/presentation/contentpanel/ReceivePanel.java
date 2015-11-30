@@ -1,6 +1,7 @@
-package presentation;
+package presentation.contentpanel;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -81,7 +82,8 @@ public class ReceivePanel extends JPanel implements ItemListener{
         gbc.fill=GridBagConstraints.NONE;
         this.add(submitbt,gbc);
 
-        this.setBorder(BorderFactory.createTitledBorder("收件单"));
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"收件单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 20)));
 
         rbt1.setSelected(true);
         rbt1.addItemListener(this);

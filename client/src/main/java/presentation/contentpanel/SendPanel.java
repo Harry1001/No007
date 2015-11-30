@@ -1,6 +1,7 @@
-package presentation;
+package presentation.contentpanel;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /**
@@ -94,7 +95,7 @@ public class SendPanel extends JPanel {
         gbc.gridy=0;
         this.add(panel1,gbc);
         gbc.gridx=1;
-        gbc.insets=new Insets(10,20,10,10);
+        //gbc.insets=new Insets(10,20,10,10);
         this.add(panel2,gbc);
         gbc.gridx=0;
         gbc.gridy=1;
@@ -112,5 +113,8 @@ public class SendPanel extends JPanel {
         this.add(calFeebt,gbc);
         gbc.gridx=1;
         this.add(submitbt,gbc);
+
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"寄件单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 20)));
     }
 }

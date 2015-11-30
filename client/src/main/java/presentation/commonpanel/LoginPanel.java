@@ -1,4 +1,4 @@
-package presentation;
+package presentation.commonpanel;
 
 import presentation.Images.Images;
 

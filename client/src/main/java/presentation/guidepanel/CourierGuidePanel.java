@@ -1,6 +1,9 @@
-package presentation;
+package presentation.guidepanel;
 
 import presentation.Images.Images;
+import presentation.contentpanel.LogisticPanel;
+import presentation.contentpanel.ReceivePanel;
+import presentation.contentpanel.SendPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,9 +32,6 @@ public class CourierGuidePanel extends JPanel implements ActionListener{
         bts[0] =new JToggleButton("新建寄件单", Images.SEND_IMAGE);
         bts[1] =new JToggleButton("新建收件单", Images.RECEIVE_IMAGE);
         bts[2]=new JToggleButton("查询订单信息", Images.RECORD_IMAGE);
-        bts[0].addActionListener(this);
-        bts[1].addActionListener(this);
-        bts[2].addActionListener(this);
 
         ButtonGroup btgroup=new ButtonGroup();
 
@@ -45,13 +45,18 @@ public class CourierGuidePanel extends JPanel implements ActionListener{
         gbc.anchor=GridBagConstraints.NORTH;
         gbc.fill=GridBagConstraints.HORIZONTAL;
 
-
+        gbc.ipady=30;
         this.add(title,gbc);
+        gbc.ipady=0;
+
+        Font font=new Font("",Font.PLAIN,20);
         for(int i=0;i<BTNUMBER;i++){
+            bts[i].setFont(font);
             bts[i].setPreferredSize(new Dimension(170,60));
             btgroup.add(bts[i]);
             gbc.gridy++;
             this.add(bts[i],gbc);
+            bts[i].addActionListener(this);
         }
 
         JLabel welcome=new JLabel("请点击左侧按钮选择功能",JLabel.CENTER);
