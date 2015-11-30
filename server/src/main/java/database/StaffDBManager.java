@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import po.infopo.StaffPO;
@@ -17,7 +18,7 @@ public class StaffDBManager extends DBManager{
 		String staffid = po.getStaffID();
 		String name = po.getName();
 		String gender = po.getGender();
-		Date birthday = po.getBirthday();
+		Timestamp birthday = new Timestamp(po.getBirthday().getTime());
 		Job position = po.getPosition();
 		int job = position.ordinal();
 		int basicsalary = po.getBasicSalary();
@@ -29,7 +30,7 @@ public class StaffDBManager extends DBManager{
 		statement.setString(1, staffid);
 		statement.setString(2, name);
 		statement.setString(3, gender);
-		statement.setDate(4, birthday);
+		statement.setTimestamp(4, birthday);
 		statement.setInt(5, job);
 		statement.setInt(6, basicsalary);
 		statement.setInt(7, workfrequency);
@@ -53,7 +54,7 @@ public class StaffDBManager extends DBManager{
 		StaffPO staff = null;
 		while(resultSet.next()){
 			staff = new StaffPO(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
-					resultSet.getDate(4), Job.values()[resultSet.getInt(5)], resultSet.getInt(6));
+					new Date(resultSet.getTimestamp(4).getTime()), Job.values()[resultSet.getInt(5)], resultSet.getInt(6));
 		}
 		return staff;			
 	}
@@ -66,8 +67,8 @@ public class StaffDBManager extends DBManager{
 		ResultSet resultSet = statement.executeQuery(staffgetall);
 		while (resultSet.next()){
 			StaffPO staff = new StaffPO(resultSet.getString(1), resultSet.getString(2),
-						resultSet.getString(3), resultSet.getDate(4), Job.values()[resultSet.getInt(5)],
-						resultSet.getInt(6));
+						resultSet.getString(3), new Date(resultSet.getTimestamp(4).getTime()), 
+						Job.values()[resultSet.getInt(5)],resultSet.getInt(6));
 			staffs.add(staff);
 		}
 		return staffs;

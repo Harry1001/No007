@@ -2,6 +2,7 @@ package data;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dataService.LogisticDataService;
@@ -15,18 +16,18 @@ public class LogisticDataImpl extends UnicastRemoteObject implements LogisticDat
 		// TODO Auto-generated constructor stub
 	}
 
-	public void update(LogisticPO po) throws RemoteException {
+	public void update(LogisticPO po) throws RemoteException, SQLException {
 		LogisticDBManager logisticDBManager=new LogisticDBManager();
 		logisticDBManager.update(po);
 	}
 
-	public ArrayList<LogisticPO> read(String num) throws RemoteException {
+	public ArrayList<LogisticPO> read(String num) throws RemoteException, SQLException {
 		LogisticDBManager logisticDBManager=new LogisticDBManager();
 		logisticDBManager.read(num);
 		return null;
 	}
 
-	public void remove(String num) throws RemoteException {
+	public void remove(String num) throws RemoteException, SQLException {
 		LogisticDBManager logisticDBManager=new LogisticDBManager();
 		logisticDBManager.removeLogistic(num);
 	}
