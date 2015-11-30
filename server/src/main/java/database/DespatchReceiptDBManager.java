@@ -16,7 +16,7 @@ public class DespatchReceiptDBManager extends DBManager{
 		ArrayList<DespatchReceiptPO> po=new ArrayList<DespatchReceiptPO>();
 		Timestamp fTime = new Timestamp(fromtime.getTime());
 		Timestamp tTime = new Timestamp(toTime.getTime());
-		String despatchReceipt="SELECT * FROM DespatchReceipt WHERE time BETWEEN "+fTime+" AND "+tTime;
+		String despatchReceipt="SELECT * FROM DespatchReceipt WHERE arrivalTime BETWEEN "+fTime+" AND "+tTime;
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(despatchReceipt);

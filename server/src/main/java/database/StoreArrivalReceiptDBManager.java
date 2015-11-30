@@ -18,7 +18,7 @@ public class StoreArrivalReceiptDBManager extends DBManager{
 		ArrayList<StoreArrivalReceiptPO> po=new ArrayList<StoreArrivalReceiptPO>();
 		Timestamp fTime = new Timestamp(fromtime.getTime());
 		Timestamp tTime = new Timestamp(toTime.getTime());
-		String storeArrivalReceipt="SELECT * FROM StoreArrivalReceipt WHERE time BETWEEN "+fTime+" AND "+tTime;
+		String storeArrivalReceipt="SELECT * FROM StoreArrivalReceipt WHERE arriveTime BETWEEN "+fTime+" AND "+tTime;
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(storeArrivalReceipt);

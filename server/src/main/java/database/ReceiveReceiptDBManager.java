@@ -16,7 +16,7 @@ public class ReceiveReceiptDBManager extends DBManager{
 		ArrayList<ReceiveReceiptPO> po=new ArrayList<ReceiveReceiptPO>();
 		Timestamp fTime = new Timestamp(fromtime.getTime());
 		Timestamp tTime = new Timestamp(toTime.getTime());
-		String receiveReceipt="SELECT * FROM ReceiveReceipt WHERE time BETWEEN "+fTime+" AND "+tTime;
+		String receiveReceipt="SELECT * FROM ReceiveReceipt WHERE receiveTime BETWEEN "+fTime+" AND "+tTime;
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(receiveReceipt);

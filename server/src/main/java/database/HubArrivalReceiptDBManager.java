@@ -18,7 +18,7 @@ public class HubArrivalReceiptDBManager extends DBManager{
 		ArrayList<HubArrivalReceiptPO> po=new ArrayList<HubArrivalReceiptPO>();
 		Timestamp fTime = new Timestamp(fromtime.getTime());
 		Timestamp tTime = new Timestamp(toTime.getTime());
-		String hubArrivalReceipt="SELECT * FROM HubArrivalReceipt WHERE time BETWEEN "+fTime+" AND "+tTime;
+		String hubArrivalReceipt="SELECT * FROM HubArrivalReceipt WHERE arriveTime BETWEEN "+fTime+" AND "+tTime;
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(hubArrivalReceipt);
