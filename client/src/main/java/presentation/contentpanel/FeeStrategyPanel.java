@@ -13,8 +13,8 @@ import java.awt.event.ActionListener;
 public class FeeStrategyPanel extends JavaPanel implements ActionListener {
 
     Frame parent;
-    JPanel paypanel;
-    JPanel chargepanel;
+    JPanel paypanel=new JPanel();
+    JPanel chargepanel= new JPanel();
     JLabel[] labels=new JLabel[6];
     JTextField[] textFields=new JTextField[6];
     JButton confirmbt=new JButton("确认");
@@ -33,8 +33,7 @@ public class FeeStrategyPanel extends JavaPanel implements ActionListener {
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
 
-        paypanel.setLayout(new GridLayout(3,2));
-        chargepanel.setLayout(new GridLayout(3,2));
+
     }
 
 

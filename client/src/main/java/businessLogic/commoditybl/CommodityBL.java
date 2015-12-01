@@ -79,7 +79,7 @@ public class CommodityBL implements CommodityBLService{
 //			if(transferNum.equals(transNum))	depotoutnum++;
 //		}
 //		result.setDepotoutnum(depotoutnum);
-//		return result;
+		return null;
 	}
 
 	public ArrayList<CommodityVO> getTotal() throws RemoteException, SQLException {
