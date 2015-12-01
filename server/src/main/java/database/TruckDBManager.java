@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import po.infopo.TruckPO;
@@ -17,7 +18,7 @@ public class TruckDBManager extends DBManager{
 		String licenseid = truck.getLicenceID();
 		String engineid = truck.getEngineID();
 		String chassisid = truck.getChassisID();
-		Date buytime = truck.getBuyTime();
+		Timestamp buytime = new Timestamp(truck.getBuyTime().getTime());
 		int servetime = truck.getServeTime();
 		
 		String truckadd = "INSERT INTO Truck VALUES (?, ?, ?, ?, ?, ?)";
@@ -27,7 +28,7 @@ public class TruckDBManager extends DBManager{
 		statement.setString(2, licenseid);
 		statement.setString(3, engineid);;
 		statement.setString(4, chassisid);
-		statement.setDate(5, buytime);
+		statement.setTimestamp(5, buytime);
 		statement.setInt(6, servetime);
 		statement.executeUpdate();
 		
@@ -50,7 +51,7 @@ public class TruckDBManager extends DBManager{
 		ResultSet resultSet = statement.executeQuery(truckgetall);
 		while(resultSet.next()){
 			TruckPO truck = new TruckPO(resultSet.getString(1), resultSet.getString(2),
-					resultSet.getString(3), resultSet.getString(4), resultSet.getDate(5),
+					resultSet.getString(3), resultSet.getString(4), new Date(resultSet.getTimestamp(5).getTime()),
 					resultSet.getInt(6));
 			trucks.add(truck);
 		}
