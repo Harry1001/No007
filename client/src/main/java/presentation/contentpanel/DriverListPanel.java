@@ -26,9 +26,8 @@ public class DriverListPanel extends JPanel implements ActionListener{
         this.parent=par;
 
         String [] names={"司机编号","姓名","出生日期","身份证号","手机号","性别","行驶证期限"};
-        String [][] data={};
 
-        defaultTableModel=new DefaultTableModel(data,names);
+        defaultTableModel=new DefaultTableModel(names,0);
         table=new JTable(defaultTableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         RowSorter<TableModel> sorter=new TableRowSorter<TableModel>();
