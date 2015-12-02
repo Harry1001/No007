@@ -153,7 +153,13 @@ public class FinanceBL implements FinanceBLService{
 	public void makeCredit(int year) throws RemoteException, NamingException, SQLException{
 		// TODO Auto-generated method stub
 		FinanceDataService financeData = new FinanceDataImpl();
-		CommodityBL commodityBL = new CommodityBL();
+		CommodityBL commodityBL=null;
+		try{
+			commodityBL = new CommodityBL();
+		}catch (Exception e){
+			//todo 此处这是为了写界面时调试，后续需要删除trycatch!!!!!!!!!!!!!
+		}
+
 		AgencyInfoBL agencyInfoBL = new AgencyInfoBL();
 		BankAccountInfoBL bankAccountInfoBL = new BankAccountInfoBL();
 		DriverInfoBL driverInfoBL = new DriverInfoBL();

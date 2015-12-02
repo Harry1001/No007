@@ -15,6 +15,7 @@ import java.util.Vector;
 public class SalaryListPanel extends JPanel implements ActionListener {
     Frame parent;
     JButton confirmbt=new JButton("确认");
+    JButton cancelbt=new JButton("取消");
 
     DefaultTableModel defaultTableModel;
     JTable table;
@@ -48,12 +49,14 @@ public class SalaryListPanel extends JPanel implements ActionListener {
         gbc.gridwidth=1;
 
         gbc.gridy=13;
-        gbc.gridx=4;
+        gbc.gridx=3;
         this.add(confirmbt,gbc);
+        gbc.gridx=3;
+        this.add(cancelbt,gbc);
 
 
         confirmbt.addActionListener(this);
-
+        cancelbt.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -61,7 +64,9 @@ public class SalaryListPanel extends JPanel implements ActionListener {
             //todo 调用bl方法
 
         }
-
+        else if (e.getSource()==cancelbt){
+            //todo
+        }
     }
 
     class MyDefaultTableModel extends DefaultTableModel{
@@ -88,6 +93,12 @@ public class SalaryListPanel extends JPanel implements ActionListener {
             super(data, columnNames);
         }
 
+        /**
+         * 覆盖了DefaultTableModel中的方法，使得第一列不可修改
+         * @param row
+         * @param column
+         * @return
+         */
         public boolean isCellEditable(int row, int column){
             return column==0?false:true;
         }
