@@ -1,32 +1,32 @@
-package presentation.contentpanel;
+package presentation.contentpanel.hubpanels;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by Harry on 2015/11/27.
+ * Created by Harry on 2015/11/28.
  */
-public class StoreArrivePanel extends JPanel {
-
+public class HubArrivePanel extends JPanel {
     Frame parent;
 
-    JLabel orderL=new JLabel("营业厅到达单编号");
+    JLabel orderL=new JLabel("中转中心到达单编号");
+    JLabel hubIDL=new JLabel("中转中心编号");
     JLabel timeL=new JLabel("到达日期");
     JLabel numL=new JLabel("中转/装车单编号");
     JLabel fromL=new JLabel("出发地");
     JLabel stateL=new JLabel("货物到达状态");
 
     JTextField orderT=new JTextField(25);
+    JTextField hubIDT=new JTextField(25);
     JTextField timeT=new JTextField(25);
     JTextField numT=new JTextField(25);
     JTextField fromT=new JTextField(25);
-
-    JComboBox stateC;
+    JComboBox<String> stateC;
 
     JButton submitbt=new JButton("提交");
     JButton cancelbt=new JButton("取消");
 
-    public StoreArrivePanel(Frame par){
+    public HubArrivePanel(Frame par){
         this.parent=par;
         String[] s={"完整", "损坏", "丢失"};
         stateC=new JComboBox(s);
@@ -38,31 +38,36 @@ public class StoreArrivePanel extends JPanel {
 
         this.add(orderL,gbc);
         gbc.gridy=1;
-        this.add(timeL,gbc);
+        this.add(hubIDL,gbc);
         gbc.gridy=2;
-        this.add(numL,gbc);
+        this.add(timeL,gbc);
         gbc.gridy=3;
-        this.add(fromL,gbc);
+        this.add(numL,gbc);
         gbc.gridy=4;
+        this.add(fromL,gbc);
+        gbc.gridy=5;
         this.add(stateL,gbc);
 
         gbc.gridx=1;
         gbc.gridy=0;
         this.add(orderT,gbc);
         gbc.gridy=1;
-        this.add(timeT, gbc);
+        this.add(hubIDT,gbc);
         gbc.gridy=2;
-        this.add(numT,gbc);
+        this.add(timeT, gbc);
         gbc.gridy=3;
-        this.add(fromT,gbc);
+        this.add(numT,gbc);
         gbc.gridy=4;
+        this.add(fromT,gbc);
+        gbc.gridy=5;
         this.add(stateC,gbc);
 
         gbc.fill=GridBagConstraints.NONE;
         gbc.gridx=0;
-        gbc.gridy=6;
+        gbc.gridy=7;
         this.add(submitbt,gbc);
         gbc.gridx=1;
         this.add(cancelbt,gbc);
+
     }
 }

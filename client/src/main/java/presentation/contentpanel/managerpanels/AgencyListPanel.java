@@ -1,6 +1,4 @@
-package presentation.contentpanel;
-
-import presentation.contentpanel.TruckInfoPanel;
+package presentation.contentpanel.managerpanels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,9 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Harry on 2015/11/27.
+ * Created by Harry on 2015/11/28.
  */
-public class TruckListPanel extends JPanel implements ActionListener {
+public class AgencyListPanel extends JPanel implements ActionListener {
     Frame parent;
     JButton addbt=new JButton("新增");
     JButton deletebt=new JButton("删除");
@@ -22,13 +20,13 @@ public class TruckListPanel extends JPanel implements ActionListener {
     DefaultTableModel defaultTableModel;
     JTable table;
 
-    public TruckListPanel(Frame par){
+    public AgencyListPanel(Frame par) {
+
         this.parent=par;
 
-        String [] names={"车辆代号","发动机号","车牌号","底盘号","购买时间","服役时间"};
-        String [][] data={};
+        String [] names={"机构编号","名称","机构类型","位置","面积","土地租金"};
 
-        defaultTableModel=new DefaultTableModel(data,names);
+        defaultTableModel=new DefaultTableModel(names,0);
         table=new JTable(defaultTableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         RowSorter<TableModel> sorter=new TableRowSorter<TableModel>();
@@ -41,7 +39,7 @@ public class TruckListPanel extends JPanel implements ActionListener {
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.BOTH;
 
-        gbc.gridwidth=6;
+        gbc.gridwidth=5;
         gbc.gridheight=10;
         this.add(new JScrollPane(table),gbc);
 
@@ -49,23 +47,24 @@ public class TruckListPanel extends JPanel implements ActionListener {
         gbc.anchor=GridBagConstraints.WEST;
         gbc.gridheight=1;
         gbc.gridwidth=1;
-        gbc.gridx=3;
+        gbc.gridx=0;
         gbc.gridy=13;
         this.add(addbt,gbc);
-        gbc.gridx=4;
+        gbc.gridx=1;
         this.add(deletebt,gbc);
-        gbc.gridx=5;
+        gbc.gridx=2;
         this.add(modifybt,gbc);
 
         addbt.addActionListener(this);
         deletebt.addActionListener(this);
         modifybt.addActionListener(this);
+
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
-            JDialog dialog=new JDialog(parent,"新增车辆信息",true);
-            dialog.getContentPane().add(new TruckInfoPanel(dialog));
+            JDialog dialog=new JDialog(parent,"新增机构信息",true);
+            dialog.getContentPane().add(new AgencyInfoPanel(dialog));
             dialog.setLocationRelativeTo(parent);
             dialog.pack();
             dialog.show();

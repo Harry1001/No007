@@ -1,6 +1,4 @@
-package presentation.contentpanel;
-
-import com.sun.deploy.panel.JavaPanel;
+package presentation.contentpanel.storepanels;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,55 +6,53 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Harry on 2015/11/28.
+ * Created by Harry on 2015/11/27.
  */
-public class StaffInfoPanel extends JPanel implements ActionListener{
+public class DriverInfoPanel extends JPanel implements ActionListener{
     Dialog parent;
-    JLabel[] labels=new JLabel[5];
-    JTextField idT=new JTextField(20);
-    JTextField nameT=new JTextField(20);
-    JComboBox<String> gender;
-    JComboBox<String> job;
+    JLabel[] labels=new JLabel[7];
+    JTextField [] textFields=new JTextField[5];
     JButton submitbt=new JButton("提交");
     JButton cancelbt=new JButton("取消");
 
-    public StaffInfoPanel(Dialog parent) {
+    public DriverInfoPanel(Dialog parent) {
         this.parent = parent;
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
 
-        String[] names={"工号","姓名","性别","出生日期","职位"};
-        for(int i=0;i<5;i++){
+        String[] names={"司机编号","姓名","出生日期","身份证号","手机号","性别","行驶证期限"};
+        for(int i=0;i<7;i++){
             labels[i]=new JLabel(names[i]);
         }
-
-        String[] s1={"男","女"};
-        String[] s2={"快递员","营业厅业务员","中转中心业务员","仓库管理员","财务人员","总经理","管理员"};
-        gender=new JComboBox<String>(s1);
-        job=new JComboBox<String>(s2);
-
+        for(int i=0;i<5;i++){
+            textFields[i]=new JTextField(25);
+        }
         datepanel p1=new datepanel();
+        datepanel p2=new datepanel();
 
-
-        for(gbc.gridx=0,gbc.gridy=0;gbc.gridy<5;gbc.gridy++){
+        for(gbc.gridx=0,gbc.gridy=0;gbc.gridy<7;gbc.gridy++){
             this.add(labels[gbc.gridy],gbc);
         }
 
         gbc.gridx=1;
         gbc.gridy=0;
-        this.add(idT,gbc);
+        this.add(textFields[0],gbc);
         gbc.gridy++;
-        this.add(nameT,gbc);
-        gbc.gridy++;
-        this.add(gender,gbc);
+        this.add(textFields[1],gbc);
         gbc.gridy++;
         this.add(p1,gbc);
         gbc.gridy++;
-        this.add(job,gbc);
+        this.add(textFields[2],gbc);
+        gbc.gridy++;
+        this.add(textFields[3],gbc);
+        gbc.gridy++;
+        this.add(textFields[4],gbc);
+        gbc.gridy++;
+        this.add(p2,gbc);
 
         gbc.gridx=0;
-        gbc.gridy=6;
+        gbc.gridy=8;
         this.add(submitbt,gbc);
         gbc.gridx=1;
         this.add(cancelbt,gbc);
@@ -94,4 +90,5 @@ public class StaffInfoPanel extends JPanel implements ActionListener{
 
 
     }
+
 }

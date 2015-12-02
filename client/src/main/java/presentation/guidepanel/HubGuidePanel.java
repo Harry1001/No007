@@ -2,6 +2,8 @@ package presentation.guidepanel;
 
 import presentation.Images.Images;
 import presentation.contentpanel.*;
+import presentation.contentpanel.hubpanels.HubArrivePanel;
+import presentation.contentpanel.hubpanels.TransferPanel;
 
 import javax.swing.*;
 import java.awt.*;

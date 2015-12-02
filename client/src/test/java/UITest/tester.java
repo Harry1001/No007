@@ -8,6 +8,8 @@ import presentation.guidepanel.StoreGuidePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.ObjectInputStream;
+import java.util.Vector;
 
 /**
  * Created by Harry on 2015/11/23.

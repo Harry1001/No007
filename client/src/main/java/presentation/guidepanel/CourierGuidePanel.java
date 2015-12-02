@@ -1,9 +1,9 @@
 package presentation.guidepanel;
 
 import presentation.Images.Images;
-import presentation.contentpanel.LogisticPanel;
-import presentation.contentpanel.ReceivePanel;
-import presentation.contentpanel.SendPanel;
+import presentation.contentpanel.senderpanels.LogisticPanel;
+import presentation.contentpanel.courierpanels.ReceivePanel;
+import presentation.contentpanel.courierpanels.SendPanel;
 
 import javax.swing.*;
 import java.awt.*;

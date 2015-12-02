@@ -1,4 +1,4 @@
-package presentation.contentpanel;
+package presentation.contentpanel.administratorpanels;
 
 import javax.swing.*;
 import java.awt.*;

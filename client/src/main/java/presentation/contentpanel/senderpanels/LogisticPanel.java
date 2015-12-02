@@ -1,4 +1,4 @@
-package presentation.contentpanel;
+package presentation.contentpanel.senderpanels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

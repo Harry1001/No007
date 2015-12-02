@@ -1,8 +1,11 @@
 package presentation.guidepanel;
 
 import presentation.Images.Images;
-import presentation.contentpanel.TruckListPanel;
+import presentation.contentpanel.storepanels.DespatchPanel;
+import presentation.contentpanel.storepanels.StoreArrivePanel;
+import presentation.contentpanel.storepanels.TruckListPanel;
 import presentation.contentpanel.*;
+import presentation.contentpanel.storepanels.DriverListPanel;
 
 import javax.swing.*;
 import java.awt.*;

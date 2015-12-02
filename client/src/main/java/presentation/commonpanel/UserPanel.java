@@ -1,6 +1,7 @@
 package presentation.commonpanel;
 
 import presentation.Images.Images;
+import typeDefinition.Job;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,12 +10,20 @@ import java.awt.*;
  * Created by Harry on 2015/11/24.
  */
 public class UserPanel extends JPanel {
-    public UserPanel(String name, String job){
+
+    private String userID;
+    private String userjob;//todo job这个枚举类不方便显示，建议改成string
+
+    public UserPanel(String id, String job){
+
+        this.userID=id;
+        this.userjob=job;
+
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
 
         JLabel pic=new JLabel(Images.USERHEAD);
-        JLabel welcome=new JLabel("欢迎您，"+name+"!");
+        JLabel welcome=new JLabel("欢迎您，"+id+"!");
         JLabel identity=new JLabel("当前身份："+job);
 
         JButton logout=new JButton("退出 ");

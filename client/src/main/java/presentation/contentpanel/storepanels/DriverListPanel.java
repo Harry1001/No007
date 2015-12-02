@@ -1,6 +1,4 @@
-package presentation.contentpanel;
-
-import presentation.contentpanel.DriverInfoPanel;
+package presentation.contentpanel.storepanels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

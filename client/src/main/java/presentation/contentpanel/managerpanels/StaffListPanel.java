@@ -1,4 +1,4 @@
-package presentation.contentpanel;
+package presentation.contentpanel.managerpanels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -9,9 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Harry on 2015/11/28.
+ * Created by Harry on 2015/11/24.
  */
-public class UserAccountListPanel extends JPanel implements ActionListener {
+public class StaffListPanel extends JPanel implements ActionListener{
     Frame parent;
     JButton addbt=new JButton("新增");
     JButton deletebt=new JButton("删除");
@@ -20,11 +20,11 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
     DefaultTableModel defaultTableModel;
     JTable table;
 
-    public UserAccountListPanel(Frame par) {
+    public StaffListPanel(Frame par) {
 
         this.parent=par;
 
-        String [] names={"工号","职位","密码"};
+        String [] names={"工号","姓名","性别","出生年月","职位"};
 
         defaultTableModel=new DefaultTableModel(names,0);
         table=new JTable(defaultTableModel);
@@ -63,8 +63,8 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
-            JDialog dialog=new JDialog(parent,"新增用户信息",true);
-            dialog.getContentPane().add(new UserAccountInfoPanel(dialog));
+            JDialog dialog=new JDialog(parent,"新增人员信息",true);
+            dialog.getContentPane().add(new StaffInfoPanel(dialog));
             dialog.setLocationRelativeTo(parent);
             dialog.pack();
             dialog.show();

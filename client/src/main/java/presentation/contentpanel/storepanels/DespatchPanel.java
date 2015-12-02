@@ -1,4 +1,4 @@
-package presentation.contentpanel;
+package presentation.contentpanel.storepanels;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

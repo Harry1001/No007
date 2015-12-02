@@ -1,6 +1,4 @@
-package presentation.contentpanel;
-
-import com.sun.deploy.panel.JavaPanel;
+package presentation.contentpanel.administratorpanels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Harry on 2015/11/28.
  */
-public class AgencyListPanel extends JavaPanel implements ActionListener {
+public class UserAccountListPanel extends JPanel implements ActionListener {
     Frame parent;
     JButton addbt=new JButton("新增");
     JButton deletebt=new JButton("删除");
@@ -22,11 +20,11 @@ public class AgencyListPanel extends JavaPanel implements ActionListener {
     DefaultTableModel defaultTableModel;
     JTable table;
 
-    public AgencyListPanel(Frame par) {
+    public UserAccountListPanel(Frame par) {
 
         this.parent=par;
 
-        String [] names={"机构编号","名称","机构类型","位置","面积","土地租金"};
+        String [] names={"工号","职位","密码"};
 
         defaultTableModel=new DefaultTableModel(names,0);
         table=new JTable(defaultTableModel);
@@ -65,8 +63,8 @@ public class AgencyListPanel extends JavaPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
-            JDialog dialog=new JDialog(parent,"新增机构信息",true);
-            dialog.getContentPane().add(new AgencyInfoPanel(dialog));
+            JDialog dialog=new JDialog(parent,"新增用户信息",true);
+            dialog.getContentPane().add(new UserAccountInfoPanel(dialog));
             dialog.setLocationRelativeTo(parent);
             dialog.pack();
             dialog.show();

@@ -1,4 +1,4 @@
-package presentation.contentpanel;
+package presentation.contentpanel.managerpanels;
 
 import com.sun.deploy.panel.JavaPanel;
 
