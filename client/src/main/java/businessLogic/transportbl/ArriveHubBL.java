@@ -15,6 +15,9 @@ import blfactory.BLFactory;;
 
 public class ArriveHubBL{
 
+	ReceiptBLService receiptblservice;
+	LogisticBLService logisticblservice;
+
 	public boolean verify(HubArrivalReceiptVO vo) throws TransportBLException{
 		String s1=vo.getTransReceiptID();
 		if(s1.length()!=19){
@@ -34,9 +37,9 @@ public class ArriveHubBL{
 	}
 
 	public void submit(HubArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException {
-		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
+		receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
-		LogisticBLService logisticblservice=BLFactory.getLogisticBLService();
+		logisticblservice=BLFactory.getLogisticBLService();
 		logisticblservice.update(vo);
 	}
 	

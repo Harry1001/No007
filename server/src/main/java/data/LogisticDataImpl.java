@@ -16,19 +16,18 @@ public class LogisticDataImpl extends UnicastRemoteObject implements LogisticDat
 		// TODO Auto-generated constructor stub
 	}
 
+	private LogisticDBManager logisticDBManager=new LogisticDBManager();
+
 	public void update(LogisticPO po) throws RemoteException, SQLException {
-		LogisticDBManager logisticDBManager=new LogisticDBManager();
 		logisticDBManager.update(po);
 	}
 
 	public ArrayList<LogisticPO> read(String num) throws RemoteException, SQLException {
-		LogisticDBManager logisticDBManager=new LogisticDBManager();
 		logisticDBManager.read(num);
 		return null;
 	}
 
 	public void remove(String num) throws RemoteException, SQLException {
-		LogisticDBManager logisticDBManager=new LogisticDBManager();
 		logisticDBManager.removeLogistic(num);
 	}
 

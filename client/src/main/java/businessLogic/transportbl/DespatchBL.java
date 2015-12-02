@@ -12,6 +12,9 @@ import vo.receiptvo.DespatchReceiptVO;
 
 public class DespatchBL{
 
+	ReceiptBLService receiptblservice;
+	LogisticBLService logisticblservice;
+	
 	public boolean verify(DespatchReceiptVO vo) throws TransportBLException {
 		String s=vo.getOrderNum();
 		if(s.length()!=10){
@@ -21,9 +24,9 @@ public class DespatchBL{
 	}
 
 	public void submit(DespatchReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException{
-		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
+		receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
-		LogisticBLService logisticblservice=BLFactory.getLogisticBLService();
+		logisticblservice=BLFactory.getLogisticBLService();
 		logisticblservice.update(vo);
 	}
 	
