@@ -24,7 +24,7 @@ public class CommodityBL implements CommodityBLService{
 	private CommodityDataService commodityData;
 	
 	public CommodityBL() throws NamingException, MalformedURLException, RemoteException, NotBoundException{
-		String url = "rmi://localhost:8888/central_commodity";
+		String url = "rmi://114.212.42.182:8888/central_commodity";
 		this.commodityData = (CommodityDataService) Naming.lookup(url);
 	}
 	
