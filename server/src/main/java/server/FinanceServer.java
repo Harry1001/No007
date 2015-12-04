@@ -3,8 +3,6 @@ package server;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import data.FinanceDataImpl;

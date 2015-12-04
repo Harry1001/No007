@@ -43,9 +43,9 @@ public class FinanceController implements FinanceBLService{
 		return receiptVOs;
 	}
 
-	public ArrayList<ReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException{
+	public ArrayList<ChargeReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException{
 		// TODO Auto-generated method stub
-		ArrayList<ReceiptVO> receiptVOs = financeBL.checkStore(fromTime, toTime, StoreNum);
+		ArrayList<ChargeReceiptVO> receiptVOs = financeBL.checkStore(fromTime, toTime, StoreNum);
 		return receiptVOs;
 	}
 
