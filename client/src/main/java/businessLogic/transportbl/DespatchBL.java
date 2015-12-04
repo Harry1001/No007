@@ -3,16 +3,17 @@ package businessLogic.transportbl;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import blfactory.BLFactory;
 import businessLogicService.logisticblservice.LogisticBLService;
-import businessLogicService.receiptblservice.ReceiptBLService;
+import businessLogicService.receiptblservice.DespatchReceiptBLService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.DespatchReceiptVO;
 
 public class DespatchBL{
 
-	ReceiptBLService receiptblservice;
+	DespatchReceiptBLService receiptblservice;
 	LogisticBLService logisticblservice;
 	
 	public boolean verify(DespatchReceiptVO vo) throws TransportBLException {
@@ -23,8 +24,8 @@ public class DespatchBL{
 		return true;	
 	}
 
-	public void submit(DespatchReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException{
-		receiptblservice=BLFactory.getReceiptBLService();
+	public void submit(DespatchReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException{
+		receiptblservice=BLFactory.getDespatchReceiptBLService();
 		receiptblservice.createReceipt(vo);
 		logisticblservice=BLFactory.getLogisticBLService();
 		logisticblservice.update(vo);

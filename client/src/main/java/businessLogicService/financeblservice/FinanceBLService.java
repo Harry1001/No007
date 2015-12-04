@@ -22,16 +22,18 @@ public interface FinanceBLService {
 	 * 更新总收入
 	 * @param vo
 	 * @throws RemoteException 
+	 * @throws SQLException 
 	 */
-	public void submitIn(ChargeReceiptVO vo) throws RemoteException;
+	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException;
 	
 	/**
 	 * 在一个付款回合中，新建付款单
 	 * 更新总支出
 	 * @param vo
 	 * @throws RemoteException 
+	 * @throws SQLException 
 	 */
-	public void submitOut(PayReceiptVO vo) throws RemoteException;
+	public void submitOut(PayReceiptVO vo) throws RemoteException, SQLException;
 	
 	/**
 	 * 期初建账后的账目查询

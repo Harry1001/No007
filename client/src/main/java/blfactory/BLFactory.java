@@ -48,10 +48,6 @@ public class BLFactory {
     public static UserAccoutBLService getUserAccountBLService(){
         return new UserAccountBLController();
     }
-
-    public static ReceiptBLService getReceiptBLService(){
-        return new ReceiptController();
-    }
     
     public static ChargeReceiptBLService getChargeReceiptBLService(){
     	return new ChargeReceiptController();

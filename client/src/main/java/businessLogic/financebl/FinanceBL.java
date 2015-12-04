@@ -21,6 +21,8 @@ import businessLogic.infobl.bl.TruckInfoBL;
 import businessLogic.receiptbl.ReceiptBL;
 import businessLogic.strategybl.StrategyBL;
 import businessLogicService.financeblservice.FinanceBLService;
+import businessLogicService.receiptblservice.ChargeReceiptBLService;
+import businessLogicService.receiptblservice.PayReceiptBLService;
 import businessLogicService.receiptblservice.ReceiptBLService;
 import businessLogicService.strategyblservice.CalSalaryService;
 import data.FinanceDataImpl;
@@ -66,10 +68,11 @@ public class FinanceBL implements FinanceBLService{
 	 * 增加银行收入
 	 * @param vo
 	 * @throws RemoteException
+	 * @throws SQLException 
 	 */
-	public void submitIn(ChargeReceiptVO vo) throws RemoteException{
+	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException{
 		// TODO Auto-generated method stub
-		ReceiptBLService receiptBL = BLFactory.getReceiptBLService();
+		ChargeReceiptBLService receiptBL = BLFactory.getChargeReceiptBLService();
 		receiptBL.createReceipt(vo);
 		financeData.addIncome(vo.getFee());
 	}
@@ -78,9 +81,10 @@ public class FinanceBL implements FinanceBLService{
 	 * 成本管理
 	 * @param vo
 	 * @throws RemoteException
+	 * @throws SQLException 
 	 */
-	public void submitOut(PayReceiptVO vo) throws RemoteException{
-		ReceiptBLService receiptBL = BLFactory.getReceiptBLService();
+	public void submitOut(PayReceiptVO vo) throws RemoteException, SQLException{
+		PayReceiptBLService receiptBL = BLFactory.getPayReceiptBLService();
 		receiptBL.createReceipt(vo);
 		financeData.addOutcome(vo.getFee());
 	}

@@ -19,8 +19,9 @@ public interface SendBLService {
 	 * @throws RemoteException 
 	 * @throws NotBoundException 
 	 * @throws MalformedURLException 
+	 * @throws SQLException 
 	 */
-	public void submit(SendReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException;
+	public void submit(SendReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException;
 	/**
 	 * 输入参数获得寄件费
 	 * @throws SQLException 

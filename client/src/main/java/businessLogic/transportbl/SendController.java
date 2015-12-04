@@ -17,7 +17,7 @@ public class SendController implements SendBLService{
 		return sendbl.verify(vo);
 	}
 
-	public void submit(SendReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException {
+	public void submit(SendReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException {
 		sendbl.submit(vo);
 	}
 

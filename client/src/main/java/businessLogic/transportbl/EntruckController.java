@@ -15,7 +15,7 @@ public class EntruckController implements EntruckBLService{
 		return entruckbl.verify(vo);
 	}
 
-	public void submit(EntruckReceiptVO vo) throws RemoteException {
+	public void submit(EntruckReceiptVO vo) throws RemoteException, SQLException {
 		entruckbl.submit(vo);
 	}
 

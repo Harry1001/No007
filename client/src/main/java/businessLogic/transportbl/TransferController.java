@@ -14,7 +14,7 @@ public class TransferController implements TransferBLService{
 		return transferbl.verify(vo);
 	}
 
-	public void submit(TransferReceiptVO vo) throws RemoteException {
+	public void submit(TransferReceiptVO vo) throws RemoteException, SQLException {
 		transferbl.submit(vo);
 	}
 

@@ -68,13 +68,13 @@ public class FinanceController implements FinanceBLService{
 
 
 
-	public void submitIn(ChargeReceiptVO vo) throws RemoteException {
+	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException {
 		financeBL.submitIn(vo);		
 	}
 
 
 
-	public void submitOut(PayReceiptVO vo) throws RemoteException {
+	public void submitOut(PayReceiptVO vo) throws RemoteException, SQLException {
 		financeBL.submitOut(vo);
 	}
 }

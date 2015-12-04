@@ -3,19 +3,20 @@ package businessLogic.transportbl;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import blfactory.BLFactory;
 import businessLogicService.logisticblservice.LogisticBLService;
-import businessLogicService.receiptblservice.ReceiptBLService;
+import businessLogicService.receiptblservice.StoreArrivalReceiptBLService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.StoreArrivalReceiptVO;
 
 public class ArriveStoreBL{
 
-	ReceiptBLService receiptblservice;
+	StoreArrivalReceiptBLService receiptblservice;
 	LogisticBLService logisticblservice;
 	
 	public boolean verify(StoreArrivalReceiptVO vo) throws TransportBLException{
@@ -37,8 +38,8 @@ public class ArriveStoreBL{
 		return true;	
 	}
 	
-	public void submit(StoreArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException {
-		receiptblservice=BLFactory.getReceiptBLService();
+	public void submit(StoreArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException {
+		receiptblservice=BLFactory.getStoreArrivalReceiptBLService();
 		receiptblservice.createReceipt(vo);
 		logisticblservice=BLFactory.getLogisticBLService();
 		logisticblservice.update(vo);

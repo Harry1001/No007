@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import blfactory.BLFactory;
-import businessLogicService.receiptblservice.ReceiptBLService;
+import businessLogicService.receiptblservice.EntruckReceiptBLService;
 import businessLogicService.strategyblservice.CalCarriageService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.EntruckReceiptVO;
 
 public class EntruckBL{
 
-	ReceiptBLService receiptblservice;
+	EntruckReceiptBLService receiptblservice;
 	CalCarriageService strategyblservice;
 	
 	public boolean verify(EntruckReceiptVO vo) throws TransportBLException{
@@ -62,8 +62,8 @@ public class EntruckBL{
 		return true;	
 	}
 
-	public void submit(EntruckReceiptVO vo) throws RemoteException {
-		receiptblservice=BLFactory.getReceiptBLService();
+	public void submit(EntruckReceiptVO vo) throws RemoteException, SQLException {
+		receiptblservice=BLFactory.getEntruckReceiptBLService();
 		receiptblservice.createReceipt(vo);
 	}
 	

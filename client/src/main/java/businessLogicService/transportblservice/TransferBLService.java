@@ -15,8 +15,9 @@ public interface TransferBLService {
 	/**
 	 * 中转单提交等待审批
 	 * @throws RemoteException 
+	 * @throws SQLException 
 	 */
-	public void submit(TransferReceiptVO vo) throws RemoteException;
+	public void submit(TransferReceiptVO vo) throws RemoteException, SQLException;
 	/**
 	 * 输入参数获得运费
 	 * @throws SQLException 

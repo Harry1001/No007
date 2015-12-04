@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class LogisticBL implements LogisticBLService{
 	}
 	
 	//TODO orderID not exist
-	public ArrayList<LogisticVO> getLogistic(String orderID) throws RemoteException {
+	public ArrayList<LogisticVO> getLogistic(String orderID) throws RemoteException, SQLException {
 		ArrayList<LogisticVO> vo=new ArrayList<LogisticVO>();
 		ArrayList<LogisticPO> po=logisticdata.read(orderID);
 		for(LogisticPO temppo:po){
@@ -39,7 +40,7 @@ public class LogisticBL implements LogisticBLService{
 		return vo;
 	}
 	
-	public void update(ReceiptVO vo) throws RemoteException{
+	public void update(ReceiptVO vo) throws RemoteException, SQLException{
 		ReceiptType type=vo.getType();
 		String orderID=null;
 		String logisticstate=null;
@@ -137,7 +138,7 @@ public class LogisticBL implements LogisticBLService{
 
 	}
 	
-	public void remove(String num) throws RemoteException{
+	public void remove(String num) throws RemoteException, SQLException{
 		logisticdata.remove(num);
 	}
 	

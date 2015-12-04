@@ -3,6 +3,7 @@ package businessLogic.transportbl;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import businessLogicService.transportblservice.DespatchBLService;
 import myexceptions.TransportBLException;
@@ -15,7 +16,7 @@ public class DespatchController implements DespatchBLService{
 		return despatchbl.verify(vo);
 	}
 
-	public void submit(DespatchReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException {
+	public void submit(DespatchReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException {
 		despatchbl.submit(vo);
 	}
 

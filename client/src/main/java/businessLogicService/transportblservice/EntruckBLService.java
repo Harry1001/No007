@@ -15,8 +15,9 @@ public interface EntruckBLService {
 	/**
 	 * 装车单提交等待审批
 	 * @throws RemoteException 
+	 * @throws SQLException 
 	 */
-	public void submit(EntruckReceiptVO vo) throws RemoteException;
+	public void submit(EntruckReceiptVO vo) throws RemoteException, SQLException;
 	/**
 	 * 输入参数获得运费
 	 * @throws SQLException 
