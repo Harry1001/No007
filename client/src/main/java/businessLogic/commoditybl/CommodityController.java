@@ -14,7 +14,6 @@ import vo.commodityvo.CheckResultVO;
 import vo.commodityvo.CommodityVO;
 import vo.receiptvo.DepotInReceiptVO;
 import vo.receiptvo.DepotOutReceiptVO;
-import vo.receiptvo.ReceiptVO;
 
 public class CommodityController implements CommodityBLService{
 	private CommodityBL commodityBL;
