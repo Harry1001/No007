@@ -27,8 +27,10 @@ public class CalCarriageFeeBL extends StrategyBL implements CalCarriageService{
 			String s1=trvo.getTransferType();
 			
 			String s2=trvo.getDepartLoc();
+			String s22=s2.substring(0, 2);
 			String s3=trvo.getArriveLoc();
-			double dis=distance.getDistance(s2, s3);
+			String s33=s3.substring(0, 2);
+			double dis=distance.getDistance(s22, s33);
 			
 			if(s1.equals("plane")){
 				totalPrice+=50*dis*po.getPlanePrice();

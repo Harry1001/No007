@@ -1,5 +1,7 @@
 package dataService;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
@@ -36,9 +38,13 @@ public interface StrategyDataService {
 	/*
 	 * 提供城市距离常量
 	 */
-	public double getDistance(String city1,String city2);
+	public double getDistance(String city1,String city2) throws FileNotFoundException, ClassNotFoundException, IOException;
+	/*
+	 * 提供距离策略
+	 */
+	public DistancePO getDistanceStrategy() throws FileNotFoundException, ClassNotFoundException, IOException;
 	/*
 	 * 更新城市距离常量
 	 */
-	public void updataDistanceStrategy(DistancePO po);
+	public void updataDistanceStrategy(DistancePO po) throws FileNotFoundException, IOException;
 }

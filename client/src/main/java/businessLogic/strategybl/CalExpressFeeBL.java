@@ -22,8 +22,10 @@ public class CalExpressFeeBL extends StrategyBL implements CalExpressfeeService{
 		trueWeight=w > v/5000 ? w:v;     //判断体积与实际重量
 		
 		String s1=vo.getSenderLoc();     //计算距离
+		String s11=s1.substring(0, 2);
 		String s2=vo.getReceiverLoc();
-		double dis=distance.getDistance(s1, s2);
+		String s22=s2.substring(0, 2);
+		double dis=distance.getDistance(s11, s22);
 		
 		if(vo.getExpressType().equals("EconomicExpress")){
 			

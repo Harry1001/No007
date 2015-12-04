@@ -1,10 +1,14 @@
 package data;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import dataService.StrategyDataService;
 import database.CarriageStrategyDBManager;
+import database.DistanceDBManager;
 import database.ExpressFeeStrategyDBManager;
 import database.SalaryStrategyDBManager;
 import po.strategypo.CarriageFeePO;
@@ -54,14 +58,34 @@ public class StrategyDataImpl implements StrategyDataService{
 		s.addSalaryStrategy(po);
 	}
 
-	public double getDistance(String city1,String city2) {
+	/**
+	 * 根据距离策略得到距离
+	 * 
+	 */
+	public double getDistance(String city1,String city2) throws FileNotFoundException, ClassNotFoundException, IOException {
 		// TODO Auto-generated method stub
+		DistanceDBManager d=new DistanceDBManager();
+		DistancePO po=d.read();
+		Vector<String> cities=po.getCities();
+		for()
 		return 0;
 	}
-
-	public void updataDistanceStrategy(DistancePO po) {
+	/**
+	 * 向逻辑层提供距离策略
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
+	 */
+	public DistancePO getDistanceStrategy() throws FileNotFoundException, ClassNotFoundException, IOException{
+		DistanceDBManager d=new DistanceDBManager();
+		DistancePO po=d.read();
+		return po;
+	}
+	
+	public void updataDistanceStrategy(DistancePO po) throws FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
-		
+		DistanceDBManager d=new DistanceDBManager();
+		d.serialize(po);
 	}
 
 }

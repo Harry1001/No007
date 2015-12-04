@@ -27,4 +27,11 @@ public class DistanceStrategyBL implements DistanceService{
 		double dis=sd.getDistance(city1, city2);
 		return dis;
 	}
+	
+	//界面层显示距离策略
+	public DistanceVO getAll() throws RemoteException{
+		DistancePO po=sd.getDistanceStrategy();
+		DistanceVO vo=new DistanceVO(po);
+		return vo;
+	}
 }

@@ -1,46 +1,43 @@
 package po.strategypo;
 
+import java.io.Serializable;
+import java.util.Vector;
+
 import vo.strategyvo.DistanceVO;
 
-public class DistancePO extends StrategyPO{
-	private String city1;
-	private String city2;
-	private double distance;
+public class DistancePO extends StrategyPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Vector<String> cities;
+	private Vector<Vector<Object>> data;
 	
-	public DistancePO(String city1,String city2,double distance){
+	public DistancePO(Vector<String> cities,Vector<Vector<Object>> data){
 		super("distance");
-		this.city1=city1;
-		this.city2=city2;
-		this.distance=distance;
+		this.cities=cities;
+		this.data=data;
 	}
 	
 	public DistancePO(DistanceVO vo){
 		super("distance");
-		this.city1=vo.getCity1();
-		this.city2=vo.getCity2();
-		this.distance=vo.getDistance();
+		this.cities=vo.getCities();
+		this.data=vo.getData();
 	}
-	public void setCity1(String c1){
-		this.city1=c1;
-	}
-	
-	public String getCity1(){
-		return city1;
+	public void setCities(Vector<String> cities){
+		this.cities=cities;
 	}
 	
-	public void setCity2(String c2){
-		this.city2=c2;
+	public Vector<String> getCities(){
+		return cities;
 	}
 	
-	public String getCity2(){
-		return city2;
+	public void setData(Vector<Vector<Object>> data){
+		this.data=data;
 	}
 	
-	public void setDistance(double dis){
-		this.distance=dis;
+	public Vector<Vector<Object>> getData(){
+		return data;
 	}
 	
-	public double getDistance(){
-		return distance;
-	}
 }

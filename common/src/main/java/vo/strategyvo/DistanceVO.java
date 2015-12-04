@@ -1,10 +1,41 @@
 package vo.strategyvo;
 
+import java.util.Vector;
+
 import po.strategypo.DistancePO;
 
 public class DistanceVO extends StrategyVO{
 
-	private String city1;
+	private Vector<String> cities;
+	private Vector<Vector<Object>> data;
+	
+	public DistanceVO(Vector<String> cities,Vector<Vector<Object>> data){
+		super("distance");
+		this.cities=cities;
+		this.data=data;
+	}
+	
+	public DistanceVO(DistancePO po){
+		super("distance");
+		this.cities=po.getCities();
+		this.data=po.getData();
+	}
+	public void setCities(Vector<String> cities){
+		this.cities=cities;
+	}
+	
+	public Vector<String> getCities(){
+		return cities;
+	}
+	
+	public void setData(Vector<Vector<Object>> data){
+		this.data=data;
+	}
+	
+	public Vector<Vector<Object>> getData(){
+		return data;
+	}
+	/*private String city1;
 	private String city2;
 	private double distance;
 	
@@ -44,5 +75,5 @@ public class DistanceVO extends StrategyVO{
 	
 	public double getDistance(){
 		return distance;
-	}
+	}*/
 }
