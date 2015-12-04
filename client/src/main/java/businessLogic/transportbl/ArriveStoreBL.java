@@ -15,6 +15,9 @@ import vo.receiptvo.StoreArrivalReceiptVO;
 
 public class ArriveStoreBL{
 
+	ReceiptBLService receiptblservice;
+	LogisticBLService logisticblservice;
+	
 	public boolean verify(StoreArrivalReceiptVO vo) throws TransportBLException{
 		String s1=vo.getTransReceiptID();		
 		if(s1.length()!=19){
@@ -35,9 +38,9 @@ public class ArriveStoreBL{
 	}
 	
 	public void submit(StoreArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException {
-		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
+		receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
-		LogisticBLService logisticblservice=BLFactory.getLogisticBLService();
+		logisticblservice=BLFactory.getLogisticBLService();
 		logisticblservice.update(vo);
 	}
 	

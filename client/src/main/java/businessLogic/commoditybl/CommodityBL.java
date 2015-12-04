@@ -23,11 +23,25 @@ public class CommodityBL implements CommodityBLService{
 
 	private CommodityDataService commodityData;
 	
+	/**
+	 * 连接到服务器端
+	 * @throws NamingException
+	 * @throws MalformedURLException
+	 * @throws RemoteException
+	 * @throws NotBoundException
+	 */
 	public CommodityBL() throws NamingException, MalformedURLException, RemoteException, NotBoundException{
-		String url = "rmi://localhost:8888/central_commodity";
+		String url = "rmi://114.212.42.182:8888/central_commodity";
 		this.commodityData = (CommodityDataService) Naming.lookup(url);
 	}
 	
+	/**
+	 * 输入入库单单据的时候创建单据
+	 * @param vo
+	 * @throws RemoteException
+	 * @throws NamingException
+	 * @throws SQLException 
+	 */
 	public void submitIn(DepotInReceiptVO vo) throws RemoteException, SQLException{
 		ReceiptBL receipt = new ReceiptBL();
 		receipt.createReceipt(vo);
@@ -39,6 +53,13 @@ public class CommodityBL implements CommodityBLService{
 		commodityData.add(commodityPO);		
 	}
 	
+	/**
+	 * 输入出库单单据的时候创建单据
+	 * @param vo
+	 * @throws RemoteException
+	 * @throws NamingException
+	 * @throws SQLException 
+	 */
 	public void submitOut(DepotOutReceiptVO vo) throws RemoteException, SQLException{
 		ReceiptBL receipt = new ReceiptBL();
 		receipt.createReceipt(vo);
@@ -46,6 +67,14 @@ public class CommodityBL implements CommodityBLService{
 		commodityData.delete(expressNumber);
 	}
 
+	/**
+	 * 获取指定中转中心的所有现存的数据
+	 * @param transferNum
+	 * @return
+	 * @throws RemoteException
+	 * @throws NamingException
+	 * @throws SQLException 
+	 */
 	public ArrayList<CommodityVO> getList(String transferNum) throws SQLException, RemoteException {
 		ArrayList<CommodityVO> commodityVOs = new ArrayList<CommodityVO>();
 		ArrayList<CommodityPO> commodityPOs = commodityData.check(transferNum);
@@ -55,6 +84,15 @@ public class CommodityBL implements CommodityBLService{
 		return commodityVOs;
 	}
 
+	/**
+	 * 获取指定中转中心在指定时间内的所有出入库单据
+	 * @param transferNum
+	 * @param fromTime
+	 * @param toTime
+	 * @return
+	 * @throws RemoteException
+	 * @throws NamingException
+	 */
 	public CheckResultVO getList(String transferNum, Date fromTime, Date toTime) throws RemoteException{
 //		CheckResultVO result = new CheckResultVO();
 //		ReceiptBL receipt = new ReceiptBL();
@@ -79,9 +117,16 @@ public class CommodityBL implements CommodityBLService{
 //			if(transferNum.equals(transNum))	depotoutnum++;
 //		}
 //		result.setDepotoutnum(depotoutnum);
-//		return result;
+		return null;
 	}
 
+	/**
+	 * 获取所有中转中心当前的库存数据
+	 * @return
+	 * @throws RemoteException
+	 * @throws NamingException
+	 * @throws SQLException 
+	 */
 	public ArrayList<CommodityVO> getTotal() throws RemoteException, SQLException {
 		ArrayList<CommodityVO> commodityVOs = new ArrayList<CommodityVO>();
 		ArrayList<CommodityPO> commodityPOs = commodityData.getAll();
@@ -91,6 +136,12 @@ public class CommodityBL implements CommodityBLService{
 		return commodityVOs;
 	}
 
+	/**
+	 * 清除指定中转中心当前的库存数据
+	 * @throws RemoteException
+	 * @throws NamingException
+	 * @throws SQLException 
+	 */
 	public void renew(String transferNum) throws RemoteException, SQLException {
 		commodityData.renew(transferNum);
 	}

@@ -1,0 +1,28 @@
+package data;
+
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+
+import dataService.DespatchReceiptDataService;
+import database.DespatchReceiptDBManager;
+import po.receiptpo.DespatchReceiptPO;
+
+public class DespatchReceiptDataImpl implements DespatchReceiptDataService{
+
+	private DespatchReceiptDBManager despatchreceiptDBManager=new DespatchReceiptDBManager();
+	
+	public ArrayList<DespatchReceiptPO> getList(Date fromtime, Date toTime) throws RemoteException, SQLException {
+		return despatchreceiptDBManager.getList(fromtime, toTime);
+	}
+
+	public void addItem(DespatchReceiptPO item) throws RemoteException, SQLException {
+		despatchreceiptDBManager.addItem(item);
+	}
+
+	public void deleteAll() throws RemoteException, SQLException {
+		despatchreceiptDBManager.deleteAll();
+	}
+
+}

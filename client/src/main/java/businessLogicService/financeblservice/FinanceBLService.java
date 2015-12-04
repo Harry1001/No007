@@ -20,7 +20,7 @@ public interface FinanceBLService {
 	/**
 	 * 在一个收款回合中，新建收款单
 	 * 更新总收入
-	 * @param receiptInputVO
+	 * @param vo
 	 * @throws RemoteException 
 	 */
 	public void submitIn(ChargeReceiptVO vo) throws RemoteException;
@@ -42,9 +42,7 @@ public interface FinanceBLService {
 	public FinanceVO getCredit(int year) throws RemoteException;
 	
 	/**
-	 * 
-	 * @param feetype
-	 * @param receiptInputVO
+	 *
 	 * @return 计算收款（付款）金额
 	 * @throws RemoteException 
 	 */
@@ -67,7 +65,7 @@ public interface FinanceBLService {
 	 * @return 返回指定营业厅指定日期的收款单数据列表
 	 * @throws RemoteException 
 	 */
-	public ArrayList<ReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException;
+	public ArrayList<ChargeReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException;
 
 	/**
 	 * 前置条件：已经获取收款单数据列表

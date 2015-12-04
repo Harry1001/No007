@@ -14,6 +14,10 @@ import vo.receiptvo.SendReceiptVO;
 
 public class SendBL{
 	
+	ReceiptBLService receiptblservice;
+	LogisticBLService logisticblservice;
+	CalExpressfeeService strategyblservice;
+	
 	public boolean verify(SendReceiptVO vo) throws TransportBLException {
 		String s1=vo.getSenderPhone();
 		String s2=vo.getReceiverPhone();
@@ -36,15 +40,15 @@ public class SendBL{
 	}
 	
 	public void submit(SendReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException{
-		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
+		receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
-		LogisticBLService logisticblservice=BLFactory.getLogisticBLService();
+		logisticblservice=BLFactory.getLogisticBLService();
 		logisticblservice.update(vo);
 	}
 	
 	public double calFee(SendReceiptVO vo) throws RemoteException, SQLException{
-		CalExpressfeeService strategybl=BLFactory.getCalExpressfeeService();
-		return strategybl.calExpressFee(vo);
+		strategyblservice=BLFactory.getCalExpressfeeService();
+		return strategyblservice.calExpressFee(vo);
 	}
 	
 }

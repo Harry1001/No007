@@ -7,31 +7,15 @@ import java.rmi.RemoteException;
 import businessLogic.infobl.controller.*;
 import businessLogic.loginbl.LoginController;
 import businessLogic.logisticbl.LogisticController;
-import businessLogic.receiptbl.ReceiptController;
-import businessLogic.strategybl.CalCarriageFeeBL;
-import businessLogic.strategybl.CalExpressFeeBL;
-import businessLogic.strategybl.CalSalaryBL;
-import businessLogic.transportbl.ArriveHubController;
-import businessLogic.transportbl.ArriveStoreController;
-import businessLogic.transportbl.DespatchController;
-import businessLogic.transportbl.EntruckController;
-import businessLogic.transportbl.ReceiveController;
-import businessLogic.transportbl.SendController;
-import businessLogic.transportbl.TransferController;
+import businessLogic.receiptbl.*;
+import businessLogic.strategybl.*;
+import businessLogic.transportbl.*;
 import businessLogicService.infoblservice.*;
 import businessLogicService.loginblservice.LoginBLService;
 import businessLogicService.logisticblservice.LogisticBLService;
-import businessLogicService.receiptblservice.ReceiptBLService;
-import businessLogicService.strategyblservice.CalCarriageService;
-import businessLogicService.strategyblservice.CalExpressfeeService;
-import businessLogicService.strategyblservice.CalSalaryService;
-import businessLogicService.transportblservice.ArriveHubBLService;
-import businessLogicService.transportblservice.ArriveStoreBLService;
-import businessLogicService.transportblservice.DespatchBLService;
-import businessLogicService.transportblservice.EntruckBLService;
-import businessLogicService.transportblservice.ReceiveBLService;
-import businessLogicService.transportblservice.SendBLService;
-import businessLogicService.transportblservice.TransferBLService;
+import businessLogicService.receiptblservice.*;
+import businessLogicService.strategyblservice.*;
+import businessLogicService.transportblservice.*;
 
 /**
  * Created by Harry on 2015/11/21.
@@ -67,6 +51,50 @@ public class BLFactory {
 
     public static ReceiptBLService getReceiptBLService(){
         return new ReceiptController();
+    }
+    
+    public static ChargeReceiptBLService getChargeReceiptBLService(){
+    	return new ChargeReceiptController();
+    }
+    
+    public static DepotInReceiptBLService getDepotInReceiptBLService(){
+    	return new DepotInReceiptController();
+    }
+    
+    public static DepotOutReceiptBLService getDepotOutReceiptBLService(){
+    	return new DepotOutReceiptController();
+    }
+    
+    public static DespatchReceiptBLService getDespatchReceiptBLService(){
+    	return new DespatchReceiptController();
+    }
+    
+    public static EntruckReceiptBLService getEntruckReceiptBLService(){
+    	return new EntruckReceiptController();
+    }
+    
+    public static HubArrivalReceiptBLService getHubArrivalReceiptBLService(){
+    	return new HubArrivalReceiptController();
+    }
+    
+    public static StoreArrivalReceiptBLService getStoreArrivalReceiptBLService(){
+    	return new StoreArrivalReceiptController();
+    }
+    
+    public static PayReceiptBLService getPayReceiptBLService(){
+    	return new PayReceiptController();
+    }
+    
+    public static ReceiveReceiptBLService getReceiveReceiptBLService(){
+    	return new ReceiveReceiptController();
+    }
+    
+    public static TransferReceiptBLService getTransferReceiptBLService(){
+    	return new TransferReceiptController();
+    }
+    
+    public static SendReceiptBLService getSendReceiptBLService(){
+    	return new SendReceiptController();
     }
     
     public static LoginBLService getLoginBLService(){

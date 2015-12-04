@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import po.receiptpo.ReceiptPO;
 import typeDefinition.ReceiptType;
+import typeDefinition.Vehicle;
 import vo.receiptvo.TransferReceiptVO;
 
 public class TransferReceiptPO extends ReceiptPO {
@@ -14,7 +15,7 @@ public class TransferReceiptPO extends ReceiptPO {
 	 */
 
 
-	private String transferType;//中转方式
+	private Vehicle transferType;//中转方式
 	private Date transferDate;//中转日期
 	private String transferID;//中转单编号
 	private String vehicleID;//飞机／铁路）班次或者汽车的车牌号
@@ -24,7 +25,7 @@ public class TransferReceiptPO extends ReceiptPO {
 	private ArrayList<String> orderID;//本次装箱所有货物的单号
 	private double transferFee;
 	
-	public TransferReceiptPO(String transferType,Date transferDate,
+	public TransferReceiptPO(Vehicle transferType,Date transferDate,
 			String transferID,String vehicleID,String departLoc,String arriveLoc,
 			int counterID,ArrayList<String> orderID,double transferFee) {
 		super(ReceiptType.TRANSFER);
@@ -37,7 +38,7 @@ public class TransferReceiptPO extends ReceiptPO {
 		this.arriveLoc=arriveLoc;
 		this.counterID=counterID;
 		this.orderID=orderID;
-		this.setTransferFee(transferFee);
+		this.transferFee=transferFee;
 	}
 
 	public TransferReceiptPO(TransferReceiptVO vo){
@@ -45,12 +46,8 @@ public class TransferReceiptPO extends ReceiptPO {
 				vo.getDepartLoc(),vo.getArriveLoc(),vo.getCounterID(),vo.getOrderID(),vo.getTransferFee());
 	}
 
-	public String getTransferType() {
+	public Vehicle getTransferType() {
 		return transferType;
-	}
-
-	public void setTransferType(String transferType) {
-		this.transferType = transferType;
 	}
 
 	public Date getTransferDate() {

@@ -7,6 +7,7 @@ import businessLogicService.strategyblservice.CalCarriageService;
 import data.StrategyDataImpl;
 import po.strategypo.CarriageFeePO;
 import typeDefinition.ReceiptType;
+import typeDefinition.Vehicle;
 import vo.receiptvo.ReceiptVO;
 import vo.receiptvo.TransferReceiptVO;
 
@@ -24,7 +25,7 @@ public class CalCarriageFeeBL extends StrategyBL implements CalCarriageService{
 			totalPrice=30*10*2;
 		}else if(rt.equals(ReceiptType.TRANSFER)){
 			TransferReceiptVO trvo=(TransferReceiptVO) vo;
-			String s1=trvo.getTransferType();
+			Vehicle s1=trvo.getTransferType();
 			
 			String s2=trvo.getDepartLoc();
 			String s22=s2.substring(0, 2);

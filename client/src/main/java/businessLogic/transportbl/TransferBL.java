@@ -15,6 +15,9 @@ import vo.receiptvo.TransferReceiptVO;
 
 public class TransferBL{
 
+	ReceiptBLService receiptblservice;
+	CalCarriageService strategybl;
+	
 	public boolean verify(TransferReceiptVO vo) throws TransportBLException {
 		String s1=vo.getTransferID();
 		double fee=vo.getTransferFee();
@@ -43,12 +46,12 @@ public class TransferBL{
 	}
 	
 	public void submit(TransferReceiptVO vo) throws RemoteException{
-		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
+		receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
 	}
 	
 	public double calFee(TransferReceiptVO vo) throws RemoteException, SQLException{
-		CalCarriageService strategybl=BLFactory.getCalCarriageService();
+		strategybl=BLFactory.getCalCarriageService();
 		return strategybl.calCarriage(vo);
 	}
 	

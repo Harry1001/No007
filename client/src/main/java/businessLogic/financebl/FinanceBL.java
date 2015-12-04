@@ -61,14 +61,24 @@ public class FinanceBL implements FinanceBLService{
 		this.financeData = (FinanceDataService)namingContext.lookup(url);
 		
 	}
-	
+
+	/**
+	 * 增加银行收入
+	 * @param vo
+	 * @throws RemoteException
+	 */
 	public void submitIn(ChargeReceiptVO vo) throws RemoteException{
 		// TODO Auto-generated method stub
 		ReceiptBLService receiptBL = BLFactory.getReceiptBLService();
 		receiptBL.createReceipt(vo);
 		financeData.addIncome(vo.getFee());
 	}
-	
+
+	/**
+	 * 成本管理
+	 * @param vo
+	 * @throws RemoteException
+	 */
 	public void submitOut(PayReceiptVO vo) throws RemoteException{
 		ReceiptBLService receiptBL = BLFactory.getReceiptBLService();
 		receiptBL.createReceipt(vo);
@@ -110,16 +120,19 @@ public class FinanceBL implements FinanceBLService{
 		return result;
 	}
 
-	public ArrayList<ReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException{
+	/**
+	 *收入管理
+	 */
+	public ArrayList<ChargeReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException{
 		// TODO Auto-generated method stub																						
 		ReceiptBL receipt = new ReceiptBL();
-		ArrayList<ReceiptVO> charges = (ArrayList<ReceiptVO>)
+		ArrayList<ChargeReceiptVO> charges = (ArrayList<ChargeReceiptVO>)
 						receipt.getListByTime(fromTime, toTime, ReceiptType.CHARGE);
-		ArrayList<ReceiptVO> result = new ArrayList<ReceiptVO>();
+		ArrayList<ChargeReceiptVO> result = new ArrayList<ChargeReceiptVO>();
 		incomesum = 0;
 		storeNo = StoreNum;
 		time = fromTime;
-		for(ReceiptVO r: charges){
+		for(ChargeReceiptVO r: charges){
 			ChargeReceiptVO c = (ChargeReceiptVO)r;
 			String courierID = c.getCourier();
 //快递员工号前6位为营业厅编号
@@ -150,10 +163,23 @@ public class FinanceBL implements FinanceBLService{
 		return profit;
 	}
 
+	/**
+	 * 期初建账
+	 * @param year
+	 * @throws RemoteException
+	 * @throws NamingException
+	 * @throws SQLException
+	 */
 	public void makeCredit(int year) throws RemoteException, NamingException, SQLException{
 		// TODO Auto-generated method stub
 		FinanceDataService financeData = new FinanceDataImpl();
-		CommodityBL commodityBL = new CommodityBL();
+		CommodityBL commodityBL=null;
+		try{
+			commodityBL = new CommodityBL();
+		}catch (Exception e){
+			//todo 此处这是为了写界面时调试，后续需要删除trycatch!!!!!!!!!!!!!
+		}
+
 		AgencyInfoBL agencyInfoBL = new AgencyInfoBL();
 		BankAccountInfoBL bankAccountInfoBL = new BankAccountInfoBL();
 		DriverInfoBL driverInfoBL = new DriverInfoBL();

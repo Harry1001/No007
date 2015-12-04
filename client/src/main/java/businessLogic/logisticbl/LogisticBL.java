@@ -28,6 +28,7 @@ public class LogisticBL implements LogisticBLService{
 		this.logisticdata=(LogisticDataService)Naming.lookup(url);
 	}
 	
+	//TODO orderID not exist
 	public ArrayList<LogisticVO> getLogistic(String orderID) throws RemoteException {
 		ArrayList<LogisticVO> vo=new ArrayList<LogisticVO>();
 		ArrayList<LogisticPO> po=logisticdata.read(orderID);

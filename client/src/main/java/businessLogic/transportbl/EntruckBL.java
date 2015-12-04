@@ -15,6 +15,9 @@ import vo.receiptvo.EntruckReceiptVO;
 
 public class EntruckBL{
 
+	ReceiptBLService receiptblservice;
+	CalCarriageService strategyblservice;
+	
 	public boolean verify(EntruckReceiptVO vo) throws TransportBLException{
 		String s1=vo.getTransportID();
 		String s3=vo.getTruckID();
@@ -60,13 +63,13 @@ public class EntruckBL{
 	}
 
 	public void submit(EntruckReceiptVO vo) throws RemoteException {
-		ReceiptBLService receiptblservice=BLFactory.getReceiptBLService();
+		receiptblservice=BLFactory.getReceiptBLService();
 		receiptblservice.createReceipt(vo);
 	}
 	
 	public double calFee(EntruckReceiptVO vo) throws RemoteException, SQLException{
-		CalCarriageService strategybl=BLFactory.getCalCarriageService();
-		return strategybl.calCarriage(vo);
+		strategyblservice=BLFactory.getCalCarriageService();
+		return strategyblservice.calCarriage(vo);
 	}
 	
 }
