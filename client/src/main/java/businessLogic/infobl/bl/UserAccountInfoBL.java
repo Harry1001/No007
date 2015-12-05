@@ -15,6 +15,8 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import businessLogicService.infoblservice.UserAccoutBLService;
 
 /**
@@ -56,17 +58,10 @@ public class UserAccountInfoBL implements UserAccoutBLService {
     	userAccountData.update(id, item);
     }
 
-<<<<<<< HEAD
-    public Job verifyPassword(String id, String password) throws RemoteException {
+    public LoginResultVO verifyPassword(String id, String password) throws RemoteException {
         //todo 密码验证应该在数据层执行，为了安全密码不可以传到逻辑层
-    	Job job = userAccountData.verify(id, password);
-    	return job;
-=======
-    public LoginResultVO verifyPassword(String id, String password) throws RemoteException{
-        //todo 密码验证应该在数据层执行，为了安全密码不可以传到逻辑层
-
-        return new LoginResultVO(id, Job.COURIER, "张三");
->>>>>>> origin/master
+    	LoginResultVO vo = userAccountData.verify(id, password);
+    	return vo;
     }
-
+   
 }
