@@ -50,8 +50,9 @@ public interface CommodityBLService {
 	 * @return
 	 * @throws RemoteException
 	 * @throws NamingException
+	 * @throws SQLException 
 	 */
-	public CheckResultVO getList(String transferNum,Date fromTime,Date toTime)throws RemoteException, NamingException;
+	public CheckResultVO getList(String transferNum,Date fromTime,Date toTime)throws RemoteException, NamingException, SQLException;
 	
 	/**
 	 * 获取所有中转中心当前的库存数据

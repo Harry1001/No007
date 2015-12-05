@@ -1,13 +1,14 @@
 package businessLogic.infobl.bl;
 
-import data.InfoDataImpl;
-import dataService.InfoDataService;
+import dataService.infodataservice.InfoDataService;
 import myexceptions.InfoBLException;
 import po.infopo.AgencyPO;
 import typeDefinition.InfoType;
 import vo.infovo.AgencyVO;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+import data.infodataimpl.InfoDataImpl;
 
 /**
  * Created by Harry on 2015/11/16.

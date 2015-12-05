@@ -28,7 +28,7 @@ public class CommodityController implements CommodityBLService{
 		return commodityVOs;
 	}
 
-	public CheckResultVO getList(String transferNum, Date fromTime, Date toTime) throws RemoteException {
+	public CheckResultVO getList(String transferNum, Date fromTime, Date toTime) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		CheckResultVO result = commodityBL.getList(transferNum, fromTime, toTime);
 		return result;

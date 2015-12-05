@@ -1,5 +1,8 @@
 package businessLogic.financebl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Enumeration;
@@ -27,6 +30,7 @@ import businessLogicService.receiptblservice.ReceiptBLService;
 import businessLogicService.strategyblservice.CalSalaryService;
 import data.FinanceDataImpl;
 import dataService.FinanceDataService;
+import dataService._RMI;
 import po.financepo.FinancePO;
 import typeDefinition.ReceiptType;
 import vo.commodityvo.CommodityVO;
@@ -51,16 +55,16 @@ public class FinanceBL implements FinanceBLService{
 	
 	private FinanceDataService financeData;
 	
-	public FinanceBL() throws NamingException{
-		Context namingContext = new InitialContext();
-		
-		System.out.println("RMI registry bindings:");
-		Enumeration<NameClassPair> e = namingContext.list("rmi://localhost/");
-		while(e.hasMoreElements())
-			System.out.println(e.nextElement().getName());
-		
-		String url = "rmi://localhost/central_finance";
-		this.financeData = (FinanceDataService)namingContext.lookup(url);
+	/**
+	 * 构造器
+	 * @throws NamingException
+	 * @throws MalformedURLException
+	 * @throws RemoteException
+	 * @throws NotBoundException
+	 */
+	public FinanceBL() throws NamingException, MalformedURLException, RemoteException, NotBoundException{
+		String url = "rmi://"+_RMI.getIP()+"/central_finance";
+		this.financeData = (FinanceDataService)Naming.lookup(url);
 		
 	}
 

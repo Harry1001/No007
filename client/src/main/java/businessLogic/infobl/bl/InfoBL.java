@@ -2,7 +2,8 @@ package businessLogic.infobl.bl;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import dataService.InfoDataService;
+
+import dataService.infodataservice.InfoDataService;
 import myexceptions.InfoBLException;
 import po.infopo.InfoPO;
 import typeDefinition.InfoType;

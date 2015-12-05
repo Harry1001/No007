@@ -10,10 +10,16 @@ import server.FinanceServer;
 public class Server {
 
 	public static void main(String[] args) throws RemoteException, NamingException{
+		/**
+		 * 启动库存服务器
+		 */
 		CommodityServer centralCommodity = new CommodityServer();
 		centralCommodity.register();
 		
-//		FinanceServer centralfinance = new FinanceServer();
-//		centralfinance.register();
+		/**
+		 * 启动财务服务器
+		 */
+		FinanceServer centralfinance = new FinanceServer();
+		centralfinance.register();
 	}
 }

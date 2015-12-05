@@ -1,5 +1,7 @@
 package businessLogic.financebl;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.sql.SQLException;
@@ -20,13 +22,11 @@ public class FinanceController implements FinanceBLService{
 
 	private FinanceBL financeBL;
 	
-	public FinanceController() throws NamingException{
-		super();
+	public FinanceController() throws NamingException, MalformedURLException, RemoteException, NotBoundException{
 		this.financeBL = new FinanceBL();
 	}
 
 	public FinanceVO getCredit(int year) throws RemoteException {
-		// TODO Auto-generated method stub
 		FinanceVO financeVO = financeBL.getCredit(year);
 		return financeVO;
 	}

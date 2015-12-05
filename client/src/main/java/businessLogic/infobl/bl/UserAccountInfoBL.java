@@ -1,7 +1,6 @@
 package businessLogic.infobl.bl;
 
-import data.InfoDataImpl;
-import dataService.InfoDataService;
+import dataService.infodataservice.InfoDataService;
 import myexceptions.InfoBLException;
 import po.infopo.UserAccountPO;
 import typeDefinition.InfoType;
@@ -10,6 +9,8 @@ import vo.infovo.UserAccountVO;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+import data.infodataimpl.InfoDataImpl;
 
 /**
  * Created by Harry on 2015/11/16.
