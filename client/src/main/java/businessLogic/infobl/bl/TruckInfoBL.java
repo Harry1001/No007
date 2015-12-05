@@ -1,34 +1,35 @@
 package businessLogic.infobl.bl;
 
-import dataService.infodataservice.InfoDataService;
 import myexceptions.InfoBLException;
 import po.infopo.TruckPO;
-import typeDefinition.InfoType;
 import vo.infovo.TruckVO;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import data.infodataimpl.InfoDataImpl;
+import businessLogicService.infoblservice.TruckBLService;
+import dataService._RMI;
+import dataService.infodataservice.TruckDataService;
 
 /**
  * Created by Harry on 2015/11/16.
  */
-public class TruckInfoBL extends InfoBL{
+public class TruckInfoBL implements TruckBLService{
     private ArrayList<TruckPO> truckPOs;
-
-    public TruckInfoBL(){
-        this(new InfoDataImpl());
+    private TruckDataService truckData;
+    
+    public TruckInfoBL() throws MalformedURLException, RemoteException, NotBoundException{
+		String url = "rmi://"+_RMI.getIP()+"/central_truck";
+		this.truckData = (TruckDataService) Naming.lookup(url);
     }
 
-    public TruckInfoBL(InfoDataService infoData) {
-        super(infoData);
-        //truckPOs=(ArrayList<TruckPO>)super.getList(InfoType.TRUCK);
-    }
+    public ArrayList<TruckVO> getTruckList() throws RemoteException, SQLException {
 
-    public ArrayList<TruckVO> getTruckList() throws RemoteException {
-
-        truckPOs=(ArrayList<TruckPO>)super.getList(InfoType.TRUCK);
+        truckPOs = truckData.getList();
         ArrayList<TruckVO> truckVOs=new ArrayList<TruckVO>();
 
         for(TruckPO po:truckPOs){
@@ -38,18 +39,18 @@ public class TruckInfoBL extends InfoBL{
         return truckVOs;
     }
 
-    public void addTruck(TruckVO vo) throws RemoteException, InfoBLException {
-       super.add(new TruckPO(vo));
+    public void addTruck(TruckVO vo) throws RemoteException, InfoBLException, SQLException {
+    	TruckPO po = new TruckPO(vo);
+    	truckData.addItem(po);
     }
 
-    public void deleteTuck(String id) throws RemoteException {
-        super.delete(InfoType.TRUCK, id);
+    public void deleteTruck(String id) throws RemoteException, SQLException {
+        truckData.deleteItem(id);
     }
 
 
-    public void modifyTruck(String id, TruckVO vo) throws RemoteException, InfoBLException {
-
-       super.modify(id, new TruckPO(vo));
+    public void modifyTruck(String id, TruckVO vo) throws RemoteException, InfoBLException, SQLException {
+    	TruckPO item = new TruckPO(vo);
+    	truckData.update(id, item);
     }
-
 }

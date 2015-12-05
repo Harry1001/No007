@@ -10,8 +10,6 @@ import java.util.Date;
 import javax.naming.NamingException;
 
 import blfactory.BLFactory;
-import businessLogic.receiptbl.DepotInReceiptBL;
-import businessLogic.receiptbl.ReceiptBL;
 import businessLogicService.commodityblservice.CommodityBLService;
 import businessLogicService.receiptblservice.DepotInReceiptBLService;
 import businessLogicService.receiptblservice.DepotOutReceiptBLService;

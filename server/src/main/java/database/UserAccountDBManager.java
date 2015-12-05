@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import po.infopo.UserAccountPO;
 import typeDefinition.Job;
@@ -45,5 +46,19 @@ public class UserAccountDBManager extends DBManager{
 		UserAccountPO userAccount = new UserAccountPO(resultSet.getString(1), resultSet.getString(2), 
 					Job.values()[resultSet.getInt(3)], resultSet.getString(4));
 		return userAccount;
+	}
+	
+	public ArrayList<UserAccountPO> getall() throws SQLException {
+		ArrayList<UserAccountPO> userAccountPOs = new ArrayList<UserAccountPO>();
+		String useraccountgetall = "SELECT * FROM Useraccount";
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(useraccountgetall);
+		while(resultSet.next()){
+			UserAccountPO userAccount = new UserAccountPO(resultSet.getString(1), resultSet.getString(2), 
+					Job.values()[resultSet.getInt(3)], resultSet.getString(4));
+			userAccountPOs.add(userAccount);
+		}
+		return userAccountPOs;
 	}
 }

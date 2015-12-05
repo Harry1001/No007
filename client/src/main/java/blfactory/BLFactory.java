@@ -25,27 +25,27 @@ import businessLogicService.transportblservice.*;
 //todo 每个人加上自己的controller，改的时候通知别人别同时修改！！！！！！！！！！！！！！！！！！！！！！！！！！！
 public class BLFactory {
 
-    public static AgencyBLService getAgencyBLService(){
+    public static AgencyBLService getAgencyBLService() throws MalformedURLException, RemoteException, NotBoundException{
         return new AgencyBLController();
     }
 
-    public static BankAccountBLService getBankAccountBLService(){
+    public static BankAccountBLService getBankAccountBLService() throws MalformedURLException, RemoteException, NotBoundException{
         return new BankAccountBLController();
     }
 
-    public static DriverBLService getDriverBLService(){
+    public static DriverBLService getDriverBLService() throws MalformedURLException, RemoteException, NotBoundException{
         return new DriverBLController();
     }
 
-    public static StaffBLService getStaffBLService(){
+    public static StaffBLService getStaffBLService() throws MalformedURLException, RemoteException, NotBoundException{
         return new StaffBLController();
     }
 
-    public static TruckBLService getTruckBLService(){
+    public static TruckBLService getTruckBLService() throws MalformedURLException, RemoteException, NotBoundException{
         return new TruckBLController();
     }
 
-    public static UserAccoutBLService getUserAccountBLService(){
+    public static UserAccoutBLService getUserAccountBLService() throws MalformedURLException, RemoteException, NotBoundException{
         return new UserAccountBLController();
     }
     

@@ -22,6 +22,15 @@ public class BankAccountDBManager extends DBManager{
 		stopconnection(connection);
 	}
 	
+	public void deleteBankAccount(String id) throws SQLException {
+		String bankaccountdelete = "DELETE FROM Bankaccount"
+				+ " WHERE accountuser = " + id;
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		statement.executeUpdate(bankaccountdelete);
+		stopconnection(connection);
+	}
+	
 	/**
 	 * 收款和付款的时候调用此方法更改余额
 	 * 银行账号余额无法实时更新，故使用此方法更新

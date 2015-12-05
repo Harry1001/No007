@@ -1,5 +1,7 @@
 package businessLogicService.financeblservice;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,8 +49,11 @@ public interface FinanceBLService {
 	 *
 	 * @return 计算收款（付款）金额
 	 * @throws RemoteException 
+	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SalaryFeeVO> calSalary() throws RemoteException;
+	public ArrayList<SalaryFeeVO> calSalary() throws RemoteException, SQLException, MalformedURLException, NotBoundException;
 
 	/**
 	 * 
@@ -88,7 +93,9 @@ public interface FinanceBLService {
 	 * @throws SQLException 
 	 * @throws NamingException 
 	 * @throws RemoteException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void	makeCredit(int year) throws RemoteException, NamingException, SQLException;
+	public void	makeCredit(int year) throws RemoteException, NamingException, SQLException, MalformedURLException, NotBoundException;
 		
 }

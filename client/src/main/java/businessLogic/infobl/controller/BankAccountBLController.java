@@ -5,7 +5,10 @@ import businessLogicService.infoblservice.BankAccountBLService;
 import myexceptions.InfoBLException;
 import vo.infovo.BankAccountVO;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -13,21 +16,25 @@ import java.util.ArrayList;
  */
 public class BankAccountBLController implements BankAccountBLService {
 
-    private BankAccountInfoBL bankAccountInfoBL=new BankAccountInfoBL();
+    private BankAccountInfoBL bankAccountInfoBL;
+    
+    public BankAccountBLController() throws MalformedURLException, RemoteException, NotBoundException {
+    	this.bankAccountInfoBL = new BankAccountInfoBL();
+    }
 
-    public ArrayList<BankAccountVO> getBankAccountList() throws RemoteException {
+    public ArrayList<BankAccountVO> getBankAccountList() throws RemoteException, SQLException {
         return bankAccountInfoBL.getBankAccountList();
     }
 
-    public void addBankAccount(BankAccountVO vo) throws InfoBLException, RemoteException {
+    public void addBankAccount(BankAccountVO vo) throws InfoBLException, RemoteException, SQLException {
         bankAccountInfoBL.addBankAccount(vo);
     }
 
-    public void deleteBankAccount(String id) throws RemoteException {
+    public void deleteBankAccount(String id) throws RemoteException, SQLException {
         bankAccountInfoBL.deleteBankAccount(id);
     }
 
-    public void modifyBankAccount(String id, BankAccountVO vo) throws InfoBLException, RemoteException {
-        bankAccountInfoBL.modifyBankAccout(id, vo);
+    public void modifyBankAccount(String id, double change) throws InfoBLException, RemoteException, SQLException {
+        bankAccountInfoBL.modifyBankAccount(id, change);
     }
 }

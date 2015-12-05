@@ -1,38 +1,37 @@
 package businessLogic.infobl.bl;
 
-import dataService.infodataservice.InfoDataService;
+import dataService._RMI;
+import dataService.infodataservice.UserAccountDataService;
 import myexceptions.InfoBLException;
 import po.infopo.UserAccountPO;
-import typeDefinition.InfoType;
 import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import data.infodataimpl.InfoDataImpl;
+import businessLogicService.infoblservice.UserAccoutBLService;
 
 /**
  * Created by Harry on 2015/11/16.
  */
-public class UserAccountInfoBL extends InfoBL {
+public class UserAccountInfoBL implements UserAccoutBLService {
 
     private ArrayList<UserAccountPO> userAccountPOs;
-
-    public UserAccountInfoBL(){
-        this(new InfoDataImpl());
+    private UserAccountDataService userAccountData;
+    
+    public UserAccountInfoBL() throws MalformedURLException, RemoteException, NotBoundException{
+		String url = "rmi://"+_RMI.getIP()+"/central_useraccount";
+		this.userAccountData = (UserAccountDataService) Naming.lookup(url);
     }
 
-    public UserAccountInfoBL(InfoDataService infoData) {
+    public ArrayList<UserAccountVO> getUserAccountList() throws RemoteException, SQLException {
 
-        super(infoData);
-       // userAccountPOs=(ArrayList<UserAccountPO>)super.getList(InfoType.ACCOUNT);
-    }
-
-
-    public ArrayList<UserAccountVO> getUserAccountList() throws RemoteException {
-
-        userAccountPOs=(ArrayList<UserAccountPO>)super.getList(InfoType.ACCOUNT);
+        userAccountPOs = userAccountData.getList();
         ArrayList<UserAccountVO> userAccountVOs=new ArrayList<UserAccountVO>();
 
         for(UserAccountPO po:userAccountPOs){
@@ -41,25 +40,25 @@ public class UserAccountInfoBL extends InfoBL {
         return userAccountVOs;
     }
 
-
-    public void addUserAccount(UserAccountVO vo) throws RemoteException, InfoBLException {
-        super.add(new UserAccountPO(vo));
+    public void addUserAccount(UserAccountVO vo) throws RemoteException, InfoBLException, SQLException {
+    	UserAccountPO item = new UserAccountPO(vo);
+    	userAccountData.addItem(item);
+    }
+    
+    public void deleteUserAccount(String id) throws RemoteException, SQLException {
+    	userAccountData.deleteItem(id);
     }
 
 
-    public void deleteUserAccount(String id) throws RemoteException {
-        super.delete(InfoType.ACCOUNT, id);
+    public void modifyUserAccount(String id, UserAccountVO vo) throws RemoteException, InfoBLException, SQLException {
+        UserAccountPO item = new UserAccountPO(vo);
+    	userAccountData.update(id, item);
     }
 
-
-    public void modifyUserAccount(String id, UserAccountVO vo) throws RemoteException, InfoBLException {
-        super.modify(id, new UserAccountPO(vo));
-    }
-
-    public Job verifyPassword(String id, String password) throws RemoteException{
+    public Job verifyPassword(String id, String password) throws RemoteException {
         //todo 密码验证应该在数据层执行，为了安全密码不可以传到逻辑层
-
-        return Job.NOTFOUND;
+    	Job job = userAccountData.verify(id, password);
+    	return job;
     }
 
 }

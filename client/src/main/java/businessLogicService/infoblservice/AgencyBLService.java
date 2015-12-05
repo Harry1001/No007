@@ -4,6 +4,7 @@ import myexceptions.InfoBLException;
 import vo.infovo.AgencyVO;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +17,9 @@ public interface AgencyBLService {
      * @param
      * @return 机构信息列表
      * @throws RemoteException, 表示RMI连接失败
+     * @throws SQLException 
      */
-    public ArrayList<AgencyVO> getAgencyList() throws RemoteException;
+    public ArrayList<AgencyVO> getAgencyList() throws RemoteException, SQLException;
 
     /**
      * 界面层要求添加一个机构Info
@@ -25,16 +27,19 @@ public interface AgencyBLService {
      * @param
      * @return 机构信息列表
      * @throws InfoBLException, 表示RMI连接失败
+     * @throws SQLException 
      */
-    public void addAgency(AgencyVO vo) throws InfoBLException, RemoteException;
+    public void addAgency(AgencyVO vo) throws InfoBLException, RemoteException, SQLException;
 
     /**
      * 界面层调用此方法请求在数据层中删除对应Info
+     * @throws SQLException 
      */
-    public void deleteAgency(String id) throws RemoteException;
+    public void deleteAgency(String id) throws RemoteException, SQLException;
 
     /**
      * 将type类型的编号为id的信息修改为传入的vo中的信息，如果修改失败则返回false，成功返回true
+     * @throws SQLException 
      */
-    public void modifyAgency( String id, AgencyVO vo) throws InfoBLException, RemoteException;
+    public void modifyAgency( String id, AgencyVO vo) throws InfoBLException, RemoteException, SQLException;
 }

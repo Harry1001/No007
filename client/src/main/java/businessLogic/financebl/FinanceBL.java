@@ -5,28 +5,22 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Date;
-import java.util.Enumeration;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NameClassPair;
 import javax.naming.NamingException;
 
 import blfactory.BLFactory;
 import businessLogic.commoditybl.CommodityBL;
-import businessLogic.infobl.bl.AgencyInfoBL;
-import businessLogic.infobl.bl.BankAccountInfoBL;
-import businessLogic.infobl.bl.DriverInfoBL;
-import businessLogic.infobl.bl.StaffInfoBL;
-import businessLogic.infobl.bl.TruckInfoBL;
 import businessLogic.receiptbl.ReceiptBL;
-import businessLogic.strategybl.StrategyBL;
 import businessLogicService.financeblservice.FinanceBLService;
+import businessLogicService.infoblservice.AgencyBLService;
+import businessLogicService.infoblservice.BankAccountBLService;
+import businessLogicService.infoblservice.DriverBLService;
+import businessLogicService.infoblservice.StaffBLService;
+import businessLogicService.infoblservice.TruckBLService;
 import businessLogicService.receiptblservice.ChargeReceiptBLService;
 import businessLogicService.receiptblservice.PayReceiptBLService;
-import businessLogicService.receiptblservice.ReceiptBLService;
 import businessLogicService.strategyblservice.CalSalaryService;
 import data.FinanceDataImpl;
 import dataService.FinanceDataService;
@@ -100,11 +94,11 @@ public class FinanceBL implements FinanceBLService{
 		return fVO;
 	}
 
-	public ArrayList<SalaryFeeVO> calSalary() throws RemoteException{
+	public ArrayList<SalaryFeeVO> calSalary() throws RemoteException, SQLException, MalformedURLException, NotBoundException{
 		// TODO Auto-generated method stub
 		CalSalaryService strategy=BLFactory.getCalSalaryService();
 		ArrayList<SalaryFeeVO> salaryList = new ArrayList<SalaryFeeVO>();
-		StaffInfoBL staff = new StaffInfoBL();
+		StaffBLService staff = BLFactory.getStaffBLService();
 		for(StaffVO s : staff.getStaffList()){
 			SalaryFeeVO salary = new SalaryFeeVO();
 			salary.setName(s.getName());
@@ -119,8 +113,10 @@ public class FinanceBL implements FinanceBLService{
 	public ArrayList<ReceiptVO> seeRecord(Date fromTime, Date toTime) throws RemoteException{
 		// TODO Auto-generated method stub
 		ReceiptBL receipt = new ReceiptBL();
+		@SuppressWarnings("unchecked")
 		ArrayList<ReceiptVO> charges = (ArrayList<ReceiptVO>)
 						receipt.getListByTime(fromTime, toTime, ReceiptType.CHARGE);
+		@SuppressWarnings("unchecked")
 		ArrayList<ReceiptVO> pays = (ArrayList<ReceiptVO>)
 						receipt.getListByTime(fromTime, toTime, ReceiptType.PAY);
 		ArrayList<ReceiptVO> result = charges;
@@ -134,6 +130,7 @@ public class FinanceBL implements FinanceBLService{
 	public ArrayList<ChargeReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException{
 		// TODO Auto-generated method stub																						
 		ReceiptBL receipt = new ReceiptBL();
+		@SuppressWarnings("unchecked")
 		ArrayList<ChargeReceiptVO> charges = (ArrayList<ChargeReceiptVO>)
 						receipt.getListByTime(fromTime, toTime, ReceiptType.CHARGE);
 		ArrayList<ChargeReceiptVO> result = new ArrayList<ChargeReceiptVO>();
@@ -177,8 +174,10 @@ public class FinanceBL implements FinanceBLService{
 	 * @throws RemoteException
 	 * @throws NamingException
 	 * @throws SQLException
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void makeCredit(int year) throws RemoteException, NamingException, SQLException{
+	public void makeCredit(int year) throws RemoteException, NamingException, SQLException, MalformedURLException, NotBoundException{
 		// TODO Auto-generated method stub
 		FinanceDataService financeData = new FinanceDataImpl();
 		CommodityBL commodityBL=null;
@@ -188,11 +187,11 @@ public class FinanceBL implements FinanceBLService{
 			//todo 此处这是为了写界面时调试，后续需要删除trycatch!!!!!!!!!!!!!
 		}
 
-		AgencyInfoBL agencyInfoBL = new AgencyInfoBL();
-		BankAccountInfoBL bankAccountInfoBL = new BankAccountInfoBL();
-		DriverInfoBL driverInfoBL = new DriverInfoBL();
-		StaffInfoBL staffInfoBL = new StaffInfoBL();
-		TruckInfoBL truckInfoBL = new TruckInfoBL();
+		AgencyBLService agencyInfoBL = BLFactory.getAgencyBLService();
+		BankAccountBLService bankAccountInfoBL = BLFactory.getBankAccountBLService();
+		DriverBLService driverInfoBL = BLFactory.getDriverBLService();
+		StaffBLService staffInfoBL = BLFactory.getStaffBLService();
+		TruckBLService truckInfoBL = BLFactory.getTruckBLService();
 		ArrayList<CommodityVO> commodity = commodityBL.getTotal();
 		ArrayList<AgencyVO> agency = agencyInfoBL.getAgencyList();
 		ArrayList<BankAccountVO> bankaccount = 	bankAccountInfoBL.getBankAccountList();

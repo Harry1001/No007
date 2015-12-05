@@ -15,35 +15,32 @@ public class CommodityDataImpl extends UnicastRemoteObject implements CommodityD
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private CommodityDBManager commodityDBManager;
+	
 	public CommodityDataImpl() throws RemoteException {
 		super();
+		this.commodityDBManager = new CommodityDBManager();
 	}
 
 	public ArrayList<CommodityPO> check(String transferNum) throws RemoteException, SQLException {
-		CommodityDBManager commodityDBManager = new CommodityDBManager();
 		ArrayList<CommodityPO> commodityPOs = commodityDBManager.getByTransferNum(transferNum);
 		return commodityPOs;
 	}
 
 	public ArrayList<CommodityPO> getAll() throws RemoteException, SQLException {
-		CommodityDBManager commodityDBManager = new CommodityDBManager();
 		ArrayList<CommodityPO> commodityPOs = commodityDBManager.getAll();
 		return commodityPOs;
 	}
 
 	public void renew(String transferNum) throws RemoteException, SQLException {
-		CommodityDBManager commodityDBManager = new CommodityDBManager();
 		commodityDBManager.clear(transferNum);
 	}
 
 	public void add(CommodityPO commodityPO) throws RemoteException, SQLException {
-		CommodityDBManager commodityDBManager = new CommodityDBManager();
 		commodityDBManager.addCommodity(commodityPO);
 	}
 
 	public void delete(String expressNum) throws RemoteException, SQLException {
-		CommodityDBManager commodityDBManager = new CommodityDBManager();
 		commodityDBManager.removeCommodity(expressNum);
 	}
 

@@ -31,7 +31,7 @@ public class FinanceController implements FinanceBLService{
 		return financeVO;
 	}
 
-	public ArrayList<SalaryFeeVO> calSalary() throws RemoteException {
+	public ArrayList<SalaryFeeVO> calSalary() throws RemoteException, SQLException, MalformedURLException, NotBoundException {
 		// TODO Auto-generated method stub
 		ArrayList<SalaryFeeVO> salaryFeeVOs = financeBL.calSalary();
 		return salaryFeeVOs;
@@ -61,7 +61,7 @@ public class FinanceController implements FinanceBLService{
 		return profitVO;
 	}
 
-	public void makeCredit(int year) throws RemoteException, NamingException, SQLException {
+	public void makeCredit(int year) throws RemoteException, NamingException, SQLException, MalformedURLException, NotBoundException {
 		// TODO Auto-generated method stub
 		financeBL.makeCredit(year);
 	}
