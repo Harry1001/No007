@@ -41,6 +41,7 @@ public class DepotPanDianPanel extends JPanel implements ActionListener{
         gbc.fill=GridBagConstraints.BOTH;
 
         gbc.gridwidth=5;
+        gbc.gridx=gbc.gridy=0;
         this.add(new JScrollPane(table),gbc);
 
         gbc.fill=GridBagConstraints.NONE;

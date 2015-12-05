@@ -55,6 +55,7 @@ public class SendInfoPanel extends JPanel implements ActionListener {
         gbc.weightx=1.0;
         gbc.weighty=1.0;
         gbc.fill=GridBagConstraints.BOTH;
+        gbc.anchor=GridBagConstraints.EAST;
         gbc.gridx=0;
 
         for(int i=0;i<4;i++){
@@ -85,13 +86,19 @@ public class SendInfoPanel extends JPanel implements ActionListener {
         }
 
         this.setLayout(new GridBagLayout());
+        gbc.fill=GridBagConstraints.HORIZONTAL;
+        gbc.gridx=0;
         this.add(inputL,gbc);
         gbc.gridx=1;
         this.add(inputT,gbc);
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.anchor=GridBagConstraints.WEST;
         gbc.gridx=2;
         this.add(confirmbt,gbc);
 
         gbc.gridwidth=2;
+        gbc.fill=GridBagConstraints.BOTH;
+        gbc.anchor=GridBagConstraints.EAST;
         gbc.gridx=0;
         gbc.gridy=1;
         this.add(panel1,gbc);

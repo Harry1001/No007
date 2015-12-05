@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Harry on 2015/11/29.
  */
-public class FeeStrategyPanel extends JavaPanel implements ActionListener {
+public class FeeStrategyPanel extends JPanel implements ActionListener {
 
     Frame parent;
     JPanel paypanel=new JPanel();
@@ -39,10 +39,13 @@ public class FeeStrategyPanel extends JavaPanel implements ActionListener {
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.BOTH;
 
-        paypanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK,3),
+        paypanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY,3),
                 "支出价格/距离策略(元/吨/公里)"));
-        chargepanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK,3),
+        chargepanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY,3),
                 "收入价格/距离策略(元/公斤/公里)"));
+
+        chargepanel.setLayout(new GridBagLayout());
+        paypanel.setLayout(new GridBagLayout());
 
         for(gbc.gridx=0,gbc.gridy=0;gbc.gridy<3;gbc.gridy++){
             paypanel.add(labels[gbc.gridy],gbc);

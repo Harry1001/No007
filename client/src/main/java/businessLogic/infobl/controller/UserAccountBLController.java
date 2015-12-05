@@ -5,6 +5,7 @@ import businessLogicService.infoblservice.UserAccoutBLService;
 import myexceptions.InfoBLException;
 import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
+import vo.loginvo.LoginResultVO;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class UserAccountBLController implements UserAccoutBLService {
         userAccountInfoBL.modifyUserAccount(id, vo);
     }
 
-    public Job verifyPassword(String id, String password) throws RemoteException {
+    public LoginResultVO verifyPassword(String id, String password) throws RemoteException {
         return userAccountInfoBL.verifyPassword(id, password);
     }
 }

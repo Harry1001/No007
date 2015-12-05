@@ -3,6 +3,7 @@ package businessLogicService.infoblservice;
 import myexceptions.InfoBLException;
 import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
+import vo.loginvo.LoginResultVO;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -41,5 +42,5 @@ public interface UserAccoutBLService {
      * @return
      * @throws RemoteException
      */
-    public Job verifyPassword(String id, String password) throws RemoteException;
+    public LoginResultVO verifyPassword(String id, String password) throws RemoteException;
 }

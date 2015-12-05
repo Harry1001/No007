@@ -6,6 +6,7 @@ import po.infopo.UserAccountPO;
 import typeDefinition.InfoType;
 import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
+import vo.loginvo.LoginResultVO;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -56,10 +57,10 @@ public class UserAccountInfoBL extends InfoBL {
         super.modify(id, new UserAccountPO(vo));
     }
 
-    public Job verifyPassword(String id, String password) throws RemoteException{
+    public LoginResultVO verifyPassword(String id, String password) throws RemoteException{
         //todo 密码验证应该在数据层执行，为了安全密码不可以传到逻辑层
 
-        return Job.NOTFOUND;
+        return new LoginResultVO(id, Job.COURIER, "张三");
     }
 
 }

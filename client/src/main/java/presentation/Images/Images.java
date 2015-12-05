@@ -42,7 +42,7 @@ public class Images {
     public static final ImageIcon HUB_ARRIVE_IMAGE=createIcon("client/ImageFiles/hubarrive.png");
     public static final ImageIcon TRANSFER_IMAGE=createIcon("client/ImageFiles/transfer.png");
     public static final ImageIcon BANK_ACCOUNT_IMAGE=createIcon("client/ImageFiles/bankaccount.png");
-    public static final ImageIcon CHENBEN_IMAGE=createIcon("client/ImageFiles/chenben.png");
+    public static final ImageIcon CHENBEN_IMAGE=createIcon("client/ImageFiles/chengben.png");
     public static final ImageIcon DEPOT_CHAKAN_IMAGE=createIcon("client/ImageFiles/depotchakan.png");
     public static final ImageIcon DEPOTIN_IMAGE=createIcon("client/ImageFiles/depotin.png");
     public static final ImageIcon DEPOTOUT_IMAGE=createIcon("client/ImageFiles/depotout.png");

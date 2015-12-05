@@ -38,6 +38,7 @@ public class DepotOutPanel extends JPanel {
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
 
+        gbc.gridx=gbc.gridy=0;
         this.add(packIDL,gbc);
         gbc.gridy++;
         this.add(destiL,gbc);
