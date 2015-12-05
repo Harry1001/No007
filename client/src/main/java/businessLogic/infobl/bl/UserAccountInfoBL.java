@@ -6,6 +6,7 @@ import myexceptions.InfoBLException;
 import po.infopo.UserAccountPO;
 import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
+import vo.loginvo.LoginResultVO;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -55,10 +56,17 @@ public class UserAccountInfoBL implements UserAccoutBLService {
     	userAccountData.update(id, item);
     }
 
+<<<<<<< HEAD
     public Job verifyPassword(String id, String password) throws RemoteException {
         //todo 密码验证应该在数据层执行，为了安全密码不可以传到逻辑层
     	Job job = userAccountData.verify(id, password);
     	return job;
+=======
+    public LoginResultVO verifyPassword(String id, String password) throws RemoteException{
+        //todo 密码验证应该在数据层执行，为了安全密码不可以传到逻辑层
+
+        return new LoginResultVO(id, Job.COURIER, "张三");
+>>>>>>> origin/master
     }
 
 }

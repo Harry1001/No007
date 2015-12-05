@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  * Created by Harry on 2015/11/28.
  */
 public class UserAccountListPanel extends JPanel implements ActionListener {
-    Frame parent;
+    JFrame parent;
     JButton addbt=new JButton("新增");
     JButton deletebt=new JButton("删除");
     JButton modifybt=new JButton("修改");
@@ -20,7 +20,7 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
     DefaultTableModel defaultTableModel;
     JTable table;
 
-    public UserAccountListPanel(Frame par) {
+    public UserAccountListPanel(JFrame par) {
 
         this.parent=par;
 

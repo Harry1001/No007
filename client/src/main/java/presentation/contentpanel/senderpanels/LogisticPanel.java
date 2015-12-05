@@ -1,5 +1,9 @@
 package presentation.contentpanel.senderpanels;
 
+import MainFrame.MainFrame;
+import presentation.commoncontainer.*;
+import presentation.uifactory.UIFactory;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -12,23 +16,24 @@ import java.util.Vector;
  */
 public class LogisticPanel extends JPanel implements ActionListener{
 
-    Frame parent;
-    JLabel label;
-    JButton button;
-    JTextField textField;
-    JTable table;
-    DefaultTableModel defaultTableModel;
+    MainFrame parent;
+    MyLabel label;
+    MyButton button;
+    MyTextField textField;
+    MyTable table;
+    MyDefaultTableModel defaultTableModel;
+    MyButton backbt;
 
     String [] name = {"时间","到达地点"};
-    String [][] data={};
 
     GridBagConstraints gbc;
 
-    public LogisticPanel(Frame par){
+    public LogisticPanel(MainFrame par){
         this.parent=par;
-        label=new JLabel("请输入10位订单号:");
-        button=new JButton("查询");
-        textField=new JTextField(20);
+        label=new MyLabel("请输入10位订单号:");
+        button=new MyButton("查询");
+        backbt=new MyButton("返回");
+        textField=new MyTextField();
 
         this.setLayout(new GridBagLayout());
         gbc =new GridBagConstraints();
@@ -42,9 +47,11 @@ public class LogisticPanel extends JPanel implements ActionListener{
         this.add(textField,gbc);
         gbc.gridx=2;
         this.add(button,gbc);
+        gbc.gridx=3;
+        this.add(backbt,gbc);
 
-        defaultTableModel=new DefaultTableModel(data,name);
-        table=new JTable(defaultTableModel);
+        defaultTableModel=new MyDefaultTableModel(name, 0);
+        table=new MyTable(defaultTableModel);
         //table.setPreferredSize(new Dimension(400,200));
         JScrollPane s=new JScrollPane(table);
 
@@ -54,18 +61,24 @@ public class LogisticPanel extends JPanel implements ActionListener{
 
         gbc.gridx=0;
         gbc.gridy=1;
-        gbc.gridwidth=3;
+        gbc.gridwidth=4;
         gbc.gridheight=3;
         this.add(s, gbc);
 
         button.addActionListener(this);
+        backbt.addActionListener(this);
     }
 
 
     public void actionPerformed(ActionEvent e) {
         //todo
-       String [] data={"2010/10/10","dsfadssdfadsfasfdsaadsf"};
+        if (e.getSource()==button){
+            String [] data={"2010/10/10","dsfadssdfadsfasfdsaadsf"};
 
-       defaultTableModel.addRow(data);
+            defaultTableModel.addRow(data);
+        } else if (e.getSource()==backbt){
+            UIFactory.showLoginPanel(parent);
+        }
+
     }
 }

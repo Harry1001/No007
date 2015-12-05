@@ -1,16 +1,41 @@
 package presentation.commonpanel;
 
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.loginblservice.LoginBLService;
+import constent.Constent;
 import presentation.Images.Images;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyLabel;
+import presentation.commoncontainer.MyTextField;
+import presentation.uifactory.UIFactory;
+import typeDefinition.Job;
+import vo.loginvo.LoginResultVO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.rmi.RemoteException;
 
 /**
  * Created by Harry on 2015/11/23.
  */
-public class LoginPanel extends JPanel {
-    public LoginPanel(){
+public class LoginPanel extends JPanel implements ActionListener, FocusListener{
 
+    private MainFrame parent;
+    MyLabel numLabel=new MyLabel("工号");
+    MyLabel passLabel=new MyLabel("密码");
+    MyTextField numText=new MyTextField();
+    JPasswordField passwordField=new JPasswordField();
+    MyButton logButton=new MyButton("登录");
+    MyButton logisticbt=new MyButton("查询物流信息");
+
+    public LoginPanel(MainFrame par){
+
+        this.parent=par;
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc =new GridBagConstraints();
 
@@ -20,11 +45,7 @@ public class LoginPanel extends JPanel {
 
         JPanel panel=new JPanel(new GridBagLayout());
         GridBagConstraints c=new GridBagConstraints();
-        JLabel numLabel=new JLabel("工号");
-        JLabel passLabel=new JLabel("密码");
-        JTextField numText=new JTextField(25);
-        JPasswordField passwordField=new JPasswordField(25);
-        JButton logButton=new JButton("登录");
+
         JLabel label=new JLabel("用户登录", JLabel.CENTER);
         JSeparator seph=new JSeparator();
 
@@ -40,7 +61,6 @@ public class LoginPanel extends JPanel {
 
         c.gridy=2;
         c.gridwidth=1;
-        //c.insets=new Insets(10,10,10,10);
         panel.add(numLabel,c);
         c.gridx=1;
         panel.add(numText,c);
@@ -53,7 +73,7 @@ public class LoginPanel extends JPanel {
         c.fill=GridBagConstraints.NONE;
         panel.add(logButton,c);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-        //panel.setPreferredSize(new Dimension(300, 200));
+        panel.setPreferredSize(new Dimension(300, 200));
 
         gbc.gridx=0;
         gbc.gridy=1;
@@ -70,13 +90,69 @@ public class LoginPanel extends JPanel {
        // gbc.anchor=GridBagConstraints.WEST;
         this.add(panel,gbc);
 
-        JButton b=new JButton("查询物流信息");
         gbc.ipadx=0;
         gbc.gridy=3;
         gbc.fill=GridBagConstraints.NONE;
         gbc.anchor=GridBagConstraints.EAST;
-        this.add(b, gbc);
+        this.add(logisticbt, gbc);
+
+        numText.setText("请输入"+ Constent.USER_ID_LENGTH+"位数字");
+
+        //注册监听事件
+        logButton.addActionListener(this);
+        logisticbt.addActionListener(this);
+        numText.addFocusListener(this);
     }
 
 
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==logButton){
+
+            try{
+                LoginBLService loginBLService = BLFactory.getLoginBLService();
+                LoginResultVO loginResult=loginBLService.getPermission(numText.getText(),new String(passwordField.getPassword()));
+                if (loginResult.getJob()== Job.NOTFOUND){
+                    new ErrorDialog(parent,"用户名或密码错误");
+                } else {
+                    UIFactory.showContentPanel(parent,loginResult);
+                }
+            }catch (RemoteException re){
+                    new ErrorDialog(parent,"服务器连接失败，请检查网络设置");
+            }
+        }else if (e.getSource()==logisticbt){
+            UIFactory.showLogisticPanel(parent);
+        }
+    }
+
+    public void focusGained(FocusEvent e) {
+
+    }
+
+    public void focusLost(FocusEvent e) {
+        if (e.getSource()==numText){
+            if (validateID()){
+                numText.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }else {
+                numText.setBorder(BorderFactory.createLineBorder(Color.RED));
+                numText.setText("请输入"+ Constent.USER_ID_LENGTH+"位数字");
+            }
+        }
+    }
+
+    /**
+     * 验证工号位数是否正确
+     * @return
+     */
+    private boolean validateID(){
+        String id=numText.getText();
+        if (id.length()!=Constent.USER_ID_LENGTH){
+            return false;
+        }
+        for(int i=0;i<Constent.USER_ID_LENGTH;i++){
+            if (id.charAt(i)<'0'||id.charAt(i)>'9'){
+                return false;
+            }
+        }
+        return true;
+    }
 }

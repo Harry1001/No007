@@ -2,12 +2,13 @@ package stub;
 
 import businessLogicService.loginblservice.LoginBLService;
 import typeDefinition.Job;
+import vo.loginvo.LoginResultVO;
 
 public class LoginBL_Stub implements LoginBLService{
 
-	public Job getPermission(String id,String password){
+	public LoginResultVO getPermission(String id, String password){
 		
-		return Job.STORESALESMAN;
+		return null;
 		
 	}
 

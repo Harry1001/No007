@@ -8,14 +8,14 @@ import java.awt.*;
  */
 public class MyButton extends JButton {
     public MyButton(String text) {
-        super(text);
+        this.setText(text);
         initialize();
     }
 
     private void initialize(){
         this.setFont(new Font("",Font.PLAIN,15));
-        this.setPreferredSize(new Dimension(50,30));
-        this.setMaximumSize(new Dimension(80,50));
-        this.setMinimumSize(new Dimension(50,30));
+       // this.setPreferredSize(new Dimension(50,30));
+       // this.setMaximumSize(new Dimension(80,50));
+       // this.setMinimumSize(new Dimension(30,18));
     }
 }
