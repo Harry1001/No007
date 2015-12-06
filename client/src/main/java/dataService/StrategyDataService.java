@@ -37,7 +37,12 @@ public interface StrategyDataService {
 	 */
 	public double getDistance(String city1,String city2)throws RemoteException;
 	/*
+	 * 提供城市间距离
+	 */
+	public DistancePO getDistanceStrategy()throws RemoteException;
+	/*
 	 * 更新城市间距离
 	 */
 	public void updataDistanceStrategy(DistancePO po)throws RemoteException;
+	
 }

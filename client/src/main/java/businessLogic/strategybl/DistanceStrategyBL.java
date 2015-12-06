@@ -1,6 +1,7 @@
 package businessLogic.strategybl;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.Date;
 
 import businessLogic.recordbl.RecordBL;
@@ -15,7 +16,7 @@ public class DistanceStrategyBL implements DistanceService{
 
 	StrategyDataService sd=new StrategyDataImpl();
 	RecordBL rb=new RecordBL();
-	public void setDistance(DistanceVO vo) throws RemoteException{
+	public void setDistance(DistanceVO vo) throws RemoteException, SQLException{
 		DistancePO po=new DistancePO(vo);
 		sd.updataDistanceStrategy(po);
 		RecordVO rvo=new RecordVO(new Date(),"总经理","制定/修改城市间距离");

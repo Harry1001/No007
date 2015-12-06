@@ -1,6 +1,7 @@
 package businessLogic.recordbl;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import businessLogicService.recordblservice.RecordBLService;
@@ -12,8 +13,8 @@ import vo.recordvo.RecordVO;
 public class RecordBL implements RecordBLService{
 
 	RecordDataService rd=new RecordDataImpl();
-	public ArrayList<RecordVO> lookup() throws RemoteException {
-		// TODO Auto-generated method stub
+	public ArrayList<RecordVO> lookup() throws RemoteException, SQLException {
+		
 		ArrayList<RecordPO> apo=rd.getRecord();
 		
 		ArrayList<RecordVO> avo=new ArrayList<RecordVO>();
@@ -27,9 +28,10 @@ public class RecordBL implements RecordBLService{
 	/**
 	 * 系统对主要操作（车辆信息变动、司机信息变动、银行账户信息变动、人员信息变动、机构信息变动、用户账户信息变动、薪水策略变动、
 	 * 价格/距离策略变动）有日志记录
+	 * @throws SQLException 
 	 */
-	public void add(RecordVO vo) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void add(RecordVO vo) throws RemoteException, SQLException {
+		
 		RecordPO po=new RecordPO(vo);
 		rd.record(po);
 	}
