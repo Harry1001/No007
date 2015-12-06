@@ -1,44 +1,56 @@
 package presentation.contentpanel.courierpanels;
 
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.strategyblservice.CalExpressfeeService;
+import businessLogicService.transportblservice.SendBLService;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyLabel;
+import presentation.commoncontainer.MyTextField;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Harry on 2015/11/25.
  */
-public class SendPanel extends JPanel {
+public class SendPanel extends JPanel implements ActionListener {
 
-    Frame parent;
-    JLabel[] labels=new JLabel[16];
-    JTextField[] texts=new JTextField[14];
+    private SendBLService sendBLService;
+    private CalExpressfeeService calExpressfeeService;
+    MainFrame parent;
+    MyLabel[] labels=new MyLabel[16];
+    MyTextField[] texts=new MyTextField[14];
     JComboBox comboBox1;
     JComboBox comboBox2;
-    JButton calFeebt;
-    JButton submitbt;
+    MyButton calFeebt;
+    MyButton submitbt;
 
-    public SendPanel(Frame par){
+    public SendPanel(MainFrame par){
 
         this.parent=par;
-        labels[0]=new JLabel("姓名");
-        labels[1]=new JLabel("住址");
-        labels[2]=new JLabel("单位");
-        labels[3]=new JLabel("手机");
-        labels[4]=new JLabel("姓名");
-        labels[5]=new JLabel("住址");
-        labels[6]=new JLabel("单位");
-        labels[7]=new JLabel("手机");
-        labels[8]=new JLabel("原件数");
-        labels[9]=new JLabel("实际重量");
-        labels[10]=new JLabel("体积");
-        labels[11]=new JLabel("内件品名");
-        labels[12]=new JLabel("快递类型");
-        labels[13]=new JLabel("包装类型");
-        labels[14]=new JLabel("订单条形码");
-        labels[15]=new JLabel("报价");
+        labels[0]=new MyLabel("姓名");
+        labels[1]=new MyLabel("住址");
+        labels[2]=new MyLabel("单位");
+        labels[3]=new MyLabel("手机");
+        labels[4]=new MyLabel("姓名");
+        labels[5]=new MyLabel("住址");
+        labels[6]=new MyLabel("单位");
+        labels[7]=new MyLabel("手机");
+        labels[8]=new MyLabel("原件数");
+        labels[9]=new MyLabel("实际重量");
+        labels[10]=new MyLabel("体积");
+        labels[11]=new MyLabel("内件品名");
+        labels[12]=new MyLabel("快递类型");
+        labels[13]=new MyLabel("包装类型");
+        labels[14]=new MyLabel("订单条形码");
+        labels[15]=new MyLabel("报价");
 
         for(int i=0;i<14;i++){
-            texts[i]=new JTextField(15);
+            texts[i]=new MyTextField(15);
         }
 
         String[] s1={"经济快递","标准快递","次晨特快"};
@@ -103,8 +115,8 @@ public class SendPanel extends JPanel {
 
         this.add(panel3,gbc);
 
-        calFeebt=new JButton("计算运费");
-        submitbt=new JButton(" 提交");
+        calFeebt=new MyButton("计算运费");
+        submitbt=new MyButton(" 提交");
         gbc.gridx=0;
         gbc.gridy=3;
         gbc.fill=GridBagConstraints.NONE;
@@ -114,7 +126,22 @@ public class SendPanel extends JPanel {
         gbc.gridx=1;
         this.add(submitbt,gbc);
 
-        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"寄件单",
-                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 20)));
+       calFeebt.addActionListener(this);
+        submitbt.addActionListener(this);
+
+        initBL();
+    }
+
+    private void initBL(){
+        sendBLService= BLFactory.getSendBLService();
+        calExpressfeeService=BLFactory.getCalExpressfeeService();
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==calFeebt){
+
+        } else if (e.getSource()==submitbt){
+
+        }
     }
 }

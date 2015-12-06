@@ -96,7 +96,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         gbc.anchor=GridBagConstraints.EAST;
         this.add(logisticbt, gbc);
 
-        numText.setText("请输入"+ Constent.USER_ID_LENGTH+"位数字");
+       // numText.setText("请输入"+ Constent.USER_ID_LENGTH+"位数字");
 
         //注册监听事件
         logButton.addActionListener(this);
@@ -116,7 +116,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
                 } else {
                     UIFactory.showContentPanel(parent,loginResult);
                 }
-            }catch (RemoteException re){
+            }catch (Exception re){//todo exception太乱
                     new ErrorDialog(parent,"服务器连接失败，请检查网络设置");
             }
         }else if (e.getSource()==logisticbt){
