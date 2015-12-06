@@ -1,6 +1,7 @@
 package businessLogic.strategybl;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.Date;
 
 import businessLogic.recordbl.RecordBL;
@@ -18,7 +19,7 @@ public class StrategyBL implements FeeStrategyBLService,SalaryStrategyBLService{
 	
 	StrategyDataService sd=new StrategyDataImpl();
 	RecordBL rb=new RecordBL();
-	public final void setExpressFee(ExpressFeeVO vo) throws RemoteException {
+	public final void setExpressFee(ExpressFeeVO vo) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		ExpressFeePO po=new ExpressFeePO(vo);
 		sd.updateExpressFeeStrategy(po);
@@ -26,7 +27,7 @@ public class StrategyBL implements FeeStrategyBLService,SalaryStrategyBLService{
 		rb.add(rvo);
 	}
 
-	public final void setCarriage(CarriageFeeVO vo) throws RemoteException {
+	public final void setCarriage(CarriageFeeVO vo) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		CarriageFeePO po=new CarriageFeePO(vo);
 		sd.updateCarriageFeeStrategy(po);
@@ -34,7 +35,7 @@ public class StrategyBL implements FeeStrategyBLService,SalaryStrategyBLService{
 		rb.add(rvo);
 	}
 
-	public final void setSalary(SalaryVO vo) throws RemoteException {
+	public final void setSalary(SalaryVO vo) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		SalaryPO po=new SalaryPO(vo);
 		sd.updateSalaryStrategy(po);
