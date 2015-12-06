@@ -44,8 +44,10 @@ public class CommodityBL implements CommodityBLService{
 	 * @throws RemoteException
 	 * @throws NamingException
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void submitIn(DepotInReceiptVO vo) throws RemoteException, SQLException{
+	public void submitIn(DepotInReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
 		DepotInReceiptBLService receipt = BLFactory.getDepotInReceiptBLService();
 		receipt.createReceipt(vo);
 		String expressNumber = vo.getPackID();
@@ -62,8 +64,10 @@ public class CommodityBL implements CommodityBLService{
 	 * @throws RemoteException
 	 * @throws NamingException
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void submitOut(DepotOutReceiptVO vo) throws RemoteException, SQLException{
+	public void submitOut(DepotOutReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
 		DepotOutReceiptBLService receipt = BLFactory.getDepotOutReceiptBLService();
 		receipt.createReceipt(vo);
 		String expressNumber = vo.getPackID();
@@ -95,9 +99,11 @@ public class CommodityBL implements CommodityBLService{
 	 * @return
 	 * @throws RemoteException
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 * @throws NamingException
 	 */
-	public CheckResultVO getList(String transferNum, Date fromTime, Date toTime) throws RemoteException, SQLException{
+	public CheckResultVO getList(String transferNum, Date fromTime, Date toTime) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
 		CheckResultVO result = new CheckResultVO();
 		DepotInReceiptBLService receipt = BLFactory.getDepotInReceiptBLService();
 		ArrayList<DepotInReceiptVO> depotInReceipts = receipt.getListByTime(fromTime, toTime);

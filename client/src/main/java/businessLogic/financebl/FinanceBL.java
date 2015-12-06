@@ -67,8 +67,10 @@ public class FinanceBL implements FinanceBLService{
 	 * @param vo
 	 * @throws RemoteException
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException{
+	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
 		// TODO Auto-generated method stub
 		ChargeReceiptBLService receiptBL = BLFactory.getChargeReceiptBLService();
 		receiptBL.createReceipt(vo);
@@ -80,8 +82,10 @@ public class FinanceBL implements FinanceBLService{
 	 * @param vo
 	 * @throws RemoteException
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void submitOut(PayReceiptVO vo) throws RemoteException, SQLException{
+	public void submitOut(PayReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
 		PayReceiptBLService receiptBL = BLFactory.getPayReceiptBLService();
 		receiptBL.createReceipt(vo);
 		financeData.addOutcome(vo.getFee());

@@ -28,7 +28,7 @@ public class CommodityController implements CommodityBLService{
 		return commodityVOs;
 	}
 
-	public CheckResultVO getList(String transferNum, Date fromTime, Date toTime) throws RemoteException, SQLException {
+	public CheckResultVO getList(String transferNum, Date fromTime, Date toTime) throws RemoteException, SQLException, MalformedURLException, NotBoundException {
 		// TODO Auto-generated method stub
 		CheckResultVO result = commodityBL.getList(transferNum, fromTime, toTime);
 		return result;
@@ -45,12 +45,12 @@ public class CommodityController implements CommodityBLService{
 		commodityBL.renew(transferNum);
 	}
 
-	public void submitIn(DepotInReceiptVO vo) throws RemoteException, NamingException, SQLException {
+	public void submitIn(DepotInReceiptVO vo) throws RemoteException, NamingException, SQLException, MalformedURLException, NotBoundException {
 		// TODO Auto-generated method stub
 		commodityBL.submitIn(vo);
 	}
 
-	public void submitOut(DepotOutReceiptVO vo) throws RemoteException, NamingException, SQLException {
+	public void submitOut(DepotOutReceiptVO vo) throws RemoteException, NamingException, SQLException, MalformedURLException, NotBoundException {
 		// TODO Auto-generated method stub
 		commodityBL.submitOut(vo);
 	}

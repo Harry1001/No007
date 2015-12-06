@@ -1,5 +1,7 @@
 package businessLogic.receiptbl;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,7 +12,11 @@ import vo.receiptvo.HubArrivalReceiptVO;
 
 public class HubArrivalReceiptController implements HubArrivalReceiptBLService{
 
-	private HubArrivalReceiptBL receiptBL=new HubArrivalReceiptBL();
+	private HubArrivalReceiptBL receiptBL;
+	
+	public HubArrivalReceiptController() throws MalformedURLException, RemoteException, NotBoundException{
+		receiptBL=new HubArrivalReceiptBL();
+	}
 	
 	public ArrayList<HubArrivalReceiptVO> getListByTime(Date fromTime, Date toTime)throws RemoteException, SQLException {
 		return receiptBL.getListByTime(fromTime, toTime);

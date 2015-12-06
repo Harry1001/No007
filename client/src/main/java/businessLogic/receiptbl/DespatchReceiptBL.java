@@ -1,18 +1,26 @@
 package businessLogic.receiptbl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import data.DespatchReceiptDataImpl;
 import dataService.DespatchReceiptDataService;
+import dataService._RMI;
 import po.receiptpo.DespatchReceiptPO;
 import vo.receiptvo.DespatchReceiptVO;
 
 public class DespatchReceiptBL {
 
-	private DespatchReceiptDataService despatchReceiptData=new DespatchReceiptDataImpl();
+	private DespatchReceiptDataService despatchReceiptData;
+	
+	public DespatchReceiptBL() throws MalformedURLException, RemoteException, NotBoundException{
+		String url="rmi://"+_RMI.getIP()+"/central_despatch";
+		despatchReceiptData=(DespatchReceiptDataService)Naming.lookup(url);
+	}
 	
 	public ArrayList<DespatchReceiptVO> getListByTime(Date fromTime, Date toTime) throws RemoteException, SQLException {
 		//TODO 如果起始时间小于终止时间，报错

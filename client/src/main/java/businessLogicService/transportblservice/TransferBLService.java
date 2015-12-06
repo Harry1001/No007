@@ -1,5 +1,7 @@
 package businessLogicService.transportblservice;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
@@ -16,8 +18,10 @@ public interface TransferBLService {
 	 * 中转单提交等待审批
 	 * @throws RemoteException 
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void submit(TransferReceiptVO vo) throws RemoteException, SQLException;
+	public void submit(TransferReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
 	/**
 	 * 输入参数获得运费
 	 * @throws SQLException 

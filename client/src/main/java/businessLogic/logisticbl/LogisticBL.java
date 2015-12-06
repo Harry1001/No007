@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import businessLogicService.logisticblservice.LogisticBLService;
 import dataService.LogisticDataService;
+import dataService._RMI;
 import po.logisticpo.LogisticPO;
 import typeDefinition.ReceiptType;
 import vo.logisticvo.LogisticVO;
@@ -25,7 +26,7 @@ public class LogisticBL implements LogisticBLService{
 	private LogisticDataService logisticdata;
 	
 	public LogisticBL() throws MalformedURLException, RemoteException, NotBoundException{
-		String url="rmi://localhost:8888/central_logistic";
+		String url="rmi://"+_RMI.getIP()+"/central_logistic";
 		this.logisticdata=(LogisticDataService)Naming.lookup(url);
 	}
 	

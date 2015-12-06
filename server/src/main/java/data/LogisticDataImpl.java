@@ -11,12 +11,12 @@ import po.logisticpo.LogisticPO;
 
 public class LogisticDataImpl extends UnicastRemoteObject implements LogisticDataService{
 
+	private LogisticDBManager logisticDBManager;
+	
 	public LogisticDataImpl() throws RemoteException {
 		super();
-		// TODO Auto-generated constructor stub
+		logisticDBManager=new LogisticDBManager();
 	}
-
-	private LogisticDBManager logisticDBManager=new LogisticDBManager();
 
 	public void update(LogisticPO po) throws RemoteException, SQLException {
 		logisticDBManager.update(po);

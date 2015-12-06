@@ -1,5 +1,7 @@
 package businessLogic.receiptbl;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,7 +12,11 @@ import vo.receiptvo.TransferReceiptVO;
 
 public class TransferReceiptController implements TransferReceiptBLService{
 
-	private TransferReceiptBL receiptBL=new TransferReceiptBL();
+	private TransferReceiptBL receiptBL;
+	
+	public TransferReceiptController() throws MalformedURLException, RemoteException, NotBoundException{
+		receiptBL=new TransferReceiptBL();
+	}
 	
 	public ArrayList<TransferReceiptVO> getListByTime(Date fromTime, Date toTime) throws RemoteException, SQLException {
 		return receiptBL.getListByTime(fromTime, toTime);

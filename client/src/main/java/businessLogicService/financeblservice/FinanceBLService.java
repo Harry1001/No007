@@ -25,8 +25,10 @@ public interface FinanceBLService {
 	 * @param vo
 	 * @throws RemoteException 
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException;
+	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
 	
 	/**
 	 * 在一个付款回合中，新建付款单
@@ -34,8 +36,10 @@ public interface FinanceBLService {
 	 * @param vo
 	 * @throws RemoteException 
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void submitOut(PayReceiptVO vo) throws RemoteException, SQLException;
+	public void submitOut(PayReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
 	
 	/**
 	 * 期初建账后的账目查询

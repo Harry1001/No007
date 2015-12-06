@@ -1,5 +1,7 @@
 package businessLogicService.commodityblservice;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.sql.SQLException;
@@ -20,8 +22,10 @@ public interface CommodityBLService {
 	 * @throws RemoteException
 	 * @throws NamingException
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void submitIn(DepotInReceiptVO vo) throws RemoteException, NamingException, SQLException;
+	public void submitIn(DepotInReceiptVO vo) throws RemoteException, NamingException, SQLException, MalformedURLException, NotBoundException;
 	
 	/**
 	 * 输入出库单单据的时候创建单据
@@ -29,8 +33,10 @@ public interface CommodityBLService {
 	 * @throws RemoteException
 	 * @throws NamingException
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public void submitOut(DepotOutReceiptVO vo) throws RemoteException, NamingException, SQLException;
+	public void submitOut(DepotOutReceiptVO vo) throws RemoteException, NamingException, SQLException, MalformedURLException, NotBoundException;
 	
 	/**
 	 * 获取指定中转中心的所有现存的数据
@@ -51,8 +57,10 @@ public interface CommodityBLService {
 	 * @throws RemoteException
 	 * @throws NamingException
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public CheckResultVO getList(String transferNum,Date fromTime,Date toTime)throws RemoteException, NamingException, SQLException;
+	public CheckResultVO getList(String transferNum,Date fromTime,Date toTime)throws RemoteException, NamingException, SQLException, MalformedURLException, NotBoundException;
 	
 	/**
 	 * 获取所有中转中心当前的库存数据

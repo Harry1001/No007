@@ -49,47 +49,47 @@ public class BLFactory {
         return new UserAccountBLController();
     }
     
-    public static ChargeReceiptBLService getChargeReceiptBLService(){
+    public static ChargeReceiptBLService getChargeReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new ChargeReceiptController();
     }
     
-    public static DepotInReceiptBLService getDepotInReceiptBLService(){
+    public static DepotInReceiptBLService getDepotInReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new DepotInReceiptController();
     }
     
-    public static DepotOutReceiptBLService getDepotOutReceiptBLService(){
+    public static DepotOutReceiptBLService getDepotOutReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new DepotOutReceiptController();
     }
     
-    public static DespatchReceiptBLService getDespatchReceiptBLService(){
+    public static DespatchReceiptBLService getDespatchReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new DespatchReceiptController();
     }
     
-    public static EntruckReceiptBLService getEntruckReceiptBLService(){
+    public static EntruckReceiptBLService getEntruckReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new EntruckReceiptController();
     }
     
-    public static HubArrivalReceiptBLService getHubArrivalReceiptBLService(){
+    public static HubArrivalReceiptBLService getHubArrivalReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new HubArrivalReceiptController();
     }
     
-    public static StoreArrivalReceiptBLService getStoreArrivalReceiptBLService(){
+    public static StoreArrivalReceiptBLService getStoreArrivalReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new StoreArrivalReceiptController();
     }
     
-    public static PayReceiptBLService getPayReceiptBLService(){
+    public static PayReceiptBLService getPayReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new PayReceiptController();
     }
     
-    public static ReceiveReceiptBLService getReceiveReceiptBLService(){
+    public static ReceiveReceiptBLService getReceiveReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new ReceiveReceiptController();
     }
     
-    public static TransferReceiptBLService getTransferReceiptBLService(){
+    public static TransferReceiptBLService getTransferReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new TransferReceiptController();
     }
     
-    public static SendReceiptBLService getSendReceiptBLService(){
+    public static SendReceiptBLService getSendReceiptBLService() throws MalformedURLException, RemoteException, NotBoundException{
     	return new SendReceiptController();
     }
     

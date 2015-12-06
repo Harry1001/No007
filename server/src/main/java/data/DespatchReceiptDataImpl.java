@@ -1,6 +1,7 @@
 package data;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,9 +10,14 @@ import dataService.DespatchReceiptDataService;
 import database.DespatchReceiptDBManager;
 import po.receiptpo.DespatchReceiptPO;
 
-public class DespatchReceiptDataImpl implements DespatchReceiptDataService{
+public class DespatchReceiptDataImpl extends UnicastRemoteObject implements DespatchReceiptDataService{
 
-	private DespatchReceiptDBManager despatchreceiptDBManager=new DespatchReceiptDBManager();
+	private DespatchReceiptDBManager despatchreceiptDBManager;
+	
+	public DespatchReceiptDataImpl() throws RemoteException {
+		super();
+		despatchreceiptDBManager=new DespatchReceiptDBManager();
+	}
 	
 	public ArrayList<DespatchReceiptPO> getList(Date fromtime, Date toTime) throws RemoteException, SQLException {
 		return despatchreceiptDBManager.getList(fromtime, toTime);
