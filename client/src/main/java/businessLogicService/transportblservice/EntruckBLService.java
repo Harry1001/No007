@@ -25,6 +25,8 @@ public interface EntruckBLService {
 	/**
 	 * 输入参数获得运费
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public double calFee(EntruckReceiptVO vo) throws RemoteException, SQLException;
+	public double calFee(EntruckReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
 }

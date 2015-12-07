@@ -25,6 +25,8 @@ public interface SendBLService {
 	/**
 	 * 输入参数获得寄件费
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public double calFee(SendReceiptVO vo) throws RemoteException, SQLException;
+	public double calFee(SendReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
 }

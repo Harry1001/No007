@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import vo.recordvo.RecordVO;
 
 public class RecordController {
-	RecordBL recordbl=new RecordBL();
+	RecordBL recordbl;
 	public ArrayList<RecordVO> lookup() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		ArrayList<RecordVO> rvo=new ArrayList<RecordVO>();

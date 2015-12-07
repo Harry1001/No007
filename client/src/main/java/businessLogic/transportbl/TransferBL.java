@@ -52,7 +52,7 @@ public class TransferBL{
 		receiptblservice.createReceipt(vo);
 	}
 	
-	public double calFee(TransferReceiptVO vo) throws RemoteException, SQLException{
+	public double calFee(TransferReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
 		strategybl=BLFactory.getCalCarriageService();
 		return strategybl.calCarriage(vo);
 	}

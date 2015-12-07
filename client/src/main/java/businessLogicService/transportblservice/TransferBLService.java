@@ -25,6 +25,8 @@ public interface TransferBLService {
 	/**
 	 * 输入参数获得运费
 	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public double calFee(TransferReceiptVO vo) throws RemoteException, SQLException;
+	public double calFee(TransferReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
 }

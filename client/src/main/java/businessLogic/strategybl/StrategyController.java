@@ -8,7 +8,7 @@ import vo.strategyvo.ExpressFeeVO;
 import vo.strategyvo.SalaryVO;
 
 public class StrategyController {
-	StrategyBL strategybl=new StrategyBL();
+	StrategyBL strategybl;
 	
 	public void setExpressFee(ExpressFeeVO vo) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
@@ -27,19 +27,19 @@ public class StrategyController {
 
 	public ExpressFeeVO getExpressFee() throws RemoteException {
 		// TODO Auto-generated method stub
-		strategybl.getExpressFee();
-		return null;
+		ExpressFeeVO vo=strategybl.getExpressFee();
+		return vo;
 	}
 
 	public CarriageFeeVO getCarriage() throws RemoteException {
 		// TODO Auto-generated method stub
-		strategybl.getCarriageFee();
-		return null;
+		CarriageFeeVO vo=strategybl.getCarriageFee();
+		return vo;
 	}
 
 	public SalaryVO getSalary() throws RemoteException {
 		// TODO Auto-generated method stub
-		strategybl.getSalary();
-		return null;
+		SalaryVO vo=strategybl.getSalary();
+		return vo;
 	}
 }

@@ -1,5 +1,8 @@
 package businessLogic.strategybl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -7,8 +10,8 @@ import java.util.Date;
 import businessLogic.recordbl.RecordBL;
 import businessLogicService.strategyblservice.FeeStrategyBLService;
 import businessLogicService.strategyblservice.SalaryStrategyBLService;
-import data.StrategyDataImpl;
 import dataService.StrategyDataService;
+import dataService._RMI;
 import po.strategypo.*;
 import vo.recordvo.RecordVO;
 import vo.strategyvo.CarriageFeeVO;
@@ -17,8 +20,15 @@ import vo.strategyvo.SalaryVO;
 
 public class StrategyBL implements FeeStrategyBLService,SalaryStrategyBLService{
 	
-	StrategyDataService sd=new StrategyDataImpl();
+	StrategyDataService sd;
+	
+	public StrategyBL() throws MalformedURLException, RemoteException, NotBoundException{
+		String url="rmi://"+_RMI.getIP()+"/central_strategy";
+		sd=(StrategyDataService)Naming.lookup(url);
+	}
+	
 	RecordBL rb=new RecordBL();
+	
 	public final void setExpressFee(ExpressFeeVO vo) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		ExpressFeePO po=new ExpressFeePO(vo);
@@ -64,6 +74,4 @@ public class StrategyBL implements FeeStrategyBLService,SalaryStrategyBLService{
 		return vo;
 	}
 
-	
-	
 }
