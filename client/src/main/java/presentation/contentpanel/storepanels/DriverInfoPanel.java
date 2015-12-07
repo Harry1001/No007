@@ -1,6 +1,9 @@
 package presentation.contentpanel.storepanels;
 
 import javax.swing.*;
+
+import presentation.commoncontainer.TimePanel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,8 +31,8 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
         for(int i=0;i<5;i++){
             textFields[i]=new JTextField(25);
         }
-        datepanel p1=new datepanel();
-        datepanel p2=new datepanel();
+        TimePanel p1=new TimePanel();
+        TimePanel p2=new TimePanel();
 
         for(gbc.gridx=0,gbc.gridy=0;gbc.gridy<7;gbc.gridy++){
             this.add(labels[gbc.gridy],gbc);
