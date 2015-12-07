@@ -23,7 +23,7 @@ public class ErrorDialog extends JDialog implements ActionListener {
         confirmbt=new MyButton("确认");
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets=new Insets(10,10,10,10);
+        gbc.insets=new Insets(30,30,40,30);
         gbc.gridx=gbc.gridy=0;
         this.getContentPane().add(label,gbc);
         gbc.gridy++;

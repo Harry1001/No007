@@ -53,8 +53,8 @@ public class SendPanel extends JPanel implements ActionListener {
             texts[i]=new MyTextField(15);
         }
 
-        String[] s1={"经济快递","标准快递","次晨特快"};
-        String[] s2={"塑料袋","纸盒","木盒"};
+        String[] s1={"经济快递","标准快递","特快快递"};
+        String[] s2={"快递袋","纸箱","木箱"};
         comboBox1=new JComboBox(s1);
         comboBox2=new JComboBox(s2);
 
@@ -139,7 +139,7 @@ public class SendPanel extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==calFeebt){
-
+            double fee=calExpressfeeService.calExpressFee()
         } else if (e.getSource()==submitbt){
 
         }
