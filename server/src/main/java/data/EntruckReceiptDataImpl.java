@@ -12,10 +12,13 @@ import po.receiptpo.EntruckReceiptPO;
 
 public class EntruckReceiptDataImpl extends UnicastRemoteObject implements EntruckReceiptDataService{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private EntruckReceiptDBManager entruckreceiptDBManager;
 	
 	public EntruckReceiptDataImpl() throws RemoteException {
-		super();
 		entruckreceiptDBManager=new EntruckReceiptDBManager();
 	}
 	

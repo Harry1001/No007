@@ -2,6 +2,7 @@ package database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -14,7 +15,38 @@ public class ChargeReceiptDBManager extends DBManager{
 
 	public ArrayList<ChargeReceiptPO> getList(Date fromtime, Date toTime) throws SQLException{
 		//TODO
-		return null;		
+		Timestamp fromTimestamp = new Timestamp(fromtime.getTime());
+		Timestamp toTimestamp = new Timestamp(toTime.getTime());
+		String find = "SELECT * FROM Chargereceipt Where chargetime > " + fromTimestamp.toString()
+					+ " AND chargetime < " + toTimestamp.toString() + " ORDER BY courier, orderID";
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(find);
+		ArrayList<ChargeReceiptPO> pos = new ArrayList<ChargeReceiptPO>();
+		String formercourier = "";
+		ArrayList<String> orderIDs = new ArrayList<String>();
+		ChargeReceiptPO po = null;
+		while(resultSet.next()){
+			String courier = resultSet.getString(3);
+			if(courier.equals(formercourier)){
+				String orderID = resultSet.getString(4);
+				orderIDs.add(orderID);
+			}
+			else{
+				po.setOrderIDs(orderIDs);
+				pos.add(po);
+				
+				orderIDs = new ArrayList<String>();
+				String orderID = resultSet.getString(4);
+				orderIDs.add(orderID);
+				
+				Date chargeTime = new Date(resultSet.getTimestamp(1).getTime());
+				double fee = resultSet.getDouble(2);
+				po = new ChargeReceiptPO(chargeTime, fee, courier, null);
+			}
+		}
+		stopconnection(connection);
+		return pos;
 	}
 	
 	public void addItem(ChargeReceiptPO item) throws SQLException{

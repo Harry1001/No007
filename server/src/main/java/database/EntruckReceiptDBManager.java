@@ -2,6 +2,7 @@ package database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -13,8 +14,40 @@ import po.receiptpo.EntruckReceiptPO;
 public class EntruckReceiptDBManager extends DBManager{
 
 	public ArrayList<EntruckReceiptPO> getList(Date fromtime, Date toTime) throws SQLException{
-		//TODO 查询一段时间内的装车单信息
-		return null;		
+		Timestamp fromTimestamp = new Timestamp(fromtime.getTime());
+		Timestamp toTimestamp = new Timestamp(toTime.getTime());
+		String find = "SELECT * FROM Entruckreceipt WHERE entruckDate > " + fromTimestamp.toString()
+					+ " AND entruckDate < " + toTimestamp.toString() + " ORDER BY transportID, orderNum";
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(find);
+		ArrayList<EntruckReceiptPO> pos = new ArrayList<EntruckReceiptPO>();
+		String transportID = "";//存储上一个货运编号
+		ArrayList<String> orderNums = null;//存储上一个货运编号对应的许多快递单号
+		EntruckReceiptPO po = null;
+		while(resultSet.next()){
+			String presentID = resultSet.getString(2);
+			if(presentID.equals(transportID)){//如果货运编号相同，则增加快递单号
+				String orderNum = resultSet.getString(5);
+				orderNums.add(orderNum);
+			}
+			else{//如果货运编号不同，则增加一条装车单，并对下一条装车单初始化
+				po.setOrderNum(orderNums);
+				pos.add(po);
+				
+				orderNums = new ArrayList<String>();
+				String orderNum = resultSet.getString(5);
+				orderNums.add(orderNum);
+				
+				Date entruckDate = new Date(resultSet.getTimestamp(1).getTime());
+				String arriveLoc = resultSet.getString(3);
+				String truckID = resultSet.getString(4);
+				double transportFee = resultSet.getDouble(6);
+				po = new EntruckReceiptPO(entruckDate, presentID, arriveLoc, truckID, null, transportFee);				
+			}
+		}
+		stopconnection(connection);
+		return pos;		
 	}
 	
 	public void addItem(EntruckReceiptPO item) throws SQLException{

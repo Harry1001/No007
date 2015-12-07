@@ -13,11 +13,11 @@ import po.recordpo.RecordPO;
 public class RecordDBManager extends DBManager{
 
 	public void addRecord(RecordPO po) throws SQLException{
-		Date d=po.getOpeTime();
-		String s1=po.getOperator();
-		String s2=po.getOperation();
+		Date opeTime=po.getOpeTime();
+		String operator=po.getOperator();
+		String operation=po.getOperation();
 		
-		String recordInsert="INSERT INTO Record"+" VALUES ("+d+","+s1+","+s2+")";
+		String recordInsert="INSERT INTO Record"+" VALUES ("+opeTime+","+operator+","+operation+")";
 		
 		Connection connection =connectToDB();
 		Statement statement=connection.createStatement();
