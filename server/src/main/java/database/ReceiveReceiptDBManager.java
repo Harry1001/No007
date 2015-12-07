@@ -23,7 +23,7 @@ public class ReceiveReceiptDBManager extends DBManager{
 		while(resultSet.next()){
 			String receiveNum=resultSet.getString(1);
 			String receiver=resultSet.getString(2);
-			Date receiveTime=new Date(resultSet.getDate(3).getTime());
+			Date receiveTime=new Date(resultSet.getTimestamp(3).getTime());
 			ReceiveReceiptPO temppo=new ReceiveReceiptPO(receiveNum,receiver,receiveTime);
 			po.add(temppo);
 		}

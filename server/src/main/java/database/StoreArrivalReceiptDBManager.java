@@ -24,7 +24,7 @@ public class StoreArrivalReceiptDBManager extends DBManager{
 		ResultSet resultSet = statement.executeQuery(storeArrivalReceipt);
 		while(resultSet.next()){
 			String orderID=resultSet.getString(1);
-			Date arriveTime=new Date(resultSet.getDate(2).getTime());
+			Date arriveTime=new Date(resultSet.getTimestamp(2).getTime());
 			String transReceiptID=resultSet.getString(3);
 			String fromPosition=resultSet.getString(4);
 			PackArrivalState arriveState=PackArrivalState.values()[resultSet.getInt(5)];

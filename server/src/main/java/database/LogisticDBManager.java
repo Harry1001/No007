@@ -33,7 +33,7 @@ public class LogisticDBManager extends DBManager{
 		ResultSet resultSet = statement.executeQuery(reader);
 		while(resultSet.next()){
 			String orderID=resultSet.getString(1);
-			Date arrivaltime=new Date(resultSet.getDate(2).getTime());
+			Date arrivaltime=new Date(resultSet.getTimestamp(2).getTime());
 			String logisticState=resultSet.getString(3);
 			LogisticPO temppo=new LogisticPO(orderID,arrivaltime,logisticState);
 			po.add(temppo);

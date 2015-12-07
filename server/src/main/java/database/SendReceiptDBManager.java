@@ -38,7 +38,7 @@ public class SendReceiptDBManager extends DBManager{
 			String pack=resultSet.getString(14);
 			String expressNumber=resultSet.getString(15);
 			double money=resultSet.getDouble(16);
-			Date time=new Date(resultSet.getDate(17).getTime());
+			Date time=new Date(resultSet.getTimestamp(17).getTime());
 			SendReceiptPO temppo=new SendReceiptPO(senderName,senderLoc,senderUnit,senderPhone,receiverName,receiverLoc,
 					receiverUnit,receiverPhone,number,weight,volume,name,expressType,pack,expressNumber,money,time);
 			po.add(temppo);

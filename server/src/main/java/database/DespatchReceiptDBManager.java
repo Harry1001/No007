@@ -21,7 +21,7 @@ public class DespatchReceiptDBManager extends DBManager{
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(despatchReceipt);
 		while(resultSet.next()){
-			Date arrivalTime=new Date(resultSet.getDate(1).getTime());
+			Date arrivalTime=new Date(resultSet.getTimestamp(1).getTime());
 			String orderNum=resultSet.getString(2);
 			String despatchMan=resultSet.getString(3);
 			DespatchReceiptPO temppo=new DespatchReceiptPO(arrivalTime,orderNum,despatchMan);

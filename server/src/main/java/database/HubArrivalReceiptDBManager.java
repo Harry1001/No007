@@ -25,7 +25,7 @@ public class HubArrivalReceiptDBManager extends DBManager{
 		while(resultSet.next()){
 			String orderID=resultSet.getString(1);
 			String hubID=resultSet.getString(2);
-			Date arriveTime=new Date(resultSet.getDate(3).getTime());
+			Date arriveTime=new Date(resultSet.getTimestamp(3).getTime());
 			String transReceiptID=resultSet.getString(4);
 			String fromPosition=resultSet.getString(5);
 			PackArrivalState arriveState=PackArrivalState.values()[resultSet.getInt(6)];
