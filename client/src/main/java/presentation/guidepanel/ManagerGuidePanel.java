@@ -1,5 +1,6 @@
 package presentation.guidepanel;
 
+import MainFrame.MainFrame;
 import presentation.Images.Images;
 import presentation.commoncontainer.MyToggleButton;
 import presentation.contentpanel.BaobiaoPanel;
@@ -19,7 +20,7 @@ public class ManagerGuidePanel extends GuidePanel implements ActionListener {
 
     MyToggleButton[] bts=new MyToggleButton[BTNUMBER];
 
-    public ManagerGuidePanel(JPanel content, JFrame par){
+    public ManagerGuidePanel(JPanel content, MainFrame par){
 
         super(content,par);
 

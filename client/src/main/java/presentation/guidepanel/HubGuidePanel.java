@@ -1,5 +1,6 @@
 package presentation.guidepanel;
 
+import MainFrame.MainFrame;
 import presentation.Images.Images;
 import presentation.commoncontainer.MyToggleButton;
 import presentation.contentpanel.*;
@@ -19,7 +20,7 @@ public class HubGuidePanel extends GuidePanel implements ActionListener {
 
     MyToggleButton[] bts=new MyToggleButton [BTNUMBER];
 
-    public HubGuidePanel(JPanel content, JFrame par){
+    public HubGuidePanel(JPanel content, MainFrame par){
         super(content,par);
 
         bts[0] =new MyToggleButton("中转中心到达单", Images.HUB_ARRIVE_IMAGE);

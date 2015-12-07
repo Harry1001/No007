@@ -74,7 +74,7 @@ public class UIFactory {
      * @param vo 登录结果，内部包含权限信息
      * @return
      */
-    private static GuidePanel createGuidePanel(LoginResultVO vo, JPanel content, JFrame par){
+    private static GuidePanel createGuidePanel(LoginResultVO vo, JPanel content, MainFrame par){
         switch (vo.getJob()){
 
             case COURIER:return new CourierGuidePanel(content,par);

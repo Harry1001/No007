@@ -4,6 +4,7 @@ import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,9 +21,13 @@ public class ErrorDialog extends JDialog implements ActionListener {
         this.parent=parent;
         label=new MyLabel(message);
         confirmbt=new MyButton("确认");
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.getContentPane().add(label);
-        this.getContentPane().add(confirmbt);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets=new Insets(10,10,10,10);
+        gbc.gridx=gbc.gridy=0;
+        this.getContentPane().add(label,gbc);
+        gbc.gridy++;
+        this.getContentPane().add(confirmbt,gbc);
         this.setLocationRelativeTo(parent);
         confirmbt.addActionListener(this);
 

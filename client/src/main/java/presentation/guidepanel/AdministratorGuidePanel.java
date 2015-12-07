@@ -1,5 +1,6 @@
 package presentation.guidepanel;
 
+import MainFrame.MainFrame;
 import presentation.Images.Images;
 import presentation.commoncontainer.MyToggleButton;
 import presentation.contentpanel.administratorpanels.UserAccountListPanel;
@@ -18,7 +19,7 @@ public class AdministratorGuidePanel extends GuidePanel implements ActionListene
 
     MyToggleButton[] bts=new MyToggleButton [BTNUMBER];
 
-    public AdministratorGuidePanel(JPanel content, JFrame par){
+    public AdministratorGuidePanel(JPanel content, MainFrame par){
         super(content, par);
 
         bts[0] =new MyToggleButton("用户账户管理", Images.USER_ACCOUNT_IMAGE);

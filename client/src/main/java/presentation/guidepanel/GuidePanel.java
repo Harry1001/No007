@@ -1,5 +1,6 @@
 package presentation.guidepanel;
 
+import MainFrame.MainFrame;
 import presentation.commoncontainer.MyToggleButton;
 import presentation.commonpanel.GuideLabel;
 import presentation.commonpanel.WelcomePanel;
@@ -13,11 +14,11 @@ import java.awt.*;
 public abstract class GuidePanel extends JPanel {
 
     protected JPanel content;
-    protected JFrame parent;
+    protected MainFrame parent;
     private GridBagConstraints gbc;
     private ButtonGroup btgroup=new ButtonGroup();
 
-    public GuidePanel(JPanel content, JFrame par){
+    public GuidePanel(JPanel content, MainFrame par){
         this.content=content;
         this.parent=par;
         this.gbc=new GridBagConstraints();

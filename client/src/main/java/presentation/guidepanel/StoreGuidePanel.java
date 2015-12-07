@@ -1,5 +1,6 @@
 package presentation.guidepanel;
 
+import MainFrame.MainFrame;
 import presentation.Images.Images;
 import presentation.commoncontainer.MyToggleButton;
 import presentation.contentpanel.storepanels.DespatchPanel;
@@ -21,7 +22,7 @@ public class StoreGuidePanel extends GuidePanel implements ActionListener{
 
     MyToggleButton[] bts=new MyToggleButton [BTNUMBER];
 
-    public StoreGuidePanel(JPanel content, JFrame par){
+    public StoreGuidePanel(JPanel content, MainFrame par){
         super(content,par);
 
         bts[0] =new MyToggleButton("新建派件单", Images.DESPATCH_IMAGE);

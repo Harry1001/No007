@@ -1,5 +1,6 @@
 package presentation.guidepanel;
 
+import MainFrame.MainFrame;
 import presentation.Images.Images;
 import presentation.commoncontainer.MyToggleButton;
 import presentation.contentpanel.depotpanels.DepotChaKanPanel;
@@ -21,7 +22,7 @@ public class DepotGuidePanel extends GuidePanel implements ActionListener{
 
     MyToggleButton[] bts=new MyToggleButton[BTNUMBER];
 
-    public DepotGuidePanel(JPanel content, JFrame par) {
+    public DepotGuidePanel(JPanel content, MainFrame par) {
         super(content, par);
 
         bts[0] =new MyToggleButton("库存入库", Images.DEPOTIN_IMAGE);
