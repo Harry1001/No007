@@ -18,6 +18,7 @@ import server.ReceiveReceiptServer;
 import server.SendReceiptServer;
 import server.StoreArrivalReceiptServer;
 import server.TransferReceiptServer;
+import server.infoserver.UserAccountServer;
 
 public class Server {
 
@@ -105,6 +106,13 @@ public class Server {
 		 */
 		TransferReceiptServer centralTransfer = new TransferReceiptServer();
 		centralTransfer.register();
+		
+		/**
+		 * 启动用户帐户服务器
+		 */
+		UserAccountServer userAccountServer = new UserAccountServer();
+		userAccountServer.register();
+		
 		
 	}
 }

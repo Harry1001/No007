@@ -10,7 +10,7 @@ public class DBManager {
         String driver = "com.mysql.jdbc.Driver";
         String url = "jdbc:mysql://127.0.0.1:3306/elsdatabase";
         String user = "root";
-        String password = "imingyan";
+        String password = "";
         
         Connection connection = null;
         try {
