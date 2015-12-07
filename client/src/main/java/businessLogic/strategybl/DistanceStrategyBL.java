@@ -1,20 +1,29 @@
 package businessLogic.strategybl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Date;
 
 import businessLogic.recordbl.RecordBL;
 import businessLogicService.strategyblservice.DistanceService;
-import data.StrategyDataImpl;
 import dataService.StrategyDataService;
+import dataService._RMI;
 import po.strategypo.DistancePO;
 import vo.recordvo.RecordVO;
 import vo.strategyvo.DistanceVO;
 
 public class DistanceStrategyBL implements DistanceService{
 
-	StrategyDataService sd=new StrategyDataImpl();
+	StrategyDataService sd;
+	
+	public DistanceStrategyBL() throws MalformedURLException, RemoteException, NotBoundException{
+		String url="rmi://"+_RMI.getIP()+"/central_strategy";
+		sd=(StrategyDataService)Naming.lookup(url);
+	}
+	
 	RecordBL rb=new RecordBL();
 	public void setDistance(DistanceVO vo) throws RemoteException, SQLException{
 		DistancePO po=new DistancePO(vo);

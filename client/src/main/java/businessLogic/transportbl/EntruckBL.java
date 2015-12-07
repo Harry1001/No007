@@ -69,7 +69,7 @@ public class EntruckBL{
 		receiptblservice.createReceipt(vo);
 	}
 	
-	public double calFee(EntruckReceiptVO vo) throws RemoteException, SQLException{
+	public double calFee(EntruckReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
 		strategyblservice=BLFactory.getCalCarriageService();
 		return strategyblservice.calCarriage(vo);
 	}

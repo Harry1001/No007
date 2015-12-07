@@ -1,12 +1,13 @@
 package dataService;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import po.recordpo.RecordPO;
 
-public interface RecordDataService {
+public interface RecordDataService extends Remote{
 
 	/*
 	 * 读系统日志

@@ -1,10 +1,13 @@
 package businessLogic.strategybl;
 
-import data.StrategyDataImpl;
 import dataService.StrategyDataService;
+import dataService._RMI;
 import po.strategypo.SalaryPO;
 import typeDefinition.Job;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import businessLogicService.strategyblservice.CalSalaryService;
@@ -12,12 +15,14 @@ import businessLogicService.strategyblservice.CalSalaryService;
 public class CalSalaryBL extends StrategyBL implements CalSalaryService{
 	StrategyDataService sd;
 	SalaryPO po;
-
-	public CalSalaryBL(){
-		this(new StrategyDataImpl());
+	
+	public CalSalaryBL() throws MalformedURLException, RemoteException, NotBoundException{
+		String url="rmi://"+_RMI.getIP()+"/central_strategy";
+		sd=(StrategyDataService)Naming.lookup(url);
 	}
+	
 
-	public CalSalaryBL(StrategyDataService dataService){
+	public CalSalaryBL(StrategyDataService dataService)throws MalformedURLException, RemoteException, NotBoundException{
 		this.sd=dataService;
 		initPO();
 	}

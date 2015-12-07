@@ -1,18 +1,25 @@
 package businessLogic.recordbl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import businessLogicService.recordblservice.RecordBLService;
-import data.RecordDataImpl;
 import dataService.RecordDataService;
+import dataService._RMI;
 import po.recordpo.RecordPO;
 import vo.recordvo.RecordVO;
 
 public class RecordBL implements RecordBLService{
 
-	RecordDataService rd=new RecordDataImpl();
+	RecordDataService rd;
+	public RecordBL() throws MalformedURLException, RemoteException, NotBoundException{
+		String url="rmi://"+_RMI.getIP()+"/central_record";
+		rd=(RecordDataService)Naming.lookup(url);
+	}
 	public ArrayList<RecordVO> lookup() throws RemoteException, SQLException {
 		
 		ArrayList<RecordPO> apo=rd.getRecord();

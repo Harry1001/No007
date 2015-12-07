@@ -129,15 +129,15 @@ public class BLFactory {
     	return new TransferController();
     }
 
-    public static CalCarriageService getCalCarriageService(){
+    public static CalCarriageService getCalCarriageService() throws MalformedURLException, RemoteException, NotBoundException{
         return new CalCarriageFeeBL();
     }
 
-    public static CalExpressfeeService getCalExpressfeeService(){
+    public static CalExpressfeeService getCalExpressfeeService() throws MalformedURLException, RemoteException, NotBoundException{
         return new CalExpressFeeBL();
     }
 
-    public static CalSalaryService getCalSalaryService(){
+    public static CalSalaryService getCalSalaryService() throws MalformedURLException, RemoteException, NotBoundException{
         return new CalSalaryBL();
     }
 }

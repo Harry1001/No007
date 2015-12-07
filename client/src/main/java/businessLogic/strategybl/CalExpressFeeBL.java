@@ -1,25 +1,33 @@
 package businessLogic.strategybl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import businessLogicService.strategyblservice.CalExpressfeeService;
-import data.StrategyDataImpl;
+import dataService.StrategyDataService;
+import dataService._RMI;
 import po.strategypo.ExpressFeePO;
 import vo.receiptvo.SendReceiptVO;
 
 public class CalExpressFeeBL extends StrategyBL implements CalExpressfeeService{
 	
-	StrategyDataImpl sd=new StrategyDataImpl();
+	StrategyDataService sd;
+	public CalExpressFeeBL() throws MalformedURLException, RemoteException, NotBoundException{
+		String url="rmi://"+_RMI.getIP()+"/central_strategy";
+		sd=(StrategyDataService)Naming.lookup(url);
+	}
 	DistanceStrategyBL distance=new DistanceStrategyBL();
 	
 	public double calExpressFee(SendReceiptVO vo) throws RemoteException, SQLException {
 		ExpressFeePO po=sd.getExpressFee();
-		double totalPrice=0;
-		double w=vo.getWeight();
-		double v=vo.getVolume();
-		double trueWeight=0;
-		trueWeight=w > v/5000 ? w:v;     //判断体积与实际重量
+		double totalPrice = 0;
+		double w = vo.getWeight();
+		double v = vo.getVolume();
+		double trueWeight = 0;
+		trueWeight = w > v/5000 ? w:v;     //判断体积与实际重量
 		
 		String s1=vo.getSenderLoc();     //计算距离
 		String s11=s1.substring(0, 2);

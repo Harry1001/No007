@@ -21,7 +21,7 @@ public class EntruckController implements EntruckBLService{
 		entruckbl.submit(vo);
 	}
 
-	public double calFee(EntruckReceiptVO vo) throws RemoteException, SQLException {
+	public double calFee(EntruckReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException {
 		return entruckbl.calFee(vo);
 	}
 

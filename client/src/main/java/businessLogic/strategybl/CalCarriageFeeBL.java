@@ -1,10 +1,15 @@
 package businessLogic.strategybl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import businessLogicService.strategyblservice.CalCarriageService;
-import data.StrategyDataImpl;
+
+import dataService.StrategyDataService;
+import dataService._RMI;
 import po.strategypo.CarriageFeePO;
 import typeDefinition.ReceiptType;
 import typeDefinition.Vehicle;
@@ -13,7 +18,11 @@ import vo.receiptvo.TransferReceiptVO;
 
 public class CalCarriageFeeBL extends StrategyBL implements CalCarriageService{
 	
-	StrategyDataImpl sd=new StrategyDataImpl();
+	StrategyDataService sd;
+	public CalCarriageFeeBL() throws MalformedURLException, RemoteException, NotBoundException{
+		String url="rmi://"+_RMI.getIP()+"/central_strategy";
+		sd=(StrategyDataService)Naming.lookup(url);
+	}
 	DistanceStrategyBL distance=new DistanceStrategyBL();
 	
 	public double calCarriage(ReceiptVO vo) throws RemoteException, SQLException {

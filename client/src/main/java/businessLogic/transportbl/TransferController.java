@@ -20,7 +20,7 @@ public class TransferController implements TransferBLService{
 		transferbl.submit(vo);
 	}
 
-	public double calFee(TransferReceiptVO vo) throws RemoteException, SQLException{
+	public double calFee(TransferReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
 		return transferbl.calFee(vo);
 	}
 

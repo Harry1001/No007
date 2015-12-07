@@ -3,6 +3,7 @@ package data;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -16,45 +17,61 @@ import po.strategypo.DistancePO;
 import po.strategypo.ExpressFeePO;
 import po.strategypo.SalaryPO;
 
-public class StrategyDataImpl implements StrategyDataService{
+public class StrategyDataImpl extends UnicastRemoteObject implements StrategyDataService{
 
-	
+	ExpressFeeStrategyDBManager efs;
+	CarriageStrategyDBManager cfs;
+	SalaryStrategyDBManager s;
+	DistanceDBManager d;
+	public StrategyDataImpl() throws RemoteException {
+		super();
+		
+		efs=new ExpressFeeStrategyDBManager();
+		cfs=new CarriageStrategyDBManager();
+		s=new SalaryStrategyDBManager();
+		d=new DistanceDBManager();
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ExpressFeePO getExpressFee() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
-		ExpressFeeStrategyDBManager efs=new ExpressFeeStrategyDBManager();
 		ExpressFeePO po=efs.getAll();
 		return po;
 	}
 
 	public CarriageFeePO getCarriageFee() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
-		CarriageStrategyDBManager cfs=new CarriageStrategyDBManager();
+		 
 		CarriageFeePO po=cfs.get();
 		return po;
 	}
 
 	public void updateExpressFeeStrategy(ExpressFeePO efpo) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
-		ExpressFeeStrategyDBManager efs=new ExpressFeeStrategyDBManager();
+		
 		efs.addExpressFeeStrategy(efpo);
 	}
 
 	public void updateCarriageFeeStrategy(CarriageFeePO cfpo) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
-		CarriageStrategyDBManager cfs=new CarriageStrategyDBManager();
+		
 		cfs.addCarriageStrategy(cfpo);
 	}
 
 	public SalaryPO getSalary() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
-		SalaryStrategyDBManager s=new SalaryStrategyDBManager();
+		
 		SalaryPO po=s.getAll();
 		return po;
 	}
 
 	public void updateSalaryStrategy(SalaryPO po) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
-		SalaryStrategyDBManager s=new SalaryStrategyDBManager();
+		
 		s.addSalaryStrategy(po);
 	}
 
@@ -64,7 +81,7 @@ public class StrategyDataImpl implements StrategyDataService{
 	 */
 	public double getDistance(String city1,String city2) throws FileNotFoundException, ClassNotFoundException, IOException {
 		// TODO Auto-generated method stub
-		DistanceDBManager d=new DistanceDBManager();
+		
 		DistancePO po=d.read();
 		Vector<String> cities = po.getCities();
 		Vector<Vector<Object>> data = po.getData();
@@ -89,14 +106,14 @@ public class StrategyDataImpl implements StrategyDataService{
 	 * @throws FileNotFoundException 
 	 */
 	public DistancePO getDistanceStrategy() throws FileNotFoundException, ClassNotFoundException, IOException{
-		DistanceDBManager d=new DistanceDBManager();
+		
 		DistancePO po=d.read();
 		return po;
 	}
 	
 	public void updataDistanceStrategy(DistancePO po) throws FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
-		DistanceDBManager d=new DistanceDBManager();
+		
 		d.serialize(po);
 	}
 
