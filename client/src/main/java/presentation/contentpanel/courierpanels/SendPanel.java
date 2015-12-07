@@ -4,20 +4,30 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.strategyblservice.CalExpressfeeService;
 import businessLogicService.transportblservice.SendBLService;
+import constent.Constent;
+import myexceptions.TransportBLException;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
+import presentation.commonpanel.ErrorDialog;
+import vo.receiptvo.SendReceiptVO;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.Date;
 
 /**
  * Created by Harry on 2015/11/25.
  */
-public class SendPanel extends JPanel implements ActionListener {
+public class SendPanel extends JPanel implements ActionListener, FocusListener{
 
     private SendBLService sendBLService;
     private CalExpressfeeService calExpressfeeService;
@@ -126,22 +136,210 @@ public class SendPanel extends JPanel implements ActionListener {
         gbc.gridx=1;
         this.add(submitbt,gbc);
 
-       calFeebt.addActionListener(this);
+        calFeebt.addActionListener(this);
         submitbt.addActionListener(this);
+        texts[1].addFocusListener(this);
+        texts[5].addFocusListener(this);
 
         initBL();
     }
 
     private void initBL(){
         sendBLService= BLFactory.getSendBLService();
-        calExpressfeeService=BLFactory.getCalExpressfeeService();
+        try {
+            calExpressfeeService=BLFactory.getCalExpressfeeService();
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==calFeebt){
-            double fee=calExpressfeeService.calExpressFee()
+            String fromLoc=texts[1].getText();
+            String toLoc=texts[5].getText();
+            double weight;
+            double volumn;
+            String expressType=comboBox1.getSelectedItem().toString();
+            String wrapType=comboBox2.getSelectedItem().toString();
+
+            if (checkLocation(fromLoc)&& checkLocation(toLoc)){
+                try {
+                    weight=Double.parseDouble(texts[9].getText());
+                    volumn=Double.parseDouble(texts[10].getText());
+                    if (weight<=0||volumn<=0){
+                        new ErrorDialog(parent, "重量或体积必须是正整数或小数");
+                    }
+
+                    SendReceiptVO vo=new SendReceiptVO("",fromLoc,"","","",toLoc,"","",1,weight,volumn,"",
+                            expressType,wrapType,"",0.0,new Date());
+
+                    double fee=calExpressfeeService.calExpressFee(vo);
+                    texts[13].setText(fee+"");
+
+                }catch (NumberFormatException e1){
+                    new ErrorDialog(parent, "重量或体积必须是正整数或小数");
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "sql exception");
+                }
+
+            } else {
+                new ErrorDialog(parent, "地址前两位必须为市名");
+            }
+
+
+
         } else if (e.getSource()==submitbt){
+            try {
+                checkAllFormat();
+                SendReceiptVO vo=new SendReceiptVO(texts[0].getText(),texts[1].getText(),texts[2].getText(),
+                        texts[3].getText(),texts[4].getText(),texts[5].getText(),texts[6].getText(),
+                        texts[7].getText(),Integer.parseInt(texts[8].getText()),Double.parseDouble(texts[9].getText()),
+                        Double.parseDouble(texts[10].getText()),texts[11].getText(),comboBox1.getSelectedItem().toString(),
+                        comboBox2.getSelectedItem().toString(), texts[12].getText(),Double.parseDouble(texts[13].getText()),
+                        new Date());
+                sendBLService.submit(vo);
+                refresh();
+            } catch (TransportBLException e1) {
+                new ErrorDialog(parent, e1.getMessage());
+            } catch (RemoteException e1) {
+                new ErrorDialog(parent, "服务器连接超时");
+            } catch (MalformedURLException e1) {
+                new ErrorDialog(parent, "MalformedURLException");
+            } catch (SQLException e1) {
+                new ErrorDialog(parent, "SQLException");
+            } catch (NotBoundException e1) {
+                new ErrorDialog(parent, "NotBoundException");
+            }
+
 
         }
+    }
+
+    private void refresh(){
+        for (int i=0;i<14;i++){
+            texts[i].setText("");
+        }
+        comboBox1.setSelectedIndex(0);
+        comboBox2.setSelectedIndex(0);
+    }
+
+    public void focusGained(FocusEvent e) {
+
+    }
+
+    public void focusLost(FocusEvent e) {
+        if (e.getSource()==texts[1]){
+            if (checkLocation(texts[1].getText())){
+                texts[1].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
+            }else {
+                texts[1].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }else if (e.getSource()==texts[5]){
+            if (checkLocation(texts[5].getText())){
+                texts[5].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
+            }else {
+                texts[5].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+    }
+
+    private boolean checkAllFormat() throws TransportBLException {
+        if (!checkLocation(texts[1].getText())) throw new TransportBLException("寄件人地址前两位必须为市名");
+
+        if (!checkLocation(texts[5].getText())) throw new TransportBLException("收件人地址前两位必须为市名");
+
+        if (!checkPhone(texts[3].getText())) throw new TransportBLException("寄件人手机号必须为11位数");
+
+        if (!checkPhone(texts[7].getText())) throw new TransportBLException("收件人手机号必须为11位数");
+
+        if (!checkNumber(texts[8].getText())) throw new TransportBLException("原件数必须为正整数");
+
+        if (!checkWeightOrVolumn(texts[9].getText())) throw new TransportBLException("重量必须为正整数或正小数");
+
+        if (!checkWeightOrVolumn(texts[10].getText())) throw new TransportBLException("体积必须为正整数或正小数");
+
+        if (!checkOrderID(texts[12].getText())) throw new TransportBLException("订单条形码必须为10为数字");
+
+        if (!checkFee(texts[13].getText())) throw new TransportBLException("运费必须为正数");
+
+        return true;
+    }
+
+    private boolean checkFee(String s){
+        double num;
+        try{
+            num=Double.parseDouble(s);
+        }catch (NumberFormatException e1){
+            return false;
+        }
+        if (num>0) return true;
+        return false;
+    }
+
+    private boolean checkOrderID(String s){
+        if (s.length()!=Constent.ORDER_ID_LENGTH)
+            return false;
+        for (int i=0;i<Constent.ORDER_ID_LENGTH;i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9')
+                return false;
+        }
+        return true;
+    }
+
+    private boolean checkWeightOrVolumn(String s){
+        double num;
+        try{
+            num=Double.parseDouble(s);
+        }catch (NumberFormatException e1){
+            return false;
+        }
+        if (num>0) return true;
+        return false;
+    }
+
+    /**
+     * 检查地址前两位是否合法，合法才能计算运费
+     * @param s
+     * @return
+     */
+    private boolean checkLocation(String s){
+        if (s.length()<2)
+            return false;
+        s=s.substring(0,2);
+        for (String loc: Constent.LOCATIONS){
+            if (loc.equals(s)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkPhone(String s){
+        if (s.length()!=Constent.PHONE_LENGTH) return false;
+        for (int i=0;i<Constent.PHONE_LENGTH;i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9')
+                return false;
+        }
+        return true;
+    }
+
+    private boolean checkNumber(String s) {
+        int num;
+        try{
+            num=Integer.parseInt(s);
+        }catch (NumberFormatException e1){
+            return false;
+        }
+        if (num>0) return true;
+        return false;
+
     }
 }
