@@ -73,18 +73,35 @@ public class LogisticBL implements LogisticBLService{
 				}else{
 					store="浦口营业厅";
 				}
-			}else if(cityID.equals("001")){
+			}else if(cityID.equals("010")){
 				city="北京市";
 				if(storeID.equals("000")){
-					store="**营业厅";
+					store="朝阳营业厅";
 				}else if(storeID.equals("001")){
-					store="**营业厅";
+					store="海淀营业厅";
 				}else{
-					store="**营业厅";
+					store="丰台营业厅";
 				}
-			}else{
-				
+			}else if(cityID.equals("021")){
+				city="上海市";
+				if(storeID.equals("000")){
+					store="浦东营业厅";
+				}else if(storeID.equals("001")){
+					store="崇明营业厅";
+				}else{
+					store="宝山营业厅";
+				}
+			}else if(cityID.equals("020")){
+				city="广州市";
+				if(storeID.equals("000")){
+					store="花都营业厅";
+				}else if(storeID.equals("001")){
+					store="增城营业厅";
+				}else{
+					store="从化营业厅";
+				}
 			}
+			
 			logisticstate="到达"+city+store;
 			po=new LogisticPO(orderID,arrivaltime,logisticstate);
 			logisticdata.update(po);

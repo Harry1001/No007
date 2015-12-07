@@ -2,9 +2,22 @@ package presentation.contentpanel.storepanels;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.transportblservice.DespatchBLService;
+import myexceptions.TransportBLException;
+import presentation.commonpanel.ErrorDialog;
+import vo.receiptvo.DespatchReceiptVO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,11 +36,13 @@ public class DespatchPanel extends JPanel implements ActionListener{
     JButton submitBT;
     JButton cancelBT;
 
-    Frame parent;
+    MainFrame parent;
 
     SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置时间格式
 
-    public DespatchPanel(Frame par){
+    DespatchBLService despatchBLService;
+    
+    public DespatchPanel(MainFrame par){
         this.parent=par;
 
         timeL=new JLabel("到达日期");
@@ -74,16 +89,55 @@ public class DespatchPanel extends JPanel implements ActionListener{
 
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"派件单",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 20)));
+        
+        initBL();
     }
 
-    public void actionPerformed(ActionEvent e) {
+    
+    private void initBL() {
+    	despatchBLService=BLFactory.getDespatchBLService();		
+	}
+
+    private void refresh() {
+    	timeT.setText(df.format(new Date()));
+        numT.setText("");
+        courierT.setText("");
+    }
+
+	public void actionPerformed(ActionEvent e) {
         if(e.getSource()==submitBT){
-            //todo 提交单据
+        	Date date = null;
+			try {
+				date = df.parse(timeT.getText());
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+        	String num=numT.getText();
+        	String courier=courierT.getText();
+        	DespatchReceiptVO vo=new DespatchReceiptVO(date,num,courier);
+        	boolean isTrue=false;
+        	try {
+				isTrue=despatchBLService.verify(vo);
+			} catch (TransportBLException e1) {
+				new ErrorDialog(parent,e1.getMessage());
+			}
+        	if(isTrue){
+        		try {
+					despatchBLService.submit(vo);
+					refresh();
+				} catch (RemoteException e1) {
+					new ErrorDialog(parent,"服务器连接超时");
+				} catch (MalformedURLException e1) {
+					new ErrorDialog(parent,"URL格式错误");
+				} catch (NotBoundException e1) {
+					new ErrorDialog(parent,"服务器端没有此内容");
+				} catch (SQLException e1) {
+					new ErrorDialog(parent,"数据库异常");
+				}
+        	}
         }
         else {//取消按钮
-            timeT.setText(df.format(new Date()));
-            numT.setText("");
-            courierT.setText("");
+        	refresh();
         }
     }
 }
