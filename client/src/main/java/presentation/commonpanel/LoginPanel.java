@@ -10,6 +10,7 @@ import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
 import presentation.uifactory.UIFactory;
 import typeDefinition.Job;
+import vo.loginvo.LoginInputVO;
 import vo.loginvo.LoginResultVO;
 
 import javax.swing.*;
@@ -114,7 +115,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
             LoginBLService loginBLService = BLFactory.getLoginBLService();
             LoginResultVO loginResult= null;
             try {
-                loginResult = loginBLService.getPermission(numText.getText(),new String(passwordField.getPassword()));
+                loginResult = loginBLService.getPermission(new LoginInputVO(numText.getText(),new String(passwordField.getPassword())));
                 if (loginResult.getJob()== Job.NOTFOUND){
                     new ErrorDialog(parent,"用户名或密码错误");
                 } else {
