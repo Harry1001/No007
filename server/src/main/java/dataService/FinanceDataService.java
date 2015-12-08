@@ -12,7 +12,7 @@ public interface FinanceDataService {
 	 * @param financePO
 	 * @throws RemoteException
 	 */
-	public void add(FinancePO financePO) throws RemoteException;
+	public void add(FinancePO financePO, int year) throws RemoteException;
 
 	/**
 	 * 

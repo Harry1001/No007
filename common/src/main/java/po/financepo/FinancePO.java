@@ -10,6 +10,10 @@ import vo.infovo.StaffVO;
 
 public class FinancePO implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public int year;
 	private ArrayList<StaffPO> staffs;
 	private ArrayList<DriverPO> drivers;

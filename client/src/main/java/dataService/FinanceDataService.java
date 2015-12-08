@@ -10,9 +10,10 @@ public interface FinanceDataService {
 	/**
 	 * 在账目数据库中增加一个持久化对象
 	 * @param financePO
+	 * @param year 
 	 * @throws RemoteException
 	 */
-	public void add(FinancePO financePO) throws RemoteException;
+	public void add(FinancePO financePO, int year) throws RemoteException;
 
 	/**
 	 * 

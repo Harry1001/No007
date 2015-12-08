@@ -10,13 +10,18 @@ import po.financepo.FinancePO;
 
 public class FinanceDataImpl extends UnicastRemoteObject implements FinanceDataService{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public FinanceDataImpl() throws RemoteException {
 		super();
 	}
 
 	private ProfitDBManager profitDBManager = new ProfitDBManager();
 	
-	public void add(FinancePO financePO) throws RemoteException {
+	public void add(FinancePO financePO, int year) throws RemoteException {
 		// TODO Auto-generated method stub
 		
 	}

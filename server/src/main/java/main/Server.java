@@ -18,6 +18,11 @@ import server.ReceiveReceiptServer;
 import server.SendReceiptServer;
 import server.StoreArrivalReceiptServer;
 import server.TransferReceiptServer;
+import server.infoserver.AgencyServer;
+import server.infoserver.BankAccountServer;
+import server.infoserver.DriverServer;
+import server.infoserver.StaffServer;
+import server.infoserver.TruckServer;
 import server.infoserver.UserAccountServer;
 
 public class Server {
@@ -108,11 +113,25 @@ public class Server {
 		centralTransfer.register();
 		
 		/**
-		 * 启动用户帐户服务器
+		 * 启动info服务器
 		 */
+		AgencyServer agencyServer = new AgencyServer();
+		agencyServer.register();
+		
+		BankAccountServer bankAccountServer = new BankAccountServer();
+		bankAccountServer.register();
+		
+		DriverServer driverServer = new DriverServer();
+		driverServer.register();
+		
+		StaffServer staffServer = new StaffServer();
+		staffServer.register();
+		
+		TruckServer truckServer = new TruckServer();
+		truckServer.register();
+		
 		UserAccountServer userAccountServer = new UserAccountServer();
 		userAccountServer.register();
-		
 		
 	}
 }

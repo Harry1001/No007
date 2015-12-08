@@ -212,7 +212,7 @@ public class FinanceBL implements FinanceBLService{
 		finance.setTrucks(truck);
 		
 		try {
-			financeData.add(new FinancePO(finance));
+			financeData.add(new FinancePO(finance),year);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
