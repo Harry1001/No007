@@ -53,8 +53,10 @@ public class UserAccountDataImpl extends UnicastRemoteObject implements UserAcco
 		String name = "";
 		try {
 			UserAccountPO po = userAccountDBManager.get(id);
-			job = po.getPosition();
-			name = po.getName();
+			if(password == po.getPassword()) {
+				job = po.getPosition();
+				name = po.getName();
+			}
 		} catch (SQLException e) {//没有找到po
 		}
 		LoginResultVO resultVO = new LoginResultVO(id, job, name);
