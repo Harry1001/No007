@@ -28,7 +28,7 @@ public class ReceiveBL{
 		receiptblservice=BLFactory.getReceiveReceiptBLService();
 		receiptblservice.createReceipt(vo);
 		logisticblservice=BLFactory.getLogisticBLService();
-		logisticblservice.update(vo);
+		logisticblservice.update(vo.getReceiveNum(),vo);
 	}
 	
 }

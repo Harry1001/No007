@@ -91,5 +91,17 @@ public class TransferReceiptDBManager extends DBManager{
 		statement.executeUpdate(delete);
 		stopconnection(connection);
 	}
+
+	public ArrayList<String> getOrderID(String transportID) throws SQLException {
+		ArrayList<String> orderIDs=new ArrayList<String>();
+		String find = "SELECT * FROM Transferreceipt WHERE transferID = transportID ";
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(find);
+		while(resultSet.next()){
+			orderIDs.add(resultSet.getString(8));
+		}
+		return orderIDs;
+	}
 	
 }

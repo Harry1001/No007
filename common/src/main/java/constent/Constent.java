@@ -14,7 +14,7 @@ public class Constent {
     /**
      * 手机号位数
      */
-    public static final int PHONE_LENGTH=9;
+    public static final int PHONE_LENGTH=11;
 
     /**
      * 营业厅编号长度
@@ -44,7 +44,7 @@ public class Constent {
     /**
      * 订单号位数
      */
-    public static final int ORDER_ID_LENGTH=9;
+    public static final int ORDER_ID_LENGTH=10;
 
     /**
      * 对应枚举类

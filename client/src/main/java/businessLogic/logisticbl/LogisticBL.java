@@ -41,9 +41,8 @@ public class LogisticBL implements LogisticBLService{
 		return vo;
 	}
 	
-	public void update(ReceiptVO vo) throws RemoteException, SQLException{
+	public void update(String order,ReceiptVO vo) throws RemoteException, SQLException{
 		ReceiptType type=vo.getType();
-		String orderID=null;
 		String logisticstate=null;
 		Date arrivaltime=new Date();
 		LogisticPO po;
@@ -51,13 +50,11 @@ public class LogisticBL implements LogisticBLService{
 		case SEND:			
 			logisticstate="收件";
 			SendReceiptVO svo=(SendReceiptVO)vo;
-			orderID=svo.getExpressNumber();
-			po=new LogisticPO(orderID,arrivaltime,logisticstate);
+			po=new LogisticPO(order,arrivaltime,logisticstate);
 			logisticdata.update(po);
 			break;
 		case STOREARRIVAL:
 			StoreArrivalReceiptVO savo=(StoreArrivalReceiptVO)vo;
-			orderID=savo.getOrderID();
 			arrivaltime=savo.getArriveTime();
 			String transID=savo.getTransReceiptID();
 			String cityID=transID.substring(3);
@@ -103,12 +100,11 @@ public class LogisticBL implements LogisticBLService{
 			}
 			
 			logisticstate="到达"+city+store;
-			po=new LogisticPO(orderID,arrivaltime,logisticstate);
+			po=new LogisticPO(order,arrivaltime,logisticstate);
 			logisticdata.update(po);
 			break;
 		case HUBARRIVAL:
 			HubArrivalReceiptVO havo=(HubArrivalReceiptVO)vo;
-			orderID=havo.getOrderID();
 			arrivaltime=havo.getArriveTime();
 			String transID1=havo.getTransReceiptID();
 			String cityID1=transID1.substring(3);
@@ -137,20 +133,18 @@ public class LogisticBL implements LogisticBLService{
 				
 			}			
 			logisticstate="到达"+city1+hub;
-			po=new LogisticPO(orderID,arrivaltime,logisticstate);
+			po=new LogisticPO(order,arrivaltime,logisticstate);
 			logisticdata.update(po);
 			break;
 		case DESPATCH:
 			logisticstate="派件中";
 			DespatchReceiptVO dvo=(DespatchReceiptVO)vo;
-			orderID=dvo.getOrderNum();
-			po=new LogisticPO(orderID,arrivaltime,logisticstate);
+			po=new LogisticPO(order,arrivaltime,logisticstate);
 			logisticdata.update(po);
 			break;
 		case RECEIVE:
 			ReceiveReceiptVO rvo=(ReceiveReceiptVO)vo;
-			orderID=rvo.getReceiveNum();
-			remove(orderID);
+			remove(order);
 			break;
 		}
 

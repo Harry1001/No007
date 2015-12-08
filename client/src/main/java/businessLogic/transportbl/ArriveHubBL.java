@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import businessLogicService.logisticblservice.LogisticBLService;
@@ -40,8 +41,12 @@ public class ArriveHubBL{
 	public void submit(HubArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException {
 		receiptblservice=BLFactory.getHubArrivalReceiptBLService();
 		receiptblservice.createReceipt(vo);
+		ArrayList<String> orderIDs=new ArrayList<String>();
+		orderIDs=receiptblservice.getOrderID(vo.getTransReceiptID());
 		logisticblservice=BLFactory.getLogisticBLService();
-		logisticblservice.update(vo);
+		for(String order:orderIDs){
+			logisticblservice.update(order,vo);
+		}
 	}
 	
 }

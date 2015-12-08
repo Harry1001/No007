@@ -26,5 +26,5 @@ public interface HubArrivalReceiptDataService {
 	 * @throws SQLException 
 	 */
 	public void deleteAll() throws RemoteException, SQLException;
-	
+
 }

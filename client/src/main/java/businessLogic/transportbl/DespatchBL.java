@@ -28,7 +28,7 @@ public class DespatchBL{
 		receiptblservice=BLFactory.getDespatchReceiptBLService();
 		receiptblservice.createReceipt(vo);
 		logisticblservice=BLFactory.getLogisticBLService();
-		logisticblservice.update(vo);
+		logisticblservice.update(vo.getOrderNum(),vo);
 	}
 	
 }

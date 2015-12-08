@@ -27,5 +27,5 @@ public interface StoreArrivalReceiptDataService extends Remote {
 	 * @throws SQLException 
 	 */
 	public void deleteAll() throws RemoteException, SQLException;
-	
+
 }
