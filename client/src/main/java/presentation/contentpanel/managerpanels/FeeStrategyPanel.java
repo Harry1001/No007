@@ -1,6 +1,5 @@
 package presentation.contentpanel.managerpanels;
 
-import com.sun.deploy.panel.JavaPanel;
 
 import javax.swing.*;
 import java.awt.*;
