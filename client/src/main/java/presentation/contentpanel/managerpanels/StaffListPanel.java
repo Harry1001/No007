@@ -32,11 +32,6 @@ public class StaffListPanel extends JPanel implements ActionListener{
 
         defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        RowSorter<TableModel> sorter=new TableRowSorter<TableModel>();
-        table.setRowSorter(sorter);
-        table.setPreferredSize(new Dimension(500,400));
-        table.setPreferredScrollableViewportSize(new Dimension(500,400));
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
@@ -68,7 +63,7 @@ public class StaffListPanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
             JDialog dialog=new JDialog(parent,"新增人员信息",true);
-            dialog.getContentPane().add(new StaffInfoPanel(dialog));
+            dialog.getContentPane().add(new StaffInfoPanel(parent, ));
             dialog.setLocationRelativeTo(parent);
             dialog.pack();
             dialog.show();

@@ -23,6 +23,8 @@ import java.sql.SQLException;
 public class AgencyInfoPanel extends JPanel implements ActionListener{
     private AgencyBLService agencyBLService;
     private MainFrame parent;
+    private AgencyListPanel listPanel;
+    private JDialog dialog;
     private MyLabel[] labels=new MyLabel[6];
     private MyTextField[] textFields=new MyTextField[5];
     private JComboBox<String> type;
@@ -30,9 +32,11 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
     private MyButton submitbt=new MyButton("提交");
     private MyButton cancelbt=new MyButton("取消");
 
-    public AgencyInfoPanel(MainFrame parent, AgencyBLService agencyBLService) {
+    public AgencyInfoPanel(JDialog dialog, MainFrame parent, AgencyListPanel panel, AgencyBLService agencyBLService) {
         this.agencyBLService=agencyBLService;
         this.parent = parent;
+        this.listPanel=panel;
+        this.dialog=dialog;
 
         initUI();
 
@@ -179,6 +183,7 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
                         Integer.parseInt(textFields[4].getText()));
                 try {
                     agencyBLService.addAgency(vo);
+                    listPanel.refreshList();
                 } catch (InfoBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());
                 } catch (RemoteException e1) {
@@ -189,7 +194,7 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
             }
         }
         else if (e.getSource()==cancelbt){
-            parent.dispose();
+            dialog.dispose();
         }
     }
 }

@@ -101,7 +101,7 @@ public class AgencyListPanel extends JPanel implements ActionListener {
     /**
      * 从数据库读取数据刷新列表
      */
-    private void refreshList(){
+    public void refreshList(){
         try {
             ArrayList<AgencyVO> agencyVOs = agencyBLService.getAgencyList();
             Vector<Vector> data = new Vector<Vector>();
@@ -128,7 +128,7 @@ public class AgencyListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
             JDialog dialog=new JDialog(parent,"新增机构信息",false);
-            dialog.getContentPane().add(new AgencyInfoPanel(parent, agencyBLService));
+            dialog.getContentPane().add(new AgencyInfoPanel(dialog, parent, this, agencyBLService));
             dialog.setLocationRelativeTo(parent);
             dialog.pack();
             dialog.setVisible(true);
