@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,16 +12,11 @@ public class AgencyDBManager extends DBManager{
 	
 	public void add(AgencyPO po) throws SQLException{
 		String agencyadd = "INSERT INTO Agency"
-				+ " VALUES (?, ?, ?, ?, ?, ?)";
+				+ " VALUES ('"+po.getAgencyName()+"', '"+po.getAgencyType()+"', '"+po.getAgencyID()
+				+"', '"+po.getLocation()+"', "+po.getArea()+", "+po.getRent()+")";
 		Connection connection = connectToDB();
-		PreparedStatement preparedStatement = connection.prepareStatement(agencyadd);
-		preparedStatement.setString(1, po.getAgencyName());
-		preparedStatement.setString(2, po.getAgencyType());
-		preparedStatement.setString(3, po.getAgencyID());
-		preparedStatement.setString(4, po.getLocation());
-		preparedStatement.setInt(5, po.getArea());
-		preparedStatement.setInt(6, po.getRent());
-		preparedStatement.executeUpdate(agencyadd);
+		Statement statement = connection.createStatement();
+		statement.executeUpdate(agencyadd);
 		stopconnection(connection);		
 	}
 	
