@@ -1,5 +1,6 @@
 package presentation.contentpanel.managerpanels;
 
+import MainFrame.MainFrame;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
@@ -15,7 +16,7 @@ import java.awt.event.ActionListener;
  * Created by Harry on 2015/11/24.
  */
 public class StaffListPanel extends JPanel implements ActionListener{
-    Frame parent;
+    MainFrame parent;
     MyButton addbt=new MyButton("新增");
     MyButton deletebt=new MyButton("删除");
     MyButton modifybt=new MyButton("修改");
@@ -23,7 +24,7 @@ public class StaffListPanel extends JPanel implements ActionListener{
     MyDefaultTableModel defaultTableModel;
     MyTable table;
 
-    public StaffListPanel(Frame par) {
+    public StaffListPanel(MainFrame par) {
 
         this.parent=par;
 

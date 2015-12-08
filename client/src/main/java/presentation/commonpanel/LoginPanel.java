@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
@@ -108,17 +110,25 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==logButton){
 
-            try{
-                LoginBLService loginBLService = BLFactory.getLoginBLService();
-                LoginResultVO loginResult=loginBLService.getPermission(numText.getText(),new String(passwordField.getPassword()));
+
+            LoginBLService loginBLService = BLFactory.getLoginBLService();
+            LoginResultVO loginResult= null;
+            try {
+                loginResult = loginBLService.getPermission(numText.getText(),new String(passwordField.getPassword()));
                 if (loginResult.getJob()== Job.NOTFOUND){
                     new ErrorDialog(parent,"用户名或密码错误");
                 } else {
                     UIFactory.showContentPanel(parent,loginResult);
                 }
-            }catch (Exception re){//todo exception太乱
-                    new ErrorDialog(parent,"服务器连接失败，请检查网络设置");
+            } catch (RemoteException e1) {
+                new ErrorDialog(parent, "服务器连接超时");
+            } catch (MalformedURLException e1) {
+                new ErrorDialog(parent, "MalformedURLException");
+            } catch (NotBoundException e1) {
+                new ErrorDialog(parent, "NotBoundException");
             }
+
+
         }else if (e.getSource()==logisticbt){
             UIFactory.showLogisticPanel(parent);
         }

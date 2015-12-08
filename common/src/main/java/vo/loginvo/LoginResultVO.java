@@ -2,10 +2,13 @@ package vo.loginvo;
 
 import typeDefinition.Job;
 
+import java.io.Serializable;
+
 /**
  * Created by Harry on 2015/12/5.
  */
-public class LoginResultVO {
+public class LoginResultVO implements Serializable{
+    
     private Job job;
     private String id;
     private String name;
