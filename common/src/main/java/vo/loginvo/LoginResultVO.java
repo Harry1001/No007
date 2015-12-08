@@ -9,7 +9,11 @@ import java.io.Serializable;
  */
 public class LoginResultVO implements Serializable{
     
-    private Job job;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Job job;
     private String id;
     private String name;
 
