@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import myexceptions.InfoBLException;
 import po.infopo.UserAccountPO;
 import typeDefinition.Job;
+import vo.loginvo.LoginInputVO;
 import vo.loginvo.LoginResultVO;
 
 public interface UserAccountDataService extends Remote {
@@ -44,5 +45,5 @@ public interface UserAccountDataService extends Remote {
 	 * @throws RemoteException
 	 * @throws SQLException 
 	 */
-	public LoginResultVO verify(String id, String password) throws RemoteException;
+	public LoginResultVO verify(LoginInputVO vo) throws RemoteException;
 }

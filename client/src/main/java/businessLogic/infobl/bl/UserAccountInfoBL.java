@@ -6,6 +6,7 @@ import myexceptions.InfoBLException;
 import po.infopo.UserAccountPO;
 import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
+import vo.loginvo.LoginInputVO;
 import vo.loginvo.LoginResultVO;
 
 import java.net.MalformedURLException;
@@ -58,9 +59,9 @@ public class UserAccountInfoBL implements UserAccoutBLService {
     	userAccountData.update(id, item);
     }
 
-    public LoginResultVO verifyPassword(String id, String password) throws RemoteException {
+    public LoginResultVO verifyPassword(LoginInputVO inputVO) throws RemoteException {
         //todo 密码验证应该在数据层执行，为了安全密码不可以传到逻辑层
-    	LoginResultVO vo = userAccountData.verify(id, password);
+    	LoginResultVO vo = userAccountData.verify(inputVO);
     	return vo;
     }
    

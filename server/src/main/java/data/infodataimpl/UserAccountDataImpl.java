@@ -10,6 +10,7 @@ import database.UserAccountDBManager;
 import myexceptions.InfoBLException;
 import po.infopo.UserAccountPO;
 import typeDefinition.Job;
+import vo.loginvo.LoginInputVO;
 import vo.loginvo.LoginResultVO;
 
 public class UserAccountDataImpl extends UnicastRemoteObject implements UserAccountDataService {
@@ -45,7 +46,9 @@ public class UserAccountDataImpl extends UnicastRemoteObject implements UserAcco
 	}
 
 
-	public LoginResultVO verify(String id, String password) throws RemoteException {
+	public LoginResultVO verify(LoginInputVO vo) throws RemoteException {
+		String id = vo.getName();
+		String password = vo.getPassword();
 		Job job = Job.NOTFOUND;
 		String name = "";
 		try {
@@ -54,7 +57,7 @@ public class UserAccountDataImpl extends UnicastRemoteObject implements UserAcco
 			name = po.getName();
 		} catch (SQLException e) {//没有找到po
 		}
-		LoginResultVO vo = new LoginResultVO(id, job, name);
-		return vo;		
+		LoginResultVO resultVO = new LoginResultVO(id, job, name);
+		return resultVO;		
 	}
 }
