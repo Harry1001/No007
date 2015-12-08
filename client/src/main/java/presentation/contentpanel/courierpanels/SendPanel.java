@@ -25,19 +25,20 @@ import java.sql.SQLException;
 import java.util.Date;
 
 /**
- * Created by Harry on 2015/11/25.
+ * 新建寄件单面板
+ *
  */
 public class SendPanel extends JPanel implements ActionListener, FocusListener{
 
     private SendBLService sendBLService;
     private CalExpressfeeService calExpressfeeService;
-    MainFrame parent;
-    MyLabel[] labels=new MyLabel[16];
-    MyTextField[] texts=new MyTextField[14];
-    JComboBox comboBox1;
-    JComboBox comboBox2;
-    MyButton calFeebt;
-    MyButton submitbt;
+    private MainFrame parent;
+    private MyLabel[] labels=new MyLabel[16];
+    private MyTextField[] texts=new MyTextField[14];
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
+    private  MyButton calFeebt;
+    private MyButton submitbt;
 
     public SendPanel(MainFrame par){
 
@@ -63,10 +64,8 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
             texts[i]=new MyTextField(15);
         }
 
-        String[] s1={"经济快递","标准快递","特快快递"};
-        String[] s2={"快递袋","纸箱","木箱"};
-        comboBox1=new JComboBox(s1);
-        comboBox2=new JComboBox(s2);
+        comboBox1=new JComboBox(Constent.EXPRESS_TYPE);
+        comboBox2=new JComboBox(Constent.PACK_TYPE);
 
         JPanel panel1=new JPanel(new GridBagLayout());
         panel1.setBorder(BorderFactory.createTitledBorder("寄件人信息"));
@@ -136,14 +135,34 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         gbc.gridx=1;
         this.add(submitbt,gbc);
 
+        //按钮注册监听
         calFeebt.addActionListener(this);
         submitbt.addActionListener(this);
+
+        //地址框注册监听
         texts[1].addFocusListener(this);
         texts[5].addFocusListener(this);
 
-        initBL();
+        //手机号框注册监听
+        texts[3].addFocusListener(this);
+        texts[7].addFocusListener(this);
+
+        //原件数框注册监听
+        texts[8].addFocusListener(this);
+
+        //重量、体积框注册监听
+        texts[9].addFocusListener(this);
+        texts[10].addFocusListener(this);
+
+        //条形码框注册监听
+        texts[12].addFocusListener(this);
+
+        initBL();//初始化逻辑层对象
     }
 
+    /**
+     * 为界面层建立逻辑层对象引用
+     */
     private void initBL(){
         sendBLService= BLFactory.getSendBLService();
         try {
@@ -157,7 +176,13 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         }
     }
 
+    /**
+     * 处理按钮点击时间
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
+
+        //计算运费按钮事件
         if (e.getSource()==calFeebt){
             String fromLoc=texts[1].getText();
             String toLoc=texts[5].getText();
@@ -192,8 +217,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                 new ErrorDialog(parent, "地址前两位必须为市名");
             }
 
-
-
+            //提交按钮事件
         } else if (e.getSource()==submitbt){
             try {
                 checkAllFormat();
@@ -221,6 +245,9 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         }
     }
 
+    /**
+     * 清空所有输入
+     */
     private void refresh(){
         for (int i=0;i<14;i++){
             texts[i].setText("");
@@ -229,10 +256,15 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         comboBox2.setSelectedIndex(0);
     }
 
+    //此方法暂时没用
     public void focusGained(FocusEvent e) {
 
     }
 
+    /**
+     * 对于地址、手机号、原件数、重量、体积、条形码号进行及时检查
+     * @param e
+     */
     public void focusLost(FocusEvent e) {
         if (e.getSource()==texts[1]){
             if (checkLocation(texts[1].getText())){
@@ -248,9 +280,56 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
             }else {
                 texts[5].setBorder(BorderFactory.createLineBorder(Color.RED));
             }
+        } else if (e.getSource()==texts[3]){
+            if (checkPhone(texts[3].getText())){
+                texts[3].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
+            }else {
+                texts[3].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        } else if (e.getSource()==texts[7]){
+            if (checkPhone(texts[7].getText())){
+                texts[7].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
+            }else {
+                texts[7].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        } else if (e.getSource()==texts[8]){
+            if (checkNumber(texts[8].getText())){
+                texts[8].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
+            }else {
+                texts[8].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        } else if (e.getSource()==texts[9]){
+            if (checkWeightOrVolumn(texts[9].getText())){
+                texts[9].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
+            }else {
+                texts[9].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        } else if (e.getSource()==texts[10]){
+            if (checkWeightOrVolumn(texts[10].getText())){
+                texts[10].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
+            }else {
+                texts[10].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        } else if (e.getSource()==texts[12]){
+            if (checkOrderID(texts[12].getText())){
+                texts[12].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
+            }else {
+                texts[12].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
         }
     }
 
+    /**
+     * 检查所有输入是否合法
+     * @return
+     * @throws TransportBLException
+     */
     private boolean checkAllFormat() throws TransportBLException {
         if (!checkLocation(texts[1].getText())) throw new TransportBLException("寄件人地址前两位必须为市名");
 
@@ -273,6 +352,11 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         return true;
     }
 
+    /**
+     * 检查运费是否合法
+     * @param s
+     * @return
+     */
     private boolean checkFee(String s){
         double num;
         try{
@@ -284,6 +368,11 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         return false;
     }
 
+    /**
+     * 检查订单号是否合法
+     * @param s
+     * @return
+     */
     private boolean checkOrderID(String s){
         if (s.length()!=Constent.ORDER_ID_LENGTH)
             return false;
@@ -294,6 +383,11 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         return true;
     }
 
+    /**
+     * 检查重量或体积是否合法
+     * @param s
+     * @return
+     */
     private boolean checkWeightOrVolumn(String s){
         double num;
         try{
@@ -322,6 +416,11 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         return false;
     }
 
+    /**
+     * 检查手机号是否合法
+     * @param s
+     * @return
+     */
     private boolean checkPhone(String s){
         if (s.length()!=Constent.PHONE_LENGTH) return false;
         for (int i=0;i<Constent.PHONE_LENGTH;i++){
@@ -331,6 +430,11 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         return true;
     }
 
+    /**
+     * 检查原件数是否合法
+     * @param s
+     * @return
+     */
     private boolean checkNumber(String s) {
         int num;
         try{

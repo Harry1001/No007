@@ -3,6 +3,7 @@ package presentation.contentpanel.courierpanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.transportblservice.ReceiveBLService;
+import constent.Constent;
 import myexceptions.TransportBLException;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
@@ -21,7 +22,7 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -30,20 +31,22 @@ import java.util.Date;
 public class ReceivePanel extends JPanel implements ItemListener, ActionListener {
 
     private ReceiveBLService receiveBLService;
-    MainFrame parent;
-    MyLabel l1;
-    MyLabel l2;
-    MyLabel l3;
-    MyLabel l4;
-    MyLabel l5;
-    JRadioButton rbt1;
-    JRadioButton rbt2;
-    MyTextField t1;
-    MyTextField t2;
-    MyTextField t3;
-    MyTextField t4;
+    private MainFrame parent;
+    private MyLabel l1;
+    private MyLabel l2;
+    private MyLabel l3;
+    private MyLabel l4;
+    private MyLabel l5;
+    private JRadioButton rbt1;
+    private JRadioButton rbt2;
+    private MyTextField t1;
+    private MyTextField t2;
+    private MyTextField t3;
+    private MyTextField t4;
 
-    MyButton submitbt;
+    private MyButton submitbt;
+    private MyButton refreshbt;
+
 
     public ReceivePanel(MainFrame par) {
         this.parent=par;
@@ -59,6 +62,7 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
         rbt1=new JRadioButton("是");
         rbt2=new JRadioButton("否");
         submitbt=new MyButton("提交");
+        refreshbt=new MyButton("清空输入");
         ButtonGroup btgroup=new ButtonGroup();
         btgroup.add(rbt1);
         btgroup.add(rbt2);
@@ -100,12 +104,14 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
         gbc.gridwidth=1;
         gbc.anchor=GridBagConstraints.EAST;
         gbc.fill=GridBagConstraints.NONE;
+        this.add(refreshbt,gbc);
+        gbc.gridx=1;
         this.add(submitbt,gbc);
 
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"收件单",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 20)));
 
-        rbt1.setSelected(true);
+        rbt2.setSelected(true);
         rbt1.addItemListener(this);
         rbt2.addItemListener(this);
         submitbt.addActionListener(this);
@@ -115,16 +121,36 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
 
     }
 
+    /**
+     * 为界面层创建逻辑层引用
+     */
     private void initBL(){
         receiveBLService= BLFactory.getReceiveBLService();
     }
 
+    /**
+     * 设置时间框为当前系统时间
+     */
     private void setDefaultTime(){
-        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置时间格式
-        t4.setText(df.format(new Date()));
-        t4.setEditable(false);//时间框不可编辑
+        t4.setText(Constent.DATE_FORMAT.format(new Date()));
+        //t4.setEditable(false);//时间框不可编辑
     }
 
+    /**
+     *  清空当前所有输入
+     */
+    private void refresh(){
+        rbt2.setSelected(true);
+        t1.setText("");
+        t2.setText("");
+        t3.setText("");
+        setDefaultTime();
+
+    }
+
+    /**
+     * 单选按钮选择是否代收的处理，若非代收则将代收人电话清空并设置为不可输入
+     */
     public void itemStateChanged(ItemEvent e) {
         if(e.getStateChange()==e.SELECTED){
             if (e.getSource()==rbt1){//代收
@@ -137,27 +163,37 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
         }
     }
 
+    /**
+     * 处理按钮点击事件
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
+
+        //提价按钮点击
         if (e.getSource()==submitbt){
-
-            ReceiveReceiptVO vo=new ReceiveReceiptVO(t3.getText(), t1.getText(), new Date());//todo 此处直接取系统时间
-
             try {
+                Date date= Constent.DATE_FORMAT.parse(t4.getText());
+                ReceiveReceiptVO vo=new ReceiveReceiptVO(t3.getText(), t1.getText(), date);
                 receiveBLService.verify(vo);
                 receiveBLService.submit(vo);
+                refresh();
             } catch (TransportBLException e1) {
                 new ErrorDialog(parent, e1.getMessage());
             } catch (RemoteException e1) {
                 new ErrorDialog(parent, "服务器连接超时");
             } catch (MalformedURLException e1) {
-                e1.printStackTrace();
+                new ErrorDialog(parent, "MalformedURLException");
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                new ErrorDialog(parent, "SQLException");
             } catch (NotBoundException e1) {
-                e1.printStackTrace();
+                new ErrorDialog(parent, "NotBoundException");
+            } catch (ParseException e1) {
+                new ErrorDialog(parent, "请不要改变默认时间格式");
             }
 
-
+            //清空输入按钮点击
+        } else if (e.getSource()==refreshbt){
+            refresh();
         }
     }
 }

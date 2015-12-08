@@ -1,7 +1,9 @@
 package constent;
 
+import java.text.SimpleDateFormat;
+
 /**
- * Created by Harry on 2015/12/5.
+ * 系统通用常量定义
  */
 public class Constent {
     /**
@@ -13,6 +15,31 @@ public class Constent {
      * 手机号位数
      */
     public static final int PHONE_LENGTH=9;
+
+    /**
+     * 营业厅编号长度
+     */
+    public static final int STORE_ID_LENGTH=6;
+
+    /**
+     * 中转中心编号长度
+     */
+    public static final int HUB_ID_LENGTH=4;
+
+    /**
+     * 快递种类
+     */
+    public static final String[] EXPRESS_TYPE={"经济快递","标准快递","特快快递"};
+
+    /**
+     * 包装种类
+     */
+    public static final String[] PACK_TYPE={"快递袋","纸箱","木箱"};
+
+    /**
+     * 时间格式
+     */
+    public static final SimpleDateFormat DATE_FORMAT =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置时间格式
 
     /**
      * 订单号位数

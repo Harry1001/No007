@@ -1,7 +1,10 @@
 package presentation.contentpanel.managerpanels;
 
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyDefaultTableModel;
+import presentation.commoncontainer.MyTable;
+
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
@@ -13,12 +16,12 @@ import java.awt.event.ActionListener;
  */
 public class StaffListPanel extends JPanel implements ActionListener{
     Frame parent;
-    JButton addbt=new JButton("新增");
-    JButton deletebt=new JButton("删除");
-    JButton modifybt=new JButton("修改");
+    MyButton addbt=new MyButton("新增");
+    MyButton deletebt=new MyButton("删除");
+    MyButton modifybt=new MyButton("修改");
 
-    DefaultTableModel defaultTableModel;
-    JTable table;
+    MyDefaultTableModel defaultTableModel;
+    MyTable table;
 
     public StaffListPanel(Frame par) {
 
@@ -26,8 +29,8 @@ public class StaffListPanel extends JPanel implements ActionListener{
 
         String [] names={"工号","姓名","性别","出生年月","职位"};
 
-        defaultTableModel=new DefaultTableModel(names,0);
-        table=new JTable(defaultTableModel);
+        defaultTableModel=new MyDefaultTableModel(names,0);
+        table=new MyTable(defaultTableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         RowSorter<TableModel> sorter=new TableRowSorter<TableModel>();
         table.setRowSorter(sorter);

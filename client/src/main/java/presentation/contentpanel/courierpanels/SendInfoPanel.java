@@ -1,5 +1,11 @@
 package presentation.contentpanel.courierpanels;
 
+import MainFrame.MainFrame;
+import constent.Constent;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyLabel;
+import presentation.commoncontainer.MyTextField;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -10,35 +16,35 @@ import java.awt.event.ActionListener;
  * Created by Harry on 2015/12/2.
  */
 public class SendInfoPanel extends JPanel implements ActionListener {
-    Frame parent;
-    JLabel[] labels=new JLabel[16];
-    JTextField[] texts=new JTextField[16];
-    JLabel inputL=new JLabel("请输入订单号");
-    JTextField inputT=new JTextField(15);
-    JButton confirmbt=new JButton("确认");
+    MainFrame parent;
+    MyLabel[] labels=new MyLabel[16];
+    MyTextField[] texts=new MyTextField[16];
+    MyLabel inputL=new MyLabel("请输入订单号");
+    MyTextField inputT=new MyTextField(15);
+    MyButton confirmbt=new MyButton("确认");
 
-    public SendInfoPanel(Frame par){
+    public SendInfoPanel(MainFrame par){
 
         this.parent=par;
-        labels[0]=new JLabel("姓名");
-        labels[1]=new JLabel("住址");
-        labels[2]=new JLabel("单位");
-        labels[3]=new JLabel("手机");
-        labels[4]=new JLabel("姓名");
-        labels[5]=new JLabel("住址");
-        labels[6]=new JLabel("单位");
-        labels[7]=new JLabel("手机");
-        labels[8]=new JLabel("原件数");
-        labels[9]=new JLabel("实际重量");
-        labels[10]=new JLabel("体积");
-        labels[11]=new JLabel("内件品名");
-        labels[12]=new JLabel("快递类型");
-        labels[13]=new JLabel("包装类型");
-        labels[14]=new JLabel("订单条形码");
-        labels[15]=new JLabel("报价");
+        labels[0]=new MyLabel("姓名");
+        labels[1]=new MyLabel("住址");
+        labels[2]=new MyLabel("单位");
+        labels[3]=new MyLabel("手机");
+        labels[4]=new MyLabel("姓名");
+        labels[5]=new MyLabel("住址");
+        labels[6]=new MyLabel("单位");
+        labels[7]=new MyLabel("手机");
+        labels[8]=new MyLabel("原件数");
+        labels[9]=new MyLabel("实际重量");
+        labels[10]=new MyLabel("体积");
+        labels[11]=new MyLabel("内件品名");
+        labels[12]=new MyLabel("快递类型");
+        labels[13]=new MyLabel("包装类型");
+        labels[14]=new MyLabel("订单条形码");
+        labels[15]=new MyLabel("报价");
 
         for(int i=0;i<16;i++){
-            texts[i]=new JTextField(15);
+            texts[i]=new MyTextField(15);
             texts[i].setEditable(false);
         }
 
@@ -110,9 +116,34 @@ public class SendInfoPanel extends JPanel implements ActionListener {
         this.add(panel3,gbc);
 
         confirmbt.addActionListener(this);
+        initBL();
+    }
+
+    /**
+     * 检查订单号是否合法
+     * @param s
+     * @return
+     */
+    private boolean checkOrderID(String s){
+        if (s.length()!= Constent.ORDER_ID_LENGTH)
+            return false;
+        for (int i=0;i<Constent.ORDER_ID_LENGTH;i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9')
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * 建立逻辑层引用
+     */
+    private void initBL(){
+        //todo 没有接口可使用！！！！！
     }
 
     public void actionPerformed(ActionEvent e) {
-        //todo
+        if (e.getSource()==confirmbt){
+
+        }
     }
 }
