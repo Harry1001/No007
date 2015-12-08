@@ -5,6 +5,7 @@ import businessLogicService.infoblservice.UserAccoutBLService;
 import myexceptions.InfoBLException;
 import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
+import vo.loginvo.LoginInputVO;
 import vo.loginvo.LoginResultVO;
 
 import java.net.MalformedURLException;
@@ -40,7 +41,7 @@ public class UserAccountBLController implements UserAccoutBLService {
         userAccountInfoBL.modifyUserAccount(id, vo);
     }
 
-    public LoginResultVO verifyPassword(String id, String password) throws RemoteException {
-        return userAccountInfoBL.verifyPassword(id, password);
+    public LoginResultVO verifyPassword(LoginInputVO vo) throws RemoteException {
+        return userAccountInfoBL.verifyPassword(vo);
     }
 }

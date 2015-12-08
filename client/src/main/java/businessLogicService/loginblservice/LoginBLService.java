@@ -1,5 +1,6 @@
 package businessLogicService.loginblservice;
 
+import vo.loginvo.LoginInputVO;
 import vo.loginvo.LoginResultVO;
 
 import java.net.MalformedURLException;
@@ -10,6 +11,6 @@ public interface LoginBLService {
 	/*
 	 * 获得权限跳转界面
 	 */
-	public LoginResultVO getPermission(String id,String password) throws RemoteException, MalformedURLException, NotBoundException;
+	public LoginResultVO getPermission(LoginInputVO vo) throws RemoteException, MalformedURLException, NotBoundException;
 	
 }
