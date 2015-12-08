@@ -73,7 +73,7 @@ public class StaffInfoPanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submitbt){
             //todo
-            
+
         }
         else if (e.getSource()==cancelbt){
             parent.dispose();

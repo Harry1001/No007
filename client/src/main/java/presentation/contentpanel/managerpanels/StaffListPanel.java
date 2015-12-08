@@ -63,7 +63,7 @@ public class StaffListPanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
             JDialog dialog=new JDialog(parent,"新增人员信息",true);
-            dialog.getContentPane().add(new StaffInfoPanel(parent, ));
+            dialog.getContentPane().add(new StaffInfoPanel(parent));
             dialog.setLocationRelativeTo(parent);
             dialog.pack();
             dialog.show();
