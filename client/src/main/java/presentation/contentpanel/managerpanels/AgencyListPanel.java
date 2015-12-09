@@ -32,7 +32,7 @@ public class AgencyListPanel extends JPanel implements ActionListener {
     private MyDefaultTableModel defaultTableModel;
     private MyTable table;
 
-    private  Vector<String> names;
+    private  Vector<String> names=new Vector<String>();
 
     private AgencyBLService agencyBLService;
 
@@ -104,6 +104,7 @@ public class AgencyListPanel extends JPanel implements ActionListener {
     public void refreshList(){
         try {
             ArrayList<AgencyVO> agencyVOs = agencyBLService.getAgencyList();
+            System.out.println(""+agencyVOs.size());
             Vector<Vector> data = new Vector<Vector>();
             Vector<Object> item;
             for (AgencyVO vo: agencyVOs){
@@ -117,7 +118,9 @@ public class AgencyListPanel extends JPanel implements ActionListener {
                 data.add(item);
             }
             defaultTableModel.setDataVector(data,names);
-            table.revalidate();
+            table.validate();
+            table.updateUI();
+            System.out.println(""+defaultTableModel.getRowCount());
         } catch (RemoteException e) {
             new ErrorDialog(parent, "网络连接超时");
         } catch (SQLException e) {
@@ -150,7 +153,24 @@ public class AgencyListPanel extends JPanel implements ActionListener {
             }
         }
         else if (e.getSource()==modifybt){
+            int row=table.getSelectedRow();
+            if (row==-1){//没有选择任何行
+                new ErrorDialog(parent, "请选择一行待修改条目");
+            } else {//选择了待修改的行
+                String id=(String)table.getValueAt(row, 0);
+                String name=(String) table.getValueAt(row, 1);
+                String type=(String) table.getValueAt(row, 2);
+                String loc=(String) table.getValueAt(row, 3);
+                int area=(Integer) table.getValueAt(row, 4);
+                int rent=(Integer) table.getValueAt(row, 5);
 
+                AgencyVO vo=new AgencyVO(name, type, id, loc, area, rent);
+                JDialog dialog=new JDialog(parent,"修改机构信息",false);
+                dialog.getContentPane().add(new AgencyModifyPanel(dialog, parent, this, agencyBLService, vo));
+                dialog.setLocationRelativeTo(parent);
+                dialog.pack();
+                dialog.setVisible(true);
+            }
         }
     }
 }

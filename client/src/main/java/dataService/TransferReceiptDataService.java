@@ -26,5 +26,10 @@ public interface TransferReceiptDataService {
 	 * @throws SQLException 
 	 */
 	public void deleteAll() throws RemoteException, SQLException;
+<<<<<<< HEAD
+=======
+
+	public ArrayList<String> getOrderID(String transportID) throws RemoteException, SQLException;
+>>>>>>> origin/master
 	
 }

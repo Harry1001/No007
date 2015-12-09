@@ -1,5 +1,19 @@
 package presentation.contentpanel.depotpanels;
 
+<<<<<<< HEAD
+=======
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.commodityblservice.CommodityBLService;
+import constent.Constent;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyLabel;
+import presentation.commoncontainer.MyTextField;
+import presentation.commonpanel.ErrorDialog;
+import typeDefinition.Location;
+import vo.receiptvo.DepotInReceiptVO;
+
+>>>>>>> origin/master
 import javax.naming.NamingException;
 import javax.swing.*;
 
@@ -20,13 +34,19 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+=======
+import java.text.ParseException;
+import java.util.Date;
+>>>>>>> origin/master
 
 /**
  * Created by Harry on 2015/11/28.
  */
+<<<<<<< HEAD
 public class DepotInPanel extends JPanel implements ActionListener{
     MainFrame parent;
     JLabel packIDL=new JLabel("快递编号");
@@ -54,6 +74,34 @@ public class DepotInPanel extends JPanel implements ActionListener{
 
     CommodityBLService commodityBLService;
     
+=======
+public class DepotInPanel extends JPanel implements ActionListener {
+
+    CommodityBLService commodityBLService;
+
+    MainFrame parent;
+    MyLabel packIDL=new MyLabel("快递编号");
+    MyLabel destiL=new MyLabel("目的地");
+    MyLabel timeL=new MyLabel("入库日期");
+    MyLabel quhaoL=new MyLabel("区号");
+    MyLabel paihaoL=new MyLabel("排号");
+    MyLabel jiahaoL=new MyLabel("架号");
+    MyLabel weihaoL=new MyLabel("位号");
+    MyLabel hubIDL=new MyLabel("中转中心编号");
+
+    MyTextField packIDT=new MyTextField(25);
+    MyTextField destiT=new MyTextField(25);
+    MyTextField timeT=new MyTextField(25);
+    MyTextField hubIDT=new MyTextField(25);
+    MyTextField quhaoT=new MyTextField(5);
+    MyTextField paihaoT=new MyTextField(5);
+    MyTextField jiahaoT=new MyTextField(5);
+    MyTextField weihaoT=new MyTextField(5);
+
+    MyButton submitbt=new MyButton("提交");
+    MyButton cancelbt=new MyButton("取消");
+
+>>>>>>> origin/master
     public DepotInPanel(MainFrame par){
         this.parent=par;
 
@@ -106,6 +154,7 @@ public class DepotInPanel extends JPanel implements ActionListener{
         this.add(submitbt,gbc);
         gbc.gridx++;
         this.add(cancelbt,gbc);
+<<<<<<< HEAD
         
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
@@ -218,4 +267,89 @@ public class DepotInPanel extends JPanel implements ActionListener{
         return true;
     }
 	
+=======
+
+        submitbt.addActionListener(this);
+        cancelbt.addActionListener(this);
+
+        setPresentTime();
+        initBL();
+    }
+
+    private void initBL(){
+        try {
+            commodityBLService= BLFactory.getCommodityBLService();
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        } catch (NamingException e) {
+            new ErrorDialog(parent, "NamingException");
+        }
+    }
+
+    /**
+     * 自动设置当前时间
+     */
+    private void setPresentTime(){
+        timeT.setText(Constent.DATE_FORMAT.format(new Date()));
+    }
+
+    private boolean checkAll(){
+        //todo 待实现
+        return  true;
+    }
+
+    /**
+     * 清空输入
+     */
+    private void refresh(){
+        packIDT.setText("");
+        destiT.setText("");
+        setPresentTime();
+        quhaoT.setText("");
+        paihaoT.setText("");
+        jiahaoT.setText("");
+        weihaoT.setText("");
+        hubIDT.setText("");
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==submitbt){
+            if (checkAll()){
+                try {
+                    String packID=packIDT.getText();
+                    Date time= Constent.DATE_FORMAT.parse(timeT.getText());
+                    String desti=destiT.getText();
+                    int quhao=Integer.parseInt(quhaoT.getText());
+                    int paihao=Integer.parseInt(paihaoT.getText());
+                    int jiahao=Integer.parseInt(jiahaoT.getText());
+                    int weihao=Integer.parseInt(weihaoT.getText());
+                    String hubID=hubIDT.getText();
+                    Location loc=new Location(hubID, quhao,paihao,jiahao,weihao);
+                    DepotInReceiptVO vo=new DepotInReceiptVO(packID,time, desti, loc);
+                    commodityBLService.submitIn(vo);
+                    refresh();
+                } catch (ParseException e1) {
+                    new ErrorDialog(parent, "请不要改变默认时间格式");
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                } catch (MalformedURLException e1) {
+                    new ErrorDialog(parent, "MalformedURLException");
+                } catch (NotBoundException e1) {
+                    new ErrorDialog(parent, "NotBoundException");
+                } catch (NamingException e1) {
+                    new ErrorDialog(parent, "NamingException");
+                }
+            }
+        } else if (e.getSource()==cancelbt){//取消按钮清空输入
+
+            refresh();
+        }
+    }
+>>>>>>> origin/master
 }
