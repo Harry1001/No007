@@ -1,11 +1,12 @@
 package dataService;
 
 import java.math.BigDecimal;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import po.financepo.FinancePO;
 
-public interface FinanceDataService {
+public interface FinanceDataService extends Remote{
 	
 	/**
 	 * 在账目数据库中增加一个持久化对象
