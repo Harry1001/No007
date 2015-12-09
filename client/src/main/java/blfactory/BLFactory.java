@@ -4,11 +4,8 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-<<<<<<< HEAD
 import javax.naming.NamingException;
 
-=======
->>>>>>> origin/master
 import businessLogic.commoditybl.CommodityController;
 import businessLogic.infobl.controller.*;
 import businessLogic.loginbl.LoginController;
@@ -149,11 +146,6 @@ public class BLFactory {
     public static CalSalaryService getCalSalaryService() throws MalformedURLException, RemoteException, NotBoundException{
         return new CalSalaryBL();
     }
-<<<<<<< HEAD
-    
-    public static CommodityBLService getCommodityBLService() throws MalformedURLException, RemoteException, NamingException, NotBoundException{
-    	return new CommodityController();
-=======
 
     public static SalaryStrategyBLService getSalaryBLService() throws RemoteException, NotBoundException, MalformedURLException {
         return new StrategyBL();
@@ -165,6 +157,6 @@ public class BLFactory {
 
     public static CommodityBLService getCommodityBLService() throws RemoteException, MalformedURLException, NotBoundException, NamingException {
         return new CommodityController();
->>>>>>> origin/master
+
     }
 }

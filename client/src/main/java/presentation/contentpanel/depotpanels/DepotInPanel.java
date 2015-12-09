@@ -1,7 +1,5 @@
 package presentation.contentpanel.depotpanels;
 
-<<<<<<< HEAD
-=======
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.commodityblservice.CommodityBLService;
@@ -13,7 +11,6 @@ import presentation.commonpanel.ErrorDialog;
 import typeDefinition.Location;
 import vo.receiptvo.DepotInReceiptVO;
 
->>>>>>> origin/master
 import javax.naming.NamingException;
 import javax.swing.*;
 
@@ -34,47 +31,16 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-<<<<<<< HEAD
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-=======
 import java.text.ParseException;
 import java.util.Date;
->>>>>>> origin/master
 
 /**
  * Created by Harry on 2015/11/28.
  */
-<<<<<<< HEAD
-public class DepotInPanel extends JPanel implements ActionListener{
-    MainFrame parent;
-    JLabel packIDL=new JLabel("快递编号");
-    JLabel destiL=new JLabel("目的地");
-    JLabel timeL=new JLabel("入库日期");
-    JLabel quhaoL=new JLabel("区号");
-    JLabel paihaoL=new JLabel("排号");
-    JLabel jiahaoL=new JLabel("架号");
-    JLabel weihaoL=new JLabel("位号");
-    JLabel hubIDL=new JLabel("中转中心编号");
 
-    JTextField packIDT=new JTextField(25);
-    JTextField destiT=new JTextField(25);
-    JTextField timeT=new JTextField(25);
-    JTextField hubIDT=new JTextField(25);
-    JTextField quhaoT=new JTextField(5);
-    JTextField paihaoT=new JTextField(5);
-    JTextField jiahaoT=new JTextField(5);
-    JTextField weihaoT=new JTextField(5);
-
-    JButton submitbt=new JButton("提交");
-    JButton cancelbt=new JButton("取消");
-
-    SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
-
-    CommodityBLService commodityBLService;
-    
-=======
 public class DepotInPanel extends JPanel implements ActionListener {
 
     CommodityBLService commodityBLService;
@@ -101,7 +67,6 @@ public class DepotInPanel extends JPanel implements ActionListener {
     MyButton submitbt=new MyButton("提交");
     MyButton cancelbt=new MyButton("取消");
 
->>>>>>> origin/master
     public DepotInPanel(MainFrame par){
         this.parent=par;
 
@@ -154,11 +119,10 @@ public class DepotInPanel extends JPanel implements ActionListener {
         this.add(submitbt,gbc);
         gbc.gridx++;
         this.add(cancelbt,gbc);
-<<<<<<< HEAD
         
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
-        
+        setPresentTime();
         initBL();
     }
 
@@ -176,52 +140,8 @@ public class DepotInPanel extends JPanel implements ActionListener {
 		}
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource()==submitbt) {
-			try {
-				checkAllFormat();
-			} catch (TransportBLException e2) {
-				new ErrorDialog(parent, e2.getMessage());
-			}
-			int regionID=Integer.parseInt(quhaoT.getText());
-			int rowID=Integer.parseInt(paihaoT.getText());
-			int shelfID=Integer.parseInt(jiahaoT.getText());
-			int postID=Integer.parseInt(weihaoT.getText());
-			Location loc=new Location(packIDT.getText(), regionID, rowID, shelfID, postID);
-			Date date=null;
-			try {
-				date = df.parse(timeT.getText());
-				DepotInReceiptVO vo=new DepotInReceiptVO(packIDT.getText(),date,destiT.getText(),loc);
-				commodityBLService.submitIn(vo);
-				refresh();
-			} catch (ParseException e1) {
-				new ErrorDialog(parent, "到达日期必须为2015-01-01格式");
-			} catch (RemoteException e1) {
-                new ErrorDialog(parent, "服务器连接超时");
-			} catch (MalformedURLException e1) {
-                new ErrorDialog(parent, "MalformedURLException");
-			} catch (NamingException e1) {
-				new ErrorDialog(parent, "NamingException");
-			} catch (SQLException e1) {
-				new ErrorDialog(parent, "SQLException");
-			} catch (NotBoundException e1) {
-				new ErrorDialog(parent, "NotBoundException");
-			}			
-		}else{
-			refresh();
-		}	
-	}
 
-	private void refresh() {
-		packIDT.setText("");
-	    destiT.setText("");
-	    timeT.setText("");
-	    hubIDT.setText("");
-	    quhaoT.setText("");
-	    paihaoT.setText("");
-	    jiahaoT.setText("");
-	    weihaoT.setText("");
-	}
+
 
 	private void checkAllFormat() throws TransportBLException {
 		if(!checkPackID(packIDT.getText()))
@@ -266,29 +186,7 @@ public class DepotInPanel extends JPanel implements ActionListener {
         }
         return true;
     }
-	
-=======
 
-        submitbt.addActionListener(this);
-        cancelbt.addActionListener(this);
-
-        setPresentTime();
-        initBL();
-    }
-
-    private void initBL(){
-        try {
-            commodityBLService= BLFactory.getCommodityBLService();
-        } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
-        } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
-        } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
-        } catch (NamingException e) {
-            new ErrorDialog(parent, "NamingException");
-        }
-    }
 
     /**
      * 自动设置当前时间
@@ -351,5 +249,5 @@ public class DepotInPanel extends JPanel implements ActionListener {
             refresh();
         }
     }
->>>>>>> origin/master
+
 }
