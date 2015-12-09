@@ -134,6 +134,7 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
             }
             defaultTableModel.setDataVector(data, names);
             table.revalidate();
+            table.updateUI();
         } catch (RemoteException e) {
             new ErrorDialog(parent, "服务器连接超时");
         } catch (SQLException e) {
