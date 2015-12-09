@@ -52,5 +52,16 @@ public class TimePanel extends JPanel {
         dateT.setText("");
     }
 
+    public void setDate(Date date){
+        Calendar c=Calendar.getInstance();
+        c.setTime(date);
+        int year=c.get(Calendar.YEAR);
+        int month=c.get(Calendar.MONTH);
+        int day=c.get(Calendar.DATE);
+        yearT.setText(year+"");
+        monthT.setText(month+"");
+        dateT.setText(day+"");
+    }
+
 
 }

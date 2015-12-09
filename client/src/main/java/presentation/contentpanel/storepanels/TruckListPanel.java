@@ -3,10 +3,14 @@ package presentation.contentpanel.storepanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.infoblservice.TruckBLService;
+import constent.Constent;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
 import presentation.commonpanel.ErrorDialog;
+import presentation.contentpanel.managerpanels.AgencyModifyPanel;
+import vo.infovo.AgencyVO;
+import vo.infovo.TruckVO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +19,10 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Harry on 2015/11/27.
@@ -67,6 +75,7 @@ public class TruckListPanel extends JPanel implements ActionListener {
         modifybt.addActionListener(this);
 
         initBL();
+        refreshList();
     }
 
     protected void initBL(){
@@ -81,6 +90,32 @@ public class TruckListPanel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * 载入数据
+     */
+    protected void refreshList(){
+        try{
+            ArrayList<TruckVO> truckVOs=truckBLService.getTruckList();
+            defaultTableModel.getDataVector().clear();//先清空
+            for (TruckVO vo: truckVOs){
+                String id=vo.getTruckID();
+                String engine=vo.getEngineID();
+                String chepai=vo.getLicenceID();
+                String dipan=vo.getChassisID();
+                String buyTime= Constent.BIRTHDAY_FORMAT.format(vo.getBuyTime());
+                String fuyiTime=vo.getServeTime()+"";
+                String [] data={id,engine,chepai,dipan,buyTime,fuyiTime};
+                defaultTableModel.addRow(data);
+            }
+            table.revalidate();
+            table.updateUI();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
             JDialog dialog=new JDialog(parent,"新增车辆信息",true);
@@ -90,10 +125,46 @@ public class TruckListPanel extends JPanel implements ActionListener {
             dialog.setVisible(true);
         }
         else if (e.getSource()==deletebt){
-
+            int row=table.getSelectedRow();
+            if (row==-1){//没有选择任何行
+                new ErrorDialog(parent, "请选择一行待删除条目");
+            } else {//选择了待删除的行
+                String id= (String)table.getValueAt(row, 0);
+                try {
+                    truckBLService.deleteTruck(id);
+                    refreshList();
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "网络连接超时");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                }
+            }
         }
         else if (e.getSource()==modifybt){
+            int row=table.getSelectedRow();
+            if (row==-1){//没有选择任何行
+                new ErrorDialog(parent, "请选择一行待修改条目");
+            } else {//选择了待修改的行
+                String id=(String)table.getValueAt(row, 0);
+                String engine=(String) table.getValueAt(row, 1);
+                String chepai=(String) table.getValueAt(row, 2);
+                String dipan=(String) table.getValueAt(row, 3);
+                Date buyTime=null;
+                try {
+                    buyTime=Constent.BIRTHDAY_FORMAT.parse((String)table.getValueAt(row, 4));
+                } catch (ParseException e1) {
+                    System.out.println("不该发生的情况");
+                }
+                int fuyiTime=(Integer) table.getValueAt(row, 5);
 
+                TruckVO vo=new TruckVO(id,chepai, engine, dipan, buyTime, fuyiTime);
+
+                JDialog dialog=new JDialog(parent,"修改机构信息",false);
+                dialog.getContentPane().add(new TruckModifyPanel(parent,dialog, this, truckBLService, vo));
+                dialog.setLocationRelativeTo(parent);
+                dialog.pack();
+                dialog.setVisible(true);
+            }
         }
     }
 }
