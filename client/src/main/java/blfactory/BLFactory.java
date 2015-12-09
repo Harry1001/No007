@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import businessLogic.commoditybl.CommodityController;
+import businessLogic.financebl.FinanceController;
 import businessLogic.infobl.controller.*;
 import businessLogic.loginbl.LoginController;
 import businessLogic.logisticbl.LogisticController;
@@ -14,6 +15,7 @@ import businessLogic.receiptbl.*;
 import businessLogic.strategybl.*;
 import businessLogic.transportbl.*;
 import businessLogicService.commodityblservice.CommodityBLService;
+import businessLogicService.financeblservice.FinanceBLService;
 import businessLogicService.infoblservice.*;
 import businessLogicService.loginblservice.LoginBLService;
 import businessLogicService.logisticblservice.LogisticBLService;
@@ -157,6 +159,9 @@ public class BLFactory {
 
     public static CommodityBLService getCommodityBLService() throws RemoteException, MalformedURLException, NotBoundException, NamingException {
         return new CommodityController();
+    }
 
+    public static FinanceBLService getFinanceBLService() throws RemoteException, MalformedURLException, NotBoundException, NamingException {
+        return new FinanceController();
     }
 }

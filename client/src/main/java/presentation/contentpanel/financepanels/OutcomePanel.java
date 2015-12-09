@@ -1,20 +1,36 @@
 package presentation.contentpanel.financepanels;
 
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.financeblservice.FinanceBLService;
+import myexceptions.TimeFormatException;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
 import presentation.commoncontainer.TimePanel;
+import presentation.commonpanel.ErrorDialog;
+import typeDefinition.FeeType;
+import vo.receiptvo.PayReceiptVO;
 
+import javax.naming.NamingException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.Date;
 
 /**
  * Created by Harry on 2015/12/4.
  */
 public class OutcomePanel extends JPanel implements ActionListener{
-    Frame parent;
+
+    FinanceBLService financeBLService;
+
+    MainFrame parent;
     MyLabel timeL=new MyLabel("付款日期");
     MyLabel feeL=new MyLabel("付款金额");
     MyLabel personL=new MyLabel("付款人");
@@ -33,12 +49,13 @@ public class OutcomePanel extends JPanel implements ActionListener{
     JRadioButton carriage = new JRadioButton("运费");
     JRadioButton bonus = new JRadioButton("奖金");
 
-    public OutcomePanel(Frame par){
+    public OutcomePanel(MainFrame par){
         this.parent=par;
-        initialize();
+        initUI();
+        initBL();
     }
 
-    private void initialize(){
+    private void initUI(){
         ButtonGroup btgroup=new ButtonGroup();
         btgroup.add(salary);
         btgroup.add(rent);
@@ -89,13 +106,77 @@ public class OutcomePanel extends JPanel implements ActionListener{
         gbc.anchor=GridBagConstraints.EAST;
         gbc.gridy++;
         this.add(submitbt,gbc);
+
+        submitbt.addActionListener(this);
+    }
+
+    private void initBL(){
+        try {
+            financeBLService= BLFactory.getFinanceBLService();
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        } catch (NamingException e) {
+            new ErrorDialog(parent, "NamingException");
+        }
     }
 
     public void refresh(){
+        feeT.setText("");
+        personT.setText("");
+        accountT.setText("");
+        additionT.setText("");
+        timeP.setPresentTime();
+        salary.setSelected(true);
+    }
+
+    private FeeType getFeeType(){
+        if (salary.isSelected()){
+            return FeeType.SALARY;
+        } else if (rent.isSelected()){
+            return FeeType.RENT;
+        } else if (carriage.isSelected()){
+            return FeeType.FREIGHT;
+        } else {
+            return FeeType.BONUS;
+        }
+    }
+
+    private boolean checkAll(){
         //todo
+        return true;
     }
 
     public void actionPerformed(ActionEvent e) {
-        
+        if (e.getSource()==submitbt){
+            if (checkAll()){
+                try {
+                    Date time=timeP.getDate();
+                    double fee=Double.parseDouble(feeT.getText());
+                    String man=personT.getText();
+                    String acc=accountT.getText();
+                    FeeType feeType=getFeeType();
+
+                    PayReceiptVO vo = new PayReceiptVO(time, fee, man, acc, feeType);
+                    financeBLService.submitOut(vo);
+                    refresh();
+                } catch (TimeFormatException e1) {
+                    new ErrorDialog(parent, e1.getMessage());
+                } catch (NumberFormatException e1){
+                    new ErrorDialog(parent, "金额必须为正数");
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                } catch (MalformedURLException e1) {
+                    new ErrorDialog(parent, "MalformedURLException");
+                } catch (NotBoundException e1) {
+                    new ErrorDialog(parent, "NotBoundException");
+                }
+            }
+        }
     }
 }

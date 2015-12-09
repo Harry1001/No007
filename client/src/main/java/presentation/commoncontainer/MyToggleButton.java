@@ -17,6 +17,7 @@ public class MyToggleButton extends JToggleButton {
 
     private void initbt(){
         this.setPreferredSize(new Dimension(170,60));
+        this.setMinimumSize(new Dimension(170,60));
         this.setFont(new Font("",Font.PLAIN,20));
     }
 }
