@@ -1,36 +1,52 @@
 package presentation.contentpanel.managerpanels;
 
 
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.strategyblservice.FeeStrategyBLService;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyLabel;
+import presentation.commoncontainer.MyTextField;
+import presentation.commonpanel.ErrorDialog;
+import vo.strategyvo.CarriageFeeVO;
+import vo.strategyvo.ExpressFeeVO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 /**
  * Created by Harry on 2015/11/29.
  */
 public class FeeStrategyPanel extends JPanel implements ActionListener {
 
-    Frame parent;
-    JPanel paypanel=new JPanel();
-    JPanel chargepanel= new JPanel();
-    JLabel[] labels=new JLabel[6];
-    JTextField[] textFields=new JTextField[6];
-    JButton confirmbt=new JButton("确认");
-    JButton cancelbt=new JButton("取消");
+    protected MainFrame parent;
+    protected JPanel paypanel=new JPanel();
+    protected JPanel chargepanel= new JPanel();
+    protected MyLabel[] labels=new MyLabel[6];
+    protected MyTextField[] textFields=new MyTextField[6];
+    protected MyButton confirmbt=new MyButton("确认");
+    protected MyButton cancelbt=new MyButton("取消");
 
-    public FeeStrategyPanel(Frame par){
+    protected FeeStrategyBLService feeService;
+
+    public FeeStrategyPanel(MainFrame par){
         this.parent=par;
 
-        labels[0]=new JLabel("飞机");
-        labels[1]=new JLabel("火车");
-        labels[2]=new JLabel("汽车");
-        labels[3]=new JLabel("经济快递");
-        labels[4]=new JLabel("标准快递");
-        labels[5]=new JLabel("特快专递");
+        labels[0]=new MyLabel("飞机");
+        labels[1]=new MyLabel("火车");
+        labels[2]=new MyLabel("汽车");
+        labels[3]=new MyLabel("经济快递");
+        labels[4]=new MyLabel("标准快递");
+        labels[5]=new MyLabel("特快快递");
 
         for(int i=0;i<6;i++){
-            textFields[i]=new JTextField(15);
+            textFields[i]=new MyTextField(15);
         }
 
         this.setLayout(new GridBagLayout());
@@ -71,15 +87,73 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
         confirmbt.addActionListener(this);
         cancelbt.addActionListener(this);
 
+        initBL();
         refreshData();
     }
 
+    private void initBL(){
+        try {
+            feeService=BLFactory.getFeeBLService();
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        }
+    }
+
+    /**
+     * 载入数据
+     */
     public void refreshData(){
-        //todo 从数据层读取数据并刷新，rmi异常在这里catch
+        try {
+            CarriageFeeVO carriageFeeVO=feeService.getCarriageFee();
+            ExpressFeeVO expressFeeVO=feeService.getExpressFee();
+            textFields[0].setText(""+carriageFeeVO.getPlanePrice());
+            textFields[1].setText(""+carriageFeeVO.getTrainPrice());
+            textFields[2].setText(""+carriageFeeVO.getBusPrice());
+            textFields[3].setText(""+expressFeeVO.getEcoPrice());
+            textFields[4].setText(""+expressFeeVO.getStdPrice());
+            textFields[5].setText(""+expressFeeVO.getSpePrice());
+
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        }
+    }
+
+    private boolean checkInput(){
+        //todo to be implemented
+        return true;
     }
 
 
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==confirmbt){
+            if (checkInput()){
+                double plane=Double.parseDouble(textFields[0].getText());
+                double train=Double.parseDouble(textFields[1].getText());
+                double bus=Double.parseDouble(textFields[2].getText());
+                double economic=Double.parseDouble(textFields[3].getText());
+                double standard=Double.parseDouble(textFields[4].getText());
+                double special=Double.parseDouble(textFields[5].getText());
 
+                CarriageFeeVO carriageFeeVO=new CarriageFeeVO(plane, train, bus);
+                ExpressFeeVO expressFeeVO=new ExpressFeeVO(economic, standard, special);
+                try {
+                    feeService.setCarriage(carriageFeeVO);
+                    feeService.setExpressFee(expressFeeVO);
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                }
+
+            } else {
+                new ErrorDialog(parent, "所有输入必须为正数");
+            }
+        } else if (e.getSource()==cancelbt){
+            refreshData();//不保存，重新载入数据
+        }
     }
 }

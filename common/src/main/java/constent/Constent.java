@@ -42,6 +42,11 @@ public class Constent {
     public static final SimpleDateFormat DATE_FORMAT =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置时间格式
 
     /**
+     * 出生日期格式
+     */
+    public static final SimpleDateFormat BIRTHDAY_FORMAT =new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
+
+    /**
      * 订单号位数
      */
     public static final int ORDER_ID_LENGTH=10;

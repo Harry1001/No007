@@ -21,16 +21,16 @@ import java.sql.SQLException;
  * Created by Harry on 2015/11/28.
  */
 public class AgencyInfoPanel extends JPanel implements ActionListener{
-    private AgencyBLService agencyBLService;
-    private MainFrame parent;
-    private AgencyListPanel listPanel;
-    private JDialog dialog;
-    private MyLabel[] labels=new MyLabel[6];
-    private MyTextField[] textFields=new MyTextField[5];
-    private JComboBox<String> type;
+    protected AgencyBLService agencyBLService;
+    protected MainFrame parent;
+    protected AgencyListPanel listPanel;
+    protected JDialog dialog;
+    protected MyLabel[] labels=new MyLabel[6];
+    protected MyTextField[] textFields=new MyTextField[5];
+    protected JComboBox<String> type;
 
-    private MyButton submitbt=new MyButton("提交");
-    private MyButton cancelbt=new MyButton("取消");
+    protected MyButton submitbt=new MyButton("提交");
+    protected MyButton cancelbt=new MyButton("取消");
 
     public AgencyInfoPanel(JDialog dialog, MainFrame parent, AgencyListPanel panel, AgencyBLService agencyBLService) {
         this.agencyBLService=agencyBLService;
@@ -47,7 +47,7 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
     /**
      * 设置组件位置
      */
-    private void initUI(){
+    protected void initUI(){
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
@@ -93,7 +93,7 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
      * 检查所有输入
      * @return
      */
-    private boolean checkAll(){
+    protected boolean checkAll(){
         if (!checkAgencyID()){
             new ErrorDialog(parent,"机构编号格式错误：中转中心4位，营业厅6位");
             return false;
@@ -116,7 +116,7 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
      * 检查租金格式
      * @return
      */
-    private boolean checkRent(){
+    protected boolean checkRent(){
         String s=textFields[4].getText();
         try{
             int rent=Integer.parseInt(s);
@@ -131,7 +131,7 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
      * 检查面积格式
      * @return
      */
-    private boolean checkArea(){
+    protected boolean checkArea(){
         String s=textFields[3].getText();
         try{
             int area=Integer.parseInt(s);
@@ -146,7 +146,7 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
      * 检查机构编号格式
      * @return
      */
-    private boolean checkAgencyID(){
+    protected boolean checkAgencyID(){
         String id=textFields[0].getText();
         if (type.getSelectedIndex()==0){//营业厅
             if (id.length()!= Constent.STORE_ID_LENGTH){
@@ -168,7 +168,7 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
      * @param s
      * @return
      */
-    private boolean isDigit(String s){
+    protected boolean isDigit(String s){
         if (s.length()<=0)
             return false;
         for (int i=0;i<s.length();i++){

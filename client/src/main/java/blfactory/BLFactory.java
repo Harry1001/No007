@@ -140,4 +140,12 @@ public class BLFactory {
     public static CalSalaryService getCalSalaryService() throws MalformedURLException, RemoteException, NotBoundException{
         return new CalSalaryBL();
     }
+
+    public static SalaryStrategyBLService getSalaryBLService() throws RemoteException, NotBoundException, MalformedURLException {
+        return new StrategyBL();
+    }
+
+    public static FeeStrategyBLService getFeeBLService() throws RemoteException, NotBoundException, MalformedURLException {
+        return new StrategyBL();
+    }
 }

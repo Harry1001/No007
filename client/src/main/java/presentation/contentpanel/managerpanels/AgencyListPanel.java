@@ -158,10 +158,15 @@ public class AgencyListPanel extends JPanel implements ActionListener {
                 new ErrorDialog(parent, "请选择一行待修改条目");
             } else {//选择了待修改的行
                 String id=(String)table.getValueAt(row, 0);
-                String name=(String) table.getValueAt(row, 1)//todo
-                AgencyVO vo=new AgencyVO();
-                JDialog dialog=new JDialog(parent,"新增机构信息",false);
-                dialog.getContentPane().add(new AgencyInfoPanel(dialog, parent, this, agencyBLService));
+                String name=(String) table.getValueAt(row, 1);
+                String type=(String) table.getValueAt(row, 2);
+                String loc=(String) table.getValueAt(row, 3);
+                int area=(Integer) table.getValueAt(row, 4);
+                int rent=(Integer) table.getValueAt(row, 5);
+
+                AgencyVO vo=new AgencyVO(name, type, id, loc, area, rent);
+                JDialog dialog=new JDialog(parent,"修改机构信息",false);
+                dialog.getContentPane().add(new AgencyModifyPanel(dialog, parent, this, agencyBLService, vo));
                 dialog.setLocationRelativeTo(parent);
                 dialog.pack();
                 dialog.setVisible(true);

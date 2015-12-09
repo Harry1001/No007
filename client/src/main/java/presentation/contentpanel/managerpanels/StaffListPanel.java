@@ -1,32 +1,46 @@
 package presentation.contentpanel.managerpanels;
 
 import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.infoblservice.StaffBLService;
+import constent.Constent;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
+import presentation.commonpanel.ErrorDialog;
+import vo.infovo.AgencyVO;
+import vo.infovo.StaffVO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by Harry on 2015/11/24.
  */
 public class StaffListPanel extends JPanel implements ActionListener{
-    MainFrame parent;
-    MyButton addbt=new MyButton("新增");
-    MyButton deletebt=new MyButton("删除");
-    MyButton modifybt=new MyButton("修改");
+    private MainFrame parent;
+    private MyButton addbt=new MyButton("新增");
+    private MyButton deletebt=new MyButton("删除");
+    private MyButton modifybt=new MyButton("修改");
 
-    MyDefaultTableModel defaultTableModel;
-    MyTable table;
+    private MyDefaultTableModel defaultTableModel;
+    private MyTable table;
+
+    private Vector<String> names=new Vector<String>();
+    private StaffBLService staffBLService;
 
     public StaffListPanel(MainFrame par) {
 
         this.parent=par;
-
-        String [] names={"工号","姓名","性别","出生年月","职位"};
+        initNames();
 
         defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);
@@ -56,18 +70,89 @@ public class StaffListPanel extends JPanel implements ActionListener{
         deletebt.addActionListener(this);
         modifybt.addActionListener(this);
 
+        initBL();
+        refreshList();
     }
+
+    /**
+     * 初始化列名称
+     */
+    private void initNames(){
+        String [] strings={"工号","姓名","性别","出生年月","职位"};
+        for(int i=0;i<strings.length;i++){
+            names.add(strings[i]);
+        }
+    }
+
+    /**
+     * 初始化逻辑层引用
+     */
+    private void initBL(){
+        try {
+            staffBLService= BLFactory.getStaffBLService();
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "网络连接超时");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        }
+    }
+
+    /**
+     * 从数据库读取数据刷新列表
+     */
+    public void refreshList(){
+        try {
+            ArrayList<StaffVO> staffVOs = staffBLService.getStaffList();
+            System.out.println(""+staffVOs.size());
+            Vector<Vector> data = new Vector<Vector>();
+            Vector<Object> item;
+            for (StaffVO vo: staffVOs){
+                item=new Vector<Object>();
+                item.add(vo.getStaffID());
+                item.add(vo.getName());
+                item.add(vo.getGender());
+                item.add(Constent.BIRTHDAY_FORMAT.format(vo.getBirthday()));
+                item.add(Constent.LOCATIONS[vo.getPosition().ordinal()]);
+
+                data.add(item);
+            }
+            defaultTableModel.setDataVector(data,names);
+            table.validate();
+            table.updateUI();
+            System.out.println(""+defaultTableModel.getRowCount());
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "网络连接超时");
+        } catch (SQLException e) {
+            new ErrorDialog(parent, "SQLException");
+        }
+    }
+
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
             JDialog dialog=new JDialog(parent,"新增人员信息",true);
-            dialog.getContentPane().add(new StaffInfoPanel(parent));
+            dialog.getContentPane().add(new StaffInfoPanel(parent, dialog, staffBLService, this));
             dialog.setLocationRelativeTo(parent);
             dialog.pack();
             dialog.show();
         }
         else if (e.getSource()==deletebt){
-
+            int row=table.getSelectedRow();
+            if (row==-1){//没有选择任何行
+                new ErrorDialog(parent, "请选择一行待删除条目");
+            } else {//选择了待删除的行
+                String id= (String)table.getValueAt(row, 0);
+                try {
+                    staffBLService.deleteStaff(id);
+                    refreshList();
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "网络连接超时");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                }
+            }
         }
         else if (e.getSource()==modifybt){
 
