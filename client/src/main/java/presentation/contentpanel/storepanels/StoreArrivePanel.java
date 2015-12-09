@@ -129,24 +129,27 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 			else
 				state=PackArrivalState.MISSED;
 			StoreArrivalReceiptVO vo=new StoreArrivalReceiptVO(order,date,num,from,state);
-			boolean isTrue=false;
+			boolean isChecked=false;
 			try {
-				isTrue=arriveStore.verify(vo);
+				isChecked=checkAllFormat();
 			} catch (TransportBLException e1) {
 				new ErrorDialog(parent, e1.getMessage());
 			}
-			if(isTrue){
+			if(isChecked){
 				try {
+					arriveStore.verify(vo);
 					arriveStore.submit(vo);
 					refresh();
 				} catch (RemoteException e1) {
 					new ErrorDialog(parent,"服务器连接超时");
 				} catch (MalformedURLException e1) {
-					new ErrorDialog(parent,"URL格式错误");
+					new ErrorDialog(parent,"MalformedURLException");
 				} catch (NotBoundException e1) {
-					new ErrorDialog(parent,"服务器端没有此内容");
+					new ErrorDialog(parent,"NotBoundException");
 				} catch (SQLException e1) {
 					new ErrorDialog(parent,"数据库异常");
+				} catch (TransportBLException e1) {
+					new ErrorDialog(parent, e1.getMessage());
 				}
 			}
 		}
@@ -156,8 +159,8 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 	}
 	
 	private boolean checkAllFormat() throws TransportBLException {		
-		if(!checkHubID(hubIDT.getText()))
-			throw new TransportBLException("中转中心编号必须为4位数");
+		if(!checkOrderID(orderT.getText()))
+			throw new TransportBLException("订单编号必须为10位数");
 		if(!checkNumID(numT.getText()))
 			throw new TransportBLException("中转单编号必须为19位数");
 		if(!checkDate(timeT.getText()))
@@ -165,10 +168,10 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 		return true;
 	}
 
-	private boolean checkHubID(String s) {
-		if (s.length()!=Constent.HUB_ID_LENGTH)
+	private boolean checkOrderID(String s) {
+		if (s.length()!=Constent.ORDER_ID_LENGTH)
 	        return false;
-	    for (int i=0;i<Constent.HUB_ID_LENGTH;i++){
+	    for (int i=0;i<Constent.ORDER_ID_LENGTH;i++){
 	        if (s.charAt(i)<'0'||s.charAt(i)>'9')
 	           return false;
 	    }

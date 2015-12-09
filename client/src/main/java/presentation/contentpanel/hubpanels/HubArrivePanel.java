@@ -152,8 +152,7 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 			}
 		}else{
 			refresh();
-		}
-		
+		}		
 	}
 
 	private void refresh() {
@@ -166,6 +165,8 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 	}
 
 	private boolean checkAllFormat() throws TransportBLException {		
+		if(!checkOrderID(orderT.getText()))
+			throw new TransportBLException("订单编号必须为10位数");
 		if(!checkHubID(hubIDT.getText()))
 			throw new TransportBLException("中转中心编号必须为4位数");
 		if(!checkNumID(numT.getText()))
@@ -175,6 +176,16 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 		return true;
 	}
 
+	private boolean checkOrderID(String s) {
+		if (s.length()!=Constent.ORDER_ID_LENGTH)
+	        return false;
+	    for (int i=0;i<Constent.ORDER_ID_LENGTH;i++){
+	        if (s.charAt(i)<'0'||s.charAt(i)>'9')
+	           return false;
+	    }
+	    return true;
+	}
+	
 	private boolean checkHubID(String s) {
 		if (s.length()!=Constent.HUB_ID_LENGTH)
 	        return false;
