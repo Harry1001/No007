@@ -19,7 +19,6 @@ public class TransferReceiptDataImpl extends UnicastRemoteObject implements Tran
 	private TransferReceiptDBManager transferreceiptDBManager;
 	
 	public TransferReceiptDataImpl() throws RemoteException {
-		super();
 		transferreceiptDBManager=new TransferReceiptDBManager();
 	}
 	
