@@ -115,6 +115,7 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
         rbt1.addItemListener(this);
         rbt2.addItemListener(this);
         submitbt.addActionListener(this);
+        refreshbt.addActionListener(this);
 
         setDefaultTime();
         initBL();
