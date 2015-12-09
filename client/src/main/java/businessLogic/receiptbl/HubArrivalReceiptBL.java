@@ -39,7 +39,7 @@ public class HubArrivalReceiptBL {
 		hubArrivalReceiptData.addItem(new HubArrivalReceiptPO(item));		
 	}
 
-	public ArrayList<String> getOrderID(String transportID) throws SQLException {
+	public ArrayList<String> getOrderID(String transportID) throws SQLException, RemoteException {
 		ArrayList<String> orderIDs=new ArrayList<String>();
 		orderIDs=transferReceiptData.getOrderID(transportID);
 		return orderIDs;
