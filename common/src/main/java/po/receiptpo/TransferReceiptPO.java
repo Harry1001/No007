@@ -11,6 +11,10 @@ import vo.receiptvo.TransferReceiptVO;
 public class TransferReceiptPO extends ReceiptPO {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * 中转单
 	 */
 
