@@ -1,5 +1,7 @@
 package dataService;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 
@@ -11,16 +13,21 @@ public interface FinanceDataService {
 	 * 在账目数据库中增加一个持久化对象
 	 * @param financePO
 	 * @throws RemoteException
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
-	public void add(FinancePO financePO, int year) throws RemoteException;
+	public void add(FinancePO financePO, int year) throws RemoteException, FileNotFoundException, IOException;
 
 	/**
 	 * 
 	 * @param year
 	 * @return 根据年份信息返回账目数据库中的一个持久化对象
 	 * @throws RemoteException
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 */
-	public FinancePO find(int year) throws RemoteException;
+	public FinancePO find(int year) throws RemoteException, FileNotFoundException, ClassNotFoundException, IOException;
 	
 	/**
 	 * 更新数据端的总收入数据

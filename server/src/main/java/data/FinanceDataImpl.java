@@ -1,10 +1,13 @@
 package data;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import dataService.FinanceDataService;
+import database.FinanceSerial;
 import database.ProfitDBManager;
 import po.financepo.FinancePO;
 
@@ -20,15 +23,16 @@ public class FinanceDataImpl extends UnicastRemoteObject implements FinanceDataS
 	}
 
 	private ProfitDBManager profitDBManager = new ProfitDBManager();
+	private FinanceSerial financeSerial=new FinanceSerial();
 	
-	public void add(FinancePO financePO, int year) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void add(FinancePO financePO, int year) throws FileNotFoundException, IOException {
+		financeSerial.serialize(financePO, year);
 		
 	}
 
-	public FinancePO find(int year) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public FinancePO find(int year) throws FileNotFoundException, ClassNotFoundException, IOException {
+		FinancePO po = financeSerial.read(year);
+		return po;
 	}
 
 	public void addIncome(double income) throws RemoteException {
