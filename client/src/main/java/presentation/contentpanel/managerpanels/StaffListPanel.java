@@ -6,8 +6,6 @@ import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

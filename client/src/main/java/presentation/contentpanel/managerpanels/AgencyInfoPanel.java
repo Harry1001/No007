@@ -56,6 +56,9 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
         for(int i=0;i<6;i++){
             labels[i]=new MyLabel(names[i]);
         }
+        for (int i=0;i<5;i++){
+            textFields[i]=new MyTextField();
+        }
 
         String[] s={"营业厅","中转中心"};
 
