@@ -43,7 +43,7 @@ public class SendBL{
 		receiptblservice=BLFactory.getSendReceiptBLService();
 		receiptblservice.createReceipt(vo);
 		logisticblservice=BLFactory.getLogisticBLService();
-		logisticblservice.update(vo.getExpressNumber(),vo);
+		logisticblservice.update(vo);
 	}
 	
 	public double calFee(SendReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException{

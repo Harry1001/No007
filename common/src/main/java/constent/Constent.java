@@ -27,6 +27,11 @@ public class Constent {
     public static final int HUB_ID_LENGTH=4;
 
     /**
+     * 中转单编号长度
+     */
+    public static final int Transfer_ID_LENGTH=19;
+    
+    /**
      * 快递种类
      */
     public static final String[] EXPRESS_TYPE={"经济快递","标准快递","特快快递"};

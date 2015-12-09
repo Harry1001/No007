@@ -44,7 +44,7 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
     JButton submitbt=new JButton("提交");
     JButton cancelbt=new JButton("取消");
 
-    SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置时间格式
+    SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
     
     ArriveStoreBLService arriveStore;
     

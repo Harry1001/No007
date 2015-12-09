@@ -22,8 +22,8 @@ public class LogisticController implements LogisticBLService{
 		return logisticbl.getLogistic(orderID);
 	}
 
-	public void update(String order,ReceiptVO vo) throws RemoteException, SQLException {
-		logisticbl.update(order,vo);		
+	public void update(ReceiptVO vo) throws RemoteException, SQLException {
+		logisticbl.update(vo);		
 	}
 
 }

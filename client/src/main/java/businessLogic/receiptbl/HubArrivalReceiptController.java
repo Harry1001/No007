@@ -26,8 +26,4 @@ public class HubArrivalReceiptController implements HubArrivalReceiptBLService{
 		receiptBL.createReceipt(item);		
 	}
 
-	public ArrayList<String> getOrderID(String transportID) throws SQLException {
-		return receiptBL.getOrderID(transportID);
-	}
-
 }

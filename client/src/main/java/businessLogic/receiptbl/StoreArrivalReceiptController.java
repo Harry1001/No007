@@ -25,7 +25,5 @@ public class StoreArrivalReceiptController implements StoreArrivalReceiptBLServi
 	public void createReceipt(StoreArrivalReceiptVO item) throws RemoteException, SQLException {
 		receiptBL.createReceipt(item);		
 	}
-	public ArrayList<String> getOrderID(String transportID) throws SQLException {
-		return receiptBL.getOrderID(transportID);
-	}
+	
 }
