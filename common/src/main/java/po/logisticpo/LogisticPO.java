@@ -1,11 +1,16 @@
 package po.logisticpo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import vo.logisticvo.LogisticVO;
 
-public class LogisticPO {
+public class LogisticPO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String orderNum;
 	private Date arrivalTime;
 	private String state;

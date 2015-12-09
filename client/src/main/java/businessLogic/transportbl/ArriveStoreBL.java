@@ -35,11 +35,32 @@ public class ArriveStoreBL{
 		return true;	
 	}
 	
-	public void submit(StoreArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException {
-		receiptblservice=BLFactory.getStoreArrivalReceiptBLService();
-		receiptblservice.createReceipt(vo);
-		logisticblservice=BLFactory.getLogisticBLService();
-		logisticblservice.update(vo);
+	public void submit(StoreArrivalReceiptVO vo) throws  MalformedURLException, NotBoundException {
+		try {
+			receiptblservice=BLFactory.getStoreArrivalReceiptBLService();
+		} catch (RemoteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		try {
+			receiptblservice.createReceipt(vo);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			logisticblservice=BLFactory.getLogisticBLService();
+			logisticblservice.update(vo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

@@ -10,6 +10,10 @@ import typeDefinition.ReceiptType;
  * Created by Harry on 2015/11/16.
  */
 public class StoreArrivalReceiptVO extends ReceiptVO {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String orderID;
 	private Date arriveTime;
     private String transReceiptID;
