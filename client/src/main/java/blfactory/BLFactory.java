@@ -4,18 +4,22 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import businessLogic.commoditybl.CommodityController;
 import businessLogic.infobl.controller.*;
 import businessLogic.loginbl.LoginController;
 import businessLogic.logisticbl.LogisticController;
 import businessLogic.receiptbl.*;
 import businessLogic.strategybl.*;
 import businessLogic.transportbl.*;
+import businessLogicService.commodityblservice.CommodityBLService;
 import businessLogicService.infoblservice.*;
 import businessLogicService.loginblservice.LoginBLService;
 import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.*;
 import businessLogicService.strategyblservice.*;
 import businessLogicService.transportblservice.*;
+
+import javax.naming.NamingException;
 
 /**
  * Created by Harry on 2015/11/21.
@@ -147,5 +151,9 @@ public class BLFactory {
 
     public static FeeStrategyBLService getFeeBLService() throws RemoteException, NotBoundException, MalformedURLException {
         return new StrategyBL();
+    }
+
+    public static CommodityBLService getCommodityBLService() throws RemoteException, MalformedURLException, NotBoundException, NamingException {
+        return new CommodityController();
     }
 }
