@@ -5,6 +5,7 @@ import javax.swing.*;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.transportblservice.ArriveStoreBLService;
+import constent.Constent;
 import myexceptions.TransportBLException;
 import presentation.commonpanel.ErrorDialog;
 import typeDefinition.PackArrivalState;
@@ -28,7 +29,7 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 
     MainFrame parent;
 
-    JLabel orderL=new JLabel("营业厅到达单编号");
+    JLabel orderL=new JLabel("订单编号");
     JLabel timeL=new JLabel("到达日期");
     JLabel numL=new JLabel("中转/装车单编号");
     JLabel fromL=new JLabel("出发地");
@@ -152,5 +153,45 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 		else{
 			refresh();
 		}		
+	}
+	
+	private boolean checkAllFormat() throws TransportBLException {		
+		if(!checkHubID(hubIDT.getText()))
+			throw new TransportBLException("中转中心编号必须为4位数");
+		if(!checkNumID(numT.getText()))
+			throw new TransportBLException("中转单编号必须为19位数");
+		if(!checkDate(timeT.getText()))
+			throw new TransportBLException("到达日期必须为2015-01-01格式");
+		return true;
+	}
+
+	private boolean checkHubID(String s) {
+		if (s.length()!=Constent.HUB_ID_LENGTH)
+	        return false;
+	    for (int i=0;i<Constent.HUB_ID_LENGTH;i++){
+	        if (s.charAt(i)<'0'||s.charAt(i)>'9')
+	           return false;
+	    }
+	    return true;
+	}
+
+	private boolean checkNumID(String s) {
+		if (s.length()!=Constent.Transfer_ID_LENGTH)
+	        return false;
+	    for (int i=0;i<Constent.Transfer_ID_LENGTH;i++){
+	        if (s.charAt(i)<'0'||s.charAt(i)>'9')
+	           return false;
+	    }
+	    return true;		
+	}
+	
+	private boolean checkDate(String s){
+		Date date=null;
+		try {
+			date = df.parse(s);
+		} catch (ParseException e1) {
+			return false;
+		}
+		return true;
 	}
 }
