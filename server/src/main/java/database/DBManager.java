@@ -8,7 +8,7 @@ public class DBManager {
 
 	protected Connection connectToDB(){
         String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://127.0.0.1:3306/elsdatabase";
+        String url = "jdbc:mysql://127.0.0.1:3306/elsdatabase?useUnicode=true&characterEncoding=utf8";
         String user = "root";
         String password = "";
         
