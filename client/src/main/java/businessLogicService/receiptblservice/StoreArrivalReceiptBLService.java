@@ -21,10 +21,5 @@ public interface StoreArrivalReceiptBLService {
 	 * @throws SQLException 
 	 */
 	public void createReceipt(StoreArrivalReceiptVO item) throws RemoteException, SQLException;
-<<<<<<< HEAD
-=======
 
-	public ArrayList<String> getOrderID(String transReceiptID) throws SQLException, RemoteException;
->>>>>>> origin/master
-	
 }

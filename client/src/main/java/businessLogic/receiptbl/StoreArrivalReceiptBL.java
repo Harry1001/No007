@@ -35,12 +35,4 @@ public class StoreArrivalReceiptBL {
 		storeArrivalReceiptData.addItem(new StoreArrivalReceiptPO(item));
 	}
 
-<<<<<<< HEAD
-=======
-	public ArrayList<String> getOrderID(String transportID) throws SQLException, RemoteException {
-		ArrayList<String> orderIDs=new ArrayList<String>();
-		orderIDs=transferReceiptData.getOrderID(transportID);
-		return orderIDs;
-	}
->>>>>>> origin/master
 }

@@ -28,9 +28,4 @@ public interface TransferReceiptDataService extends Remote {
 	 */
 	public void deleteAll() throws RemoteException, SQLException;
 	
-<<<<<<< HEAD
-=======
-	public ArrayList<String> getOrderID(String transportID) throws RemoteException, SQLException;
-
->>>>>>> origin/master
 }
