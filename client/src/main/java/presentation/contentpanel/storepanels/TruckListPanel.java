@@ -1,38 +1,45 @@
 package presentation.contentpanel.storepanels;
 
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.infoblservice.TruckBLService;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyDefaultTableModel;
+import presentation.commoncontainer.MyTable;
+import presentation.commonpanel.ErrorDialog;
+
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  * Created by Harry on 2015/11/27.
  */
 public class TruckListPanel extends JPanel implements ActionListener {
-    Frame parent;
-    JButton addbt=new JButton("新增");
-    JButton deletebt=new JButton("删除");
-    JButton modifybt=new JButton("修改");
 
-    DefaultTableModel defaultTableModel;
-    JTable table;
+    TruckBLService truckBLService;
 
-    public TruckListPanel(Frame par){
+    MainFrame parent;
+    MyButton addbt=new MyButton("新增");
+    MyButton deletebt=new MyButton("删除");
+    MyButton modifybt=new MyButton("修改");
+
+    MyDefaultTableModel defaultTableModel;
+    MyTable table;
+
+    String [] names={"车辆代号","发动机号","车牌号","底盘号","购买时间","服役时间"};
+
+    public TruckListPanel(MainFrame par){
         this.parent=par;
 
-        String [] names={"车辆代号","发动机号","车牌号","底盘号","购买时间","服役时间"};
         String [][] data={};
 
-        defaultTableModel=new DefaultTableModel(data,names);
-        table=new JTable(defaultTableModel);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        RowSorter<TableModel> sorter=new TableRowSorter<TableModel>();
-        table.setRowSorter(sorter);
-        table.setPreferredSize(new Dimension(500,400));
-        table.setPreferredScrollableViewportSize(new Dimension(500,400));
+        defaultTableModel=new MyDefaultTableModel(data,names);
+        table=new MyTable(defaultTableModel);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
@@ -58,15 +65,29 @@ public class TruckListPanel extends JPanel implements ActionListener {
         addbt.addActionListener(this);
         deletebt.addActionListener(this);
         modifybt.addActionListener(this);
+
+        initBL();
+    }
+
+    protected void initBL(){
+        try {
+            truckBLService= BLFactory.getTruckBLService();
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
             JDialog dialog=new JDialog(parent,"新增车辆信息",true);
-            dialog.getContentPane().add(new TruckInfoPanel(dialog));
+            dialog.getContentPane().add(new TruckInfoPanel(parent, dialog, this, truckBLService));
             dialog.setLocationRelativeTo(parent);
             dialog.pack();
-            dialog.show();
+            dialog.setVisible(true);
         }
         else if (e.getSource()==deletebt){
 
