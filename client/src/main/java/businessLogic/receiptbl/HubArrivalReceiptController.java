@@ -26,4 +26,11 @@ public class HubArrivalReceiptController implements HubArrivalReceiptBLService{
 		receiptBL.createReceipt(item);		
 	}
 
+<<<<<<< HEAD
+=======
+	public ArrayList<String> getOrderID(String transportID) throws SQLException, RemoteException {
+		return receiptBL.getOrderID(transportID);
+	}
+
+>>>>>>> origin/master
 }

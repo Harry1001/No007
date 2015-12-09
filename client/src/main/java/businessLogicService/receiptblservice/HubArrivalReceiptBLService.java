@@ -22,4 +22,9 @@ public interface HubArrivalReceiptBLService {
 	 */
 	public void createReceipt(HubArrivalReceiptVO item) throws RemoteException, SQLException;
 
+<<<<<<< HEAD
+=======
+	public ArrayList<String> getOrderID(String transportID) throws SQLException, RemoteException;
+	
+>>>>>>> origin/master
 }
