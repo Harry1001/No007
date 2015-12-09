@@ -6,6 +6,7 @@ import javax.swing.border.TitledBorder;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.transportblservice.DespatchBLService;
+import constent.Constent;
 import myexceptions.TransportBLException;
 import presentation.commonpanel.ErrorDialog;
 import vo.receiptvo.DespatchReceiptVO;
@@ -38,7 +39,7 @@ public class DespatchPanel extends JPanel implements ActionListener{
 
     MainFrame parent;
 
-    SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置时间格式
+    SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
 
     DespatchBLService despatchBLService;
     
@@ -110,27 +111,22 @@ public class DespatchPanel extends JPanel implements ActionListener{
 			try {
 				date = df.parse(timeT.getText());
 			} catch (ParseException e1) {
-				e1.printStackTrace();
+				new ErrorDialog(parent, "到达日期必须为2015-01-01格式");
 			}
         	String num=numT.getText();
+        	boolean isTrue=checkOrderID(num);
         	String courier=courierT.getText();
         	DespatchReceiptVO vo=new DespatchReceiptVO(date,num,courier);
-        	boolean isTrue=false;
-        	try {
-				isTrue=despatchBLService.verify(vo);
-			} catch (TransportBLException e1) {
-				new ErrorDialog(parent,e1.getMessage());
-			}
-        	if(isTrue){
+        	if(date!=null&&isTrue){
         		try {
 					despatchBLService.submit(vo);
 					refresh();
 				} catch (RemoteException e1) {
 					new ErrorDialog(parent,"服务器连接超时");
 				} catch (MalformedURLException e1) {
-					new ErrorDialog(parent,"URL格式错误");
+					new ErrorDialog(parent,"MalformedURLException");
 				} catch (NotBoundException e1) {
-					new ErrorDialog(parent,"服务器端没有此内容");
+					new ErrorDialog(parent,"NotBoundException");
 				} catch (SQLException e1) {
 					new ErrorDialog(parent,"数据库异常");
 				}
@@ -140,4 +136,15 @@ public class DespatchPanel extends JPanel implements ActionListener{
         	refresh();
         }
     }
+
+	private boolean checkOrderID(String s) {
+		if (s.length()!=Constent.ORDER_ID_LENGTH)
+	        return false;
+	    for (int i=0;i<Constent.ORDER_ID_LENGTH;i++){
+	        if (s.charAt(i)<'0'||s.charAt(i)>'9')
+	           return false;
+	    }
+	    return true;
+	}
+	
 }

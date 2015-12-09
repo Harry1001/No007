@@ -65,8 +65,11 @@ public interface FinanceBLService {
 	 * @param toTime
 	 * @return 返回该时间段内的所有收款单和付款单数据列表
 	 * @throws RemoteException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
+	 * @throws SQLException 
 	 */
-	public ArrayList<ReceiptVO> seeRecord(Date fromTime, Date toTime) throws RemoteException;
+	public ArrayList<ReceiptVO> seeRecord(Date fromTime, Date toTime) throws RemoteException, MalformedURLException, NotBoundException, SQLException;
 
 	/**
 	 * 
@@ -75,8 +78,11 @@ public interface FinanceBLService {
 	 * @param StoreNum
 	 * @return 返回指定营业厅指定日期的收款单数据列表
 	 * @throws RemoteException 
+	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<ChargeReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException;
+	public ArrayList<ChargeReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
 
 	/**
 	 * 前置条件：已经获取收款单数据列表

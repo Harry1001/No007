@@ -9,16 +9,16 @@ import java.io.ObjectOutputStream;
 
 import po.strategypo.DistancePO;
 
-public class DistanceDBManager {
+public class DistanceSerial {
 	public void serialize(DistancePO po) throws FileNotFoundException, IOException{
-		ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("my.out"));
+		ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("distance.out"));
 		 
 		oos.writeObject(po);
 		oos.flush();
 		oos.close();
 	}
 	public DistancePO read() throws FileNotFoundException, IOException, ClassNotFoundException{
-		ObjectInputStream ois=new ObjectInputStream(new FileInputStream("my.out"));
+		ObjectInputStream ois=new ObjectInputStream(new FileInputStream("distance.out"));
 		DistancePO po=(DistancePO)ois.readObject();
 		ois.close();
 		return po;

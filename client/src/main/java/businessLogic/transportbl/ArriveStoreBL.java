@@ -21,9 +21,6 @@ public class ArriveStoreBL{
 	
 	public boolean verify(StoreArrivalReceiptVO vo) throws TransportBLException{
 		String s1=vo.getTransReceiptID();		
-		if(s1.length()!=19){
-			throw new TransportBLException("中转单编号应该为19位！");
-		}
 		Date date=null;
 		SimpleDateFormat format=new SimpleDateFormat("yyyyMMdd");
 		try {

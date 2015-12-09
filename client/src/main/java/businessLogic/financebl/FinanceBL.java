@@ -12,7 +12,6 @@ import javax.naming.NamingException;
 
 import blfactory.BLFactory;
 import businessLogic.commoditybl.CommodityBL;
-import businessLogic.receiptbl.ReceiptBL;
 import businessLogicService.financeblservice.FinanceBLService;
 import businessLogicService.infoblservice.AgencyBLService;
 import businessLogicService.infoblservice.BankAccountBLService;
@@ -114,29 +113,28 @@ public class FinanceBL implements FinanceBLService{
 		return salaryList;
 	}
 
-	public ArrayList<ReceiptVO> seeRecord(Date fromTime, Date toTime) throws RemoteException{
+	public ArrayList<ReceiptVO> seeRecord(Date fromTime, Date toTime) throws RemoteException, MalformedURLException, NotBoundException, SQLException{
 		// TODO Auto-generated method stub
-		ReceiptBL receipt = new ReceiptBL();
-		@SuppressWarnings("unchecked")
-		ArrayList<ReceiptVO> charges = (ArrayList<ReceiptVO>)
-						receipt.getListByTime(fromTime, toTime, ReceiptType.CHARGE);
-		@SuppressWarnings("unchecked")
-		ArrayList<ReceiptVO> pays = (ArrayList<ReceiptVO>)
-						receipt.getListByTime(fromTime, toTime, ReceiptType.PAY);
-		ArrayList<ReceiptVO> result = charges;
+		ArrayList<ReceiptVO> result = new ArrayList<ReceiptVO>();
+		ChargeReceiptBLService chargeReceiptBLService = BLFactory.getChargeReceiptBLService();
+		ArrayList<ChargeReceiptVO> charges = chargeReceiptBLService.getListByTime(fromTime, toTime);
+		PayReceiptBLService payReceiptBLService = BLFactory.getPayReceiptBLService();
+		ArrayList<PayReceiptVO> pays = payReceiptBLService.getListByTime(fromTime, toTime);
+		result.addAll(charges);
 		result.addAll(pays);
 		return result;
 	}
 
 	/**
 	 *收入管理
+	 * @throws SQLException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<ChargeReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException{
+	public ArrayList<ChargeReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
 		// TODO Auto-generated method stub																						
-		ReceiptBL receipt = new ReceiptBL();
-		@SuppressWarnings("unchecked")
-		ArrayList<ChargeReceiptVO> charges = (ArrayList<ChargeReceiptVO>)
-						receipt.getListByTime(fromTime, toTime, ReceiptType.CHARGE);
+		ChargeReceiptBLService chargeReceiptBLService = BLFactory.getChargeReceiptBLService();
+		ArrayList<ChargeReceiptVO> charges = chargeReceiptBLService.getListByTime(fromTime, toTime);
 		ArrayList<ChargeReceiptVO> result = new ArrayList<ChargeReceiptVO>();
 		incomesum = 0;
 		storeNo = StoreNum;
@@ -155,7 +153,6 @@ public class FinanceBL implements FinanceBLService{
 	}
 
 	public AddUpResultVO addUp() {
-		// TODO Auto-generated method stub
 		AddUpResultVO result = new AddUpResultVO();
 		result.setIncomesum(incomesum);
 		result.setStoreNo(storeNo);
@@ -164,7 +161,6 @@ public class FinanceBL implements FinanceBLService{
 	}
 
 	public ProfitVO checkProfit() throws RemoteException {
-		// TODO Auto-generated method stub
 		ProfitVO profit = new ProfitVO();
 		profit.income = financeData.getIncome();
 		profit.outcome = financeData.getOutcome();
@@ -182,7 +178,6 @@ public class FinanceBL implements FinanceBLService{
 	 * @throws MalformedURLException 
 	 */
 	public void makeCredit(int year) throws RemoteException, NamingException, SQLException, MalformedURLException, NotBoundException{
-		// TODO Auto-generated method stub
 		FinanceDataService financeData = new FinanceDataImpl();
 		CommodityBL commodityBL=null;
 		try{
@@ -214,7 +209,6 @@ public class FinanceBL implements FinanceBLService{
 		try {
 			financeData.add(new FinancePO(finance),year);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

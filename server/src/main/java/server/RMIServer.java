@@ -6,7 +6,7 @@ import java.rmi.registry.Registry;
 
 public class RMIServer {
 	
-	static int port = 8888;
+	static int port = 8080;
 	
 	protected static Registry createRegistry(){
 		Registry registry = null;

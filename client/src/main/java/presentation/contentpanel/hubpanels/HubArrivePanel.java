@@ -28,7 +28,7 @@ import java.util.Date;
 public class HubArrivePanel extends JPanel implements ActionListener{
     MainFrame parent;
 
-    JLabel orderL=new JLabel("中转中心到达单编号");
+    JLabel orderL=new JLabel("订单编号");
     JLabel hubIDL=new JLabel("中转中心编号");
     JLabel timeL=new JLabel("到达日期");
     JLabel numL=new JLabel("中转/装车单编号");
@@ -54,6 +54,9 @@ public class HubArrivePanel extends JPanel implements ActionListener{
         String[] s={"完整", "损坏", "丢失"};
         stateC=new JComboBox(s);
 
+      //设置时间框里自动生成系统时间
+        timeT.setText(df.format(new Date()));
+        
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
@@ -149,20 +152,21 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 			}
 		}else{
 			refresh();
-		}
-		
+		}		
 	}
 
 	private void refresh() {
 		orderT.setText("");
 	    hubIDT.setText("");
-	    timeT.setText("");
+        timeT.setText(df.format(new Date()));
 	    numT.setText("");
 	    fromT.setText("");
 	    stateC.setSelectedIndex(0);
 	}
 
 	private boolean checkAllFormat() throws TransportBLException {		
+		if(!checkOrderID(orderT.getText()))
+			throw new TransportBLException("订单编号必须为10位数");
 		if(!checkHubID(hubIDT.getText()))
 			throw new TransportBLException("中转中心编号必须为4位数");
 		if(!checkNumID(numT.getText()))
@@ -172,6 +176,16 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 		return true;
 	}
 
+	private boolean checkOrderID(String s) {
+		if (s.length()!=Constent.ORDER_ID_LENGTH)
+	        return false;
+	    for (int i=0;i<Constent.ORDER_ID_LENGTH;i++){
+	        if (s.charAt(i)<'0'||s.charAt(i)>'9')
+	           return false;
+	    }
+	    return true;
+	}
+	
 	private boolean checkHubID(String s) {
 		if (s.length()!=Constent.HUB_ID_LENGTH)
 	        return false;

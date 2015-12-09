@@ -9,7 +9,7 @@ import java.util.Vector;
 
 import dataService.StrategyDataService;
 import database.CarriageStrategyDBManager;
-import database.DistanceDBManager;
+import database.DistanceSerial;
 import database.ExpressFeeStrategyDBManager;
 import database.SalaryStrategyDBManager;
 import po.strategypo.CarriageFeePO;
@@ -22,14 +22,14 @@ public class StrategyDataImpl extends UnicastRemoteObject implements StrategyDat
 	ExpressFeeStrategyDBManager efs;
 	CarriageStrategyDBManager cfs;
 	SalaryStrategyDBManager s;
-	DistanceDBManager d;
+	DistanceSerial d;
 	public StrategyDataImpl() throws RemoteException {
 		super();
 		
 		efs=new ExpressFeeStrategyDBManager();
 		cfs=new CarriageStrategyDBManager();
 		s=new SalaryStrategyDBManager();
-		d=new DistanceDBManager();
+		d=new DistanceSerial();
 	}
 
 	/**

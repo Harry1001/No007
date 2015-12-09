@@ -37,13 +37,13 @@ public class FinanceController implements FinanceBLService{
 		return salaryFeeVOs;
 	}
 
-	public ArrayList<ReceiptVO> seeRecord(Date fromTime, Date toTime) throws RemoteException {
+	public ArrayList<ReceiptVO> seeRecord(Date fromTime, Date toTime) throws RemoteException, MalformedURLException, NotBoundException, SQLException {
 		// TODO Auto-generated method stub
 		ArrayList<ReceiptVO> receiptVOs = financeBL.seeRecord(fromTime, toTime);
 		return receiptVOs;
 	}
 
-	public ArrayList<ChargeReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException{
+	public ArrayList<ChargeReceiptVO> checkStore(Date fromTime, Date toTime, String StoreNum) throws RemoteException, MalformedURLException, SQLException, NotBoundException{
 		// TODO Auto-generated method stub
 		ArrayList<ChargeReceiptVO> receiptVOs = financeBL.checkStore(fromTime, toTime, StoreNum);
 		return receiptVOs;
