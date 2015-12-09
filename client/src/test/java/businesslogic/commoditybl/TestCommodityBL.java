@@ -21,7 +21,7 @@ public class TestCommodityBL {
 		CommodityBL commodityBL = new CommodityBL();
 		Date inTime = new Date();
 		Location storeloc = new Location("0250", 1, 6, 8, 25);
-		DepotInReceiptVO vo = new DepotInReceiptVO("100000130", inTime, "南京大学", storeloc);
+		DepotInReceiptVO vo = new DepotInReceiptVO("10000530", inTime, "南京大学", storeloc);
 		ArrayList<CommodityVO> vos = commodityBL.getList("0250");
 		for(CommodityVO commodityVO: vos) {
 			System.out.println(commodityVO.getExpressNumber()+" "+commodityVO.getInTime()+" "+commodityVO.getDestination()+" "+commodityVO.getStoreloc().getTransferNum()+" "+commodityVO.getDestination()+" "+commodityVO.getStoreloc().getRowID());
