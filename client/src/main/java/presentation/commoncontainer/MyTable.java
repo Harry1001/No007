@@ -16,6 +16,8 @@ public class MyTable extends JTable {
 
     private void initialize(){
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.setFont(new Font("", Font.PLAIN, 17));
+        this.setRowHeight(20);
         RowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
         this.setRowSorter(sorter);
         this.setPreferredSize(new Dimension(500, 300));

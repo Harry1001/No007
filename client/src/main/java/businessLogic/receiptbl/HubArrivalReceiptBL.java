@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import dataService.HubArrivalReceiptDataService;
-import dataService.TransferReceiptDataService;
 import dataService._RMI;
 import po.receiptpo.HubArrivalReceiptPO;
 import vo.receiptvo.HubArrivalReceiptVO;
@@ -17,13 +16,10 @@ import vo.receiptvo.HubArrivalReceiptVO;
 public class HubArrivalReceiptBL {
 	
 	private HubArrivalReceiptDataService hubArrivalReceiptData;
-	private TransferReceiptDataService transferReceiptData;
 
 	public HubArrivalReceiptBL() throws MalformedURLException, RemoteException, NotBoundException{
 		String url="rmi://"+_RMI.getIP()+"/central_hubarrival";
 		hubArrivalReceiptData=(HubArrivalReceiptDataService)Naming.lookup(url);
-		String url2="rmi://"+_RMI.getIP()+"/central_transfer";
-		transferReceiptData=(TransferReceiptDataService)Naming.lookup(url2);
 	}
 	
 	public ArrayList<HubArrivalReceiptVO> getListByTime(Date fromTime, Date toTime)throws RemoteException, SQLException {
@@ -39,10 +35,13 @@ public class HubArrivalReceiptBL {
 		hubArrivalReceiptData.addItem(new HubArrivalReceiptPO(item));		
 	}
 
+<<<<<<< HEAD
+=======
 	public ArrayList<String> getOrderID(String transportID) throws SQLException, RemoteException {
 		ArrayList<String> orderIDs=new ArrayList<String>();
 		orderIDs=transferReceiptData.getOrderID(transportID);
 		return orderIDs;
 	}
 
+>>>>>>> origin/master
 }

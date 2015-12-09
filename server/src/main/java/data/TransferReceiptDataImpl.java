@@ -34,8 +34,4 @@ public class TransferReceiptDataImpl extends UnicastRemoteObject implements Tran
 		transferreceiptDBManager.deleteAll();
 	}
 
-	public ArrayList<String> getOrderID(String transportID) throws SQLException {
-		return transferreceiptDBManager.getOrderID(transportID);
-	}
-
 }

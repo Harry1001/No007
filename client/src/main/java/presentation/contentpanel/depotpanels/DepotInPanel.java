@@ -13,6 +13,17 @@ import vo.receiptvo.DepotInReceiptVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.commodityblservice.CommodityBLService;
+import constent.Constent;
+import myexceptions.TransportBLException;
+import presentation.commonpanel.ErrorDialog;
+import typeDefinition.Location;
+import vo.commodityvo.CommodityVO;
+import vo.receiptvo.DepotInReceiptVO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,12 +31,16 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
 
 /**
  * Created by Harry on 2015/11/28.
  */
+
 public class DepotInPanel extends JPanel implements ActionListener {
 
     CommodityBLService commodityBLService;
@@ -104,27 +119,74 @@ public class DepotInPanel extends JPanel implements ActionListener {
         this.add(submitbt,gbc);
         gbc.gridx++;
         this.add(cancelbt,gbc);
-
+        
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
-
         setPresentTime();
         initBL();
     }
 
-    private void initBL(){
-        try {
-            commodityBLService= BLFactory.getCommodityBLService();
-        } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
-        } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
-        } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
-        } catch (NamingException e) {
-            new ErrorDialog(parent, "NamingException");
+	private void initBL() {
+		try {
+			commodityBLService=BLFactory.getCommodityBLService();
+		} catch (MalformedURLException e) {
+			new ErrorDialog(parent, "MalformedURLException");
+		} catch (RemoteException e) {
+			new ErrorDialog(parent, "服务器连接超时");
+		} catch (NamingException e) {
+			new ErrorDialog(parent, "NamingException");
+		} catch (NotBoundException e) {
+			new ErrorDialog(parent, "NotBoundException");
+		}
+	}
+
+
+
+
+	private void checkAllFormat() throws TransportBLException {
+		if(!checkPackID(packIDT.getText()))
+			throw new TransportBLException("快递编号必须为数字");
+		if(!checkNumber(quhaoT.getText()))
+			throw new TransportBLException("区号必须为正整数");
+		if(!checkNumber(paihaoT.getText()))
+			throw new TransportBLException("排号必须为正整数");
+		if(!checkNumber(jiahaoT.getText()))
+			throw new TransportBLException("架号必须为正整数");
+		if(!checkNumber(weihaoT.getText()))
+			throw new TransportBLException("位号必须为正整数");
+		if(!checkHubID(hubIDT.getText()))
+			throw new TransportBLException("中转中心编号必须为4位数字");
+	}
+
+	private boolean checkPackID(String s) {
+        for (int i=0;i<s.length();i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9')
+                return false;
         }
+        return true;
+	}
+
+	private boolean checkNumber(String s) {
+        int num;
+        try{
+            num=Integer.parseInt(s);
+        }catch (NumberFormatException e1){
+            return false;
+        }
+        if (num>0) return true;
+        return false;
     }
+	
+	private boolean checkHubID(String s){
+        if (s.length()!=Constent.HUB_ID_LENGTH) 
+        	return false;
+        for (int i=0;i<Constent.HUB_ID_LENGTH;i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9')
+                return false;
+        }
+        return true;
+    }
+
 
     /**
      * 自动设置当前时间
@@ -187,4 +249,5 @@ public class DepotInPanel extends JPanel implements ActionListener {
             refresh();
         }
     }
+
 }

@@ -41,8 +41,9 @@ public class LogisticBL implements LogisticBLService{
 		return vo;
 	}
 	
-	public void update(String order,ReceiptVO vo) throws RemoteException, SQLException{
+	public void update(ReceiptVO vo) throws RemoteException, SQLException{
 		ReceiptType type=vo.getType();
+		String orderID=null;
 		String logisticstate=null;
 		Date arrivaltime=new Date();
 		LogisticPO po;
@@ -50,11 +51,13 @@ public class LogisticBL implements LogisticBLService{
 		case SEND:			
 			logisticstate="收件";
 			SendReceiptVO svo=(SendReceiptVO)vo;
-			po=new LogisticPO(order,arrivaltime,logisticstate);
+			orderID=svo.getExpressNumber();
+			po=new LogisticPO(orderID,arrivaltime,logisticstate);
 			logisticdata.update(po);
 			break;
 		case STOREARRIVAL:
 			StoreArrivalReceiptVO savo=(StoreArrivalReceiptVO)vo;
+			orderID=savo.getOrderID();
 			arrivaltime=savo.getArriveTime();
 			String transID=savo.getTransReceiptID();
 			String cityID=transID.substring(3);
@@ -100,11 +103,12 @@ public class LogisticBL implements LogisticBLService{
 			}
 			
 			logisticstate="到达"+city+store;
-			po=new LogisticPO(order,arrivaltime,logisticstate);
+			po=new LogisticPO(orderID,arrivaltime,logisticstate);
 			logisticdata.update(po);
 			break;
 		case HUBARRIVAL:
 			HubArrivalReceiptVO havo=(HubArrivalReceiptVO)vo;
+			orderID=havo.getOrderID();
 			arrivaltime=havo.getArriveTime();
 			String transID1=havo.getTransReceiptID();
 			String cityID1=transID1.substring(3);
@@ -120,31 +124,49 @@ public class LogisticBL implements LogisticBLService{
 				}else{
 					hub="浦口中转中心";
 				}
-			}else if(cityID1.equals("001")){
+			}else if(cityID1.equals("010")){
 				city1="北京市";
 				if(hubID.equals("0")){
-					hub="**中转中心";
+					hub="朝阳中转中心";
 				}else if(hubID.equals("1")){
-					hub="**中转中心";
+					hub="海淀中转中心";
 				}else{
-					hub="**中转中心";
+					hub="丰台中转中心";
 				}
-			}else{
-				
-			}			
+			}else if(cityID1.equals("021")){
+				city1="上海市";
+				if(hubID.equals("0")){
+					hub="浦东中转中心";
+				}else if(hubID.equals("1")){
+					hub="崇明中转中心";
+				}else{
+					hub="宝山中转中心";
+				}
+			}else if(cityID1.equals("020")){
+				city1="广州市";
+				if(hubID.equals("0")){
+					hub="花都中转中心";
+				}else if(hubID.equals("1")){
+					hub="增城中转中心";
+				}else{
+					hub="从化中转中心";
+				}
+			}
 			logisticstate="到达"+city1+hub;
-			po=new LogisticPO(order,arrivaltime,logisticstate);
+			po=new LogisticPO(orderID,arrivaltime,logisticstate);
 			logisticdata.update(po);
 			break;
 		case DESPATCH:
 			logisticstate="派件中";
 			DespatchReceiptVO dvo=(DespatchReceiptVO)vo;
-			po=new LogisticPO(order,arrivaltime,logisticstate);
+			orderID=dvo.getOrderNum();
+			po=new LogisticPO(orderID,arrivaltime,logisticstate);
 			logisticdata.update(po);
 			break;
 		case RECEIVE:
 			ReceiveReceiptVO rvo=(ReceiveReceiptVO)vo;
-			remove(order);
+			orderID=rvo.getReceiveNum();
+			remove(orderID);
 			break;
 		}
 

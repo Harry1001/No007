@@ -1,5 +1,8 @@
 package presentation.contentpanel.storepanels;
 
+import MainFrame.MainFrame;
+import businessLogicService.infoblservice.TruckBLService;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +13,10 @@ import java.awt.event.ActionListener;
  */
 public class TruckInfoPanel extends JPanel implements ActionListener {
 
-    Dialog parent;
+    MainFrame parent;
+    JDialog dialog;
+    TruckBLService truckBLService;
+    TruckListPanel listPanel;
 
     JLabel truckIDL=new JLabel("车辆代号");
     JLabel engineIDL=new JLabel("发动机号");
@@ -23,8 +29,11 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
 
     JTextField[] textFields=new JTextField[6];
 
-    public TruckInfoPanel(Dialog par){
+    public TruckInfoPanel(MainFrame par, JDialog dialog, TruckListPanel listPanel, TruckBLService blService){
         this.parent=par;
+        this.dialog=dialog;
+        this.listPanel=listPanel;
+        this.truckBLService=blService;
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();

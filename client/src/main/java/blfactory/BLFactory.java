@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import javax.naming.NamingException;
+
 import businessLogic.commoditybl.CommodityController;
 import businessLogic.infobl.controller.*;
 import businessLogic.loginbl.LoginController;
@@ -155,5 +157,6 @@ public class BLFactory {
 
     public static CommodityBLService getCommodityBLService() throws RemoteException, MalformedURLException, NotBoundException, NamingException {
         return new CommodityController();
+
     }
 }
