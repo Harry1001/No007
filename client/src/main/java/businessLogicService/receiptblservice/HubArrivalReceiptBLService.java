@@ -22,6 +22,6 @@ public interface HubArrivalReceiptBLService {
 	 */
 	public void createReceipt(HubArrivalReceiptVO item) throws RemoteException, SQLException;
 
-	public ArrayList<String> getOrderID(String transportID) throws SQLException;
+	public ArrayList<String> getOrderID(String transportID) throws SQLException, RemoteException;
 	
 }
