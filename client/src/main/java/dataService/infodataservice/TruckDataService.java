@@ -1,5 +1,6 @@
 package dataService.infodataservice;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import myexceptions.InfoBLException;
 import po.infopo.TruckPO;
 
-public interface TruckDataService {
+public interface TruckDataService extends Remote{
 
 	/**
 	 * 返回车辆信息列表
