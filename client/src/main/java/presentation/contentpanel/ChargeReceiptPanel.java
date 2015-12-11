@@ -1,5 +1,11 @@
 package presentation.contentpanel;
 
+import MainFrame.MainFrame;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyDefaultTableModel;
+import presentation.commoncontainer.MyLabel;
+import presentation.commoncontainer.MyTextField;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -10,30 +16,32 @@ import java.awt.event.ActionListener;
  * Created by Harry on 2015/11/27.
  */
 public class ChargeReceiptPanel extends JPanel implements ActionListener{
-    Frame parent;
+    MainFrame parent;
 
-    JLabel timeL=new JLabel("收款日期");
-    JLabel moneyL=new JLabel("收款金额");
-    JLabel courierL=new JLabel("收款快递员");
+    MyLabel timeL=new MyLabel("收款日期");
+    MyLabel moneyL=new MyLabel("收款金额");
+    MyLabel courierL=new MyLabel("收款快递员");
 
-    JTextField timeT=new JTextField(25);
-    JTextField moneyT=new JTextField(25);
-    JTextField courierT=new JTextField(25);
-    JTextField orderNumT=new JTextField(25);
+    MyTextField timeT=new MyTextField(25);
+    MyTextField moneyT=new MyTextField(25);
+    MyTextField courierT=new MyTextField(25);
+    MyTextField orderNumT=new MyTextField(25);
 
-    JButton appendbt=new JButton("添加");
-    JButton deletebt=new JButton("删除");
-    JButton submitbt=new JButton("提交");
-    JButton cleanbt=new JButton("清空输入");
+    MyButton appendbt=new MyButton("添加");
+    MyButton deletebt=new MyButton("删除");
+    MyButton submitbt=new MyButton("提交");
+    MyButton cleanbt=new MyButton("清空输入");
 
-    DefaultTableModel defaultTableModel;
+    MyDefaultTableModel defaultTableModel;
     JTable table;
 
-    public ChargeReceiptPanel(Frame par){
+
+
+    public ChargeReceiptPanel(MainFrame par){
         this.parent=par;
         String [] names={"订单条形码号"};
         String [][] data={};
-        defaultTableModel=new DefaultTableModel(data, names);
+        defaultTableModel=new MyDefaultTableModel(data, names);
         table=new JTable(defaultTableModel);
 
         this.setLayout(new GridBagLayout());
@@ -86,6 +94,10 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         cleanbt.addActionListener(this);
     }
 
+    private void initBL(){
+
+    }
+
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==appendbt){
             String [] s={orderNumT.getText()};
@@ -106,6 +118,5 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
 
         }
 
-        table.revalidate();
     }
 }

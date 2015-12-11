@@ -7,6 +7,9 @@ import blfactory.BLFactory;
 import businessLogicService.transportblservice.ArriveStoreBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyLabel;
+import presentation.commoncontainer.MyTextField;
 import presentation.commonpanel.ErrorDialog;
 import typeDefinition.PackArrivalState;
 import vo.receiptvo.StoreArrivalReceiptVO;
@@ -29,21 +32,21 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 
     MainFrame parent;
 
-    JLabel orderL=new JLabel("订单编号");
-    JLabel timeL=new JLabel("到达日期");
-    JLabel numL=new JLabel("中转/装车单编号");
-    JLabel fromL=new JLabel("出发地");
-    JLabel stateL=new JLabel("货物到达状态");
+    MyLabel orderL=new MyLabel("订单编号");
+    MyLabel timeL=new MyLabel("到达日期");
+    MyLabel numL=new MyLabel("中转/装车单编号");
+    MyLabel fromL=new MyLabel("出发地");
+    MyLabel stateL=new MyLabel("货物到达状态");
 
-    JTextField orderT=new JTextField(25);
-    JTextField timeT=new JTextField(25);
-    JTextField numT=new JTextField(25);
-    JTextField fromT=new JTextField(25);
+    MyTextField orderT=new MyTextField();
+    MyTextField timeT=new MyTextField();
+    MyTextField numT=new MyTextField();
+    MyTextField fromT=new MyTextField();
 
     JComboBox stateC;
 
-    JButton submitbt=new JButton("提交");
-    JButton cancelbt=new JButton("取消");
+    MyButton submitbt=new MyButton("提交");
+    MyButton cancelbt=new MyButton("取消");
 
     SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
     

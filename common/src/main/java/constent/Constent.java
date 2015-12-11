@@ -62,6 +62,11 @@ public class Constent {
     public static final int QIYUN_ID_LENGTH=19;
 
     /**
+     * 车辆代号长度
+     */
+    public static final int TRUCK_ID_LENGTH=9;
+
+    /**
      * 对应枚举类
      * @see typeDefinition.Job
      * 中的顺序

@@ -5,6 +5,7 @@ import blfactory.BLFactory;
 import businessLogicService.strategyblservice.CalCarriageService;
 import businessLogicService.transportblservice.EntruckBLService;
 import constent.Constent;
+import myexceptions.TransportBLException;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyLabel;
@@ -18,17 +19,22 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * Created by Harry on 2015/11/27.
  */
-public class EntruckPanel extends JPanel implements ActionListener {
+public class EntruckPanel extends JPanel implements ActionListener, FocusListener {
 
     EntruckBLService entruckBLService;
     CalCarriageService calCarriageService;
@@ -58,6 +64,8 @@ public class EntruckPanel extends JPanel implements ActionListener {
     MyDefaultTableModel defaultTableModel;
     JTable table;//此处表格和人员管理等表格大小不同，故不使用MyTable
 
+    SimpleDateFormat df=new SimpleDateFormat("yyyyMMdd");
+
     public EntruckPanel(MainFrame par){
         this.parent=par;
 
@@ -70,7 +78,10 @@ public class EntruckPanel extends JPanel implements ActionListener {
         appendbt.addActionListener(this);
         deletebt.addActionListener(this);
 
+        numT.addFocusListener(this);
+
         initBL();
+        refresh();
     }
 
     /**
@@ -177,10 +188,14 @@ public class EntruckPanel extends JPanel implements ActionListener {
         }
     }
 
-    private String getMyLocation(){
+    /**
+     * 根据登录帐号的id信息得到所在营业厅的编号
+     * @return
+     */
+    private String getMyStoreID(){
         LoginResultVO vo=parent.getUserIdentity();
-        String cityID=vo.getId().substring(0,3);//员工编号的前3位是城市区号（总经理、财务、管理员除外）
-        return Constent.getLocationByCityID(cityID);
+        String storeID=vo.getId().substring(0,6);//营业厅业务员编号的前6位是营业厅编号
+        return storeID;
     }
 
     /**
@@ -219,7 +234,7 @@ public class EntruckPanel extends JPanel implements ActionListener {
      */
     private void refresh(){
         setPresentTime();
-        numT.setText("");
+        numT.setText(getMyStoreID()+df.format(new Date())+"+5位编号待输入");
         destiT.setText("");
         truckIDT.setText("");
         feeT.setText("");
@@ -250,14 +265,109 @@ public class EntruckPanel extends JPanel implements ActionListener {
         return true;
     }
 
+    private boolean checkQiYunNum(){
+        String s=numT.getText();
+        if (s.length()!=Constent.QIYUN_ID_LENGTH){
+            return false;
+        }
+        for (int i=0;i<Constent.QIYUN_ID_LENGTH;i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9'){
+                return false;
+            }
+        }
+        String ss=s.substring(0, 14);
+        if (!ss.equals(getMyStoreID()+df.format(new Date()))){//检查汽运编号的前14位为营业厅编号+日期
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkTruckID(){
+        String s=truckIDT.getText();
+        if (s.length()!=Constent.TRUCK_ID_LENGTH){
+            return false;
+        }
+        for (int i=0;i<Constent.TRUCK_ID_LENGTH;i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9'){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkFee(){
+        String s=feeT.getText();
+        if (s.length()<=0){
+            return false;
+        }
+        try{
+            double f=Double.parseDouble(s);
+            if (f<=0){
+                return false;
+            }
+        } catch (NumberFormatException e1){
+            return false;
+        }
+        return true;
+    }
+
+    private void checkAll() throws TransportBLException{
+        if (!checkTime()){
+            throw new TransportBLException("时间格式必须为 yyyy-MM-dd HH:MM:ss");
+        }
+
+        if (!checkQiYunNum()){
+            throw new TransportBLException("汽运编号格式为：营业厅编号(6位)+日期(8位)+5为数字");
+        }
+
+        if (!checkDestination()){
+            throw new TransportBLException("地址前两位必须为城市民称");
+        }
+
+        if (!checkTruckID()){
+            throw new TransportBLException("车辆代号为：营业厅编号(6为)+3位数字");
+        }
+
+        if (!checkFee()){
+            throw new TransportBLException("运费必须为正数");
+        }
+
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==feebt){
             calCarriage();
         } else if (e.getSource()==submitbt){
             if (entruckBLService!=null){
-                //todo
 
-                refresh();
+                try{
+                    checkAll();
+                    Date date=Constent.DATE_FORMAT.parse(timeT.getText());
+                    String num=numT.getText();
+                    String desti=destiT.getText();
+                    String truckID=truckIDT.getText();
+                    double fee=Double.parseDouble(feeT.getText());
+                    ArrayList<String> orderList=new ArrayList<String>();
+                    for (int i=0;i<defaultTableModel.getRowCount();i++){
+                        orderList.add((String)table.getValueAt(i, 0));
+                    }
+
+                    EntruckReceiptVO vo=new EntruckReceiptVO(date,num,desti,truckID,orderList, fee);
+                    entruckBLService.submit(vo);
+                    refresh();
+                } catch (TransportBLException e1) {
+                    new ErrorDialog(parent, e1.getMessage());
+                } catch (ParseException e1) {
+                    new ErrorDialog(parent, "时间格式必须为 yyyy-MM-dd HH:MM:ss");
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                } catch (MalformedURLException e1) {
+                    new ErrorDialog(parent, "MalformedURLException");
+                } catch (NotBoundException e1) {
+                    new ErrorDialog(parent, "NotBoundException");
+                }
             } else{
                 initBL();
             }
@@ -268,6 +378,8 @@ public class EntruckPanel extends JPanel implements ActionListener {
                 String[] id={orderNumText.getText()};
                 defaultTableModel.addRow(id);
                 orderNumText.setText("");
+            } else{
+                new ErrorDialog(parent, "订单条形码号必须为"+Constent.ORDER_ID_LENGTH+"位数字");
             }
         } else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
@@ -275,5 +387,19 @@ public class EntruckPanel extends JPanel implements ActionListener {
                 defaultTableModel.removeRow(row);
             }
         }
+    }
+
+    public void focusGained(FocusEvent e) {
+        if (e.getSource()==numT){
+            String s=numT.getText();
+            String ss=getMyStoreID()+df.format(new Date());
+            if (s.equals(ss+"+5位编号待输入")){
+                numT.setText(ss);
+            }
+        }
+    }
+
+    public void focusLost(FocusEvent e) {
+
     }
 }
