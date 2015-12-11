@@ -1,16 +1,22 @@
 package presentation.contentpanel;
 
 import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.receiptblservice.ChargeReceiptBLService;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
+import presentation.commonpanel.ErrorDialog;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  * Created by Harry on 2015/11/27.
@@ -35,7 +41,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
     MyDefaultTableModel defaultTableModel;
     JTable table;
 
-
+    ChargeReceiptBLService chargeReceiptBLService;
 
     public ChargeReceiptPanel(MainFrame par){
         this.parent=par;
@@ -95,7 +101,15 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
     }
 
     private void initBL(){
-
+        try {
+            chargeReceiptBLService= BLFactory.getChargeReceiptBLService();
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
