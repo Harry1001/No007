@@ -57,6 +57,11 @@ public class Constent {
     public static final int ORDER_ID_LENGTH=10;
 
     /**
+     * 营业厅或中转中心汽运编号位数，虽然合适不同，但都是19位
+     */
+    public static final int QIYUN_ID_LENGTH=19;
+
+    /**
      * 对应枚举类
      * @see typeDefinition.Job
      * 中的顺序
@@ -67,5 +72,24 @@ public class Constent {
     /**
      * 目前支持的地址，寄件单的寄件和收件地址框的前两个字符必须为其中之一
      */
-    public static final String[] LOCATIONS={"南京","北京","上海"};
+    public static final String[] LOCATIONS={"南京","北京","上海","广州"};
+
+    /**
+     * 城市区号，和上一条LOCATIIONS顺序相对应，不可换序
+     */
+    public static final String[] CITY_ID={"025", "010", "021", "020"};
+
+    /**
+     * 根据区号获得城市名称
+     * @param cityID 城市区号
+     * @return 如果找到，返回城市名，否则返回null
+     */
+    public static String getLocationByCityID(String cityID){
+        for (int i=0;i<CITY_ID.length;i++){
+            if (CITY_ID[i].equals(cityID)){
+                return LOCATIONS[i];
+            }
+        }
+        return null;
+    }
 }

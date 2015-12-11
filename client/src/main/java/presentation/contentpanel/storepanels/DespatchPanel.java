@@ -8,6 +8,9 @@ import blfactory.BLFactory;
 import businessLogicService.transportblservice.DespatchBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyLabel;
+import presentation.commoncontainer.MyTextField;
 import presentation.commonpanel.ErrorDialog;
 import vo.receiptvo.DespatchReceiptVO;
 
@@ -26,16 +29,16 @@ import java.util.Date;
  * Created by Harry on 2015/11/27.
  */
 public class DespatchPanel extends JPanel implements ActionListener{
-    JLabel timeL;
-    JLabel numL;
-    JLabel courierL;
+    MyLabel timeL;
+    MyLabel numL;
+    MyLabel courierL;
 
-    JTextField timeT;
-    JTextField numT;
-    JTextField courierT;
+    MyTextField timeT;
+    MyTextField numT;
+    MyTextField courierT;
 
-    JButton submitBT;
-    JButton cancelBT;
+    MyButton submitBT;
+    MyButton cancelBT;
 
     MainFrame parent;
 
@@ -46,19 +49,19 @@ public class DespatchPanel extends JPanel implements ActionListener{
     public DespatchPanel(MainFrame par){
         this.parent=par;
 
-        timeL=new JLabel("到达日期");
-        numL=new JLabel("订单条形码号");
-        courierL=new JLabel("派送员");
+        timeL=new MyLabel("到达日期");
+        numL=new MyLabel("订单条形码号");
+        courierL=new MyLabel("派送员");
 
-        timeT=new JTextField(25);
-        numT=new JTextField(25);
-        courierT=new JTextField(25);
+        timeT=new MyTextField(25);
+        numT=new MyTextField(25);
+        courierT=new MyTextField(25);
 
         //设置时间框里自动生成系统时间
         timeT.setText(df.format(new Date()));
 
-        submitBT=new JButton("提交");
-        cancelBT=new JButton("清空输入");
+        submitBT=new MyButton("提交");
+        cancelBT=new MyButton("清空输入");
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
