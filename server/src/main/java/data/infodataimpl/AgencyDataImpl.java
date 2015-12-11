@@ -40,5 +40,9 @@ public class AgencyDataImpl extends UnicastRemoteObject implements AgencyDataSer
 		agencyDBManager.delete(id);
 		agencyDBManager.add(item);		
 	}
+	
+	public String getAgengcy(String agencyID) throws RemoteException, SQLException {
+		return agencyDBManager.getAgengcy(agencyID);
+	}
 
 }

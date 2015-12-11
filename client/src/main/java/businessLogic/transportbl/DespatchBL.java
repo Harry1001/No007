@@ -6,7 +6,6 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import blfactory.BLFactory;
-import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.DespatchReceiptBLService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.DespatchReceiptVO;
@@ -14,7 +13,6 @@ import vo.receiptvo.DespatchReceiptVO;
 public class DespatchBL{
 
 	DespatchReceiptBLService receiptblservice;
-	LogisticBLService logisticblservice;
 	
 	public boolean verify(DespatchReceiptVO vo) throws TransportBLException {
 		String s=vo.getOrderNum();
@@ -27,8 +25,6 @@ public class DespatchBL{
 	public void submit(DespatchReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException{
 		receiptblservice=BLFactory.getDespatchReceiptBLService();
 		receiptblservice.createReceipt(vo);
-		logisticblservice=BLFactory.getLogisticBLService();
-		logisticblservice.update(vo);
 	}
 	
 }

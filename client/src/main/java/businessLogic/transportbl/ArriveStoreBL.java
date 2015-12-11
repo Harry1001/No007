@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import blfactory.BLFactory;
-import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.StoreArrivalReceiptBLService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.StoreArrivalReceiptVO;
@@ -17,7 +16,6 @@ import vo.receiptvo.StoreArrivalReceiptVO;
 public class ArriveStoreBL{
 
 	StoreArrivalReceiptBLService receiptblservice;
-	LogisticBLService logisticblservice;
 	
 	public boolean verify(StoreArrivalReceiptVO vo) throws TransportBLException{
 		String s1=vo.getTransReceiptID();		
@@ -26,7 +24,6 @@ public class ArriveStoreBL{
 		try {
 			date=format.parse(s1.substring(6,14));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(date==null){
@@ -35,33 +32,9 @@ public class ArriveStoreBL{
 		return true;	
 	}
 	
-	public void submit(StoreArrivalReceiptVO vo) throws  MalformedURLException, NotBoundException {
-		try {
-			receiptblservice=BLFactory.getStoreArrivalReceiptBLService();
-		} catch (RemoteException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		try {
-			receiptblservice.createReceipt(vo);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			logisticblservice=BLFactory.getLogisticBLService();
-			logisticblservice.update(vo);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public void submit(StoreArrivalReceiptVO vo) throws  MalformedURLException, NotBoundException, RemoteException, SQLException {
+		receiptblservice=BLFactory.getStoreArrivalReceiptBLService();
+		receiptblservice.createReceipt(vo);
 	}
 
 }

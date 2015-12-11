@@ -42,4 +42,14 @@ public interface AgencyBLService {
      * @throws SQLException 
      */
     public void modifyAgency( String id, AgencyVO vo) throws InfoBLException, RemoteException, SQLException;
+
+    /**
+	 * 根据机构id到数据层查找相应到机构名称和类型，给logistic更新调用
+	 * @param agencyID
+	 * @return agencyName+Type
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
+	public String getAgengcy(String agencyID) throws RemoteException, SQLException ;
+
 }

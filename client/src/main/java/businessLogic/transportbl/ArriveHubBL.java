@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.HubArrivalReceiptBLService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.HubArrivalReceiptVO;
@@ -17,7 +16,6 @@ import blfactory.BLFactory;;
 public class ArriveHubBL{
 
 	HubArrivalReceiptBLService receiptblservice;
-	LogisticBLService logisticblservice;
 
 	public boolean verify(HubArrivalReceiptVO vo) throws TransportBLException{
 		String s1=vo.getTransReceiptID();
@@ -37,8 +35,6 @@ public class ArriveHubBL{
 	public void submit(HubArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException {
 		receiptblservice=BLFactory.getHubArrivalReceiptBLService();
 		receiptblservice.createReceipt(vo);
-		logisticblservice=BLFactory.getLogisticBLService();
-		logisticblservice.update(vo);
 	}
 	
 }

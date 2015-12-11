@@ -44,4 +44,14 @@ public class AgencyDBManager extends DBManager{
 		stopconnection(connection);		
 		return agencyPOs;
 	}
+	
+	public String getAgengcy(String agencyID) throws SQLException {
+		String find="SELECT * FROM Agency WHERE ID = '" + agencyID + "'";
+		String result=null;
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(find);
+		result=resultSet.getString(1)+resultSet.getString(2);
+		return result;
+	}
 }

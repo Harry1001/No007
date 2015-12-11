@@ -34,4 +34,14 @@ public interface AgencyDataService extends Remote {
 	 * @throws SQLException 
 	 */
 	public void update(String id, AgencyPO item) throws RemoteException, InfoBLException, SQLException;
+
+	/**
+	 * 
+	 * @param agencyID
+	 * @return agencyName+Type
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
+	public String getAgengcy(String agencyID) throws RemoteException, SQLException ;
+
 }

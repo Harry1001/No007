@@ -55,6 +55,9 @@ public class AgencyInfoBL implements AgencyBLService {
     	AgencyPO po = new AgencyPO(vo);
     	agencyData.update(id, po);
     }
-
+ 
+	public String getAgengcy(String agencyID) throws RemoteException, SQLException{
+		return agencyData.getAgengcy(agencyID);
+	}
 
 }

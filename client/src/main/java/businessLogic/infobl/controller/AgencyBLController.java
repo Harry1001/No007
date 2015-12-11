@@ -37,4 +37,8 @@ public class AgencyBLController implements AgencyBLService {
     public void modifyAgency(String id, AgencyVO vo) throws InfoBLException, RemoteException, SQLException {
         agencyInfoBL.modifyAgency(id, vo);
     }
+    
+	public String getAgengcy(String agencyID) throws RemoteException, SQLException{
+		return agencyInfoBL.getAgengcy(agencyID);
+	}
 }
