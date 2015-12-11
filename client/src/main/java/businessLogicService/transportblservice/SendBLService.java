@@ -29,4 +29,6 @@ public interface SendBLService {
 	 * @throws MalformedURLException 
 	 */
 	public double calFee(SendReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
+	
+	public SendReceiptVO getSendReceipt(String orderID) throws RemoteException, SQLException;
 }

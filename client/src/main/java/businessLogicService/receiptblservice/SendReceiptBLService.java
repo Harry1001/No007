@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import po.receiptpo.SendReceiptPO;
 import vo.receiptvo.SendReceiptVO;
 
 public interface SendReceiptBLService {
@@ -21,5 +22,7 @@ public interface SendReceiptBLService {
 	 * @throws SQLException 
 	 */
 	public void createReceipt(SendReceiptVO item) throws RemoteException, SQLException;
+
+	public SendReceiptPO getSendReceipt(String orderID) throws RemoteException, SQLException;
 	
 }

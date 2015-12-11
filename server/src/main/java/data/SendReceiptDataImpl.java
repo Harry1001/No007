@@ -31,4 +31,8 @@ public class SendReceiptDataImpl extends UnicastRemoteObject implements SendRece
 		sendreceiptDBManager.deleteAll();
 	}
 
+	public SendReceiptPO getItem(String orderID) throws SQLException {
+		return sendreceiptDBManager.getItem(orderID);
+	}
+
 }

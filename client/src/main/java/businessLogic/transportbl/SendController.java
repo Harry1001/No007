@@ -25,4 +25,7 @@ public class SendController implements SendBLService{
 		return sendbl.calFee(vo);
 	}
 
+	public SendReceiptVO getSendReceipt(String orderID) throws RemoteException, SQLException {
+		return sendbl.getSendReceipt(orderID);
+	}
 }

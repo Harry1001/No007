@@ -28,4 +28,6 @@ public interface SendReceiptDataService extends Remote {
 	 */
 	public void deleteAll() throws RemoteException, SQLException;
 	
+	public SendReceiptPO getItem(String orderID) throws SQLException;
+
 }
