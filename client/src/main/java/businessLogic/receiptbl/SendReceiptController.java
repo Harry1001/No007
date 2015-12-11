@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businessLogicService.receiptblservice.SendReceiptBLService;
+import po.receiptpo.SendReceiptPO;
 import vo.receiptvo.SendReceiptVO;
 
 public class SendReceiptController implements SendReceiptBLService{
@@ -24,6 +25,10 @@ public class SendReceiptController implements SendReceiptBLService{
 
 	public void createReceipt(SendReceiptVO item) throws RemoteException, SQLException {
 		receiptBL.createReceipt(item);	
+	}
+
+	public SendReceiptPO getSendReceipt(String orderID) throws RemoteException, SQLException {
+		return receiptBL.getSendReceipt(orderID);
 	}
 
 }

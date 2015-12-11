@@ -95,5 +95,32 @@ public class SendReceiptDBManager extends DBManager{
 		statement.executeUpdate(delete);
 		stopconnection(connection);
 	}
+
+	public SendReceiptPO getItem(String orderID) throws SQLException {
+		String sendReceipt="SELECT * FROM SendReceipt WHERE expressNumber = orderID";
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(sendReceipt);
+		String senderName=resultSet.getString(1);
+		String senderLoc=resultSet.getString(2);
+		String senderUnit=resultSet.getString(3);
+		String senderPhone=resultSet.getString(4);
+		String receiverName=resultSet.getString(5);
+		String receiverLoc=resultSet.getString(6);
+		String receiverUnit=resultSet.getString(7);
+		String receiverPhone=resultSet.getString(8);
+		int number=resultSet.getInt(9);
+		double weight=resultSet.getDouble(10);
+		double volume=resultSet.getDouble(11);
+		String name=resultSet.getString(12);
+		String expressType=resultSet.getString(13);
+		String pack=resultSet.getString(14);
+		String expressNumber=resultSet.getString(15);
+		double money=resultSet.getDouble(16);
+		Date time=new Date(resultSet.getTimestamp(17).getTime());
+		SendReceiptPO po=new SendReceiptPO(senderName,senderLoc,senderUnit,senderPhone,receiverName,receiverLoc,
+				receiverUnit,receiverPhone,number,weight,volume,name,expressType,pack,expressNumber,money,time);
+		return po;
+	}
 	
 }

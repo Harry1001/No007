@@ -36,4 +36,9 @@ public class SendReceiptBL {
 		sendReceiptData.addItem(new SendReceiptPO(item));		
 	}
 
+	public SendReceiptPO getSendReceipt(String orderID) throws RemoteException, SQLException {
+		SendReceiptPO po=sendReceiptData.getItem(orderID);
+		return po;
+	}
+
 }

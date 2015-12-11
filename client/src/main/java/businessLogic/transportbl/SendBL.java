@@ -10,6 +10,7 @@ import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.receiptblservice.SendReceiptBLService;
 import businessLogicService.strategyblservice.CalExpressfeeService;
 import myexceptions.TransportBLException;
+import po.receiptpo.SendReceiptPO;
 import vo.receiptvo.SendReceiptVO;
 
 public class SendBL{
@@ -51,4 +52,9 @@ public class SendBL{
 		return strategyblservice.calExpressFee(vo);
 	}
 	
+	public SendReceiptVO getSendReceipt(String orderID) throws RemoteException, SQLException {
+		SendReceiptPO po=receiptblservice.getSendReceipt(orderID);
+		SendReceiptVO vo=new SendReceiptVO(po);
+		return vo;
+	}
 }
