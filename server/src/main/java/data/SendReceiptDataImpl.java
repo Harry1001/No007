@@ -12,6 +12,10 @@ import po.receiptpo.SendReceiptPO;
 
 public class SendReceiptDataImpl extends UnicastRemoteObject implements SendReceiptDataService{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private SendReceiptDBManager sendreceiptDBManager;
 	
 	public SendReceiptDataImpl() throws RemoteException {

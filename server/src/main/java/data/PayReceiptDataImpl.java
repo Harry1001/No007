@@ -12,6 +12,10 @@ import po.receiptpo.PayReceiptPO;
 
 public class PayReceiptDataImpl extends UnicastRemoteObject implements PayReceiptDataService{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private PayReceiptDBManager payReceiptDBManager;
 	
 	public PayReceiptDataImpl() throws RemoteException {

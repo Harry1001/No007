@@ -11,6 +11,10 @@ import po.logisticpo.LogisticPO;
 
 public class LogisticDataImpl extends UnicastRemoteObject implements LogisticDataService{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private LogisticDBManager logisticDBManager;
 	
 	public LogisticDataImpl() throws RemoteException {
