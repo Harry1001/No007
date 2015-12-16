@@ -39,13 +39,13 @@ public interface StrategyDataService extends Remote{
 	/**
 	 * 提供城市距离常量
 	 */
-	public double getDistance(String city1,String city2) throws FileNotFoundException, ClassNotFoundException, IOException;
+	public double getDistance(String city1,String city2) throws RemoteException, FileNotFoundException, ClassNotFoundException, IOException;
 	/**
 	 * 提供距离策略
 	 */
-	public DistancePO getDistanceStrategy() throws FileNotFoundException, ClassNotFoundException, IOException;
+	public DistancePO getDistanceStrategy() throws RemoteException, FileNotFoundException, ClassNotFoundException, IOException;
 	/**
 	 * 更新城市距离常量
 	 */
-	public void updataDistanceStrategy(DistancePO po) throws FileNotFoundException, IOException;
+	public void updateDistanceStrategy(DistancePO po) throws RemoteException, FileNotFoundException, IOException;
 }

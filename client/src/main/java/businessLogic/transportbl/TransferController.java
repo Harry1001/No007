@@ -1,5 +1,7 @@
 package businessLogic.transportbl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -20,7 +22,7 @@ public class TransferController implements TransferBLService{
 		transferbl.submit(vo);
 	}
 
-	public double calFee(TransferReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
+	public double calFee(TransferReceiptVO vo) throws SQLException, NotBoundException, FileNotFoundException, ClassNotFoundException, IOException{
 		return transferbl.calFee(vo);
 	}
 

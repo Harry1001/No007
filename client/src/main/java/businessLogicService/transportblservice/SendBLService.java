@@ -1,5 +1,7 @@
 package businessLogicService.transportblservice;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -27,8 +29,11 @@ public interface SendBLService {
 	 * @throws SQLException 
 	 * @throws NotBoundException 
 	 * @throws MalformedURLException 
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 */
-	public double calFee(SendReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
+	public double calFee(SendReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException, FileNotFoundException, ClassNotFoundException, IOException;
 	
 	public SendReceiptVO getSendReceipt(String orderID) throws RemoteException, SQLException;
 }

@@ -17,6 +17,7 @@ public interface SalaryStrategyBLService {
 	 * 从界面层得到薪水
 	 * @return
 	 * @throws RemoteException
+	 * @throws SQLException 
 	 */
-	public SalaryVO getSalary() throws RemoteException;
+	public SalaryVO getSalary() throws RemoteException, SQLException;
 }

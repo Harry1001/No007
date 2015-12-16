@@ -13,7 +13,7 @@ public interface FeeStrategyBLService {
 	/*
 	 * 得到快递费的策略
 	 */
-	public ExpressFeeVO getExpressFee() throws RemoteException;
+	public ExpressFeeVO getExpressFee() throws RemoteException, SQLException;
 	/*
 	 * 设置运费的策略
 	 */
@@ -21,5 +21,5 @@ public interface FeeStrategyBLService {
 	/*
 	 * 得到运费的策略
 	 */
-	public CarriageFeeVO getCarriageFee() throws RemoteException;
+	public CarriageFeeVO getCarriageFee() throws RemoteException, SQLException;
 }

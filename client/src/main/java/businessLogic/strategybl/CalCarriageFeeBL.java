@@ -1,5 +1,7 @@
 package businessLogic.strategybl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -25,7 +27,7 @@ public class CalCarriageFeeBL extends StrategyBL implements CalCarriageService{
 	}
 	DistanceStrategyBL distance=new DistanceStrategyBL();
 	
-	public double calCarriage(ReceiptVO vo) throws RemoteException, SQLException {
+	public double calCarriage(ReceiptVO vo) throws SQLException, FileNotFoundException, ClassNotFoundException, IOException {
 		
 		CarriageFeePO po=sd.getCarriageFee();
 		double totalPrice=0;

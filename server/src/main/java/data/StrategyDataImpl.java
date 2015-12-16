@@ -111,7 +111,7 @@ public class StrategyDataImpl extends UnicastRemoteObject implements StrategyDat
 		return po;
 	}
 	
-	public void updataDistanceStrategy(DistancePO po) throws FileNotFoundException, IOException {
+	public void updateDistanceStrategy(DistancePO po) throws FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		
 		d.serialize(po);
