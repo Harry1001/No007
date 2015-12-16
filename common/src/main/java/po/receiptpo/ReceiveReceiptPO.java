@@ -9,6 +9,10 @@ import vo.receiptvo.ReceiveReceiptVO;
 public class ReceiveReceiptPO extends ReceiptPO {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * 收件单
 	 */
 

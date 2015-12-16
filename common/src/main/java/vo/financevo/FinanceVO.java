@@ -19,6 +19,10 @@ import po.infopo.TruckPO;
 
 public class FinanceVO implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int year;
 	private ArrayList<StaffVO> staffs;
 	private ArrayList<DriverVO> drivers;

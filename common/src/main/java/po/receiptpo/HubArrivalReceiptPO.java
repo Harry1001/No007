@@ -11,6 +11,10 @@ import vo.receiptvo.HubArrivalReceiptVO;
  */
 public class HubArrivalReceiptPO extends ReceiptPO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String orderID;
     private String hubID;
     private Date arriveTime;

@@ -11,7 +11,11 @@ import vo.receiptvo.PayReceiptVO;
  */
 public class PayReceiptPO extends ReceiptPO {
 
-    private Date payTime;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Date payTime;
     private double fee;
     private String payMan;//付款人
     private String payAccount;//付款帐号

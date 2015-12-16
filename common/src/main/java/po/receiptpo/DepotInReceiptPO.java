@@ -11,7 +11,11 @@ import vo.receiptvo.DepotInReceiptVO;
  */
 public class DepotInReceiptPO extends ReceiptPO {
 
-    private String packID;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String packID;
     private Date inTime;
     private String destination;
     private Location location;

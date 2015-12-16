@@ -11,7 +11,11 @@ import typeDefinition.ReceiptType;
  * Created by Harry on 2015/11/16.
  */
 public class PayReceiptVO extends ReceiptVO {
-    private Date payTime;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Date payTime;
     private double fee;
     private String payMan;//付款人
     private String payAccount;//付款帐号

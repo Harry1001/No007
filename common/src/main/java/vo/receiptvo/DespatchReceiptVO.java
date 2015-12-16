@@ -10,7 +10,11 @@ import typeDefinition.ReceiptType;
  */
 public class DespatchReceiptVO extends ReceiptVO {
 
-    private Date arrivalTime;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Date arrivalTime;
     private String orderNum;
     private String despatchMan;
 

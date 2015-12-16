@@ -11,6 +11,10 @@ import typeDefinition.ReceiptType;
  */
 public class HubArrivalReceiptVO extends ReceiptVO {
     
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String orderID;
 	private String hubID;
     private Date arriveTime;

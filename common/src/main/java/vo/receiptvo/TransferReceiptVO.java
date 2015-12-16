@@ -11,7 +11,11 @@ import java.util.ArrayList;
  * Created by Harry on 2015/11/16.
  */
 public class TransferReceiptVO extends ReceiptVO {
-    private Vehicle transferType;//中转方式
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Vehicle transferType;//中转方式
     private Date transferDate;//中转日期
     private String transferID;//中转单编号
     private String vehicleID;//飞机／铁路）班次或者汽车的车牌号

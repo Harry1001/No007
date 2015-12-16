@@ -11,7 +11,11 @@ import java.util.ArrayList;
  */
 public class ChargeReceiptPO extends ReceiptPO {
 
-    private Date chargeTime;//收款日期
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Date chargeTime;//收款日期
     private double fee;
     private String courier;//TODO 收款快递员，应该名字和工号都需要，待改进
     private ArrayList<String> orderIDs;//所有订单条形码号

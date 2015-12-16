@@ -11,7 +11,11 @@ import vo.receiptvo.DepotOutReceiptVO;
  */
 public class DepotOutReceiptPO extends ReceiptPO {
 
-    private String packID;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String packID;
     private Date outTime;
     private String destination;
     private Vehicle vehicle;//装运形式

@@ -9,6 +9,10 @@ import vo.infovo.InfoVO;
 
 public class StaffVO extends InfoVO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String staffID;//工号
 	private String name;//姓名
 	private String gender;//性别

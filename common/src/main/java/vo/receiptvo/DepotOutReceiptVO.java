@@ -10,7 +10,11 @@ import typeDefinition.Vehicle;
  * Created by Harry on 2015/11/16.
  */
 public class DepotOutReceiptVO extends ReceiptVO {
-    private String packID;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String packID;
     private Date outTime;
     private String destination;
     private Vehicle vehicle;//装运形式

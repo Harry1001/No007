@@ -10,7 +10,11 @@ import java.util.ArrayList;
  * Created by Harry on 2015/11/16.
  */
 public class EntruckReceiptVO extends ReceiptVO {
-    private Date entruckDate;//装车日期
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Date entruckDate;//装车日期
     private String transportID;//营业厅／中转中心汽运编号
     private String arriveLoc;//到达地
     private String truckID;//车辆代号

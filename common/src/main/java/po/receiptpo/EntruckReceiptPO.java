@@ -9,6 +9,10 @@ import vo.receiptvo.EntruckReceiptVO;
 public class EntruckReceiptPO extends ReceiptPO {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * 装车单
 	 */
 

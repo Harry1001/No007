@@ -8,6 +8,10 @@ import vo.receiptvo.StoreArrivalReceiptVO;
 
 public class StoreArrivalReceiptPO extends ReceiptPO{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String orderID;
 	private Date arriveTime;
     private String transReceiptID;
