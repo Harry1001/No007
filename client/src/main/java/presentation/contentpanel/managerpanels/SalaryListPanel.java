@@ -121,7 +121,7 @@ public class SalaryListPanel extends JPanel implements ActionListener {
      */
     protected void initBL(){
         try {
-            salaryService = new BLFactory().getSalaryBLService();
+            salaryService = BLFactory.getSalaryBLService();
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
         } catch (RemoteException e) {

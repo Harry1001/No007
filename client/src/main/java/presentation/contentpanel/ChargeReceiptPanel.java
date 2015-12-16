@@ -4,11 +4,13 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.receiptblservice.ChargeReceiptBLService;
 import constent.Constent;
+import myexceptions.TransportBLException;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
 import presentation.commonpanel.ErrorDialog;
+import vo.receiptvo.ChargeReceiptVO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -105,11 +107,14 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
     private boolean checkMoney(){
         String money=moneyT.getText();
         try{
-            Double.parseDouble(money);
-            return true;
+            double fee=Double.parseDouble(money);
+            if (fee<=0){
+                return  false;
+            }
         }catch (NumberFormatException e){
             return false;
         }
+        return true;
     }
 
     private boolean checkCourier(){
@@ -118,6 +123,15 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
             return false;
         }
         return true;
+    }
+
+    private void checkAll() throws TransportBLException {
+        if (!checkCourier()) throw new TransportBLException("快递员信息不可为空");
+
+        if (!checkMoney()) throw new TransportBLException("收款金额必须为正数");
+
+        if (!checkTime()) throw new TransportBLException("时间格式为: yy-MM-dd");
+
     }
 
     /**
@@ -154,7 +168,12 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
           //  System.out.println(defaultTableModel.getRowCount());
         }
         else if (e.getSource()==submitbt){
+            if (chargeReceiptBLService!=null){
 
+            }
+            else {
+                initBL();
+            }
         }
         else if (e.getSource()==cleanbt){
             refresh();

@@ -237,6 +237,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                             comboBox2.getSelectedItem().toString(), texts[12].getText(),Double.parseDouble(texts[13].getText()),
                             new Date());
                     sendBLService.submit(vo);
+                    logisticBLService.update(parent.getUserIdentity().getId(), vo);
                     refresh();
                 } catch (TransportBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());

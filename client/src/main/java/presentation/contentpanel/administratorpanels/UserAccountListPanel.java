@@ -119,29 +119,31 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
      * 刷新账户列表，进入界面时以及新增、删除、修改后均需调用
      */
     private void refreshList(){
+        if (userAccoutBLService!=null){
+            try {
+                ArrayList<UserAccountVO> userAccountVOs=userAccoutBLService.getUserAccountList();
+                Vector<Vector> data=new Vector<Vector>();
+                for(UserAccountVO vo : userAccountVOs){
+                    Vector v = new Vector();
+                    v.add(new String(vo.getUserID()));
+                    v.add(new String (""+vo.getName()));
+                    v.add(Constent.JOB_STRING[vo.getPosition().ordinal()]);
+                    v.add(vo.getPassword());
 
-        try {
-            ArrayList<UserAccountVO> userAccountVOs=userAccoutBLService.getUserAccountList();
-            Vector<Vector> data=new Vector<Vector>();
-            for(UserAccountVO vo : userAccountVOs){
-                Vector v = new Vector();
-                v.add(new String(vo.getUserID()));
-                v.add(new String (vo.getName()));
-                v.add(Constent.JOB_STRING[vo.getPosition().ordinal()]);
-                v.add(vo.getPassword());
-
-                data.add(v);
+                    data.add(v);
+                }
+                defaultTableModel.setDataVector(data, names);
+                table.revalidate();
+                table.updateUI();
+            } catch (RemoteException e) {
+                new ErrorDialog(parent, "服务器连接超时");
+            } catch (SQLException e) {
+                new ErrorDialog(parent, "数据库异常");
             }
-            defaultTableModel.setDataVector(data, names);
-            table.revalidate();
-            table.updateUI();
-        } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
-        } catch (SQLException e) {
-            new ErrorDialog(parent, "数据库异常");
         }
-
-
+        else {
+            initBL();
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
