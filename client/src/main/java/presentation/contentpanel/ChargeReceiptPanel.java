@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -91,6 +92,34 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         return true;
     }
 
+    private boolean checkTime(){
+        String time=timeT.getText();
+        try{
+            Constent.BIRTHDAY_FORMAT.parse(time);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    private boolean checkMoney(){
+        String money=moneyT.getText();
+        try{
+            Double.parseDouble(money);
+            return true;
+        }catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    private boolean checkCourier(){
+        String person=courierT.getText();
+        if (person.length()<=0){
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 清空输入
      */
@@ -128,7 +157,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
 
         }
         else if (e.getSource()==cleanbt){
-
+            refresh();
         }
 
     }

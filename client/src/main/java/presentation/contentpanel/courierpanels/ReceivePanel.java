@@ -2,6 +2,7 @@ package presentation.contentpanel.courierpanels;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
+import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.transportblservice.ReceiveBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
@@ -31,6 +32,7 @@ import java.util.Date;
 public class ReceivePanel extends JPanel implements ItemListener, ActionListener {
 
     private ReceiveBLService receiveBLService;
+    private LogisticBLService logisticBLService;
     private MainFrame parent;
     private MyLabel l1;
     private MyLabel l2;
@@ -127,6 +129,15 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
      */
     private void initBL(){
         receiveBLService= BLFactory.getReceiveBLService();
+        try {
+            logisticBLService=BLFactory.getLogisticBLService();
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        }
     }
 
     /**
@@ -172,26 +183,31 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
 
         //提价按钮点击
         if (e.getSource()==submitbt){
-            try {
-                Date date= Constent.DATE_FORMAT.parse(t4.getText());
-                ReceiveReceiptVO vo=new ReceiveReceiptVO(t3.getText(), t1.getText(), date);
-                receiveBLService.verify(vo);
-                receiveBLService.submit(vo);
-                refresh();
-            } catch (TransportBLException e1) {
-                new ErrorDialog(parent, e1.getMessage());
-            } catch (RemoteException e1) {
-                new ErrorDialog(parent, "服务器连接超时");
-            } catch (MalformedURLException e1) {
-                new ErrorDialog(parent, "MalformedURLException");
-            } catch (SQLException e1) {
-                new ErrorDialog(parent, "SQLException");
-            } catch (NotBoundException e1) {
-                new ErrorDialog(parent, "NotBoundException");
-            } catch (ParseException e1) {
-                new ErrorDialog(parent, "请不要改变默认时间格式");
+            if ( (logisticBLService!=null) && (receiveBLService!=null)){
+                try {
+                    Date date= Constent.DATE_FORMAT.parse(t4.getText());
+                    ReceiveReceiptVO vo=new ReceiveReceiptVO(t3.getText(), t1.getText(), date);
+                    receiveBLService.verify(vo);
+                    receiveBLService.submit(vo);
+                    logisticBLService.update(parent.getUserIdentity().getId(), vo);
+                    refresh();
+                } catch (TransportBLException e1) {
+                    new ErrorDialog(parent, e1.getMessage());
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (MalformedURLException e1) {
+                    new ErrorDialog(parent, "MalformedURLException");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                } catch (NotBoundException e1) {
+                    new ErrorDialog(parent, "NotBoundException");
+                } catch (ParseException e1) {
+                    new ErrorDialog(parent, "请不要改变默认时间格式");
+                }
             }
-
+            else {
+                initBL();
+            }
             //清空输入按钮点击
         } else if (e.getSource()==refreshbt){
             refresh();

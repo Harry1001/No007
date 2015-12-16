@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
+import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.transportblservice.ArriveStoreBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
@@ -51,6 +52,7 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
     SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
     
     ArriveStoreBLService arriveStore;
+	LogisticBLService logisticBLService;
     
     public StoreArrivePanel(MainFrame par){
         this.parent=par;
@@ -101,7 +103,16 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
     }
 
 	private void initBL() {
-		arriveStore=BLFactory.getArriveStoreBLService();		
+		arriveStore=BLFactory.getArriveStoreBLService();
+		try {
+			logisticBLService=BLFactory.getLogisticBLService();
+		} catch (MalformedURLException e) {
+			new ErrorDialog(parent, "MalformedURLException");
+		} catch (RemoteException e) {
+			new ErrorDialog(parent, "服务器连接超时");
+		} catch (NotBoundException e) {
+			new ErrorDialog(parent, "NotBoundException");
+		}
 	}
 
 	private void refresh() {
@@ -114,46 +125,52 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==submitbt){
-			Date date = null;
-			try {
-				date = df.parse(timeT.getText());
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
-			String order=orderT.getText();
-			String num=numT.getText();
-			String from=fromT.getText();
-			String s=stateC.getSelectedItem().toString();
-			PackArrivalState state;
-			if(s.equals("完整"))
-				state=PackArrivalState.GOOD;
-			else if(s.equals("损坏"))
-				state=PackArrivalState.DEMAGED;
-			else
-				state=PackArrivalState.MISSED;
-			StoreArrivalReceiptVO vo=new StoreArrivalReceiptVO(order,date,num,from,state);
-			boolean isChecked=false;
-			try {
-				isChecked=checkAllFormat();
-			} catch (TransportBLException e1) {
-				new ErrorDialog(parent, e1.getMessage());
-			}
-			if(isChecked){
+			if ( (arriveStore!=null) && (logisticBLService!=null)){
+				Date date = null;
 				try {
-					arriveStore.verify(vo);
-					arriveStore.submit(vo);
-					refresh();
-				} catch (RemoteException e1) {
-					new ErrorDialog(parent,"服务器连接超时");
-				} catch (MalformedURLException e1) {
-					new ErrorDialog(parent,"MalformedURLException");
-				} catch (NotBoundException e1) {
-					new ErrorDialog(parent,"NotBoundException");
-				} catch (SQLException e1) {
-					new ErrorDialog(parent,"数据库异常");
+					date = df.parse(timeT.getText());
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				String order=orderT.getText();
+				String num=numT.getText();
+				String from=fromT.getText();
+				String s=stateC.getSelectedItem().toString();
+				PackArrivalState state;
+				if(s.equals("完整"))
+					state=PackArrivalState.GOOD;
+				else if(s.equals("损坏"))
+					state=PackArrivalState.DEMAGED;
+				else
+					state=PackArrivalState.MISSED;
+				StoreArrivalReceiptVO vo=new StoreArrivalReceiptVO(order,date,num,from,state);
+				boolean isChecked=false;
+				try {
+					isChecked=checkAllFormat();
 				} catch (TransportBLException e1) {
 					new ErrorDialog(parent, e1.getMessage());
 				}
+				if(isChecked){
+					try {
+						arriveStore.verify(vo);
+						arriveStore.submit(vo);
+						logisticBLService.update(parent.getUserIdentity().getId(), vo);
+						refresh();
+					} catch (RemoteException e1) {
+						new ErrorDialog(parent,"服务器连接超时");
+					} catch (MalformedURLException e1) {
+						new ErrorDialog(parent,"MalformedURLException");
+					} catch (NotBoundException e1) {
+						new ErrorDialog(parent,"NotBoundException");
+					} catch (SQLException e1) {
+						new ErrorDialog(parent,"数据库异常");
+					} catch (TransportBLException e1) {
+						new ErrorDialog(parent, e1.getMessage());
+					}
+				}
+			}
+			else {
+				initBL();
 			}
 		}
 		else{

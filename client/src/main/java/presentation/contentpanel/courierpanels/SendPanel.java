@@ -2,6 +2,7 @@ package presentation.contentpanel.courierpanels;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
+import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.strategyblservice.CalExpressfeeService;
 import businessLogicService.transportblservice.SendBLService;
 import constent.Constent;
@@ -32,6 +33,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
 
     private SendBLService sendBLService;
     private CalExpressfeeService calExpressfeeService;
+    private LogisticBLService logisticBLService;
     private MainFrame parent;
     private MyLabel[] labels=new MyLabel[16];
     private MyTextField[] texts=new MyTextField[14];
@@ -166,6 +168,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
     private void initBL(){
         sendBLService= BLFactory.getSendBLService();
         try {
+            logisticBLService=BLFactory.getLogisticBLService();
             calExpressfeeService=BLFactory.getCalExpressfeeService();
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
@@ -184,64 +187,72 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
 
         //计算运费按钮事件
         if (e.getSource()==calFeebt){
-            String fromLoc=texts[1].getText();
-            String toLoc=texts[5].getText();
-            double weight;
-            double volumn;
-            String expressType=comboBox1.getSelectedItem().toString();
-            String wrapType=comboBox2.getSelectedItem().toString();
+            if (logisticBLService!=null){
+                String fromLoc=texts[1].getText();
+                String toLoc=texts[5].getText();
+                double weight;
+                double volumn;
+                String expressType=comboBox1.getSelectedItem().toString();
+                String wrapType=comboBox2.getSelectedItem().toString();
 
-            if (checkLocation(fromLoc)&& checkLocation(toLoc)){
-                try {
-                    weight=Double.parseDouble(texts[9].getText());
-                    volumn=Double.parseDouble(texts[10].getText());
-                    if (weight<=0||volumn<=0){
+                if (checkLocation(fromLoc)&& checkLocation(toLoc)){
+                    try {
+                        weight=Double.parseDouble(texts[9].getText());
+                        volumn=Double.parseDouble(texts[10].getText());
+                        if (weight<=0||volumn<=0){
+                            new ErrorDialog(parent, "重量或体积必须是正整数或小数");
+                        }
+
+                        SendReceiptVO vo=new SendReceiptVO("",fromLoc,"","","",toLoc,"","",1,weight,volumn,"",
+                                expressType,wrapType,"",0.0,new Date());
+
+                        double fee=calExpressfeeService.calExpressFee(vo);
+                        texts[13].setText(fee+"");
+
+                    }catch (NumberFormatException e1){
                         new ErrorDialog(parent, "重量或体积必须是正整数或小数");
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "服务器连接超时");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent, "sql exception");
                     }
 
-                    SendReceiptVO vo=new SendReceiptVO("",fromLoc,"","","",toLoc,"","",1,weight,volumn,"",
-                            expressType,wrapType,"",0.0,new Date());
-
-                    double fee=calExpressfeeService.calExpressFee(vo);
-                    texts[13].setText(fee+"");
-
-                }catch (NumberFormatException e1){
-                    new ErrorDialog(parent, "重量或体积必须是正整数或小数");
-                } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
-                } catch (SQLException e1) {
-                    new ErrorDialog(parent, "sql exception");
+                } else {
+                    new ErrorDialog(parent, "地址前两位必须为市名");
                 }
-
-            } else {
-                new ErrorDialog(parent, "地址前两位必须为市名");
+            }
+            else {
+                initBL();
             }
 
             //提交按钮事件
         } else if (e.getSource()==submitbt){
-            try {
-                checkAllFormat();
-                SendReceiptVO vo=new SendReceiptVO(texts[0].getText(),texts[1].getText(),texts[2].getText(),
-                        texts[3].getText(),texts[4].getText(),texts[5].getText(),texts[6].getText(),
-                        texts[7].getText(),Integer.parseInt(texts[8].getText()),Double.parseDouble(texts[9].getText()),
-                        Double.parseDouble(texts[10].getText()),texts[11].getText(),comboBox1.getSelectedItem().toString(),
-                        comboBox2.getSelectedItem().toString(), texts[12].getText(),Double.parseDouble(texts[13].getText()),
-                        new Date());
-                sendBLService.submit(vo);
-                refresh();
-            } catch (TransportBLException e1) {
-                new ErrorDialog(parent, e1.getMessage());
-            } catch (RemoteException e1) {
-                new ErrorDialog(parent, "服务器连接超时");
-            } catch (MalformedURLException e1) {
-                new ErrorDialog(parent, "MalformedURLException");
-            } catch (SQLException e1) {
-                new ErrorDialog(parent, "SQLException");
-            } catch (NotBoundException e1) {
-                new ErrorDialog(parent, "NotBoundException");
+            if (sendBLService!=null){
+                try {
+                    checkAllFormat();
+                    SendReceiptVO vo=new SendReceiptVO(texts[0].getText(),texts[1].getText(),texts[2].getText(),
+                            texts[3].getText(),texts[4].getText(),texts[5].getText(),texts[6].getText(),
+                            texts[7].getText(),Integer.parseInt(texts[8].getText()),Double.parseDouble(texts[9].getText()),
+                            Double.parseDouble(texts[10].getText()),texts[11].getText(),comboBox1.getSelectedItem().toString(),
+                            comboBox2.getSelectedItem().toString(), texts[12].getText(),Double.parseDouble(texts[13].getText()),
+                            new Date());
+                    sendBLService.submit(vo);
+                    refresh();
+                } catch (TransportBLException e1) {
+                    new ErrorDialog(parent, e1.getMessage());
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (MalformedURLException e1) {
+                    new ErrorDialog(parent, "MalformedURLException");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                } catch (NotBoundException e1) {
+                    new ErrorDialog(parent, "NotBoundException");
+                }
             }
-
-
+            else {
+                initBL();
+            }
         }
     }
 

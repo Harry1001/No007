@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
+import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.transportblservice.ArriveHubBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
@@ -48,6 +49,7 @@ public class HubArrivePanel extends JPanel implements ActionListener{
     SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
     
     ArriveHubBLService arriveHubBLService;
+	LogisticBLService logisticBLService;
     
     public HubArrivePanel(MainFrame par){
         this.parent=par;
@@ -102,53 +104,68 @@ public class HubArrivePanel extends JPanel implements ActionListener{
     }
 
 	private void initBL() {
-		arriveHubBLService=BLFactory.getArriveHubBLService();		
+		arriveHubBLService=BLFactory.getArriveHubBLService();
+		try {
+			logisticBLService=BLFactory.getLogisticBLService();
+		} catch (MalformedURLException e) {
+			new ErrorDialog(parent, "MalformedURLException");
+		} catch (RemoteException e) {
+			new ErrorDialog(parent, "服务器连接超时");
+		} catch (NotBoundException e) {
+			new ErrorDialog(parent, "NotBoundException");
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==submitbt){
-			boolean isChecked=false;
-			try {
-				isChecked=checkAllFormat();
-			} catch (TransportBLException e1) {
-				new ErrorDialog(parent,e1.getMessage());
+			if ((arriveHubBLService!=null) && (logisticBLService!=null)){
+				boolean isChecked=false;
+				try {
+					isChecked=checkAllFormat();
+				} catch (TransportBLException e1) {
+					new ErrorDialog(parent,e1.getMessage());
+				}
+				if(isChecked){
+					String order=orderT.getText();
+					String hub=hubIDT.getText();
+					String time=timeT.getText();
+					String num=numT.getText();
+					String from=fromT.getText();
+					String s=stateC.getSelectedItem().toString();
+					PackArrivalState state;
+					if(s.equals("完整"))
+						state=PackArrivalState.GOOD;
+					else if(s.equals("损坏"))
+						state=PackArrivalState.DEMAGED;
+					else
+						state=PackArrivalState.MISSED;
+					Date date=null;
+					try {
+						date = df.parse(time);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					HubArrivalReceiptVO vo=new HubArrivalReceiptVO(order,hub,date,num,from,state);
+					try {
+						arriveHubBLService.verify(vo);
+						arriveHubBLService.submit(vo);
+						logisticBLService.update(parent.getUserIdentity().getId(), vo);
+						refresh();
+					} catch (TransportBLException e1) {
+						new ErrorDialog(parent,e1.getMessage());
+					} catch (RemoteException e1) {
+						new ErrorDialog(parent, "服务器连接超时");
+					} catch (MalformedURLException e1) {
+						new ErrorDialog(parent, "MalformedURLException");
+					} catch (NotBoundException e1) {
+						new ErrorDialog(parent, "NotBoundException");
+					} catch (SQLException e1) {
+						new ErrorDialog(parent, "SQLException");
+					}
+				}
 			}
-			if(isChecked){
-			String order=orderT.getText();
-			String hub=hubIDT.getText();
-		    String time=timeT.getText();
-		    String num=numT.getText();
-		    String from=fromT.getText();
-		    String s=stateC.getSelectedItem().toString();
-			PackArrivalState state;
-			if(s.equals("完整"))
-				state=PackArrivalState.GOOD;
-			else if(s.equals("损坏"))
-				state=PackArrivalState.DEMAGED;
-			else
-				state=PackArrivalState.MISSED;
-			Date date=null;
-			try {
-				date = df.parse(time);
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
-			HubArrivalReceiptVO vo=new HubArrivalReceiptVO(order,hub,date,num,from,state);
-			try {
-				arriveHubBLService.verify(vo);
-				arriveHubBLService.submit(vo);
-				refresh();
-			} catch (TransportBLException e1) {
-				new ErrorDialog(parent,e1.getMessage());
-			} catch (RemoteException e1) {
-				new ErrorDialog(parent, "服务器连接超时");
-			} catch (MalformedURLException e1) {
-				new ErrorDialog(parent, "MalformedURLException");
-			} catch (NotBoundException e1) {
-				new ErrorDialog(parent, "NotBoundException");
-			} catch (SQLException e1) {
-				new ErrorDialog(parent, "SQLException");
-			}
+			else {
+				initBL();
 			}
 		}else{
 			refresh();

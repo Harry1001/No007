@@ -5,6 +5,7 @@ import javax.swing.border.TitledBorder;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
+import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.transportblservice.DespatchBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
@@ -45,6 +46,7 @@ public class DespatchPanel extends JPanel implements ActionListener{
     SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
 
     DespatchBLService despatchBLService;
+    LogisticBLService logisticBLService;
     
     public DespatchPanel(MainFrame par){
         this.parent=par;
@@ -99,7 +101,16 @@ public class DespatchPanel extends JPanel implements ActionListener{
 
     
     private void initBL() {
-    	despatchBLService=BLFactory.getDespatchBLService();		
+    	despatchBLService=BLFactory.getDespatchBLService();
+        try {
+            logisticBLService=BLFactory.getLogisticBLService();
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        }
 	}
 
     private void refresh() {
@@ -110,30 +121,36 @@ public class DespatchPanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
         if(e.getSource()==submitBT){
-        	Date date = null;
-			try {
-				date = df.parse(timeT.getText());
-			} catch (ParseException e1) {
-				new ErrorDialog(parent, "到达日期必须为2015-01-01格式");
-			}
-        	String num=numT.getText();
-        	boolean isTrue=checkOrderID(num);
-        	String courier=courierT.getText();
-        	DespatchReceiptVO vo=new DespatchReceiptVO(date,num,courier);
-        	if(date!=null&&isTrue){
-        		try {
-					despatchBLService.submit(vo);
-					refresh();
-				} catch (RemoteException e1) {
-					new ErrorDialog(parent,"服务器连接超时");
-				} catch (MalformedURLException e1) {
-					new ErrorDialog(parent,"MalformedURLException");
-				} catch (NotBoundException e1) {
-					new ErrorDialog(parent,"NotBoundException");
-				} catch (SQLException e1) {
-					new ErrorDialog(parent,"数据库异常");
-				}
-        	}
+        	if ((despatchBLService!=null)&&(logisticBLService!=null)){
+                Date date = null;
+                try {
+                    date = df.parse(timeT.getText());
+                } catch (ParseException e1) {
+                    new ErrorDialog(parent, "到达日期必须为2015-01-01格式");
+                }
+                String num=numT.getText();
+                boolean isTrue=checkOrderID(num);
+                String courier=courierT.getText();
+                DespatchReceiptVO vo=new DespatchReceiptVO(date,num,courier);
+                if(date!=null&&isTrue){
+                    try {
+                        despatchBLService.submit(vo);
+                        logisticBLService.update(parent.getUserIdentity().getId(), vo);
+                        refresh();
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent,"服务器连接超时");
+                    } catch (MalformedURLException e1) {
+                        new ErrorDialog(parent,"MalformedURLException");
+                    } catch (NotBoundException e1) {
+                        new ErrorDialog(parent,"NotBoundException");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent,"数据库异常");
+                    }
+                }
+            }
+            else {
+                initBL();
+            }
         }
         else {//取消按钮
         	refresh();
