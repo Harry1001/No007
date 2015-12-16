@@ -1,9 +1,14 @@
 package MainFrame;
 
+import businessLogic.strategybl.DistanceStrategyBL;
 import presentation.uifactory.UIFactory;
 import vo.loginvo.LoginResultVO;
 
 import javax.swing.*;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 
 /**
@@ -18,7 +23,20 @@ public class MainFrame extends JFrame {
 	private LoginResultVO userIdentity=null;
 
     public static void main(String [] argv){
-
+        //
+        try {
+            DistanceStrategyBL bl=new DistanceStrategyBL();
+            bl.initDistance();
+        } catch (MalformedURLException e) {
+            System.out.println("挂了1");
+        } catch (RemoteException e) {
+            System.out.println("挂了2");
+        } catch (NotBoundException e) {
+            System.out.println("挂了3");
+        } catch (SQLException e) {
+            System.out.println("挂了4");
+        }
+        //
         MainFrame frame=new MainFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         try{

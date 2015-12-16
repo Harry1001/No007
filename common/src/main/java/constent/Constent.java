@@ -77,12 +77,12 @@ public class Constent {
     /**
      * 目前支持的地址，寄件单的寄件和收件地址框的前两个字符必须为其中之一
      */
-    public static final String[] LOCATIONS={"南京","北京","上海","广州"};
+    public static final String[] LOCATIONS={"北京","上海","广州","南京"};
 
     /**
      * 城市区号，和上一条LOCATIIONS顺序相对应，不可换序
      */
-    public static final String[] CITY_ID={"025", "010", "021", "020"};
+    public static final String[] CITY_ID={"010", "021", "020", "025"};
 
     /**
      * 根据区号获得城市名称

@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Vector;
 
 import businessLogic.recordbl.RecordBL;
 import businessLogicService.strategyblservice.DistanceService;
@@ -25,6 +26,47 @@ public class DistanceStrategyBL implements DistanceService{
 	}
 	
 	RecordBL rb=new RecordBL();
+
+	//==============================待删除=============================
+	public void initDistance() throws RemoteException, SQLException {
+		Vector<String> city=new Vector<String>();
+		city.add("北京");
+		city.add("上海");
+		city.add("广州");
+		city.add("南京");
+		Vector<Vector<Object>> data=new Vector<Vector<Object>>();
+		Vector<Object> v1=new Vector<Object>();
+		v1.add(new String("北京"));
+		v1.add(new Double(0.0));
+		v1.add(new Double(1064.7));
+		v1.add(new Double(1888.8));
+		v1.add(new Double(900.0));
+		Vector<Object> v2=new Vector<Object>();
+		v1.add(new String("上海"));
+		v1.add(new Double(1064.7));
+		v1.add(new Double(0.0));
+		v1.add(new Double(1213));
+		v1.add(new Double(266));
+		Vector<Object> v3=new Vector<Object>();
+		v1.add(new String("广州"));
+		v1.add(new Double(1888.8));
+		v1.add(new Double(1213));
+		v1.add(new Double(0));
+		v1.add(new Double(1132));
+		Vector<Object> v4=new Vector<Object>();
+		v1.add(new String("南京"));
+		v1.add(new Double(900));
+		v1.add(new Double(266));
+		v1.add(new Double(1132));
+		v1.add(new Double(0));
+		data.add(v1);
+		data.add(v2);
+		data.add(v3);
+		data.add(v4);
+		DistanceVO vo=new DistanceVO(city, data);
+		setDistance(vo);
+	}
+	//=============================================================
 	public void setDistance(DistanceVO vo) throws RemoteException, SQLException{
 		DistancePO po=new DistancePO(vo);
 		sd.updataDistanceStrategy(po);
