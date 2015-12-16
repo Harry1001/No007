@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import businessLogicService.strategyblservice.CalSalaryService;
 
@@ -22,7 +23,7 @@ public class CalSalaryBL extends StrategyBL implements CalSalaryService{
 	}
 	
 
-	public CalSalaryBL(StrategyDataService dataService)throws MalformedURLException, RemoteException, NotBoundException{
+	public CalSalaryBL(StrategyDataService dataService)throws MalformedURLException, RemoteException, NotBoundException, SQLException{
 		this.sd=dataService;
 		initPO();
 	}
@@ -49,7 +50,7 @@ public class CalSalaryBL extends StrategyBL implements CalSalaryService{
 	}
 	
 
-	private void initPO(){
+	private void initPO() throws SQLException{
 		try{
 			po=sd.getSalary();
 		}catch (RemoteException e){

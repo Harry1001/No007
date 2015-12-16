@@ -25,19 +25,19 @@ public class StrategyController {
 		strategybl.setSalary(vo);
 	}
 
-	public ExpressFeeVO getExpressFee() throws RemoteException {
+	public ExpressFeeVO getExpressFee() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		ExpressFeeVO vo=strategybl.getExpressFee();
 		return vo;
 	}
 
-	public CarriageFeeVO getCarriage() throws RemoteException {
+	public CarriageFeeVO getCarriage() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		CarriageFeeVO vo=strategybl.getCarriageFee();
 		return vo;
 	}
 
-	public SalaryVO getSalary() throws RemoteException {
+	public SalaryVO getSalary() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		SalaryVO vo=strategybl.getSalary();
 		return vo;

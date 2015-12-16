@@ -1,5 +1,7 @@
 package businessLogicService.strategyblservice;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
@@ -9,5 +11,5 @@ public interface CalExpressfeeService {
 	/*
 	 * 计算快递费
 	 */
-	public double calExpressFee(SendReceiptVO vo) throws RemoteException, SQLException;
+	public double calExpressFee(SendReceiptVO vo) throws RemoteException, SQLException, FileNotFoundException, ClassNotFoundException, IOException;
 }

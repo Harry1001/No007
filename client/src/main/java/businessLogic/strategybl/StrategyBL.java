@@ -53,21 +53,21 @@ public class StrategyBL implements FeeStrategyBLService,SalaryStrategyBLService{
 		rb.add(rvo);
 	}
 
-	public final ExpressFeeVO getExpressFee() throws RemoteException {
+	public final ExpressFeeVO getExpressFee() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		ExpressFeePO po=sd.getExpressFee();
 		ExpressFeeVO vo=new ExpressFeeVO(po);
 		return vo;
 	}
 
-	public final CarriageFeeVO getCarriageFee() throws RemoteException {
+	public final CarriageFeeVO getCarriageFee() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		CarriageFeePO po=sd.getCarriageFee();
 		CarriageFeeVO vo=new CarriageFeeVO(po);
 		return vo;
 	}
 
-	public final SalaryVO getSalary() throws RemoteException {
+	public final SalaryVO getSalary() throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		SalaryPO po=sd.getSalary();
 		SalaryVO vo=new SalaryVO(po);
