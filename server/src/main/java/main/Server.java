@@ -15,8 +15,10 @@ import server.HubArrivalReceiptServer;
 import server.LogisticServer;
 import server.PayReceiptServer;
 import server.ReceiveReceiptServer;
+import server.RecordServer;
 import server.SendReceiptServer;
 import server.StoreArrivalReceiptServer;
+import server.StrategyServer;
 import server.TransferReceiptServer;
 import server.infoserver.AgencyServer;
 import server.infoserver.BankAccountServer;
@@ -133,5 +135,16 @@ public class Server {
 		UserAccountServer userAccountServer = new UserAccountServer();
 		userAccountServer.register();
 		
+		/**
+		 * 启动策略服务器
+		 */
+		StrategyServer strategyServer = new StrategyServer();
+		strategyServer.register();
+		
+		/**
+		 * 启动日志服务器
+		 */
+		RecordServer recordServer = new RecordServer();
+		recordServer.register();
 	}
 }
