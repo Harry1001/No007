@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import myexceptions.InfoBLException;
 import po.infopo.UserAccountPO;
-import typeDefinition.Job;
 import vo.loginvo.LoginInputVO;
 import vo.loginvo.LoginResultVO;
 

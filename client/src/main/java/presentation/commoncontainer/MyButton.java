@@ -7,7 +7,12 @@ import java.awt.*;
  * Created by Harry on 2015/12/4.
  */
 public class MyButton extends JButton {
-    public MyButton(String text) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public MyButton(String text) {
         this.setText(text);
         initialize();
     }

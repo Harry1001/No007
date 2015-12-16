@@ -84,6 +84,8 @@ public class LogisticBL implements LogisticBLService{
 			orderID=rvo.getReceiveNum();
 			remove(orderID);
 			break;
+		default:
+			break;
 		}
 
 	}

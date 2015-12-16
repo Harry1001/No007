@@ -25,7 +25,6 @@ import data.FinanceDataImpl;
 import dataService.FinanceDataService;
 import dataService._RMI;
 import po.financepo.FinancePO;
-import typeDefinition.ReceiptType;
 import vo.commodityvo.CommodityVO;
 import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;

@@ -3,7 +3,6 @@ package businessLogic.infobl.controller;
 import businessLogic.infobl.bl.UserAccountInfoBL;
 import businessLogicService.infoblservice.UserAccoutBLService;
 import myexceptions.InfoBLException;
-import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
 import vo.loginvo.LoginInputVO;
 import vo.loginvo.LoginResultVO;

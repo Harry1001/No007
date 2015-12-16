@@ -39,6 +39,8 @@ public class CalSalaryBL extends StrategyBL implements CalSalaryService{
 		case HUBSALESMAN:salary=po.getHubsalesmanBS();break;
 		case STOREKEEPER:salary=po.getStorekeeperBS();break;
 		case ADMINISTRATOR:salary=po.getAdministerBS();break;
+		default:
+			break;
 		}
 		
 		

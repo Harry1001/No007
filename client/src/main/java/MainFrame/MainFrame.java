@@ -11,7 +11,11 @@ import javax.swing.*;
  */
 public class MainFrame extends JFrame {
 
-    private LoginResultVO userIdentity=null;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private LoginResultVO userIdentity=null;
 
     public static void main(String [] argv){
 

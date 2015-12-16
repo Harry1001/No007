@@ -4,7 +4,6 @@ import dataService._RMI;
 import dataService.infodataservice.UserAccountDataService;
 import myexceptions.InfoBLException;
 import po.infopo.UserAccountPO;
-import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
 import vo.loginvo.LoginInputVO;
 import vo.loginvo.LoginResultVO;
@@ -15,8 +14,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import javax.naming.spi.DirStateFactory.Result;
 
 import businessLogicService.infoblservice.UserAccoutBLService;
 

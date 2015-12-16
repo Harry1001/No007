@@ -23,8 +23,6 @@ import businessLogicService.receiptblservice.*;
 import businessLogicService.strategyblservice.*;
 import businessLogicService.transportblservice.*;
 
-import javax.naming.NamingException;
-
 /**
  * Created by Harry on 2015/11/21.
  * 业务逻辑对象创建工厂，在界面层需要创建业务逻辑对象或者其他bl使用别的bl时使用

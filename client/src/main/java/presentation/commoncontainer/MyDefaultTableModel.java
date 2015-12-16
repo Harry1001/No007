@@ -8,7 +8,12 @@ import java.util.Vector;
  * Created by Harry on 2015/12/4.
  */
 public class MyDefaultTableModel extends DefaultTableModel {
-    public MyDefaultTableModel() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public MyDefaultTableModel() {
     }
 
     public MyDefaultTableModel(Object[] columnNames, int rowCount) {
