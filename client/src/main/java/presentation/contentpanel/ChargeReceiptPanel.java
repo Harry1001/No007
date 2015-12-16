@@ -3,6 +3,7 @@ package presentation.contentpanel;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.receiptblservice.ChargeReceiptBLService;
+import constent.Constent;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyLabel;
@@ -17,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Date;
 
 /**
  * Created by Harry on 2015/11/27.
@@ -45,6 +47,93 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
 
     public ChargeReceiptPanel(MainFrame par){
         this.parent=par;
+
+        initUI();
+
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//单选模式
+
+        appendbt.addActionListener(this);
+        deletebt.addActionListener(this);
+        submitbt.addActionListener(this);
+        cleanbt.addActionListener(this);
+
+        initBL();
+        setPresentTime();
+    }
+
+    private void initBL(){
+        try {
+            chargeReceiptBLService= BLFactory.getChargeReceiptBLService();
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        }
+    }
+
+    private void setPresentTime(){
+        String time= Constent.BIRTHDAY_FORMAT.format(new Date());
+        timeT.setText(time);
+    }
+
+    private boolean checkOrderID(){
+        String id=orderNumT.getText();
+        if (id.length()!=Constent.ORDER_ID_LENGTH){
+            return false;
+        }
+        for (int i=0;i<Constent.ORDER_ID_LENGTH;i++){
+            if (id.charAt(i)<'0'||id.charAt(i)>'9') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 清空输入
+     */
+    private void refresh(){
+        setPresentTime();
+        moneyT.setText("");
+        courierT.setText("");
+        orderNumT.setText("");
+        defaultTableModel.getDataVector().clear();
+        table.revalidate();
+        table.updateUI();
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==appendbt){
+            if (checkOrderID()){
+                String [] s={orderNumT.getText()};
+                defaultTableModel.addRow(s);
+            }
+            else {
+                new ErrorDialog(parent, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位整数");
+            }
+           // System.out.println(defaultTableModel.getRowCount());
+        }
+        else if (e.getSource()==deletebt){
+            int row=table.getSelectedRow();
+            if (row>-1) {
+                defaultTableModel.removeRow(row);
+            }
+            table.revalidate();
+            table.updateUI();
+          //  System.out.println(defaultTableModel.getRowCount());
+        }
+        else if (e.getSource()==submitbt){
+
+        }
+        else if (e.getSource()==cleanbt){
+
+        }
+
+    }
+
+    private void initUI(){
         String [] names={"订单条形码号"};
         String [][] data={};
         defaultTableModel=new MyDefaultTableModel(data, names);
@@ -93,44 +182,5 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         this.add(submitbt,gbc);
         gbc.gridx=2;
         this.add(cleanbt,gbc);
-
-        appendbt.addActionListener(this);
-        deletebt.addActionListener(this);
-        submitbt.addActionListener(this);
-        cleanbt.addActionListener(this);
-    }
-
-    private void initBL(){
-        try {
-            chargeReceiptBLService= BLFactory.getChargeReceiptBLService();
-        } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
-        } catch (RemoteException e) {
-            new ErrorDialog(parent, "MalformedURLException");
-        } catch (NotBoundException e) {
-            new ErrorDialog(parent, "MalformedURLException");
-        }
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==appendbt){
-            String [] s={orderNumT.getText()};
-            defaultTableModel.addRow(s);
-           // System.out.println(defaultTableModel.getRowCount());
-        }
-        else if (e.getSource()==deletebt){
-            int[] rows=table.getSelectedRows();
-            for(int i:rows){
-                defaultTableModel.removeRow(i);
-            }
-          //  System.out.println(defaultTableModel.getRowCount());
-        }
-        else if (e.getSource()==submitbt){
-
-        }
-        else if (e.getSource()==cleanbt){
-
-        }
-
     }
 }
