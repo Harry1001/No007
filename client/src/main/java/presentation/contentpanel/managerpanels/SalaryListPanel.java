@@ -112,6 +112,8 @@ public class SalaryListPanel extends JPanel implements ActionListener {
             table.updateUI();
         } catch (RemoteException e) {
             new ErrorDialog(parent, "服务器连接超时");
+        } catch (SQLException e) {
+            new ErrorDialog(parent, "SQLException");
         }
     }
 

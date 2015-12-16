@@ -5,6 +5,7 @@ import presentation.uifactory.UIFactory;
 import vo.loginvo.LoginResultVO;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -35,6 +36,8 @@ public class MainFrame extends JFrame {
             System.out.println("挂了3");
         } catch (SQLException e) {
             System.out.println("挂了4");
+        } catch (IOException e) {
+            System.out.println("挂了5");
         }
         //
         MainFrame frame=new MainFrame();

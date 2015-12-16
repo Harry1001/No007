@@ -28,10 +28,10 @@ public class DistanceStrategyBL implements DistanceService{
 	}
 
 	RecordBL rb=new RecordBL();
-<<<<<<< HEAD
+
 
 	//==============================待删除=============================
-	public void initDistance() throws RemoteException, SQLException {
+	public void initDistance() throws IOException, SQLException {
 		Vector<String> city=new Vector<String>();
 		city.add("北京");
 		city.add("上海");
@@ -70,10 +70,9 @@ public class DistanceStrategyBL implements DistanceService{
 		setDistance(vo);
 	}
 	//=============================================================
-	public void setDistance(DistanceVO vo) throws RemoteException, SQLException{
-=======
+
 	public void setDistance(DistanceVO vo) throws SQLException, FileNotFoundException, IOException{
->>>>>>> origin/master
+
 		DistancePO po=new DistancePO(vo);
 		sd.updateDistanceStrategy(po);
 		RecordVO rvo=new RecordVO(new Date(),"总经理","制定/修改城市间距离");

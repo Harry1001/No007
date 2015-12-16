@@ -21,6 +21,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -185,7 +187,14 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
             new ErrorDialog(parent, "服务器连接超时");
         } catch (SQLException e) {
             new ErrorDialog(parent, "SQLException");
+        } catch (ClassNotFoundException e) {
+            new ErrorDialog(parent, "ClassNotFoundException");
+        } catch (FileNotFoundException e1) {
+            new ErrorDialog(parent, "FileNotFoundException");
+        } catch (IOException e1) {
+            new ErrorDialog(parent, "IOException");
         }
+
     }
 
     /**

@@ -119,6 +119,8 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
 
         } catch (RemoteException e) {
             new ErrorDialog(parent, "服务器连接超时");
+        } catch (SQLException e) {
+            new ErrorDialog(parent, "SQLException");
         }
     }
 
