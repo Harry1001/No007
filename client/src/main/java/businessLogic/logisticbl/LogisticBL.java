@@ -60,7 +60,7 @@ public class LogisticBL implements LogisticBLService{
 			StoreArrivalReceiptVO savo=(StoreArrivalReceiptVO)vo;
 			orderID=savo.getOrderID();
 			arrivaltime=savo.getArriveTime();
-			logisticstate="到达"+agencyBLService.getAgengcy(userID);
+			logisticstate="到达"+agencyBLService.getAgengcy(userID.substring(0,6));
 			po=new LogisticPO(orderID,arrivaltime,logisticstate);
 			logisticdata.update(po);
 			break;
@@ -68,7 +68,7 @@ public class LogisticBL implements LogisticBLService{
 			HubArrivalReceiptVO havo=(HubArrivalReceiptVO)vo;
 			orderID=havo.getOrderID();
 			arrivaltime=havo.getArriveTime();
-			logisticstate="到达"+agencyBLService.getAgengcy(userID);
+			logisticstate="到达"+agencyBLService.getAgengcy(userID.substring(0,4));
 			po=new LogisticPO(orderID,arrivaltime,logisticstate);
 			logisticdata.update(po);
 			break;
