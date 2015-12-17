@@ -33,8 +33,12 @@ public class TimePanel extends JPanel {
             int year=Integer.parseInt(yearT.getText());
             int month=Integer.parseInt(monthT.getText());
             int date=Integer.parseInt(dateT.getText());
-            return new Date(year-1900,month-1,date);
-        }catch (Exception e){
+
+            Calendar c= Calendar.getInstance();
+            c.set(year, month, date);
+            return c.getTime();
+
+        }catch (NumberFormatException e){
             throw new TimeFormatException("日期格式错误");
         }
     }

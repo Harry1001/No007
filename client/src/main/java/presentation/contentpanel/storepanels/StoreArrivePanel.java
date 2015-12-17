@@ -179,16 +179,25 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 	}
 	
 	private boolean checkAllFormat() throws TransportBLException {		
-		if(!checkOrderID(orderT.getText()))
-			throw new TransportBLException("订单编号必须为10位数");
-		if(!checkNumID(numT.getText()))
-			throw new TransportBLException("中转单编号必须为19位数");
-		if(!checkDate(timeT.getText()))
+		if(!checkOrderID())
+			throw new TransportBLException("订单编号必须为"+Constent.ORDER_ID_LENGTH+"位数");
+		if(!checkNumID())
+			throw new TransportBLException("中转单编号必须为"+Constent.Transfer_ID_LENGTH+"位数");
+		if(!checkDate())
 			throw new TransportBLException("到达日期必须为2015-01-01格式");
+		if (!checkFrom())
+			throw new TransportBLException("出发地不可为空");
+
 		return true;
 	}
 
-	private boolean checkOrderID(String s) {
+	private boolean checkFrom(){
+		String s=fromT.getText();
+		return !s.isEmpty();
+	}
+
+	private boolean checkOrderID() {
+		String s=orderT.getText();
 		if (s.length()!=Constent.ORDER_ID_LENGTH)
 	        return false;
 	    for (int i=0;i<Constent.ORDER_ID_LENGTH;i++){
@@ -198,7 +207,8 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 	    return true;
 	}
 
-	private boolean checkNumID(String s) {
+	private boolean checkNumID() {
+		String s=numT.getText();
 		if (s.length()!=Constent.Transfer_ID_LENGTH)
 	        return false;
 	    for (int i=0;i<Constent.Transfer_ID_LENGTH;i++){
@@ -208,10 +218,10 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 	    return true;		
 	}
 	
-	private boolean checkDate(String s){
-		Date date=null;
+	private boolean checkDate(){
+		String s=timeT.getText();
 		try {
-			date = df.parse(s);
+			df.parse(s);
 		} catch (ParseException e1) {
 			return false;
 		}

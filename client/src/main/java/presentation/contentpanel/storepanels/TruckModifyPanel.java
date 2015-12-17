@@ -52,6 +52,7 @@ public class TruckModifyPanel extends TruckInfoPanel {
                 TruckVO vo = new TruckVO(id, chepai, engine, dipan, buyTime, fuyiTime);
                 truckBLService.modifyTruck(originID, vo);
                 listPanel.refreshList();
+                dialog.dispose();
             } catch (TimeFormatException e1) {
                 new ErrorDialog(parent, "时间格式错误");
             } catch (RemoteException e1) {

@@ -2,6 +2,7 @@ package presentation.contentpanel.storepanels;
 
 import MainFrame.MainFrame;
 import businessLogicService.infoblservice.TruckBLService;
+import constent.Constent;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
 import presentation.commoncontainer.MyButton;
@@ -51,6 +52,7 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
 
+        gbc.gridx=gbc.gridy=0;
         this.add(truckIDL,gbc);
         gbc.gridy=1;
         this.add(engineIDL,gbc);
@@ -84,9 +86,96 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
         cancelbt.addActionListener(this);
     }
 
-    protected boolean checkAll(){
-        //todo
+    private boolean isDigit(String s){
+        for (int i=0;i<s.length();i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9'){
+                return false;
+            }
+        }
         return true;
+    }
+
+    private boolean checkTruckID(){
+        String id=textFields[0].getText();
+        if (id.length()!= Constent.TRUCK_ID_LENGTH){
+            return false;
+        }
+        return isDigit(id);
+    }
+
+    private boolean checkEngineID(){
+        String engineID=textFields[1].getText();
+        return !engineID.isEmpty();//由于不知道发动机号的格式会不会随机型变化而变化，故只能测试是否为空
+    }
+
+    private boolean checkChePai(){
+        String chePai=textFields[2].getText();
+        return !chePai.isEmpty();
+    }
+
+    private boolean checkDiPan(){
+        String diPan=textFields[3].getToolTipText();
+        return !diPan.isEmpty();
+    }
+
+    private boolean checkServeTime(){
+        String serveTime=textFields[4].getText();
+        try{
+            int t=Integer.parseInt(serveTime);
+            return (t>0);
+        }catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    private boolean checkBuyTime(){
+        try{
+            Date buytime=timePanel.getDate();
+            return buytime.before(new Date());//时间必须在当前系统时间以前
+        } catch (TimeFormatException e) {
+            return false;
+        }
+    }
+
+    protected boolean checkAll(){
+        if (!checkTruckID()){
+            new ErrorDialog(parent, "车辆代号必须为"+Constent.TRUCK_ID_LENGTH+"位2数字");
+            return false;
+        }
+
+        if (!checkEngineID()){
+            new ErrorDialog(parent, "发动机号不得为空");
+            return false;
+        }
+
+        if (!checkChePai()){
+            new ErrorDialog(parent, "车牌号不得为空");
+            return false;
+        }
+
+        if (!checkDiPan()){
+            new ErrorDialog(parent, "底盘号不得为空");
+            return false;
+        }
+
+        if (!checkServeTime()){
+            new ErrorDialog(parent, "服役时间必须为正整数");
+            return false;
+        }
+
+        if (!checkBuyTime()){
+            new ErrorDialog(parent, "请填写正确的时间格式，时间必须早于当前系统时间");
+            return false;
+        }
+
+        return true;
+    }
+
+    protected void refresh(){
+        for (int i=0;i<5;i++){
+            textFields[i].setText("");
+        }
+        timePanel.makeEmpty();
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -103,6 +192,7 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
                     TruckVO vo = new TruckVO(id, chepai, engine, dipan, buyTime, fuyiTime);
                     truckBLService.addTruck(vo);
                     listPanel.refreshList();
+                    refresh();
                 } catch (TimeFormatException e1) {
                     new ErrorDialog(parent, "时间格式错误");
                 } catch (RemoteException e1) {

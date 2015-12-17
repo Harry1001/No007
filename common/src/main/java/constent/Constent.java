@@ -12,6 +12,11 @@ public class Constent {
     public static final int USER_ID_LENGTH=9;
 
     /**
+     * 身份证号长度
+     */
+    public static final int PERSON_ID_LENGTH=18;
+
+    /**
      * 手机号位数
      */
     public static final int PHONE_LENGTH=11;
@@ -67,11 +72,22 @@ public class Constent {
     public static final int TRUCK_ID_LENGTH=9;
 
     /**
+     * 司机编号位数
+     */
+    public static final int DRIVER_ID_LENGTH=9;
+
+    /**
+     * 拥有登录该系统帐号的职位
+     */
+    public static final String [] USER_ACCOUNR_JOB = {"快递员","营业厅业务员","中转中心业务员","财务人员",
+            "仓库管理员","总经理","管理员"};
+
+    /**
      * 对应枚举类
      * @see typeDefinition.Job
      * 中的顺序
      */
-    public static final String [] JOB_STRING={"寄件人","快递员","营业厅业务员","中转中心业务员","财务人员" +
+    public static final String [] JOB_STRING={"寄件人","快递员","营业厅业务员","中转中心业务员","财务人员",
             "仓库管理员","总经理","管理员","司机"};
 
     /**

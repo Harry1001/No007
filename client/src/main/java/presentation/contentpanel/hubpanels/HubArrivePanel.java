@@ -8,6 +8,9 @@ import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.transportblservice.ArriveHubBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyLabel;
+import presentation.commoncontainer.MyTextField;
 import presentation.commonpanel.ErrorDialog;
 import typeDefinition.PackArrivalState;
 import vo.receiptvo.HubArrivalReceiptVO;
@@ -29,22 +32,22 @@ import java.util.Date;
 public class HubArrivePanel extends JPanel implements ActionListener{
     MainFrame parent;
 
-    JLabel orderL=new JLabel("订单编号");
-    JLabel hubIDL=new JLabel("中转中心编号");
-    JLabel timeL=new JLabel("到达日期");
-    JLabel numL=new JLabel("中转/装车单编号");
-    JLabel fromL=new JLabel("出发地");
-    JLabel stateL=new JLabel("货物到达状态");
+    MyLabel orderL=new MyLabel("订单编号");
+    MyLabel hubIDL=new MyLabel("中转中心编号");
+    MyLabel timeL=new MyLabel("到达日期");
+    MyLabel numL=new MyLabel("中转/装车单编号");
+    MyLabel fromL=new MyLabel("出发地");
+    MyLabel stateL=new MyLabel("货物到达状态");
 
-    JTextField orderT=new JTextField(25);
-    JTextField hubIDT=new JTextField(25);
-    JTextField timeT=new JTextField(25);
-    JTextField numT=new JTextField(25);
-    JTextField fromT=new JTextField(25);
+    MyTextField orderT=new MyTextField(25);
+    MyTextField hubIDT=new MyTextField(25);
+    MyTextField timeT=new MyTextField(25);
+    MyTextField numT=new MyTextField(25);
+    MyTextField fromT=new MyTextField(25);
     JComboBox<String> stateC;
 
-    JButton submitbt=new JButton("提交");
-    JButton cancelbt=new JButton("取消");
+    MyButton submitbt=new MyButton("提交");
+    MyButton cancelbt=new MyButton("取消");
 
     SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
     
@@ -182,18 +185,26 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 	}
 
 	private boolean checkAllFormat() throws TransportBLException {		
-		if(!checkOrderID(orderT.getText()))
-			throw new TransportBLException("订单编号必须为10位数");
-		if(!checkHubID(hubIDT.getText()))
-			throw new TransportBLException("中转中心编号必须为4位数");
-		if(!checkNumID(numT.getText()))
-			throw new TransportBLException("中转单编号必须为19位数");
-		if(!checkDate(timeT.getText()))
+		if(!checkOrderID())
+			throw new TransportBLException("订单编号必须为"+Constent.ORDER_ID_LENGTH+"位数");
+		if(!checkHubID())
+			throw new TransportBLException("中转中心编号必须为"+Constent.HUB_ID_LENGTH+"位数");
+		if(!checkNumID())
+			throw new TransportBLException("中转单编号必须为"+Constent.Transfer_ID_LENGTH+"位数");
+		if(!checkDate())
 			throw new TransportBLException("到达日期必须为2015-01-01格式");
+		if (!checkFrom())
+			throw new TransportBLException("出发地不可为空");
 		return true;
 	}
 
-	private boolean checkOrderID(String s) {
+	private boolean checkFrom(){
+		String s=fromT.getText();
+		return !s.isEmpty();
+	}
+
+	private boolean checkOrderID() {
+		String s=orderT.getText();
 		if (s.length()!=Constent.ORDER_ID_LENGTH)
 	        return false;
 	    for (int i=0;i<Constent.ORDER_ID_LENGTH;i++){
@@ -203,7 +214,8 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 	    return true;
 	}
 	
-	private boolean checkHubID(String s) {
+	private boolean checkHubID() {
+		String s=hubIDL.getText();
 		if (s.length()!=Constent.HUB_ID_LENGTH)
 	        return false;
 	    for (int i=0;i<Constent.HUB_ID_LENGTH;i++){
@@ -213,7 +225,8 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 	    return true;
 	}
 
-	private boolean checkNumID(String s) {
+	private boolean checkNumID() {
+		String s=numT.getText();
 		if (s.length()!=Constent.Transfer_ID_LENGTH)
 	        return false;
 	    for (int i=0;i<Constent.Transfer_ID_LENGTH;i++){
@@ -223,10 +236,10 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 	    return true;		
 	}
 	
-	private boolean checkDate(String s){
-		Date date=null;
+	private boolean checkDate(){
+		String s=timeT.getText();
 		try {
-			date = df.parse(s);
+			df.parse(s);
 		} catch (ParseException e1) {
 			return false;
 		}

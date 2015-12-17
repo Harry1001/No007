@@ -23,7 +23,9 @@ import java.sql.SQLException;
  */
 public class UserAccountInfoPanel extends JPanel implements ActionListener {
 
-    private UserAccoutBLService userAccoutBLService;
+    protected UserAccoutBLService userAccoutBLService;
+    JDialog dialog;
+    UserAccountListPanel listPanel;
     MainFrame parent;
     MyLabel idL=new MyLabel("工号");
     MyLabel nameL=new MyLabel("姓名");
@@ -36,12 +38,14 @@ public class UserAccountInfoPanel extends JPanel implements ActionListener {
     MyButton submitbt=new MyButton("提交");
     MyButton cancelbt=new MyButton("取消");
 
-    public UserAccountInfoPanel( MainFrame parent, UserAccoutBLService userAccoutBL) {
+    public UserAccountInfoPanel( MainFrame parent,JDialog dialog, UserAccountListPanel listPanel,
+                                 UserAccoutBLService userAccoutBL) {
         this.parent = parent;
         this.userAccoutBLService=userAccoutBL;
+        this.dialog=dialog;
+        this.listPanel=listPanel;
 
-        String[] s={"快递员","营业厅业务员","中转中心业务员","仓库管理员","财务人员","总经理","管理员"};
-        jobC=new JComboBox<String>(s);
+        jobC=new JComboBox<String>(Constent.USER_ACCOUNR_JOB);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
@@ -80,39 +84,70 @@ public class UserAccountInfoPanel extends JPanel implements ActionListener {
         cancelbt.addActionListener(this);
     }
 
-    private boolean checkFormat(){
-        String ids= idT.getText();
-        if(ids.length()!= Constent.USER_ID_LENGTH){
-            new ErrorDialog(parent, "请输入"+Constent.USER_ID_LENGTH+"位数字工号");
+    protected boolean checkID(){
+        String id=idT.getText();
+        if( id.length()!= Constent.USER_ID_LENGTH){
             return false;
         }
         for (int i=0;i<Constent.USER_ID_LENGTH;i++){
-            if (ids.charAt(i)<'0'||ids.charAt(i)>'9'){
-                new ErrorDialog(parent, "请输入"+Constent.USER_ID_LENGTH+"位数字工号");
+            if (id.charAt(i)<'0'||id.charAt(i)>'9'){
                 return false;
             }
-        }
-
-        if (passwordField.getPassword().length<8){
-            new ErrorDialog(parent, "密码位数不可小于8");
-            return false;
-        }
-
-        if (nameT.getText().length()<=0){
-            new ErrorDialog(parent, "姓名不可为空");
         }
         return true;
     }
 
+    protected boolean checkPassword(){
+        String pass=new String(passwordField.getPassword());
+        if (pass.length()<8){
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean checkName(){
+        String s=nameT.getText();
+        if (s.length()<=0){
+            return  false;
+        }
+        return true;
+    }
+
+    protected boolean checkFormat(){
+
+        if(!checkID()){
+            new ErrorDialog(parent, "请输入"+Constent.USER_ID_LENGTH+"位数字工号");
+            return false;
+        }
+
+        if (!checkPassword()){
+            new ErrorDialog(parent, "密码位数不可小于8");
+            return false;
+        }
+
+        if (!checkName()){
+            new ErrorDialog(parent, "姓名不可为空");
+            return  false;
+        }
+        return true;
+    }
+
+    protected void refresh(){
+        idT.setText("");
+        nameT.setText("");
+        jobC.setSelectedIndex(0);
+        passwordField.setText("");
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submitbt){
-            //todo
             if (checkFormat()){
-
                 UserAccountVO vo = new UserAccountVO(idT.getText(), nameT.getText(),
-                        Job.values()[jobC.getSelectedIndex()], new String(passwordField.getPassword()));
+                        Job.values()[jobC.getSelectedIndex()+1], new String(passwordField.getPassword()));//此处job加一是因为下拉框中没有寄件人
                 try {
                     userAccoutBLService.addUserAccount(vo);
+                    listPanel.refreshList();
+                    refresh();
                 } catch (InfoBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());
                 } catch (RemoteException e1) {
@@ -124,7 +159,7 @@ public class UserAccountInfoPanel extends JPanel implements ActionListener {
 
         }
         else if (e.getSource()==cancelbt){
-            parent.dispose();
+            dialog.dispose();
         }
     }
 }

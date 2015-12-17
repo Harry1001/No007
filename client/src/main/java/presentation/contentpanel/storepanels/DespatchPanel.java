@@ -55,9 +55,9 @@ public class DespatchPanel extends JPanel implements ActionListener{
         numL=new MyLabel("订单条形码号");
         courierL=new MyLabel("派送员");
 
-        timeT=new MyTextField(25);
-        numT=new MyTextField(25);
-        courierT=new MyTextField(25);
+        timeT=new MyTextField();
+        numT=new MyTextField();
+        courierT=new MyTextField();
 
         //设置时间框里自动生成系统时间
         timeT.setText(df.format(new Date()));
@@ -130,7 +130,7 @@ public class DespatchPanel extends JPanel implements ActionListener{
                 }
                 String num=numT.getText();
                 boolean isTrue=checkOrderID(num);
-                String courier=courierT.getText();
+                String courier=courierT.getText()+"";
                 DespatchReceiptVO vo=new DespatchReceiptVO(date,num,courier);
                 if(date!=null&&isTrue){
                     try {

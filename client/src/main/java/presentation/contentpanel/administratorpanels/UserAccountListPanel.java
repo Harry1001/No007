@@ -8,6 +8,7 @@ import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
 import presentation.commonpanel.ErrorDialog;
+import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
 
 import javax.swing.*;
@@ -118,7 +119,7 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
     /**
      * 刷新账户列表，进入界面时以及新增、删除、修改后均需调用
      */
-    private void refreshList(){
+    protected void refreshList(){
         if (userAccoutBLService!=null){
             try {
                 ArrayList<UserAccountVO> userAccountVOs=userAccoutBLService.getUserAccountList();
@@ -148,17 +149,68 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
-            JDialog dialog=new JDialog(parent,"新增用户信息",true);
-            dialog.getContentPane().add(new UserAccountInfoPanel(parent, userAccoutBLService));
-            dialog.setLocationRelativeTo(parent);
-            dialog.pack();
-            dialog.show();
+            if (userAccoutBLService!=null) {
+                JDialog dialog=new JDialog(parent,"新增用户信息",true);
+                dialog.getContentPane().add(new UserAccountInfoPanel(parent,dialog, this, userAccoutBLService));
+                dialog.setLocationRelativeTo(parent);
+                dialog.pack();
+                dialog.setVisible(true);
+            }
+            else {
+                initBL();
+            }
         } else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
+            if (row>=0) {
+                if (userAccoutBLService!=null) {
+                    String id=(String)table.getValueAt(row, 0);
+                    try {
+                        userAccoutBLService.deleteUserAccount(id);
+                        refreshList();
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "服务器连接超时");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent, "SQLException");
+                    }
+                }
+                else {
+                    initBL();
+                }
+            }
+            else {
+                new ErrorDialog(parent, "请选择待删除行");
+            }
         } else if (e.getSource()==modifybt){
+            int row=table.getSelectedRow();
+            if (row==-1){//没有选择任何行
+                new ErrorDialog(parent, "请选择一行待修改条目");
+            } else {//选择了待修改的行
+                if (userAccoutBLService!=null){
+                    String id=(String)table.getValueAt(row, 0);
+                    String name=(String) table.getValueAt(row, 1);
+                    String pass=(String) table.getValueAt(row, 3);
 
+                    String jobString = (String) table.getValueAt(row, 2);
+                    int jobID=0;
+                    for(;jobID<Constent.JOB_STRING.length;jobID++){
+                        if (Constent.JOB_STRING[jobID].equals(jobString)){
+                            break;
+                        }
+                    }
+                    UserAccountVO vo=new UserAccountVO(id, name, Job.values()[jobID],pass);
+
+                    JDialog dialog=new JDialog(parent,"修改账户信息",false);
+                    dialog.getContentPane().add(new UserAccountModifyPanel(parent,dialog, this, userAccoutBLService, vo));
+                    dialog.setLocationRelativeTo(parent);
+                    dialog.pack();
+                    dialog.setVisible(true);
+                }
+                else {
+                    initBL();
+                }
+            }
         } else if (e.getSource()==refreshbt){
-
+            refreshList();
         }
     }
 }
