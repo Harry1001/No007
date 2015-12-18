@@ -37,27 +37,27 @@ public class CalExpressFeeBL extends StrategyBL implements CalExpressfeeService{
 		String s22=s2.substring(0, 2);
 		double dis=distance.getDistance(s11, s22);
 		
-		if(vo.getExpressType().equals("EconomicExpress")){
+		if(vo.getExpressType().equals("经济快递")){
 			
 			double p=po.getEcoPrice();
 			totalPrice+=trueWeight*p*dis;
 		}
-		else if(vo.getExpressType().equals("StandardExpress")){
+		else if(vo.getExpressType().equals("标准快递")){
 			
 			double p=po.getStdPrice();
 			totalPrice+=trueWeight*p*dis;
 		}
-		else if(vo.getExpressType().equals("SpecialExpress")){
+		else if(vo.getExpressType().equals("特快快递")){
 			
 			double p=po.getSpePrice();
 			totalPrice+=trueWeight*p*dis;
 		}
 		
-		if(vo.getPack().equals("bags")){
+		if(vo.getPack().equals("快递袋")){
 			totalPrice+=1;
-		}else if(vo.getPack().equals("paperBox")){
+		}else if(vo.getPack().equals("纸箱")){
 			totalPrice+=5;
-		}else if(vo.getPack().equals("woodenBox")){
+		}else if(vo.getPack().equals("木箱")){
 			totalPrice+=10;
 		}
 		return totalPrice;
