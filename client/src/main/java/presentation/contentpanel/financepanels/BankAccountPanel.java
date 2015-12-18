@@ -1,15 +1,20 @@
 package presentation.contentpanel.financepanels;
 
 import MainFrame.MainFrame;
+import blfactory.BLFactory;
 import businessLogicService.infoblservice.BankAccountBLService;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
+import presentation.commonpanel.ErrorDialog;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  * Created by Harry on 2015/12/4.
@@ -30,7 +35,15 @@ public class BankAccountPanel extends JPanel implements ActionListener{
     }
 
     private void initBL(){
-        
+        try {
+            bankAccountBLService= BLFactory.getBankAccountBLService();
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initUI(){
