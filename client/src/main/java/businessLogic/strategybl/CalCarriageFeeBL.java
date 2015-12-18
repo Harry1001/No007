@@ -44,11 +44,11 @@ public class CalCarriageFeeBL extends StrategyBL implements CalCarriageService{
 			String s33=s3.substring(0, 2);
 			double dis=distance.getDistance(s22, s33);
 			
-			if(s1.equals("plane")){
+			if(s1 == Vehicle.PLANE){
 				totalPrice+=50*dis*po.getPlanePrice();
-			}else if(s1.equals("train")){
+			}else if(s1 ==Vehicle.TRAIN){
 				totalPrice+=2000*dis*po.getTrainPrice();
-			}else if(s1.equals("truck")){
+			}else if(s1 == Vehicle.TRUCK){
 				totalPrice+=10*dis*po.getBusPrice();
 			}
 		}
