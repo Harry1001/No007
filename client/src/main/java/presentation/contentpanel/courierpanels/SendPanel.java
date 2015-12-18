@@ -189,7 +189,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
 
         //计算运费按钮事件
         if (e.getSource()==calFeebt){
-            if (logisticBLService!=null){
+            if (calExpressfeeService!=null){
                 String fromLoc=texts[1].getText();
                 String toLoc=texts[5].getText();
                 double weight;
@@ -216,7 +216,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                     } catch (RemoteException e1) {
                         new ErrorDialog(parent, "服务器连接超时");
                     } catch (SQLException e1) {
-                        new ErrorDialog(parent, "sql exception");
+                        new ErrorDialog(parent, "SQLException: "+e1.getMessage());
                     } catch (ClassNotFoundException e1) {
                         new ErrorDialog(parent, "ClassNotFoundException");
                     } catch (FileNotFoundException e1) {
@@ -235,7 +235,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
 
             //提交按钮事件
         } else if (e.getSource()==submitbt){
-            if (sendBLService!=null){
+            if ((sendBLService!=null)&&(logisticBLService!=null)){
                 try {
                     checkAllFormat();
                     SendReceiptVO vo=new SendReceiptVO(texts[0].getText(),texts[1].getText(),texts[2].getText(),

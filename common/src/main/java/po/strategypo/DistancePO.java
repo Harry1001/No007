@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import vo.strategyvo.DistanceVO;
 
-public class DistancePO extends StrategyPO implements Serializable{
+public class DistancePO extends StrategyPO{
 	/**
 	 * 
 	 */

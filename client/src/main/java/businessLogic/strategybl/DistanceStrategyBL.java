@@ -29,7 +29,7 @@ public class DistanceStrategyBL implements DistanceService{
 
 	RecordBL rb=new RecordBL();
 
-
+	/*
 	//==============================待删除=============================
 	public void initDistance() throws IOException, SQLException {
 		Vector<String> city=new Vector<String>();
@@ -70,6 +70,7 @@ public class DistanceStrategyBL implements DistanceService{
 		setDistance(vo);
 	}
 	//=============================================================
+	*/
 
 	public void setDistance(DistanceVO vo) throws SQLException, FileNotFoundException, IOException{
 

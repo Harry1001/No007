@@ -1,10 +1,13 @@
 package vo.recordvo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import po.recordpo.RecordPO;
 
-public class RecordVO {
+public class RecordVO implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	private String operation;//操作名称
 	private Date opeTime;//发生时间

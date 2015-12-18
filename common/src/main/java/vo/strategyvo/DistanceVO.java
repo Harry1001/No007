@@ -6,6 +6,7 @@ import po.strategypo.DistancePO;
 
 public class DistanceVO extends StrategyVO{
 
+	private static final long serialVersionUID = 1L;
 	private Vector<String> cities;
 	private Vector<Vector<Object>> data;
 	

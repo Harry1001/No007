@@ -2,7 +2,7 @@ package dataService;
 
 public class _RMI {
 
-	private static String ip = "114.212.43.14:8080";
+	private static String ip = "127.0.0.1:8081";
 	
 	public static String getIP(){
 		return ip;

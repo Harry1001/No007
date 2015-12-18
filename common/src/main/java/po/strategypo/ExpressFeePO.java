@@ -3,6 +3,9 @@ package po.strategypo;
 import vo.strategyvo.ExpressFeeVO;
 
 public class ExpressFeePO extends StrategyPO {
+
+	private static final long serialVersionUID = 1L;
+
 	private double economicPrice;//经济快递的单价
 	private double standardPrice;//标准快递的单价
 	private double specialPrice;//次晨特快的单价
