@@ -1,17 +1,28 @@
 package presentation.contentpanel.financepanels;
 
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.financeblservice.FinanceBLService;
 import presentation.commoncontainer.*;
+import presentation.commonpanel.ErrorDialog;
 
+import javax.naming.NamingException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  * Created by Harry on 2015/12/4.
  */
 public class IncomePanel extends JPanel implements ActionListener{
-    private Frame parent;
+
+    private FinanceBLService financeBLService;
+
+    private MainFrame parent;
     private MyDefaultTableModel defaultTableModel;
     private MyTable table;
     private MyButton totalbt;
@@ -19,11 +30,27 @@ public class IncomePanel extends JPanel implements ActionListener{
     private TimePanel fromTimeP;
     private TimePanel toTimeP;
     private MyLabel fromTimeL;
-    private  MyLabel toTimeL;
+    private MyLabel toTimeL;
 
-    public IncomePanel(Frame par){
+    public IncomePanel(MainFrame par){
         this.parent=par;
         initUI();
+
+        initBL();
+    }
+
+    private void initBL(){
+        try {
+            financeBLService= BLFactory.getFinanceBLService();
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        } catch (NamingException e) {
+            new ErrorDialog(parent, "NamingException");
+        }
     }
 
     /**

@@ -2,6 +2,7 @@ package presentation.contentpanel;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
+import businessLogicService.financeblservice.FinanceBLService;
 import businessLogicService.receiptblservice.ChargeReceiptBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
@@ -12,6 +13,7 @@ import presentation.commoncontainer.MyTextField;
 import presentation.commonpanel.ErrorDialog;
 import vo.receiptvo.ChargeReceiptVO;
 
+import javax.naming.NamingException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -20,7 +22,9 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -46,7 +50,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
     MyDefaultTableModel defaultTableModel;
     JTable table;
 
-    ChargeReceiptBLService chargeReceiptBLService;
+    FinanceBLService financeBLService;
 
     public ChargeReceiptPanel(MainFrame par){
         this.parent=par;
@@ -66,13 +70,15 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
 
     private void initBL(){
         try {
-            chargeReceiptBLService= BLFactory.getChargeReceiptBLService();
+            financeBLService=BLFactory.getFinanceBLService();
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            new ErrorDialog(parent, "服务器连接超时");
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            new ErrorDialog(parent, "NotBoundException");
+        } catch (NamingException e) {
+            new ErrorDialog(parent, "NamingException");
         }
     }
 
@@ -163,12 +169,39 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
             if (row>-1) {
                 defaultTableModel.removeRow(row);
             }
-            table.revalidate();
-            table.updateUI();
+
           //  System.out.println(defaultTableModel.getRowCount());
         }
         else if (e.getSource()==submitbt){
-            if (chargeReceiptBLService!=null){
+            if (financeBLService!=null){
+                try {
+                    checkAll();
+                    Date time=Constent.BIRTHDAY_FORMAT.parse(timeT.getText());
+                    double money=Double.parseDouble(moneyT.getText());
+                    String courier=courierT.getText();
+                    ArrayList<String> orderIDs=new ArrayList<String>();
+                    {
+                        int row=table.getRowCount();
+                        for (int i=0;i<row;i++){
+                            orderIDs.add((String)table.getValueAt(row, 0));
+                        }
+                    }
+                    ChargeReceiptVO vo=new ChargeReceiptVO(time, money, courier, orderIDs);
+                    financeBLService.submitIn(vo);
+                    refresh();
+                } catch (ParseException e1) {
+                    new ErrorDialog(parent, "时间格式为: yy-MM-dd");
+                } catch (TransportBLException e1) {
+                    new ErrorDialog(parent, e1.getMessage());
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                } catch (MalformedURLException e1) {
+                    new ErrorDialog(parent, "MalformedURLException");
+                } catch (NotBoundException e1) {
+                    new ErrorDialog(parent, "NotBoundException");
+                }
 
             }
             else {

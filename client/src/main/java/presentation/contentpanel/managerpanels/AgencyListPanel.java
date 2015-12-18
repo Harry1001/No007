@@ -102,53 +102,68 @@ public class AgencyListPanel extends JPanel implements ActionListener {
      * 从数据库读取数据刷新列表
      */
     public void refreshList(){
-        try {
-            ArrayList<AgencyVO> agencyVOs = agencyBLService.getAgencyList();
-            System.out.println(""+agencyVOs.size());
-            Vector<Vector> data = new Vector<Vector>();
-            Vector<Object> item;
-            for (AgencyVO vo: agencyVOs){
-                item=new Vector<Object>();
-                item.add(vo.getAgencyID());
-                item.add(vo.getAgencyName());
-                item.add(vo.getAgencyType());
-                item.add(vo.getLocation());
-                item.add(vo.getArea());
-                item.add(vo.getRent());
-                data.add(item);
+        if (agencyBLService!=null){
+            try {
+                ArrayList<AgencyVO> agencyVOs = agencyBLService.getAgencyList();
+                System.out.println(""+agencyVOs.size());
+                Vector<Vector> data = new Vector<Vector>();
+                Vector<Object> item;
+                for (AgencyVO vo: agencyVOs){
+                    item=new Vector<Object>();
+                    item.add(vo.getAgencyID());
+                    item.add(vo.getAgencyName());
+                    item.add(vo.getAgencyType());
+                    item.add(vo.getLocation());
+                    item.add(vo.getArea());
+                    item.add(vo.getRent());
+                    data.add(item);
+                }
+                defaultTableModel.setDataVector(data,names);
+                table.validate();
+                table.updateUI();
+                System.out.println(""+defaultTableModel.getRowCount());
+            } catch (RemoteException e) {
+                new ErrorDialog(parent, "网络连接超时");
+            } catch (SQLException e) {
+                new ErrorDialog(parent, "SQLException");
             }
-            defaultTableModel.setDataVector(data,names);
-            table.validate();
-            table.updateUI();
-            System.out.println(""+defaultTableModel.getRowCount());
-        } catch (RemoteException e) {
-            new ErrorDialog(parent, "网络连接超时");
-        } catch (SQLException e) {
-            new ErrorDialog(parent, "SQLException");
+        }
+        else {
+            initBL();
         }
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
-            JDialog dialog=new JDialog(parent,"新增机构信息",false);
-            dialog.getContentPane().add(new AgencyInfoPanel(dialog, parent, this, agencyBLService));
-            dialog.setLocationRelativeTo(parent);
-            dialog.pack();
-            dialog.setVisible(true);
+            if (agencyBLService!=null){
+                JDialog dialog=new JDialog(parent,"新增机构信息",false);
+                dialog.getContentPane().add(new AgencyInfoPanel(dialog, parent, this, agencyBLService));
+                dialog.setLocationRelativeTo(parent);
+                dialog.pack();
+                dialog.setVisible(true);
+            }
+            else {
+                initBL();
+            }
         }
         else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
             if (row==-1){//没有选择任何行
                 new ErrorDialog(parent, "请选择一行待删除条目");
             } else {//选择了待删除的行
-                String id= (String)table.getValueAt(row, 0);
-                try {
-                    agencyBLService.deleteAgency(id);
-                    refreshList();
-                } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "网络连接超时");
-                } catch (SQLException e1) {
-                    new ErrorDialog(parent, "SQLException");
+                if (agencyBLService!=null){
+                    String id= (String)table.getValueAt(row, 0);
+                    try {
+                        agencyBLService.deleteAgency(id);
+                        refreshList();
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "网络连接超时");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent, "SQLException");
+                    }
+                }
+                else {
+                    initBL();
                 }
             }
         }
@@ -157,19 +172,24 @@ public class AgencyListPanel extends JPanel implements ActionListener {
             if (row==-1){//没有选择任何行
                 new ErrorDialog(parent, "请选择一行待修改条目");
             } else {//选择了待修改的行
-                String id=(String)table.getValueAt(row, 0);
-                String name=(String) table.getValueAt(row, 1);
-                String type=(String) table.getValueAt(row, 2);
-                String loc=(String) table.getValueAt(row, 3);
-                int area=(Integer) table.getValueAt(row, 4);
-                int rent=(Integer) table.getValueAt(row, 5);
+                if (agencyBLService!=null){
+                    String id=(String)table.getValueAt(row, 0);
+                    String name=(String) table.getValueAt(row, 1);
+                    String type=(String) table.getValueAt(row, 2);
+                    String loc=(String) table.getValueAt(row, 3);
+                    int area=(Integer) table.getValueAt(row, 4);
+                    int rent=(Integer) table.getValueAt(row, 5);
 
-                AgencyVO vo=new AgencyVO(name, type, id, loc, area, rent);
-                JDialog dialog=new JDialog(parent,"修改机构信息",false);
-                dialog.getContentPane().add(new AgencyModifyPanel(dialog, parent, this, agencyBLService, vo));
-                dialog.setLocationRelativeTo(parent);
-                dialog.pack();
-                dialog.setVisible(true);
+                    AgencyVO vo=new AgencyVO(name, type, id, loc, area, rent);
+                    JDialog dialog=new JDialog(parent,"修改机构信息",false);
+                    dialog.getContentPane().add(new AgencyModifyPanel(dialog, parent, this, agencyBLService, vo));
+                    dialog.setLocationRelativeTo(parent);
+                    dialog.pack();
+                    dialog.setVisible(true);
+                }
+                else {
+                    initBL();
+                }
             }
         }
     }

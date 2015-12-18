@@ -43,6 +43,7 @@ public class OutcomePanel extends JPanel implements ActionListener{
     MyTextField accountT=new MyTextField();
     MyTextField additionT=new MyTextField(25);
     MyButton submitbt=new MyButton("提交");
+    MyButton cancelbt=new MyButton("取消");
 
     JRadioButton salary = new JRadioButton("工资");
     JRadioButton rent = new JRadioButton("租金");
@@ -52,6 +53,10 @@ public class OutcomePanel extends JPanel implements ActionListener{
     public OutcomePanel(MainFrame par){
         this.parent=par;
         initUI();
+
+        submitbt.addActionListener(this);
+        cancelbt.addActionListener(this);
+
         initBL();
     }
 
@@ -105,9 +110,10 @@ public class OutcomePanel extends JPanel implements ActionListener{
 
         gbc.anchor=GridBagConstraints.EAST;
         gbc.gridy++;
+        this.add(cancelbt,gbc);
+        gbc.gridx=0;
         this.add(submitbt,gbc);
 
-        submitbt.addActionListener(this);
     }
 
     private void initBL(){
@@ -145,38 +151,79 @@ public class OutcomePanel extends JPanel implements ActionListener{
         }
     }
 
+    private boolean checkMoney(){
+        String s=feeT.getText();
+        try{
+            double fee=Double.parseDouble(s);
+            return (fee>0);
+        }catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    private boolean checkMan(){
+        String s=personT.getText();
+        return !s.isEmpty();
+    }
+
+    private boolean checkAcc(){
+        String s=accountT.getText();
+        return !s.isEmpty();
+    }
+
+
     private boolean checkAll(){
-        //todo
+        if (!checkMoney()){
+            new ErrorDialog(parent, "付款金额必须为正数");
+            return false;
+        }
+
+        if (!checkMan()){
+            new ErrorDialog(parent, "付款人不可为空");
+            return false;
+        }
+
+        if (!checkAcc()){
+            new ErrorDialog(parent, "付款帐号不可为空");
+            return false;
+        }
+
         return true;
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submitbt){
             if (checkAll()){
-                try {
-                    Date time=timeP.getDate();
-                    double fee=Double.parseDouble(feeT.getText());
-                    String man=personT.getText();
-                    String acc=accountT.getText();
-                    FeeType feeType=getFeeType();
+                if (financeBLService!=null){
+                    try {
+                        Date time=timeP.getDate();
+                        double fee=Double.parseDouble(feeT.getText());
+                        String man=personT.getText();
+                        String acc=accountT.getText();
+                        FeeType feeType=getFeeType();
 
-                    PayReceiptVO vo = new PayReceiptVO(time, fee, man, acc, feeType);
-                    financeBLService.submitOut(vo);
-                    refresh();
-                } catch (TimeFormatException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
-                } catch (NumberFormatException e1){
-                    new ErrorDialog(parent, "金额必须为正数");
-                } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
-                } catch (SQLException e1) {
-                    new ErrorDialog(parent, "SQLException");
-                } catch (MalformedURLException e1) {
-                    new ErrorDialog(parent, "MalformedURLException");
-                } catch (NotBoundException e1) {
-                    new ErrorDialog(parent, "NotBoundException");
+                        PayReceiptVO vo = new PayReceiptVO(time, fee, man, acc, feeType);
+                        financeBLService.submitOut(vo);
+                        refresh();
+                    } catch (TimeFormatException e1) {
+                        new ErrorDialog(parent, e1.getMessage());
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "服务器连接超时");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent, "SQLException");
+                    } catch (MalformedURLException e1) {
+                        new ErrorDialog(parent, "MalformedURLException");
+                    } catch (NotBoundException e1) {
+                        new ErrorDialog(parent, "NotBoundException");
+                    }
+                }
+                else {
+                    initBL();
                 }
             }
+        }
+        else if (e.getSource()==cancelbt){
+            refresh();
         }
     }
 }

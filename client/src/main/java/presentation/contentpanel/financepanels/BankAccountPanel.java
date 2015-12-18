@@ -1,5 +1,7 @@
 package presentation.contentpanel.financepanels;
 
+import MainFrame.MainFrame;
+import businessLogicService.infoblservice.BankAccountBLService;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
@@ -13,19 +15,25 @@ import java.awt.event.ActionListener;
  * Created by Harry on 2015/12/4.
  */
 public class BankAccountPanel extends JPanel implements ActionListener{
-    private Frame parent;
+    private MainFrame parent;
     private MyDefaultTableModel defaultTableModel;
     private MyTable table;
     private MyButton addbt=new MyButton("新增账户");
     private MyButton deletebt=new MyButton("删除账户");
 
-    public BankAccountPanel(Frame par){
+    private BankAccountBLService bankAccountBLService;
+
+    public BankAccountPanel(MainFrame par){
         this.parent=par;
-        init();
+        initUI();
         refresh();
     }
 
-    private void init(){
+    private void initBL(){
+        
+    }
+
+    private void initUI(){
         String [] names ={"帐号","金额"};
         defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);
@@ -51,6 +59,11 @@ public class BankAccountPanel extends JPanel implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==addbt){
 
+        }
+        else if (e.getSource()==deletebt){
+
+        }
     }
 }
