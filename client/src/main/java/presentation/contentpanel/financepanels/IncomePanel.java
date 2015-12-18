@@ -23,13 +23,13 @@ public class IncomePanel extends JPanel implements ActionListener{
 
     public IncomePanel(Frame par){
         this.parent=par;
-        initialize();
+        initUI();
     }
 
     /**
      * 初始化所有组件
      */
-    private void initialize(){
+    private void initUI(){
         String[] names={"收款快递员工号","收款日期","收款金额"};
         defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);

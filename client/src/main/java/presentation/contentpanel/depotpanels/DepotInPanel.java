@@ -53,12 +53,12 @@ public class DepotInPanel extends JPanel implements ActionListener {
     MyLabel paihaoL=new MyLabel("排号");
     MyLabel jiahaoL=new MyLabel("架号");
     MyLabel weihaoL=new MyLabel("位号");
-    MyLabel hubIDL=new MyLabel("中转中心编号");
+    //MyLabel hubIDL=new MyLabel("中转中心编号");
 
     MyTextField packIDT=new MyTextField(25);
     MyTextField destiT=new MyTextField(25);
     MyTextField timeT=new MyTextField(25);
-    MyTextField hubIDT=new MyTextField(25);
+    //MyTextField hubIDT=new MyTextField(25);
     MyTextField quhaoT=new MyTextField(5);
     MyTextField paihaoT=new MyTextField(5);
     MyTextField jiahaoT=new MyTextField(5);
@@ -80,8 +80,8 @@ public class DepotInPanel extends JPanel implements ActionListener {
         this.add(destiL,gbc);
         gbc.gridy++;
         this.add(timeL,gbc);
-        gbc.gridy++;
-        this.add(hubIDL,gbc);
+        //gbc.gridy++;
+        //this.add(hubIDL,gbc);
         gbc.gridy++;
         this.add(quhaoL,gbc);
         gbc.gridy++;
@@ -95,8 +95,8 @@ public class DepotInPanel extends JPanel implements ActionListener {
         this.add(destiT,gbc);
         gbc.gridy++;
         this.add(timeT,gbc);
-        gbc.gridy++;
-        this.add(hubIDT,gbc);
+        //gbc.gridy++;
+        //this.add(hubIDT,gbc);
 
         gbc.gridwidth=1;
         gbc.gridy++;
@@ -124,6 +124,7 @@ public class DepotInPanel extends JPanel implements ActionListener {
         cancelbt.addActionListener(this);
         setPresentTime();
         initBL();
+        refresh();
     }
 
 	private void initBL() {
@@ -143,22 +144,49 @@ public class DepotInPanel extends JPanel implements ActionListener {
 
 
 
-	private void checkAllFormat() throws TransportBLException {
-		if(!checkPackID(packIDT.getText()))
-			throw new TransportBLException("快递编号必须为数字");
-		if(!checkNumber(quhaoT.getText()))
-			throw new TransportBLException("区号必须为正整数");
-		if(!checkNumber(paihaoT.getText()))
-			throw new TransportBLException("排号必须为正整数");
-		if(!checkNumber(jiahaoT.getText()))
-			throw new TransportBLException("架号必须为正整数");
-		if(!checkNumber(weihaoT.getText()))
-			throw new TransportBLException("位号必须为正整数");
-		if(!checkHubID(hubIDT.getText()))
-			throw new TransportBLException("中转中心编号必须为4位数字");
+	private boolean checkAllFormat() {
+		if(!checkPackID(packIDT.getText())) {
+            new ErrorDialog(parent, "快递编号必须为"+Constent.ORDER_ID_LENGTH+"位数字");
+            return false;
+        }
+
+        if (!checkLoc(destiT.getText())){
+            new ErrorDialog(parent, "目的地前两位必须为城市名");
+            return false;
+        }
+
+        if (!checkTime(timeT.getText())){
+            new ErrorDialog(parent, "时间格式为：yyyy-MM-dd HH:mm:ss");
+            return false;
+        }
+
+		if(!checkNumber(quhaoT.getText())) {
+            new ErrorDialog(parent, "区号必须为正整数");
+            return false;
+        }
+
+        if(!checkNumber(paihaoT.getText())) {
+            new ErrorDialog(parent, "排号必须为正整数");
+            return false;
+        }
+
+        if(!checkNumber(jiahaoT.getText())) {
+            new ErrorDialog(parent, "架号必须为正整数");
+            return false;
+        }
+
+        if(!checkNumber(weihaoT.getText())) {
+            new ErrorDialog(parent, "位号必须为正整数");
+            return false;
+        }
+
+        return true;
 	}
 
 	private boolean checkPackID(String s) {
+        if (s.length()!=Constent.ORDER_ID_LENGTH){
+            return false;
+        }
         for (int i=0;i<s.length();i++){
             if (s.charAt(i)<'0'||s.charAt(i)>'9')
                 return false;
@@ -173,19 +201,40 @@ public class DepotInPanel extends JPanel implements ActionListener {
         }catch (NumberFormatException e1){
             return false;
         }
-        if (num>0) return true;
+        return (num>0);
+    }
+
+    private boolean checkTime(String s){
+        try{
+            Constent.DATE_FORMAT.parse(s);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    private boolean checkLoc(String s){
+        if (s.length()<2){
+            return false;
+        }
+        String ss=s.substring(0,2);
+        for (int i=0;i<Constent.LOCATIONS.length;i++){
+            if (ss.equals(Constent.LOCATIONS[i])){
+                return true;
+            }
+        }
         return false;
     }
 	
-	private boolean checkHubID(String s){
-        if (s.length()!=Constent.HUB_ID_LENGTH) 
-        	return false;
-        for (int i=0;i<Constent.HUB_ID_LENGTH;i++){
-            if (s.charAt(i)<'0'||s.charAt(i)>'9')
-                return false;
-        }
-        return true;
-    }
+	//private boolean checkHubID(String s){
+    //    if (s.length()!=Constent.HUB_ID_LENGTH)
+    //    	return false;
+    //    for (int i=0;i<Constent.HUB_ID_LENGTH;i++){
+    //        if (s.charAt(i)<'0'||s.charAt(i)>'9')
+    //            return false;
+    //    }
+    //    return true;
+    //}
 
 
     /**
@@ -195,10 +244,6 @@ public class DepotInPanel extends JPanel implements ActionListener {
         timeT.setText(Constent.DATE_FORMAT.format(new Date()));
     }
 
-    private boolean checkAll(){
-        //todo 待实现
-        return  true;
-    }
 
     /**
      * 清空输入
@@ -211,41 +256,47 @@ public class DepotInPanel extends JPanel implements ActionListener {
         paihaoT.setText("");
         jiahaoT.setText("");
         weihaoT.setText("");
-        hubIDT.setText("");
+        //hubIDT.setText("");
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submitbt){
-            if (checkAll()){
-                try {
-                    String packID=packIDT.getText();
-                    Date time= Constent.DATE_FORMAT.parse(timeT.getText());
-                    String desti=destiT.getText();
-                    int quhao=Integer.parseInt(quhaoT.getText());
-                    int paihao=Integer.parseInt(paihaoT.getText());
-                    int jiahao=Integer.parseInt(jiahaoT.getText());
-                    int weihao=Integer.parseInt(weihaoT.getText());
-                    String hubID=hubIDT.getText();
-                    Location loc=new Location(hubID, quhao,paihao,jiahao,weihao);
-                    DepotInReceiptVO vo=new DepotInReceiptVO(packID,time, desti, loc);
-                    commodityBLService.submitIn(vo);
-                    refresh();
-                } catch (ParseException e1) {
-                    new ErrorDialog(parent, "请不要改变默认时间格式");
-                } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
-                } catch (SQLException e1) {
-                    new ErrorDialog(parent, "SQLException");
-                } catch (MalformedURLException e1) {
-                    new ErrorDialog(parent, "MalformedURLException");
-                } catch (NotBoundException e1) {
-                    new ErrorDialog(parent, "NotBoundException");
-                } catch (NamingException e1) {
-                    new ErrorDialog(parent, "NamingException");
+            if (checkAllFormat()){
+                if (commodityBLService!=null){
+                    try {
+                        String packID=packIDT.getText();
+                        Date time= Constent.DATE_FORMAT.parse(timeT.getText());
+                        String desti=destiT.getText();
+                        int quhao=Integer.parseInt(quhaoT.getText());
+                        int paihao=Integer.parseInt(paihaoT.getText());
+                        int jiahao=Integer.parseInt(jiahaoT.getText());
+                        int weihao=Integer.parseInt(weihaoT.getText());
+                        //String hubID=hubIDT.getText();
+                        String hubID=parent.getUserIdentity().getId().substring(0,4);//当前账户工号前4位即为中转中心编号
+                        Location loc=new Location(hubID, quhao,paihao,jiahao,weihao);
+                        DepotInReceiptVO vo=new DepotInReceiptVO(packID,time, desti, loc);
+                        commodityBLService.submitIn(vo);
+                        refresh();
+                    } catch (ParseException e1) {
+                        new ErrorDialog(parent, "时间格式为：yyyy-MM-dd HH:mm:ss");
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "服务器连接超时");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent, "SQLException");
+                    } catch (MalformedURLException e1) {
+                        new ErrorDialog(parent, "MalformedURLException");
+                    } catch (NotBoundException e1) {
+                        new ErrorDialog(parent, "NotBoundException");
+                    } catch (NamingException e1) {
+                        new ErrorDialog(parent, "NamingException");
+                    }
+                }
+                else {
+                    initBL();
                 }
             }
-        } else if (e.getSource()==cancelbt){//取消按钮清空输入
-
+        }
+        else if (e.getSource()==cancelbt){//取消按钮清空输入
             refresh();
         }
     }

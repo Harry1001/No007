@@ -57,6 +57,11 @@ public class Constent {
     public static final SimpleDateFormat BIRTHDAY_FORMAT =new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
 
     /**
+     * 中转单、装车单等单号自动生成时需要的8位日期编码
+     */
+    public static final SimpleDateFormat RECIEPT_NUM_FORMAT =new SimpleDateFormat("yyyyMMdd");
+
+    /**
      * 订单号位数
      */
     public static final int ORDER_ID_LENGTH=10;

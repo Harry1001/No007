@@ -9,6 +9,7 @@ import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
 import presentation.commonpanel.ErrorDialog;
 import typeDefinition.Vehicle;
+import vo.loginvo.LoginResultVO;
 import vo.receiptvo.DepotOutReceiptVO;
 
 import javax.naming.NamingException;
@@ -16,6 +17,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -26,7 +29,7 @@ import java.util.Date;
 /**
  * Created by Harry on 2015/11/28.
  */
-public class DepotOutPanel extends JPanel implements ActionListener {
+public class DepotOutPanel extends JPanel implements ActionListener, FocusListener {
 
     CommodityBLService commodityBLService;
 
@@ -97,7 +100,8 @@ public class DepotOutPanel extends JPanel implements ActionListener {
 
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
-        setPresentTime();
+        transIDT.addFocusListener(this);
+        refresh();
         initBL();
     }
 
@@ -122,9 +126,84 @@ public class DepotOutPanel extends JPanel implements ActionListener {
         timeT.setText(Constent.DATE_FORMAT.format(new Date()));
     }
 
+    private boolean isDigit(String s){
+        for (int i=0;i<s.length();i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9'){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkPackID(){
+        String id=packIDT.getText();
+        if (id.length()!=Constent.ORDER_ID_LENGTH){
+            return false;
+        }
+        return isDigit(id);
+    }
+
+    private boolean checkLoc(){
+        String s=destiT.getText();
+        if (s.length()<2){
+            return false;
+        }
+        String ss=s.substring(0,2);
+        for (int i=0;i<Constent.LOCATIONS.length;i++){
+            if (ss.equals(Constent.LOCATIONS[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkTime(){
+        String s=timeT.getText();
+        try{
+            Constent.DATE_FORMAT.parse(s);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    private boolean checkTransID(){
+        String s=transIDT.getText();
+        if (s.length()!=Constent.Transfer_ID_LENGTH){
+            return false;
+        }
+        return isDigit(s);
+    }
+
     private boolean checkAll(){
-        //todo 待实现
+        if (!checkPackID()){
+            new ErrorDialog(parent, "快递编号必须为"+Constent.ORDER_ID_LENGTH+"位数字");
+            return false;
+        }
+
+        if (!checkTime()){
+            new ErrorDialog(parent, "时间格式必须为: yyyy-MM-dd HH:mm:ss");
+            return false;
+        }
+
+        if (!checkLoc()){
+            new ErrorDialog(parent, "目的地前两位必须为城市名");
+            return false;
+        }
+
+        if (!checkTransID()){
+            new ErrorDialog(parent, "中转单编号或汽运单编号必须为"+Constent.Transfer_ID_LENGTH+"位数字");
+            return false;
+        }
+
         return  true;
+    }
+
+
+    private String getMyHubID(){
+        LoginResultVO vo=parent.getUserIdentity();
+        String hubID=vo.getId().substring(0,4);//中转中心业务员编号的前4位是中转中心编号
+        return hubID;
     }
 
     /**
@@ -135,7 +214,9 @@ public class DepotOutPanel extends JPanel implements ActionListener {
         destiT.setText("");
         setPresentTime();
         rbt1.setSelected(true);
-        transIDT.setText("");
+        String hubID=getMyHubID();
+        String timeNum=Constent.RECIEPT_NUM_FORMAT.format(new Date());
+        transIDT.setText(hubID+timeNum+"+7位数字");
     }
 
     private Vehicle getSelectedVehicle(){
@@ -152,33 +233,50 @@ public class DepotOutPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submitbt){
             if (checkAll()){
-
-                try {
-                    String packID=packIDT.getText();
-                    Date time= Constent.DATE_FORMAT.parse(timeT.getText());
-                    String desti=destiT.getText();
-                    String transID=transIDT.getText();
-                    Vehicle vehicle=getSelectedVehicle();
-                    DepotOutReceiptVO vo=new DepotOutReceiptVO(packID,time,desti,vehicle,transID);
-                    commodityBLService.submitOut(vo);
-                    refresh();
-                } catch (ParseException e1) {
-                    new ErrorDialog(parent, "请不要改变默认时间格式");
-                } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
-                } catch (SQLException e1) {
-                    new ErrorDialog(parent, "SQLException");
-                } catch (MalformedURLException e1) {
-                    new ErrorDialog(parent, "MalformedURLException");
-                } catch (NotBoundException e1) {
-                    new ErrorDialog(parent, "NotBoundException");
-                } catch (NamingException e1) {
-                    new ErrorDialog(parent, "NamingException");
+                if (commodityBLService!=null){
+                    try {
+                        String packID=packIDT.getText();
+                        Date time= Constent.DATE_FORMAT.parse(timeT.getText());
+                        String desti=destiT.getText();
+                        String transID=transIDT.getText();
+                        Vehicle vehicle=getSelectedVehicle();
+                        DepotOutReceiptVO vo=new DepotOutReceiptVO(packID,time,desti,vehicle,transID);
+                        commodityBLService.submitOut(vo);
+                        refresh();
+                    } catch (ParseException e1) {
+                        new ErrorDialog(parent, "请不要改变默认时间格式");
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "服务器连接超时");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent, "SQLException");
+                    } catch (MalformedURLException e1) {
+                        new ErrorDialog(parent, "MalformedURLException");
+                    } catch (NotBoundException e1) {
+                        new ErrorDialog(parent, "NotBoundException");
+                    } catch (NamingException e1) {
+                        new ErrorDialog(parent, "NamingException");
+                    }
                 }
-
+                else {
+                    initBL();
+                }
             }
         } else if (e.getSource()==cancelbt){
             refresh();
         }
+    }
+
+    public void focusGained(FocusEvent e) {
+        if (e.getSource()==transIDT){
+            String hubID=getMyHubID();
+            String timeNum=Constent.RECIEPT_NUM_FORMAT.format(new Date());
+            if (transIDT.getText().equals(hubID+timeNum+"+7位数字")){
+                transIDT.setText(hubID+timeNum);
+            }
+        }
+    }
+
+    public void focusLost(FocusEvent e) {
+
     }
 }

@@ -1,64 +1,377 @@
 package presentation.contentpanel.hubpanels;
 
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.strategyblservice.CalCarriageService;
+import businessLogicService.transportblservice.TransferBLService;
+import constent.Constent;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyDefaultTableModel;
+import presentation.commoncontainer.MyLabel;
+import presentation.commoncontainer.MyTextField;
+import presentation.commonpanel.ErrorDialog;
+import typeDefinition.Vehicle;
+import vo.receiptvo.TransferReceiptVO;
+
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Harry on 2015/11/28.
  */
-public class TransferPanel extends JPanel {
+public class TransferPanel extends JPanel implements ActionListener, FocusListener {
 
-    private String[] positions;//todo 将来可以添加，所以地点的值需要从数据层读取
+    TransferBLService transferBLService;
+    CalCarriageService carriageService;
+    MainFrame parent;
 
-    Frame parent;
-
-    JLabel[] labels=new JLabel[8];
-    JTextField [] textFields=new JTextField[7];
+    MyLabel[] labels=new MyLabel[8];
+    MyTextField[] textFields=new MyTextField[7];
     JRadioButton[] vehicles=new JRadioButton[3];
-    JButton calfeebt=new JButton("计算运费");
-    JButton addbt=new JButton("添加");
-    JButton deletebt=new JButton("删除");
-    JButton submitbt=new JButton("提交");
-    JButton cancelbt=new JButton("取消");
-    JComboBox<String> fromCombo;
-    JComboBox<String> toCombo;
-    DefaultTableModel defaultTableModel;
-    JTable table;
-    JTextField orderT=new JTextField(25);
+    MyButton calfeebt=new MyButton("计算运费");
+    MyButton addbt=new MyButton("添加");
+    MyButton deletebt=new MyButton("删除");
+    MyButton submitbt=new MyButton("提交");
+    MyButton cancelbt=new MyButton("取消");
 
-    public TransferPanel(Frame par) {
+    MyDefaultTableModel defaultTableModel;
+    JTable table;
+    MyTextField orderT=new MyTextField();
+
+    public TransferPanel(MainFrame par) {
         this.parent=par;
 
-        labels[0]=new JLabel("中转方式");
-        labels[1]=new JLabel("中转日期");
-        labels[2]=new JLabel("中转单编号");
-        labels[3]=new JLabel("班次/车牌号");
-        labels[4]=new JLabel("运费");
-        labels[5]=new JLabel("出发地");
-        labels[6]=new JLabel("目的地");
-        labels[7]=new JLabel("货柜号");
+        initUI();
 
-        for(int i=0;i<7;i++){
-            textFields[i]=new JTextField(25);
+        calfeebt.addActionListener(this);
+        addbt.addActionListener(this);
+        deletebt.addActionListener(this);
+        submitbt.addActionListener(this);
+        cancelbt.addActionListener(this);
+        textFields[1].addFocusListener(this);
+
+        refresh();
+        initBL();
+    }
+
+    private void initBL(){
+        this.transferBLService= BLFactory.getTransferBLService();
+        try {
+            this.carriageService=BLFactory.getCalCarriageService();
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        }
+    }
+
+    private void refresh(){
+        for (int i=0;i<7;i++){
+            textFields[i].setText("");
+        }
+        orderT.setText("");
+        setPresentTime();
+        vehicles[0].setSelected(true);
+        String hubID=parent.getUserIdentity().getId().substring(0,4);
+
+        textFields[1].setText(hubID+Constent.RECIEPT_NUM_FORMAT.format(new Date())+"+7位数字");
+    }
+
+    private boolean checkAll(){
+        if (!checkTime()){
+            new ErrorDialog(parent, "日期格式必须为：yyyy-MM-dd HH:mm:ss");
+            return false;
         }
 
-        positions= new String[]{"北京","上海","南京"};//todo 需要从数据库中读取
-        fromCombo=new JComboBox<String>(positions);
-        toCombo=new JComboBox<String>(positions);
+        if (!checkTransID()){
+            new ErrorDialog(parent, "中转单号必须为"+Constent.Transfer_ID_LENGTH+"位数字");
+            return false;
+        }
 
-        vehicles[0]=new JRadioButton("飞机");
+        if (!checkVehicleID()){
+            new ErrorDialog(parent, "班次/车牌号不可为空");
+            return false;
+        }
+
+        if (!checkFee()){
+            new ErrorDialog(parent, "运费必须为正数");
+            return false;
+        }
+
+        if (!checkFromLoc()){
+            new ErrorDialog(parent, "出发地前两位必须为市名");
+            return false;
+        }
+
+        if (!checkToLoc()){
+            new ErrorDialog(parent, "到达地前两位必须为市名");
+            return false;
+        }
+
+        if (!checkCounterID()){
+            new ErrorDialog(parent, "货柜还必须为正整数");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkCalFeeCondition(){
+        if (!checkFromLoc()){
+            new ErrorDialog(parent, "出发地前两位必须为市名");
+            return false;
+        }
+
+        if (!checkToLoc()){
+            new ErrorDialog(parent, "到达地前两位必须为市名");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkTime(){
+        String time=textFields[0].getText();
+        try{
+            Constent.DATE_FORMAT.parse(time);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    private boolean checkTransID(){
+        String id=textFields[1].getText();
+        if (id.length()!=Constent.Transfer_ID_LENGTH){
+            return false;
+        }
+        return isDigit(id);
+    }
+
+    private boolean checkVehicleID(){
+        String id=textFields[2].getText();
+        return !id.isEmpty();
+    }
+
+    private boolean checkFee(){
+        String s=textFields[3].getText();
+        try{
+            double fee=Double.parseDouble(s);
+            return (fee>0);
+        } catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    private boolean checkFromLoc(){
+        String s1=textFields[4].getText();
+        if (s1.length()<2){
+            return false;
+        }
+        String s2=s1.substring(0,2);
+        for (int i=0;i<Constent.LOCATIONS.length;i++){
+            if (s2.equals(Constent.LOCATIONS[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkToLoc(){
+        String s1=textFields[5].getText();
+        if (s1.length()<2){
+            return false;
+        }
+        String s2=s1.substring(0,2);
+        for (int i=0;i<Constent.LOCATIONS.length;i++){
+            if (s2.equals(Constent.LOCATIONS[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkCounterID(){
+        String s=textFields[6].getText();
+        try{
+            int x=Integer.parseInt(s);
+            return (x>0);
+        } catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    private boolean checkOrderID(){
+        String s=orderT.getText();
+        if (s.length()!=Constent.ORDER_ID_LENGTH){
+            return false;
+        }
+        return isDigit(s);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==calfeebt){
+            if (checkCalFeeCondition()){
+                if (carriageService!=null){
+                    TransferReceiptVO vo=getVO();
+                    double fee=0;
+                    try {
+                        fee = carriageService.calCarriage(vo);
+                        textFields[3].setText(fee+"");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent, "SQLException");
+                    } catch (ClassNotFoundException e1) {
+                        new ErrorDialog(parent, "ClassNotFoundException");
+                    } catch (IOException e1) {
+                        new ErrorDialog(parent, "IOException");
+                    }
+                }
+                else {
+                    initBL();
+                }
+            }
+        }
+        else if (e.getSource()==addbt){
+            if (checkOrderID()){
+                String [] data={orderT.getText()};
+                defaultTableModel.addRow(data);
+                orderT.setText("");
+            }
+        }
+        else if (e.getSource()==deletebt){
+            int row=table.getSelectedRow();
+            if (row>=0) {
+                defaultTableModel.removeRow(row);
+            }
+        }
+        else if (e.getSource()==submitbt){
+            if (checkAll()){
+                if (transferBLService!=null){
+                    TransferReceiptVO vo=getVO();
+                    try {
+                        transferBLService.submit(vo);
+                        refresh();
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "服务器连接超时");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent, "SQLException");
+                    } catch (MalformedURLException e1) {
+                        new ErrorDialog(parent, "MalformedURLException");
+                    } catch (NotBoundException e1) {
+                        new ErrorDialog(parent, "NotBoundException");
+                    }
+                }
+                else {
+                    initBL();
+                }
+            }
+        }
+        else if (e.getSource()==cancelbt){
+            refresh();
+        }
+    }
+
+    public void focusGained(FocusEvent e) {
+        if (e.getSource()==textFields[1]){
+            String hubID=parent.getUserIdentity().getId().substring(0,4);
+            Date today=new Date();
+            if (textFields[1].getText().equals(hubID+Constent.RECIEPT_NUM_FORMAT.format(today)+"+7位数字")){
+                textFields[1].setText(hubID+Constent.RECIEPT_NUM_FORMAT.format(today));
+            }
+        }
+    }
+
+    public void focusLost(FocusEvent e) {
+
+    }
+
+    private boolean isDigit(String s){
+        for (int i=0;i<s.length();i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9'){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private TransferReceiptVO getVO(){
+        int vehicleNum=0;
+        for (; vehicleNum<3;vehicleNum++){
+            if (vehicles[vehicleNum].isSelected())
+                break;
+        }
+        Vehicle vehicle=Vehicle.values()[vehicleNum];
+        Date time=null;
+        double fee=0;
+        try{
+            time=Constent.DATE_FORMAT.parse(textFields[0].getText());
+            fee=Double.parseDouble(textFields[3].getText());
+        } catch (ParseException e) {
+            //new ErrorDialog(parent, "日期格式必须为：yyyy-MM-dd HH:mm:ss");
+        } catch (NumberFormatException e){
+            //new ErrorDialog(parent, "运费必须为正数");
+        }
+        String transID=textFields[1].getText();
+        String vehicleID=textFields[2].getText();
+        String fromLoc=textFields[4].getText();
+        String toLoc=textFields[5].getText();
+        int counterID=Integer.parseInt(textFields[6].getText());
+        ArrayList<String> orderIDs=new ArrayList<String>();
+
+        //从表格中读取所有单号
+        {
+            int row = table.getRowCount();
+            for (int i=0;i<row;i++) {
+                orderIDs.add((String)table.getValueAt(row, 0));
+            }
+        }
+
+        TransferReceiptVO vo = new TransferReceiptVO(vehicle, time, transID, vehicleID, fromLoc, toLoc,
+                counterID, orderIDs, fee);
+
+        return vo;
+    }
+
+    private void initUI(){
+        labels[0]=new MyLabel("中转方式");
+        labels[1]=new MyLabel("中转日期");
+        labels[2]=new MyLabel("中转单编号");
+        labels[3]=new MyLabel("班次/车牌号");
+        labels[4]=new MyLabel("运费");
+        labels[5]=new MyLabel("出发地");
+        labels[6]=new MyLabel("目的地");
+        labels[7]=new MyLabel("货柜号");
+
+        for(int i=0;i<7;i++){
+            textFields[i]=new MyTextField(25);
+        }
+
+        vehicles[0]=new JRadioButton("汽车");
         vehicles[1]=new JRadioButton("火车");
-        vehicles[2]=new JRadioButton("汽车");
+        vehicles[2]=new JRadioButton("飞机");
         ButtonGroup btgroup=new ButtonGroup();
         for(JRadioButton bt:vehicles){
             btgroup.add(bt);
         }
-        vehicles[1].setSelected(true);
+        vehicles[0].setSelected(true);
 
         String [] names={"本次装箱所有托运单号"};
 
-        defaultTableModel=new DefaultTableModel(names, 0);
+        defaultTableModel=new MyDefaultTableModel(names, 0);
         table=new JTable(defaultTableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setPreferredScrollableViewportSize(new Dimension(300,200));
@@ -91,17 +404,16 @@ public class TransferPanel extends JPanel {
 
         gbc.gridx=4;
         gbc.gridy=1;
-        gbc.anchor=GridBagConstraints.WEST;
-        this.add(fromCombo,gbc);
-        gbc.gridx=5;
+        //gbc.anchor=GridBagConstraints.WEST;
+        //this.add(fromCombo,gbc);
+        //gbc.gridx=5;
         this.add(textFields[4],gbc);
-        gbc.gridx=4;
+        //gbc.gridx=4;
         gbc.gridy=2;
-        this.add(toCombo,gbc);
-        gbc.gridx=5;
+        //this.add(toCombo,gbc);
+        //gbc.gridx=5;
         this.add(textFields[5],gbc);
 
-        gbc.gridx=5;
         gbc.gridy=3;
         this.add(textFields[6],gbc);
 
@@ -134,4 +446,11 @@ public class TransferPanel extends JPanel {
         gbc.gridx=3;
         this.add(cancelbt,gbc);
     }
+
+    private void setPresentTime(){
+        String time= Constent.DATE_FORMAT.format(new Date());
+        textFields[0].setText(time);
+    }
+
+
 }

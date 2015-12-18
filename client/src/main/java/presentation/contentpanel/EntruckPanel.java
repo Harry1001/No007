@@ -66,8 +66,6 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
     MyDefaultTableModel defaultTableModel;
     JTable table;//此处表格和人员管理等表格大小不同，故不使用MyTable
 
-    SimpleDateFormat df=new SimpleDateFormat("yyyyMMdd");
-
     public EntruckPanel(MainFrame par){
         this.parent=par;
 
@@ -243,7 +241,7 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
      */
     private void refresh(){
         setPresentTime();
-        numT.setText(getMyStoreID()+df.format(new Date())+"+5位编号待输入");
+        numT.setText(getMyStoreID()+Constent.RECIEPT_NUM_FORMAT.format(new Date())+"+5位编号待输入");
         destiT.setText("");
         truckIDT.setText("");
         feeT.setText("");
@@ -285,7 +283,7 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
             }
         }
         String ss=s.substring(0, 14);
-        if (!ss.equals(getMyStoreID()+df.format(new Date()))){//检查汽运编号的前14位为营业厅编号+日期
+        if (!ss.equals(getMyStoreID()+Constent.RECIEPT_NUM_FORMAT.format(new Date()))){//检查汽运编号的前14位为营业厅编号+日期
             return false;
         }
         return true;
@@ -326,7 +324,7 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
         }
 
         if (!checkQiYunNum()){
-            throw new TransportBLException("汽运编号格式为：营业厅编号(6位)+日期(8位)+5为数字");
+            throw new TransportBLException("汽运编号格式为：营业厅编号(6位)或中转中心编号(4位+00)+日期(8位)+5为数字");
         }
 
         if (!checkDestination()){
@@ -401,7 +399,7 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
     public void focusGained(FocusEvent e) {
         if (e.getSource()==numT){
             String s=numT.getText();
-            String ss=getMyStoreID()+df.format(new Date());
+            String ss=getMyStoreID()+Constent.RECIEPT_NUM_FORMAT.format(new Date());
             if (s.equals(ss+"+5位编号待输入")){
                 numT.setText(ss);
             }

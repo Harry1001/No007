@@ -1,39 +1,46 @@
 package presentation.contentpanel.depotpanels;
 
-import presentation.contentpanel.managerpanels.StaffInfoPanel;
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.commodityblservice.CommodityBLService;
+import constent.Constent;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyDefaultTableModel;
+import presentation.commoncontainer.MyTable;
+import presentation.commonpanel.ErrorDialog;
+import typeDefinition.Location;
+import vo.commodityvo.CommodityVO;
 
+import javax.naming.NamingException;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by Harry on 2015/12/2.
  */
 public class DepotPanDianPanel extends JPanel implements ActionListener{
-    Frame parent;
-    JButton refreshbt=new JButton("刷新数据");
+    MainFrame parent;
+    MyButton refreshbt=new MyButton("刷新数据");
+    CommodityBLService commodityBLService;
 
-    DefaultTableModel defaultTableModel;
-    JTable table;
+    MyDefaultTableModel defaultTableModel;
+    MyTable table;
 
-    public DepotPanDianPanel(Frame par) {
+    public DepotPanDianPanel(MainFrame par) {
 
         this.parent=par;
 
         String [] names={"快递编号","入库日期","目的地","区号","排号","架号","位号"};
 
         defaultTableModel=new MyDefaultTableModel(names,0);
-        table=new JTable(defaultTableModel);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        RowSorter<TableModel> sorter=new TableRowSorter<TableModel>();
-        table.setRowSorter(sorter);
-        table.setPreferredSize(new Dimension(500,400));
-        table.setPreferredScrollableViewportSize(new Dimension(500,400));
+        table=new MyTable(defaultTableModel);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
@@ -54,11 +61,50 @@ public class DepotPanDianPanel extends JPanel implements ActionListener{
 
 
         refreshbt.addActionListener(this);
-
+        initBL();
     }
 
-    public void refreshData(){
-        //todo
+    private void initBL(){
+        try {
+            commodityBLService= BLFactory.getCommodityBLService();
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        } catch (NamingException e) {
+            new ErrorDialog(parent, "NamingException");
+        }
+    }
+
+    private void refreshData(){
+        if (commodityBLService!=null){
+            String hubID=parent.getUserIdentity().getId().substring(0,4);
+            try{
+                ArrayList<CommodityVO> commodityVOs=commodityBLService.getList(hubID);
+                defaultTableModel.getDataVector().clear();
+                for (CommodityVO vo: commodityVOs){
+                    String orderID=vo.getExpressNumber();
+                    String time= Constent.DATE_FORMAT.format(vo.getInTime());
+                    String destination=vo.getDestination();
+                    Location loc=vo.getStoreloc();
+
+                    Object[] data={orderID, time, destination, loc.getRegionID(), loc.getRowID(), loc.getShelfID(), loc.getPostID()};
+                    defaultTableModel.addRow(data);
+                }
+
+            } catch (RemoteException e) {
+                new ErrorDialog(parent, "服务器连接超时");
+            } catch (SQLException e) {
+                new ErrorDialog(parent, "SQLException");
+            } catch (NamingException e) {
+                new ErrorDialog(parent, "NamingException");
+            }
+        }
+        else {
+            initBL();
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -67,33 +113,4 @@ public class DepotPanDianPanel extends JPanel implements ActionListener{
         }
     }
 
-    class MyDefaultTableModel extends DefaultTableModel{
-        public MyDefaultTableModel() {
-        }
-
-        public MyDefaultTableModel(Object[] columnNames, int rowCount) {
-            super(columnNames, rowCount);
-        }
-
-        public MyDefaultTableModel(Vector columnNames, int rowCount) {
-            super(columnNames, rowCount);
-        }
-
-        public MyDefaultTableModel(Object[][] data, Object[] columnNames) {
-            super(data, columnNames);
-        }
-
-        public MyDefaultTableModel(Vector data, Vector columnNames) {
-            super(data, columnNames);
-        }
-
-        public MyDefaultTableModel(int rowCount, int columnCount) {
-            super(rowCount, columnCount);
-        }
-
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    }
 }
