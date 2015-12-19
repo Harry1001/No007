@@ -105,7 +105,7 @@ public class AgencyListPanel extends JPanel implements ActionListener {
         if (agencyBLService!=null){
             try {
                 ArrayList<AgencyVO> agencyVOs = agencyBLService.getAgencyList();
-                System.out.println(""+agencyVOs.size());
+                //System.out.println("agencyVOs:"+agencyVOs.size());
                 Vector<Vector> data = new Vector<Vector>();
                 Vector<Object> item;
                 for (AgencyVO vo: agencyVOs){
@@ -121,7 +121,7 @@ public class AgencyListPanel extends JPanel implements ActionListener {
                 defaultTableModel.setDataVector(data,names);
                 table.validate();
                 table.updateUI();
-                System.out.println(""+defaultTableModel.getRowCount());
+                //System.out.println(""+defaultTableModel.getRowCount());
             } catch (RemoteException e) {
                 new ErrorDialog(parent, "网络连接超时");
             } catch (SQLException e) {

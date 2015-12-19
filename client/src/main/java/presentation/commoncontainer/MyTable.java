@@ -11,14 +11,14 @@ import java.awt.*;
 public class MyTable extends JTable {
     public MyTable(TableModel dm) {
         super(dm);
-        initialize();
+        initialize(dm);
     }
 
-    private void initialize(){
+    private void initialize(TableModel dm){
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.setFont(new Font("", Font.PLAIN, 17));
         this.setRowHeight(20);
-        RowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
+        RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(dm);
         this.setRowSorter(sorter);
         this.setPreferredSize(new Dimension(500, 300));
         this.setPreferredScrollableViewportSize(new Dimension(500, 300));

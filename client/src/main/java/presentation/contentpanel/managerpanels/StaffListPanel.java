@@ -109,7 +109,7 @@ public class StaffListPanel extends JPanel implements ActionListener{
         if (staffBLService!=null){
             try {
                 ArrayList<StaffVO> staffVOs = staffBLService.getStaffList();
-                System.out.println(""+staffVOs.size());
+                //System.out.println("staffVOs:"+staffVOs.size());
                 Vector<Vector> data = new Vector<Vector>();
                 Vector<Object> item;
                 for (StaffVO vo: staffVOs){
@@ -122,8 +122,9 @@ public class StaffListPanel extends JPanel implements ActionListener{
                     item.add(vo.getWorkFrequency());
                     data.add(item);
                 }
+                //System.out.println("vector<vector> size:"+data.size());
                 defaultTableModel.setDataVector(data,names);
-                table.validate();
+                table.revalidate();
                 table.updateUI();
                 //System.out.println(""+defaultTableModel.getRowCount());
             } catch (RemoteException e) {
