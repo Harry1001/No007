@@ -29,7 +29,12 @@ public class StaffDataImpl extends UnicastRemoteObject implements StaffDataServi
 	}
 
 	public void addItem(StaffPO item) throws RemoteException, InfoBLException, SQLException {
-		staffDBManager.add(item);
+		if (!isExist(item.getStaffID())){
+			staffDBManager.add(item);
+		}
+		else {
+			throw new InfoBLException("该工号已存在!");
+		}
 	}
 
 	public void deleteItem(String id) throws RemoteException, SQLException {
@@ -37,14 +42,15 @@ public class StaffDataImpl extends UnicastRemoteObject implements StaffDataServi
 	}
 
 	public void update(String id, StaffPO item) throws RemoteException, InfoBLException, SQLException {
-		if(isExist(id)) {
+		if(!isExist(item.getStaffID())) {
 			deleteItem(id);
 			addItem(item);
 		}
-		else throw new InfoBLException("该工号已存在");
+		else throw new InfoBLException("该工号已存在!");
 	}
 	
 	private boolean isExist(String id) throws SQLException {
+		System.out.println("staff exited");
 		StaffPO staffPO = staffDBManager.get(id);
 		if(staffPO == null) return false;
 		else return true;
