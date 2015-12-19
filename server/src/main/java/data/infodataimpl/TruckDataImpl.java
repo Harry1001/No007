@@ -29,7 +29,9 @@ public class TruckDataImpl extends UnicastRemoteObject implements TruckDataServi
 	}
 
 	public void addItem(TruckPO item) throws RemoteException, InfoBLException, SQLException {
-		truckDBManager.add(item);		
+		if(!isExist(item.getTruckID()))
+			truckDBManager.add(item);		
+		else throw new InfoBLException("该车辆编号已存在");
 	}
 
 	public void deleteItem(String id) throws RemoteException, SQLException {
@@ -37,7 +39,16 @@ public class TruckDataImpl extends UnicastRemoteObject implements TruckDataServi
 	}
 
 	public void update(String id, TruckPO item) throws RemoteException, InfoBLException, SQLException {
-		deleteItem(id);
-		addItem(item);
+		if(!isExist(item.getTruckID())){
+			deleteItem(id);
+			addItem(item);			
+		}
+		else throw new InfoBLException("该车辆编号已存在");
+	}
+	
+	private boolean isExist(String id) throws SQLException {
+		TruckPO po = truckDBManager.get(id);
+		if(po==null) return false;
+		else return true;
 	}
 }

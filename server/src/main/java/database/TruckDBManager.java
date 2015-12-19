@@ -55,6 +55,20 @@ public class TruckDBManager extends DBManager{
 					resultSet.getInt(6));
 			trucks.add(truck);
 		}
+		stopconnection(connection);
 		return trucks;
+	}
+	
+	public TruckPO get(String id) throws SQLException {
+		String truckget = "SELECT * FROM Truck WHERE truckID = " + id;
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		TruckPO po = null;
+		ResultSet resultSet = statement.executeQuery(truckget);
+		while(resultSet.next())
+			po = new TruckPO(resultSet.getString(1), resultSet.getString(2),
+					resultSet.getString(3), resultSet.getString(4), new Date(resultSet.getTimestamp(5).getTime()),
+					resultSet.getInt(6));
+		return po;
 	}
 }

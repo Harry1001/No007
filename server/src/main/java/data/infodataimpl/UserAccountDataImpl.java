@@ -32,7 +32,9 @@ public class UserAccountDataImpl extends UnicastRemoteObject implements UserAcco
 	}
 
 	public void addItem(UserAccountPO item) throws RemoteException, InfoBLException, SQLException {
-		userAccountDBManager.add(item);		
+		if(!isExist(item.getUserID()))
+			userAccountDBManager.add(item);		
+		else throw new InfoBLException("该账号已经存在");
 	}
 
 	public void deleteItem(String id) throws RemoteException, SQLException {
@@ -40,11 +42,12 @@ public class UserAccountDataImpl extends UnicastRemoteObject implements UserAcco
 	}
 
 	public void update(String id, UserAccountPO item) throws RemoteException, InfoBLException, SQLException {
-		deleteItem(id);
-		addItem(item);
-		
+		if(!isExist(item.getUserID())) {
+			deleteItem(id);
+			addItem(item);
+		}
+		else throw new InfoBLException("该账号已经存在");		
 	}
-
 
 	public LoginResultVO verify(LoginInputVO vo) throws RemoteException {
 		String id = vo.getName();
@@ -61,5 +64,11 @@ public class UserAccountDataImpl extends UnicastRemoteObject implements UserAcco
 		}
 		LoginResultVO resultVO = new LoginResultVO(id, job, name);
 		return resultVO;		
+	}
+	
+	private boolean isExist(String id) throws SQLException {
+		UserAccountPO po = userAccountDBManager.get(id);
+		if(po==null) return false;
+		else return true;
 	}
 }
