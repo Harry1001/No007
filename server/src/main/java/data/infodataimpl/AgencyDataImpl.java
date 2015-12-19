@@ -29,9 +29,10 @@ public class AgencyDataImpl extends UnicastRemoteObject implements AgencyDataSer
 	}
 
 	public void addItem(AgencyPO item) throws RemoteException, InfoBLException, SQLException {
-		String a = getAgengcy(item.getAgencyID());
-		if(a==null) throw new InfoBLException("该机构已存在");
-		agencyDBManager.add(item);
+		if(!isExist(item.getAgencyID())) {
+			agencyDBManager.add(item);			
+		}
+		else throw new InfoBLException("该机构编号已存在");
 	}
 
 	public void deleteItem(String id) throws RemoteException, SQLException {
@@ -39,14 +40,21 @@ public class AgencyDataImpl extends UnicastRemoteObject implements AgencyDataSer
 	}
 
 	public void update(String id, AgencyPO item) throws RemoteException, InfoBLException, SQLException {
-		String a = agencyDBManager.getAgengcy(item.getAgencyID());
-		if(a==null) throw new InfoBLException("该机构已存在");
-		agencyDBManager.delete(id);
-		agencyDBManager.add(item);		
+		if(!isExist(item.getAgencyID())) {
+			agencyDBManager.delete(id);
+			agencyDBManager.add(item);					
+		}
+		else throw new InfoBLException("该机构编号已存在");
 	}
 	
 	public String getAgengcy(String agencyID) throws RemoteException, SQLException {
 		return agencyDBManager.getAgengcy(agencyID);
+	}
+	
+	private boolean isExist(String id) throws SQLException {
+		String aString = agencyDBManager.getAgengcy(id);
+		if(aString == null) return false;
+		else return true;
 	}
 
 }

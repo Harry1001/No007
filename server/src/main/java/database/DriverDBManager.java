@@ -60,5 +60,20 @@ public class DriverDBManager extends DBManager{
 		stopconnection(connection);
 		return drivers;
 	}
+	
+	public DriverPO get(String id) throws SQLException {
+		String driverget = "SELECT * FROM Driver WHERE driverID = " + id;
+		DriverPO driverPO = null;
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(driverget);
+		while(resultSet.next()) {
+			driverPO = new DriverPO(resultSet.getString(1), resultSet.getString(2),
+					new Date(resultSet.getTimestamp(3).getTime()), resultSet.getString(4), resultSet.getString(5),
+					resultSet.getString(6), new Date(resultSet.getTimestamp(7).getTime()));
+		}
+		stopconnection(connection);
+		return driverPO;
+	}
 
 }

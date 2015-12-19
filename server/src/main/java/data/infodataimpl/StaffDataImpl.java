@@ -50,7 +50,6 @@ public class StaffDataImpl extends UnicastRemoteObject implements StaffDataServi
 	}
 	
 	private boolean isExist(String id) throws SQLException {
-		System.out.println("staff exited");
 		StaffPO staffPO = staffDBManager.get(id);
 		if(staffPO == null) return false;
 		else return true;

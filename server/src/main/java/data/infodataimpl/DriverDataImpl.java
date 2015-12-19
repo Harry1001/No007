@@ -29,7 +29,9 @@ public class DriverDataImpl extends UnicastRemoteObject implements DriverDataSer
 	}
 
 	public void addItem(DriverPO item) throws RemoteException, InfoBLException, SQLException {
-		driverDBManager.add(item);
+		if(!isExist(item.getDriverID()))
+			driverDBManager.add(item);
+		else throw new InfoBLException("该司机编号已存在");
 	}
 
 	public void deleteItem(String id) throws RemoteException, SQLException {
@@ -38,7 +40,16 @@ public class DriverDataImpl extends UnicastRemoteObject implements DriverDataSer
 	}
 
 	public void update(String id, DriverPO item) throws RemoteException, InfoBLException, SQLException {
-		driverDBManager.delete(id);
-		driverDBManager.add(item);	
+		if(!isExist(item.getDriverID())) {
+			driverDBManager.delete(id);
+			driverDBManager.add(item);				
+		}
+		else throw new InfoBLException("该司机编号已存在");
+	}
+	
+	private boolean isExist(String id) throws SQLException {
+		DriverPO driverPO = driverDBManager.get(id);
+		if(driverPO==null) return false;
+		else return true;
 	}
 }

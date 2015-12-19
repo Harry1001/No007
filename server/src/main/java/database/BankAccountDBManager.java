@@ -61,4 +61,17 @@ public class BankAccountDBManager extends DBManager{
 		}
 		return bankAccounts;
 	}
+	
+	public BankAccountPO get(String id) throws SQLException {
+		String bankaccountget = "SELECT * FROM bankaccount WHERE accountuser = " + id;
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(bankaccountget);
+		BankAccountPO bankAccountPO = null;
+		while(resultSet.next()) {
+			bankAccountPO = new BankAccountPO(resultSet.getString(1), resultSet.getBigDecimal(2));
+		}
+		stopconnection(connection);
+		return bankAccountPO;
+	}
 }
