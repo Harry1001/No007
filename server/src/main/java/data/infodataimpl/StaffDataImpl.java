@@ -37,7 +37,16 @@ public class StaffDataImpl extends UnicastRemoteObject implements StaffDataServi
 	}
 
 	public void update(String id, StaffPO item) throws RemoteException, InfoBLException, SQLException {
-		deleteItem(id);
-		addItem(item);
+		if(isExist(id)) {
+			deleteItem(id);
+			addItem(item);
+		}
+		else throw new InfoBLException("该工号已存在");
+	}
+	
+	private boolean isExist(String id) throws SQLException {
+		StaffPO staffPO = staffDBManager.get(id);
+		if(staffPO == null) return false;
+		else return true;
 	}
 }

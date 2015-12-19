@@ -12,25 +12,25 @@ public interface StaffDataService extends Remote {
 
 	/**
 	 * 返回员工列表
-	 * @throws SQLException 
+	 * @throws RemoteException, SQLException 
 	 */
 	public ArrayList<StaffPO> getList() throws RemoteException, SQLException;
 	
 	/**
 	 * 在持久化数据中增加一个po条目
-	 * @throws SQLException 
+	 * @throws RemoteException, InfoBLException, SQLException
 	 */
 	public void addItem(StaffPO item) throws RemoteException, InfoBLException, SQLException;
 	
 	/**
 	 * 在持久化数据中删除一个po
-	 * @throws SQLException 
+	 * @throws RemoteException, SQLException 
 	 */
 	public void deleteItem(String id) throws RemoteException, SQLException;
 	
 	/**
 	 * 在持久化数据中更新一个po
-	 * @throws SQLException 
+	 * @throws RemoteException, InfoBLException, SQLException
 	 */
 	public void update(String id, StaffPO item) throws RemoteException, InfoBLException, SQLException;
 }
