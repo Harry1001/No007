@@ -51,7 +51,8 @@ public class AgencyDBManager extends DBManager{
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(find);
-		result=resultSet.getString(1)+resultSet.getString(2);
+		while(resultSet.next())
+			result=resultSet.getString(1)+resultSet.getString(2);
 		return result;
 	}
 }
