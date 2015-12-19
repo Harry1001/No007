@@ -215,7 +215,7 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 	}
 	
 	private boolean checkHubID() {
-		String s=hubIDL.getText();
+		String s=hubIDT.getText();
 		if (s.length()!=Constent.HUB_ID_LENGTH)
 	        return false;
 	    for (int i=0;i<Constent.HUB_ID_LENGTH;i++){

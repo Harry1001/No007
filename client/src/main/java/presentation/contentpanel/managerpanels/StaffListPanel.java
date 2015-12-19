@@ -8,6 +8,7 @@ import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
 import presentation.commonpanel.ErrorDialog;
+import typeDefinition.Job;
 import vo.infovo.AgencyVO;
 import vo.infovo.StaffVO;
 
@@ -19,7 +20,9 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -78,7 +81,7 @@ public class StaffListPanel extends JPanel implements ActionListener{
      * 初始化列名称
      */
     private void initNames(){
-        String [] strings={"工号","姓名","性别","出生年月","职位"};
+        String [] strings={"工号","姓名","性别","出生年月","职位", "提成次数"};
         for(int i=0;i<strings.length;i++){
             names.add(strings[i]);
         }
@@ -103,59 +106,111 @@ public class StaffListPanel extends JPanel implements ActionListener{
      * 从数据库读取数据刷新列表
      */
     public void refreshList(){
-        try {
-            ArrayList<StaffVO> staffVOs = staffBLService.getStaffList();
-            System.out.println(""+staffVOs.size());
-            Vector<Vector> data = new Vector<Vector>();
-            Vector<Object> item;
-            for (StaffVO vo: staffVOs){
-                item=new Vector<Object>();
-                item.add(vo.getStaffID());
-                item.add(vo.getName());
-                item.add(vo.getGender());
-                item.add(Constent.BIRTHDAY_FORMAT.format(vo.getBirthday()));
-                item.add(Constent.LOCATIONS[vo.getPosition().ordinal()]);
-
-                data.add(item);
+        if (staffBLService!=null){
+            try {
+                ArrayList<StaffVO> staffVOs = staffBLService.getStaffList();
+                System.out.println(""+staffVOs.size());
+                Vector<Vector> data = new Vector<Vector>();
+                Vector<Object> item;
+                for (StaffVO vo: staffVOs){
+                    item=new Vector<Object>();
+                    item.add(vo.getStaffID());
+                    item.add(vo.getName());
+                    item.add(vo.getGender());
+                    item.add(Constent.BIRTHDAY_FORMAT.format(vo.getBirthday()));
+                    item.add(Constent.JOB_STRING[vo.getPosition().ordinal()]);
+                    item.add(vo.getWorkFrequency());
+                    data.add(item);
+                }
+                defaultTableModel.setDataVector(data,names);
+                table.validate();
+                table.updateUI();
+                //System.out.println(""+defaultTableModel.getRowCount());
+            } catch (RemoteException e) {
+                new ErrorDialog(parent, "网络连接超时");
+            } catch (SQLException e) {
+                new ErrorDialog(parent, "SQLException");
             }
-            defaultTableModel.setDataVector(data,names);
-            table.validate();
-            table.updateUI();
-            System.out.println(""+defaultTableModel.getRowCount());
-        } catch (RemoteException e) {
-            new ErrorDialog(parent, "网络连接超时");
-        } catch (SQLException e) {
-            new ErrorDialog(parent, "SQLException");
+        }
+        else {
+            initBL();
         }
     }
 
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
-            JDialog dialog=new JDialog(parent,"新增人员信息",true);
-            dialog.getContentPane().add(new StaffInfoPanel(parent, dialog, staffBLService, this));
-            dialog.setLocationRelativeTo(parent);
-            dialog.pack();
-            dialog.show();
+            if (staffBLService!=null){
+                JDialog dialog=new JDialog(parent,"新增人员信息",true);
+                dialog.getContentPane().add(new StaffInfoPanel(parent, dialog, staffBLService, this));
+                dialog.setLocationRelativeTo(parent);
+                dialog.pack();
+                dialog.setVisible(true);
+            }
+            else {
+                initBL();
+            }
         }
         else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
             if (row==-1){//没有选择任何行
                 new ErrorDialog(parent, "请选择一行待删除条目");
             } else {//选择了待删除的行
-                String id= (String)table.getValueAt(row, 0);
-                try {
-                    staffBLService.deleteStaff(id);
-                    refreshList();
-                } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "网络连接超时");
-                } catch (SQLException e1) {
-                    new ErrorDialog(parent, "SQLException");
+                if (staffBLService!=null){
+                    String id= (String)table.getValueAt(row, 0);
+                    try {
+                        staffBLService.deleteStaff(id);
+                        refreshList();
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "网络连接超时");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent, "SQLException");
+                    }
+                }
+                else{
+                    initBL();
                 }
             }
         }
         else if (e.getSource()==modifybt){
+            int row=table.getSelectedRow();
+            if (row==-1){
+                new ErrorDialog(parent, "请选择待修改行");
+            }
+            else {
+                if (staffBLService!=null){
+                    String id=(String)table.getValueAt(row, 0);
+                    String name=(String)table.getValueAt(row, 1);
+                    String gender=(String)table.getValueAt(row, 2);
+                    int frequency=(Integer)table.getValueAt(row, 5);
+                    Job job;
+                    String jobStr=(String)table.getValueAt(row, 4);
+                    int i=0;
+                    for (;i<Constent.JOB_STRING.length;i++){
+                        if (jobStr.equals(Constent.JOB_STRING[i])){
+                            break;
+                        }
+                    }
+                    job=Job.values()[i];
+                    Date birthday=null;
+                    try {
+                        birthday=Constent.BIRTHDAY_FORMAT.parse((String)table.getValueAt(row,3));
+                    } catch (ParseException e1) {
+                        new ErrorDialog(parent, "不可能！");
+                    }
 
+                    StaffVO vo=new StaffVO(id, name, gender, birthday, job, 0, frequency);
+
+                    JDialog dialog=new JDialog(parent,"修改人员信息",true);
+                    dialog.getContentPane().add(new StaffModifyPanel(parent, dialog, staffBLService, this, vo));
+                    dialog.setLocationRelativeTo(parent);
+                    dialog.pack();
+                    dialog.setVisible(true);
+                }
+                else {
+                    initBL();
+                }
+            }
         }
     }
 }

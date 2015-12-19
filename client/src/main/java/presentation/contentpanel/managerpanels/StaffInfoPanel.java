@@ -54,7 +54,7 @@ public class StaffInfoPanel extends JPanel implements ActionListener{
 
         String[] s1={"男","女"};
         genderC =new JComboBox<String>(s1);
-        jobC =new JComboBox<String>(Constent.JOB_STRING);
+        jobC =new JComboBox<String>(Constent.USER_ACCOUNR_JOB);
 
         p1=new TimePanel();
 
@@ -85,30 +85,61 @@ public class StaffInfoPanel extends JPanel implements ActionListener{
         cancelbt.addActionListener(this);
     }
 
+    protected boolean checkID(){
+        String s=idT.getText();
+        if (s.length()!=Constent.USER_ID_LENGTH){
+            return false;
+        }
+        for (int i=0;i<Constent.USER_ID_LENGTH;i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9'){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected boolean checkName(){
+        String s=nameT.getText();
+        return !s.isEmpty();
+    }
+
+    protected boolean checkAll(){
+        if (!checkID()){
+            new ErrorDialog(parent, "工号必须为"+Constent.USER_ID_LENGTH+"位数字");
+            return false;
+        }
+
+        if (!checkName()){
+            new ErrorDialog(parent, "姓名不可为空");
+            return false;
+        }
+
+        return true;
+    }
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submitbt){
-            //todo 检查输入尚未实现
-            try {
-                String id=idT.getText();
-                String name=nameT.getText();
-                String gender=genderC.getSelectedItem().toString();
-                Date birthday=p1.getDate();
-                Job position=Job.values()[jobC.getSelectedIndex()];
+            if (checkAll()){
+                try {
+                    String id=idT.getText();
+                    String name=nameT.getText();
+                    String gender=genderC.getSelectedItem().toString();
+                    Date birthday=p1.getDate();
+                    Job position=Job.values()[jobC.getSelectedIndex()+1];//此处+1很重要，因为该下拉选框里没有寄件人，导致在数组中次序偏差了1
 
-                StaffVO vo=new StaffVO(id, name, gender, birthday, position, 0, 0);
-                staffBLService.addStaff(vo);
-                staffListPanel.refreshList();
-            } catch (TimeFormatException e1) {
-                new ErrorDialog(parent, e1.getMessage());
-            } catch (RemoteException e1) {
-                new ErrorDialog(parent, "服务器连接超时");
-            } catch (SQLException e1) {
-                new ErrorDialog(parent, "SQLException");
-            } catch (InfoBLException e1) {
-                new ErrorDialog(parent, e1.getMessage());
+                    StaffVO vo=new StaffVO(id, name, gender, birthday, position, 0, 0);
+                    staffBLService.addStaff(vo);
+                    staffListPanel.refreshList();
+                    dialog.dispose();
+                } catch (TimeFormatException e1) {
+                    new ErrorDialog(parent, e1.getMessage());
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                } catch (InfoBLException e1) {
+                    new ErrorDialog(parent, e1.getMessage());
+                }
             }
-
-
         }
         else if (e.getSource()==cancelbt){
             dialog.dispose();

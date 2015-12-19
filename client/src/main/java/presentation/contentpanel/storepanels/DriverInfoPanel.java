@@ -81,7 +81,7 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
             return false;
         }
 
-        return ( isDigit(id.substring(Constent.DRIVER_ID_LENGTH-1)) || (id.charAt(Constent.DRIVER_ID_LENGTH-1))=='x');
+        return ( isDigit(id.substring(Constent.PERSON_ID_LENGTH-1)) || (id.charAt(Constent.PERSON_ID_LENGTH-1))=='x');
     }
 
     private boolean checkPhone(){

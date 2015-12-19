@@ -125,32 +125,50 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
     }
 
     private boolean checkInput(){
-        //todo to be implemented
+        for (int i=0;i<6;i++){
+            String s=textFields[i].getText();
+            if (!checkNumber(s)){
+                return false;
+            }
+        }
         return true;
+    }
+
+    private boolean checkNumber(String s){
+        try{
+            double n= Double.parseDouble(s);
+            return (n>=0.0);
+        }catch (NumberFormatException e){
+            return false;
+        }
     }
 
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==confirmbt){
             if (checkInput()){
-                double plane=Double.parseDouble(textFields[0].getText());
-                double train=Double.parseDouble(textFields[1].getText());
-                double bus=Double.parseDouble(textFields[2].getText());
-                double economic=Double.parseDouble(textFields[3].getText());
-                double standard=Double.parseDouble(textFields[4].getText());
-                double special=Double.parseDouble(textFields[5].getText());
+                if (feeService!=null){
+                    double plane=Double.parseDouble(textFields[0].getText());
+                    double train=Double.parseDouble(textFields[1].getText());
+                    double bus=Double.parseDouble(textFields[2].getText());
+                    double economic=Double.parseDouble(textFields[3].getText());
+                    double standard=Double.parseDouble(textFields[4].getText());
+                    double special=Double.parseDouble(textFields[5].getText());
 
-                CarriageFeeVO carriageFeeVO=new CarriageFeeVO(plane, train, bus);
-                ExpressFeeVO expressFeeVO=new ExpressFeeVO(economic, standard, special);
-                try {
-                    feeService.setCarriage(carriageFeeVO);
-                    feeService.setExpressFee(expressFeeVO);
-                } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
-                } catch (SQLException e1) {
-                    new ErrorDialog(parent, "SQLException");
+                    CarriageFeeVO carriageFeeVO=new CarriageFeeVO(plane, train, bus);
+                    ExpressFeeVO expressFeeVO=new ExpressFeeVO(economic, standard, special);
+                    try {
+                        feeService.setCarriage(carriageFeeVO);
+                        feeService.setExpressFee(expressFeeVO);
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "服务器连接超时");
+                    } catch (SQLException e1) {
+                        new ErrorDialog(parent, "SQLException");
+                    }
                 }
-
+                else {
+                    initBL();
+                }
             } else {
                 new ErrorDialog(parent, "所有输入必须为正数");
             }

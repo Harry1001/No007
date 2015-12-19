@@ -30,7 +30,7 @@ public class UserAccountModifyPanel extends UserAccountInfoPanel {
         idT.setText(vo.getUserID());
         nameT.setText(vo.getName());
         passwordField.setText(vo.getPassword());
-        jobC.setSelectedIndex(vo.getPosition().ordinal());
+        jobC.setSelectedIndex(vo.getPosition().ordinal()-1);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
         }
         //
         */
-        
+
         MainFrame frame=new MainFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         try{

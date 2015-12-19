@@ -379,7 +379,8 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
-        gbc.fill=GridBagConstraints.NONE;
+        gbc.fill=GridBagConstraints.BOTH;
+
 
         for(gbc.gridx=0,gbc.gridy=0;gbc.gridy<5;gbc.gridy++){
             this.add(labels[gbc.gridy],gbc);
@@ -390,18 +391,23 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
             this.add(vehicles[gbc.gridx-1],gbc);
         }
 
+        gbc.weightx=1.0;
         for(gbc.gridx=1,gbc.gridy=1;gbc.gridy<5;gbc.gridy++){
             this.add(textFields[gbc.gridy-1],gbc);
         }
 
+        gbc.weightx=0.0;
         gbc.gridx=2;
         gbc.gridy=4;
+        gbc.fill=GridBagConstraints.NONE;
         this.add(calfeebt,gbc);
 
+        gbc.fill=GridBagConstraints.BOTH;
         for(gbc.gridx=3,gbc.gridy=1;gbc.gridy<4;gbc.gridy++){
             this.add(labels[gbc.gridy+4],gbc);
         }
 
+        gbc.weightx=1.0;
         gbc.gridx=4;
         gbc.gridy=1;
         //gbc.anchor=GridBagConstraints.WEST;
@@ -422,13 +428,14 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         gbc.gridwidth=3;
         gbc.gridheight=4;
         this.add(new JScrollPane(table),gbc);
-        gbc.gridx=3;
+        gbc.gridx=4;
         gbc.gridy=6;
         gbc.gridwidth=1;
         gbc.gridheight=1;
         this.add(orderT,gbc);
 
-        gbc.anchor=GridBagConstraints.EAST;
+        gbc.weightx=0.0;
+        gbc.anchor=GridBagConstraints.WEST;
         gbc.fill=GridBagConstraints.NONE;
         gbc.gridy=7;
         this.add(addbt,gbc);

@@ -135,25 +135,31 @@ public class SalaryListPanel extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==confirmbt){
-            int mail=(Integer)table.getValueAt(0,1);
-            int driver=(Integer)table.getValueAt(1,1);
-            int manager=(Integer)table.getValueAt(2,1);
-            int finance=(Integer)table.getValueAt(3,1);
-            int store=(Integer)table.getValueAt(4,1);
-            int hub=(Integer)table.getValueAt(5,1);
-            int depot=(Integer)table.getValueAt(6,1);
-            int admin=(Integer)table.getValueAt(7,1);
+            if (salaryService!=null){
+                int mail=(Integer)table.getValueAt(0,1);
+                int driver=(Integer)table.getValueAt(1,1);
+                int manager=(Integer)table.getValueAt(2,1);
+                int finance=(Integer)table.getValueAt(3,1);
+                int store=(Integer)table.getValueAt(4,1);
+                int hub=(Integer)table.getValueAt(5,1);
+                int depot=(Integer)table.getValueAt(6,1);
+                int admin=(Integer)table.getValueAt(7,1);
 
-            int mailAl=(Integer)table.getValueAt(0,2);
-            int driverAl=(Integer)table.getValueAt(1,2);
+                int mailAl=(Integer)table.getValueAt(0,2);
+                int driverAl=(Integer)table.getValueAt(1,2);
 
-            SalaryVO vo = new SalaryVO(finance, admin, driver,hub,mail,manager,depot,store,driverAl,mailAl);
-            try {
-                salaryService.setSalary(vo);
-            } catch (RemoteException e1) {
-                new ErrorDialog(parent, "服务器连接超时");
-            } catch (SQLException e1) {
-                new ErrorDialog(parent, "SQLException");
+                SalaryVO vo = new SalaryVO(finance, admin, driver,hub,mail,manager,depot,store,driverAl,mailAl);
+                try {
+                    salaryService.setSalary(vo);
+                    initData();
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                }
+            }
+            else {
+                initBL();
             }
         }
         else if (e.getSource()==cancelbt){//点击取消则重新载入数据

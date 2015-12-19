@@ -1,37 +1,46 @@
 package presentation.contentpanel;
 
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.recordblservice.RecordBLService;
+import constent.Constent;
+import presentation.commoncontainer.MyButton;
+import presentation.commoncontainer.MyDefaultTableModel;
+import presentation.commoncontainer.MyTable;
+import presentation.commonpanel.ErrorDialog;
+import vo.recordvo.RecordVO;
+
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by Harry on 2015/11/28.
  */
 public class RecordListPanel extends JPanel implements ActionListener{
-    Frame parent;
 
-    DefaultTableModel defaultTableModel;
-    JTable table;
-    JButton refreshbt=new JButton("刷新日志");
+    RecordBLService recordBLService;
 
-    public RecordListPanel(Frame par) {
+    MainFrame parent;
+    MyDefaultTableModel defaultTableModel;
+    MyTable table;
+    MyButton refreshbt=new MyButton("刷新日志");
+
+    public RecordListPanel(MainFrame par) {
 
         this.parent = par;
 
         String[] names = {"操作时间", "操作人", "操作概要简述"};
 
         defaultTableModel = new MyDefaultTableModel(names, 0);
-        table = new JTable(defaultTableModel);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        RowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
-        table.setRowSorter(sorter);
-        table.setPreferredSize(new Dimension(500, 400));
-        table.setPreferredScrollableViewportSize(new Dimension(500, 400));
+        table = new MyTable(defaultTableModel);
+
         table.getColumnModel().getColumn(2).setPreferredWidth(300);//设置操作简述一列较宽
 
         this.setLayout(new GridBagLayout());
@@ -51,41 +60,45 @@ public class RecordListPanel extends JPanel implements ActionListener{
         refreshbt.addActionListener(this);
     }
 
+    private void initBL(){
+        try {
+            recordBLService=BLFactory.getRecordBLService();
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        }
+    }
+
     public void refreshData(){
-        //todo
+        if (recordBLService!=null){
+            try {
+                ArrayList<RecordVO> vos = recordBLService.lookup();
+                defaultTableModel.getDataVector().clear();
+                for (RecordVO vo:vos){
+                    String date= Constent.DATE_FORMAT.format(vo.getOpeTime());
+                    String operator=vo.getOperator();
+                    String operation=vo.getOperation();
+                    String[] data={date, operator, operation};
+                    defaultTableModel.addRow(data);
+                }
+                table.revalidate();
+                table.updateUI();
+            } catch (RemoteException e) {
+                new ErrorDialog(parent, "服务器连接超时");
+            } catch (SQLException e) {
+                new ErrorDialog(parent, "SQLException");
+            }
+        }
+        else {
+            initBL();
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
         refreshData();
     }
-
-    class MyDefaultTableModel extends DefaultTableModel{
-        public MyDefaultTableModel(int rowCount, int columnCount) {
-            super(rowCount, columnCount);
-        }
-
-        public MyDefaultTableModel() {
-        }
-
-        public MyDefaultTableModel(Vector columnNames, int rowCount) {
-            super(columnNames, rowCount);
-        }
-
-        public MyDefaultTableModel(Object[] columnNames, int rowCount) {
-            super(columnNames, rowCount);
-        }
-
-        public MyDefaultTableModel(Vector data, Vector columnNames) {
-            super(data, columnNames);
-        }
-
-        public MyDefaultTableModel(Object[][] data, Object[] columnNames) {
-            super(data, columnNames);
-        }
-
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    }
+    
 }
