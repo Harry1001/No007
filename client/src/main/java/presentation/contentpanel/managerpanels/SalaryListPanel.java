@@ -138,26 +138,30 @@ public class SalaryListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==confirmbt){
             if (salaryService!=null){
-                int mail=(Integer)table.getValueAt(0,1);
-                int driver=(Integer)table.getValueAt(1,1);
-                int manager=(Integer)table.getValueAt(2,1);
-                int finance=(Integer)table.getValueAt(3,1);
-                int store=(Integer)table.getValueAt(4,1);
-                int hub=(Integer)table.getValueAt(5,1);
-                int depot=(Integer)table.getValueAt(6,1);
-                int admin=(Integer)table.getValueAt(7,1);
 
-                int mailAl=(Integer)table.getValueAt(0,2);
-                int driverAl=(Integer)table.getValueAt(1,2);
-
-                SalaryVO vo = new SalaryVO(finance, admin, driver,hub,mail,manager,depot,store,driverAl,mailAl);
                 try {
+                    int mail = Integer.parseInt(table.getValueAt(0, 1).toString());
+                    int driver = Integer.parseInt( table.getValueAt(1, 1).toString());
+                    int manager = Integer.parseInt(table.getValueAt(2, 1).toString());
+                    int finance = Integer.parseInt(table.getValueAt(3, 1).toString());
+                    int store = Integer.parseInt(table.getValueAt(4, 1).toString());
+                    int hub = Integer.parseInt(table.getValueAt(5, 1).toString());
+                    int depot = Integer.parseInt(table.getValueAt(6, 1).toString());
+                    int admin = Integer.parseInt(table.getValueAt(7, 1).toString());
+
+                    int mailAl = Integer.parseInt(table.getValueAt(0, 2).toString());
+                    int driverAl = Integer.parseInt(table.getValueAt(1, 2).toString());
+
+                    SalaryVO vo = new SalaryVO(finance, admin, driver, hub, mail, manager, depot, store, driverAl, mailAl);
                     salaryService.setSalary(vo);
                     initData();
+                } catch (NumberFormatException e1){
+                    new ErrorDialog(parent, "工资必须为正数");
                 } catch (RemoteException e1) {
                     new ErrorDialog(parent, "服务器连接超时");
                 } catch (SQLException e1) {
-                    new ErrorDialog(parent, "SQLException");
+                    System.out.println(e1.getMessage());
+                    new ErrorDialog(parent, "SQLException:");
                 }
             }
             else {

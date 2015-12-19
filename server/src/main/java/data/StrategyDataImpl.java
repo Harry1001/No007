@@ -72,7 +72,7 @@ public class StrategyDataImpl extends UnicastRemoteObject implements StrategyDat
 	public void updateSalaryStrategy(SalaryPO po) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		
-		s.addSalaryStrategy(po);
+		s.updateSalaryStrategy(po);
 	}
 
 	/**
