@@ -52,10 +52,12 @@ public class SalaryListPanel extends JPanel implements ActionListener {
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.BOTH;
 
+        gbc.weightx=gbc.weighty=1.0;
         gbc.gridwidth=6;
         gbc.gridheight=10;
         this.add(new JScrollPane(table),gbc);
 
+        gbc.weightx=gbc.weighty=0.0;
         gbc.fill=GridBagConstraints.NONE;
         gbc.anchor=GridBagConstraints.WEST;
         gbc.gridheight=1;

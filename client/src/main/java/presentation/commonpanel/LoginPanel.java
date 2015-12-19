@@ -56,24 +56,30 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         c.gridy=0;
         c.insets=new Insets(10,10,10,10);
         c.fill=GridBagConstraints.BOTH;
+        c.weightx=c.weighty=0.7;
 
         c.gridwidth=2;
         panel.add(label,c);
         c.gridy=1;
         panel.add(seph,c);
 
+        c.weightx=c.weighty=0.0;
         c.gridy=2;
         c.gridwidth=1;
         panel.add(numLabel,c);
         c.gridx=1;
+        c.weightx=c.weighty=0.7;
         panel.add(numText,c);
         c.gridx=0;
         c.gridy=3;
+        c.weightx=c.weighty=0.0;
         panel.add(passLabel,c);
         c.gridx=1;
+        c.weightx=c.weighty=0.7;
         panel.add(passwordField,c);
         c.gridy=4;
         c.fill=GridBagConstraints.NONE;
+        c.weightx=c.weighty=0.0;
         panel.add(logButton,c);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         panel.setPreferredSize(new Dimension(300, 200));

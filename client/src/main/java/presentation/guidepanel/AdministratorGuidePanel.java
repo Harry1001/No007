@@ -23,6 +23,9 @@ public class AdministratorGuidePanel extends GuidePanel implements ActionListene
         super(content, par);
 
         bts[0] =new MyToggleButton("用户账户管理", Images.USER_ACCOUNT_IMAGE);
+        for(int i=0;i<BTNUMBER;i++){
+            bts[i].addActionListener(this);
+        }
 
         this.setLayout(new GridBagLayout());
         addbts(bts);
