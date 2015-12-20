@@ -19,6 +19,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by Harry on 2015/12/4.
@@ -31,6 +32,8 @@ public class BankAccountPanel extends JPanel implements ActionListener{
     private MyButton deletebt=new MyButton("删除账户");
 
     private BankAccountBLService bankAccountBLService;
+
+    protected Vector<String> names;
 
     public BankAccountPanel(MainFrame par){
         this.parent=par;
@@ -56,7 +59,8 @@ public class BankAccountPanel extends JPanel implements ActionListener{
     }
 
     private void initUI(){
-        String [] names ={"帐号","金额"};
+        names.add("帐号");
+        names.add("金额");
         defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);
 
@@ -69,6 +73,8 @@ public class BankAccountPanel extends JPanel implements ActionListener{
         gbc.gridx=gbc.gridy=0;
         gbc.gridwidth=3;
         this.add(new JScrollPane(table),gbc);
+
+        gbc.weightx=gbc.weighty=0.0;
         gbc.gridwidth=1;
         gbc.gridy++;
         this.add(addbt, gbc);
@@ -79,13 +85,18 @@ public class BankAccountPanel extends JPanel implements ActionListener{
     public void refresh(){
         try {
             ArrayList<BankAccountVO> vos=bankAccountBLService.getBankAccountList();
-            defaultTableModel.getDataVector().clear();
+           // defaultTableModel.getDataVector().clear();
+            Vector<Vector> data=new Vector<Vector>();
             for(BankAccountVO vo: vos){
                 String acc=vo.getAccountUser();
                 BigDecimal balance=vo.getBalance();
-                Object[] data={acc, balance};
-                defaultTableModel.addRow(data);
+                Vector<Object> item=new Vector<Object>();
+                item.add(acc);
+                item.add(balance);
+                data.add(item);
+                //defaultTableModel.addRow(data);
             }
+            defaultTableModel.setDataVector(data, names);
             table.revalidate();
             table.updateUI();
         } catch (RemoteException e) {

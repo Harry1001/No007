@@ -42,9 +42,11 @@ public class UserAccountDBManager extends DBManager{
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(useraccountget);
-		resultSet.next();
-		UserAccountPO userAccount = new UserAccountPO(resultSet.getString(1), resultSet.getString(2), 
+		UserAccountPO userAccount=null;
+		if (resultSet.next()) {
+			userAccount = new UserAccountPO(resultSet.getString(1), resultSet.getString(2),
 					Job.values()[resultSet.getInt(3)], resultSet.getString(4));
+		}
 		return userAccount;
 	}
 	

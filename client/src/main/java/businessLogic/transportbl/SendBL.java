@@ -53,7 +53,7 @@ public class SendBL{
 	public SendReceiptVO getSendReceipt(String orderID) throws RemoteException, SQLException, MalformedURLException, NotBoundException {
 		receiptblservice=BLFactory.getSendReceiptBLService();
 		SendReceiptPO po=receiptblservice.getSendReceipt(orderID);
-		SendReceiptVO vo=new SendReceiptVO(po);
-		return vo;
+
+		return po==null?null:new SendReceiptVO(po);
 	}
 }

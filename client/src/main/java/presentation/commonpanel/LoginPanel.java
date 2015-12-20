@@ -51,6 +51,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
 
         JLabel label=new JLabel("用户登录", JLabel.CENTER);
         JSeparator seph=new JSeparator();
+        seph.setVisible(true);
 
         c.gridx=0;
         c.gridy=0;

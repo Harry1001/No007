@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * Created by Harry on 2015/11/27.
@@ -39,25 +40,28 @@ public class TruckListPanel extends JPanel implements ActionListener {
     MyDefaultTableModel defaultTableModel;
     MyTable table;
 
-    String [] names={"车辆代号","发动机号","车牌号","底盘号","购买时间","服役时间"};
+    String storID;
+    Vector<String> names;
 
     public TruckListPanel(MainFrame par){
         this.parent=par;
 
-        String [][] data={};
-
-        defaultTableModel=new MyDefaultTableModel(data,names);
+        this.storID=parent.getUserIdentity().getId().substring(0,6);
+        initNames();
+        defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.BOTH;
+        gbc.weightx=gbc.weighty=1.0;
 
         gbc.gridwidth=6;
         gbc.gridheight=10;
         this.add(new JScrollPane(table),gbc);
 
+        gbc.weightx=gbc.weighty=0.0;
         gbc.fill=GridBagConstraints.NONE;
         gbc.anchor=GridBagConstraints.WEST;
         gbc.gridheight=1;
@@ -76,6 +80,14 @@ public class TruckListPanel extends JPanel implements ActionListener {
 
         initBL();
         refreshList();
+    }
+
+    private void initNames(){
+        String [] namestr={"车辆代号","发动机号","车牌号","底盘号","购买时间","服役时间"};
+        names=new Vector<String>();
+        for (int i=0;i<namestr.length;i++){
+            names.add(namestr[i]);
+        }
     }
 
     protected void initBL(){
@@ -97,22 +109,34 @@ public class TruckListPanel extends JPanel implements ActionListener {
         if (truckBLService!=null) {
             try{
                 ArrayList<TruckVO> truckVOs=truckBLService.getTruckList();
-                defaultTableModel.getDataVector().clear();//先清空
+                Vector<Vector> data=new Vector<Vector>();
                 for (TruckVO vo: truckVOs){
-                    String id=vo.getTruckID();
-                    String engine=vo.getEngineID();
-                    String chepai=vo.getLicenceID();
-                    String dipan=vo.getChassisID();
-                    String buyTime= Constent.BIRTHDAY_FORMAT.format(vo.getBuyTime());
-                    Integer fuyiTime=vo.getServeTime();
-                    Object [] data={id,engine,chepai,dipan,buyTime,fuyiTime};
-                    defaultTableModel.addRow(data);
+                    String storeid=vo.getTruckID().substring(0,6);//筛选车辆信息，只有属于本营业厅的车辆才显示出来
+
+                    if (storeid.equals(this.storID)){
+                        String id=vo.getTruckID();
+                        String engine=vo.getEngineID();
+                        String chepai=vo.getLicenceID();
+                        String dipan=vo.getChassisID();
+                        String buyTime= Constent.BIRTHDAY_FORMAT.format(vo.getBuyTime());
+                        Integer fuyiTime=vo.getServeTime();
+                        Vector<Object> item=new Vector<Object>();
+                        item.add(id);
+                        item.add(engine);
+                        item.add(chepai);
+                        item.add(dipan);
+                        item.add(buyTime);
+                        item.add(fuyiTime);
+                        data.add(item);
+                    }
                 }
+                defaultTableModel.setDataVector(data, names);
                 table.revalidate();
                 table.updateUI();
             } catch (RemoteException e) {
                 new ErrorDialog(parent, "服务器连接超时");
             } catch (SQLException e) {
+                System.out.println("车辆信息："+e.getMessage());
                 new ErrorDialog(parent, "SQLException");
             }
         }

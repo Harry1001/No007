@@ -87,13 +87,17 @@ public class StrategyDataImpl extends UnicastRemoteObject implements StrategyDat
 		Vector<Vector<Object>> data = po.getData();
 		int a=0,b=0;
 		for(int i=0;i<cities.size();i++){
-			if(cities.get(i).equals(city1))
+			if(cities.get(i).equals(city1)){
 				a=i;
+				break;
+			}
 		}
 		for(int i=0;i<data.size();i++){
 			Vector<Object> v = data.get(i);
-			if(v.get(0).equals(city2))
+			if(v.get(0).equals(city2)){
 				b=i;
+
+			}
 		}
 		Vector<Object> v1 = data.get(b);
 		double result=Double.parseDouble(v1.get(a+1).toString()) ;

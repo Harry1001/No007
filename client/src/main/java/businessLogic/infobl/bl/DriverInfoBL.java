@@ -42,14 +42,11 @@ public class DriverInfoBL implements DriverBLService {
 
         return driverVOs;
     }
-
-    RecordBLService rb=BLFactory.getRecordBLService();
     
     public void addDriver(DriverVO vo) throws RemoteException, InfoBLException, SQLException {
        DriverPO po = new DriverPO(vo);
        driverData.addItem(po);
-       RecordVO rvo=new RecordVO(new Date(),"营业厅业务员","添加司机信息");
-   	   rb.add(rvo);
+
     }
 
 

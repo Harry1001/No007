@@ -79,6 +79,7 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
         deletebt.addActionListener(this);
 
         numT.addFocusListener(this);
+        truckIDT.addFocusListener(this);
 
         initBL();
         refresh();
@@ -196,7 +197,7 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
     }
 
     /**
-     * 根据登录帐号的id信息得到所在营业厅的编号
+     * 根据登录帐号的id信息得到所在营业厅的编号或中转中心编号+00
      * @return
      */
     private String getMyStoreID(){
@@ -243,7 +244,7 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
         setPresentTime();
         numT.setText(getMyStoreID()+Constent.RECIEPT_NUM_FORMAT.format(new Date())+"+5位编号待输入");
         destiT.setText("");
-        truckIDT.setText("");
+        truckIDT.setText(getMyStoreID()+"+3位数字待输入");
         feeT.setText("");
         orderNumText.setText("");
         defaultTableModel.getDataVector().clear();
@@ -402,6 +403,13 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
             String ss=getMyStoreID()+Constent.RECIEPT_NUM_FORMAT.format(new Date());
             if (s.equals(ss+"+5位编号待输入")){
                 numT.setText(ss);
+            }
+        }
+        else if (e.getSource()==truckIDT){
+            String s=truckIDT.getText();
+            String ss=getMyStoreID();
+            if (s.equals(ss+"+3位数字待输入")){
+                truckIDT.setText(ss);
             }
         }
     }

@@ -114,7 +114,7 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
     }
 
     private boolean checkDiPan(){
-        String diPan=textFields[3].getToolTipText();
+        String diPan=textFields[3].getText();
         return !diPan.isEmpty();
     }
 
@@ -139,7 +139,7 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
 
     protected boolean checkAll(){
         if (!checkTruckID()){
-            new ErrorDialog(parent, "车辆代号必须为"+Constent.TRUCK_ID_LENGTH+"位2数字");
+            new ErrorDialog(parent, "车辆代号必须为"+Constent.TRUCK_ID_LENGTH+"位数字");
             return false;
         }
 

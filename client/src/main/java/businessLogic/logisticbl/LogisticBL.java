@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
 
+import blfactory.BLFactory;
 import businessLogicService.infoblservice.AgencyBLService;
 import businessLogicService.logisticblservice.LogisticBLService;
 import dataService.LogisticDataService;
@@ -30,6 +31,7 @@ public class LogisticBL implements LogisticBLService{
 	public LogisticBL() throws MalformedURLException, RemoteException, NotBoundException{
 		String url="rmi://"+_RMI.getIP()+"/central_logistic";
 		this.logisticdata=(LogisticDataService)Naming.lookup(url);
+		agencyBLService= BLFactory.getAgencyBLService();
 	}
 	
 	public ArrayList<LogisticVO> getLogistic(String orderID) throws RemoteException, SQLException {

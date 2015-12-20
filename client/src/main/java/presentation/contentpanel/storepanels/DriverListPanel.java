@@ -3,12 +3,14 @@ package presentation.contentpanel.storepanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.infoblservice.DriverBLService;
+import businessLogicService.recordblservice.RecordBLService;
 import constent.Constent;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
 import presentation.commonpanel.ErrorDialog;
 import vo.infovo.DriverVO;
+import vo.recordvo.RecordVO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +23,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * Created by Harry on 2015/11/27.
@@ -35,10 +38,15 @@ public class DriverListPanel extends JPanel implements ActionListener{
     MyTable table;
 
     DriverBLService driverBLService;
+    RecordBLService rb;
+
+    Vector<String> names;
+    String storeID;
 
     public DriverListPanel(MainFrame par){
         this.parent=par;
 
+        this.storeID=parent.getUserIdentity().getId().substring(0,6);
         initUI();
 
         addbt.addActionListener(this);
@@ -51,6 +59,7 @@ public class DriverListPanel extends JPanel implements ActionListener{
 
     private void initBL(){
         try {
+            rb= BLFactory.getRecordBLService();
             driverBLService= BLFactory.getDriverBLService();
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
@@ -65,18 +74,29 @@ public class DriverListPanel extends JPanel implements ActionListener{
         if (driverBLService!=null){
             try {
                 ArrayList<DriverVO> driverVOs = driverBLService.getDriverList();
-                defaultTableModel.getDataVector().clear();
+                Vector<Vector> data=new Vector<Vector>();
                 for (DriverVO vo : driverVOs) {
-                    String driverID=vo.getDriverID();
-                    String name=vo.getName();
-                    String birthday= Constent.BIRTHDAY_FORMAT.format(vo.getBirthday());
-                    String personID=vo.getIDNum();
-                    String phone=vo.getPhoneNum();
-                    String gender=vo.getGender();
-                    String limitTime=Constent.BIRTHDAY_FORMAT.format(vo.getLicenseLimit());
-                    String[] data={driverID, name, birthday, personID, phone, gender, limitTime};
-                    defaultTableModel.addRow(data);
+                    String storeid=vo.getDriverID().substring(0,6);
+                    if (storeid.equals(this.storeID)){
+                        String driverID=vo.getDriverID();
+                        String name=vo.getName();
+                        String birthday= Constent.BIRTHDAY_FORMAT.format(vo.getBirthday());
+                        String personID=vo.getIDNum();
+                        String phone=vo.getPhoneNum();
+                        String gender=vo.getGender();
+                        String limitTime=Constent.BIRTHDAY_FORMAT.format(vo.getLicenseLimit());
+                        Vector<Object> item=new Vector<Object>();
+                        item.add(driverID);
+                        item.add(name);
+                        item.add(birthday);
+                        item.add(personID);
+                        item.add(phone);
+                        item.add(gender);
+                        item.add(limitTime);
+                        data.add(item);
+                    }
                 }
+                defaultTableModel.setDataVector(data, names);
                 table.revalidate();
                 table.updateUI();
             } catch (RemoteException e) {
@@ -110,9 +130,12 @@ public class DriverListPanel extends JPanel implements ActionListener{
             }
             else {
                 if (driverBLService!=null){
+                    String name=(String)table.getValueAt(row, 1);
                     String id=(String)table.getValueAt(row, 0);
                     try {
                         driverBLService.deleteDriver(id);
+                        RecordVO rvo=new RecordVO(new Date(),parent.getUserIdentity().getName(),"删除司机信息:"+name);
+                        rb.add(rvo);
                     } catch (RemoteException e1) {
                         new ErrorDialog(parent, "服务器连接超时");
                     } catch (SQLException e1) {
@@ -143,7 +166,7 @@ public class DriverListPanel extends JPanel implements ActionListener{
                         birthday= Constent.BIRTHDAY_FORMAT.parse((String)table.getValueAt(row, 2));
                         limitTime=Constent.BIRTHDAY_FORMAT.parse((String)table.getValueAt(row, 6));
                     } catch (ParseException e1) {
-                        new ErrorDialog(parent, "不改发生的情况");
+                        new ErrorDialog(parent, "不该发生的情况");
                     }
                     
                     DriverVO vo=new DriverVO(driverID, name, birthday, personID, phone, gender, limitTime);
@@ -161,9 +184,17 @@ public class DriverListPanel extends JPanel implements ActionListener{
         }
     }
 
-    private void initUI(){
-        String [] names={"司机编号","姓名","出生日期","身份证号","手机号","性别","行驶证期限"};
+    private void initNames(){
+        String [] nameStr={"司机编号","姓名","出生日期","身份证号","手机号","性别","行驶证期限"};
+        names=new Vector<String>();
+        for (int i=0;i<nameStr.length;i++){
+            names.add(nameStr[i]);
+        }
+    }
 
+    private void initUI(){
+
+        initNames();
         defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);
 
@@ -172,10 +203,12 @@ public class DriverListPanel extends JPanel implements ActionListener{
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.BOTH;
 
+        gbc.weightx=gbc.weighty=1.0;
         gbc.gridwidth=6;
         gbc.gridheight=10;
         this.add(new JScrollPane(table),gbc);
 
+        gbc.weightx=gbc.weighty=0.0;
         gbc.fill=GridBagConstraints.NONE;
         gbc.anchor=GridBagConstraints.WEST;
         gbc.gridheight=1;

@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
@@ -208,7 +209,9 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                                 expressType,wrapType,"",0.0,new Date());
 
                         double fee=calExpressfeeService.calExpressFee(vo);
-                        texts[13].setText(fee+"");
+                        DecimalFormat df=new DecimalFormat("#.00");
+
+                        texts[13].setText(df.format(fee));
 
                     }catch (NumberFormatException e1){
                         new ErrorDialog(parent, "重量或体积必须是正整数或小数");

@@ -37,10 +37,10 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
     MyLabel moneyL=new MyLabel("收款金额");
     MyLabel courierL=new MyLabel("收款快递员");
 
-    MyTextField timeT=new MyTextField(25);
-    MyTextField moneyT=new MyTextField(25);
-    MyTextField courierT=new MyTextField(25);
-    MyTextField orderNumT=new MyTextField(25);
+    MyTextField timeT=new MyTextField();
+    MyTextField moneyT=new MyTextField();
+    MyTextField courierT=new MyTextField();
+    MyTextField orderNumT=new MyTextField();
 
     MyButton appendbt=new MyButton("添加");
     MyButton deletebt=new MyButton("删除");
@@ -251,13 +251,21 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         gbc.gridy=3;
         gbc.gridwidth=2;
         gbc.gridheight=1;
+        gbc.fill=GridBagConstraints.BOTH;
         this.add(orderNumT,gbc);
+        gbc.fill=GridBagConstraints.NONE;
         gbc.gridy=4;
         gbc.gridwidth=1;
         this.add(appendbt,gbc);
         gbc.gridx=3;
         this.add(deletebt,gbc);
 
+        gbc.gridy=5;
+        gbc.gridx=0;
+        gbc.gridwidth=4;
+        this.add(new JSeparator(), gbc);
+
+        gbc.gridwidth=1;
         gbc.gridy=7;
         gbc.gridx=1;
         this.add(submitbt,gbc);

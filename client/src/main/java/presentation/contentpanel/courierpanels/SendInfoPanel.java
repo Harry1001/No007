@@ -178,7 +178,10 @@ public class SendInfoPanel extends JPanel implements ActionListener {
                 if (checkOrderID(id)){
                     try {
                         SendReceiptVO vo = sendBLService.getSendReceipt(id);
-                        loadData(vo);
+                        if (vo!=null)
+                            loadData(vo);
+                        else
+                            new ErrorDialog(parent, "此订单不存在");
                     } catch (RemoteException e1) {
                         new ErrorDialog(parent, "服务器连接超时");
                     } catch (SQLException e1) {
@@ -189,6 +192,9 @@ public class SendInfoPanel extends JPanel implements ActionListener {
                     } catch (NotBoundException e1) {
                         e1.printStackTrace();
                     }
+                }
+                else {
+                    new ErrorDialog(parent, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位数字");
                 }
             }
             else {

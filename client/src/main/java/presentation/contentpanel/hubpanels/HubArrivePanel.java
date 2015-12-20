@@ -49,7 +49,7 @@ public class HubArrivePanel extends JPanel implements ActionListener{
     MyButton submitbt=new MyButton("提交");
     MyButton cancelbt=new MyButton("取消");
 
-    SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
+    //SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
     
     ArriveHubBLService arriveHubBLService;
 	LogisticBLService logisticBLService;
@@ -60,7 +60,7 @@ public class HubArrivePanel extends JPanel implements ActionListener{
         stateC=new JComboBox(s);
 
       //设置时间框里自动生成系统时间
-        timeT.setText(df.format(new Date()));
+        timeT.setText(Constent.DATE_FORMAT.format(new Date()));
         
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
@@ -104,6 +104,7 @@ public class HubArrivePanel extends JPanel implements ActionListener{
         cancelbt.addActionListener(this);
         
         initBL();
+		refresh();
     }
 
 	private void initBL() {
@@ -122,13 +123,8 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==submitbt){
 			if ((arriveHubBLService!=null) && (logisticBLService!=null)){
-				boolean isChecked=false;
-				try {
-					isChecked=checkAllFormat();
-				} catch (TransportBLException e1) {
-					new ErrorDialog(parent,e1.getMessage());
-				}
-				if(isChecked){
+				try{
+					checkAllFormat();
 					String order=orderT.getText();
 					String hub=hubIDT.getText();
 					String time=timeT.getText();
@@ -142,30 +138,32 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 						state=PackArrivalState.DEMAGED;
 					else
 						state=PackArrivalState.MISSED;
-					Date date=null;
-					try {
-						date = df.parse(time);
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
+
+					Date date = Constent.DATE_FORMAT.parse(time);
+
 					HubArrivalReceiptVO vo=new HubArrivalReceiptVO(order,hub,date,num,from,state);
-					try {
-						arriveHubBLService.verify(vo);
-						arriveHubBLService.submit(vo);
-						logisticBLService.update(parent.getUserIdentity().getId(), vo);
-						refresh();
-					} catch (TransportBLException e1) {
-						new ErrorDialog(parent,e1.getMessage());
-					} catch (RemoteException e1) {
-						new ErrorDialog(parent, "服务器连接超时");
-					} catch (MalformedURLException e1) {
-						new ErrorDialog(parent, "MalformedURLException");
-					} catch (NotBoundException e1) {
-						new ErrorDialog(parent, "NotBoundException");
-					} catch (SQLException e1) {
-						new ErrorDialog(parent, "SQLException");
-					}
+
+						//arriveHubBLService.verify(vo);
+					arriveHubBLService.submit(vo);
+					logisticBLService.update(parent.getUserIdentity().getId(), vo);
+					refresh();
+
+				} catch (TransportBLException e1) {
+					new ErrorDialog(parent, e1.getMessage());
+				} catch (ParseException e1) {
+					new ErrorDialog(parent, "不可能");
+				} catch (RemoteException e1) {
+					new ErrorDialog(parent, "服务器连接超时");
+				} catch (SQLException e1) {
+					System.out.println(e1.getMessage());
+					new ErrorDialog(parent, "SQLException");
+				} catch (NotBoundException e1) {
+					new ErrorDialog(parent, "NotBoundException");
+				} catch (MalformedURLException e1) {
+					new ErrorDialog(parent, "MalformedURLException");
 				}
+
+
 			}
 			else {
 				initBL();
@@ -177,8 +175,8 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 
 	private void refresh() {
 		orderT.setText("");
-	    hubIDT.setText("");
-        timeT.setText(df.format(new Date()));
+	    hubIDT.setText(parent.getUserIdentity().getId().substring(0,4));
+        timeT.setText(Constent.DATE_FORMAT.format(new Date()));
 	    numT.setText("");
 	    fromT.setText("");
 	    stateC.setSelectedIndex(0);
@@ -239,7 +237,7 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 	private boolean checkDate(){
 		String s=timeT.getText();
 		try {
-			df.parse(s);
+			Constent.DATE_FORMAT.parse(s);
 		} catch (ParseException e1) {
 			return false;
 		}

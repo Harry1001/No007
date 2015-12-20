@@ -3,8 +3,10 @@ package presentation.contentpanel.storepanels;
 import javax.swing.*;
 
 import MainFrame.MainFrame;
+import blfactory.BLFactory;
 import businessLogicService.infoblservice.DriverBLService;
 import businessLogicService.infoblservice.TruckBLService;
+import businessLogicService.recordblservice.RecordBLService;
 import constent.Constent;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
@@ -14,10 +16,13 @@ import presentation.commoncontainer.MyTextField;
 import presentation.commoncontainer.TimePanel;
 import presentation.commonpanel.ErrorDialog;
 import vo.infovo.DriverVO;
+import vo.recordvo.RecordVO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -152,6 +157,9 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
                             limitTime.getDate());
                     driverBLService.addDriver(vo);
                     listPanel.refreshList();
+                    RecordVO rvo=new RecordVO(new Date(),parent.getUserIdentity().getName(),"添加司机信息:"+vo.getName());
+                    RecordBLService rb= BLFactory.getRecordBLService();
+                    rb.add(rvo);
                     refresh();
                 } catch (TimeFormatException e1) {
                     new ErrorDialog(parent, "时间格式错误");
@@ -161,6 +169,10 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
                     new ErrorDialog(parent, "SQLException");
                 } catch (InfoBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());//数据库中已经包含该司机编号
+                } catch (MalformedURLException e1) {
+                    new ErrorDialog(parent, "MalformedURLException");
+                } catch (NotBoundException e1) {
+                    new ErrorDialog(parent, "NotBoundException");
                 }
             }
         }

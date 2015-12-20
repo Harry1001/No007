@@ -47,10 +47,12 @@ public class RecordListPanel extends JPanel implements ActionListener{
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx=gbc.weighty=1.0;
 
         gbc.gridwidth = 2;
         this.add(new JScrollPane(table), gbc);
 
+        gbc.weightx=gbc.weighty=0.0;
         gbc.gridwidth = 1;
         gbc.gridy=1;
         gbc.fill=GridBagConstraints.NONE;
@@ -89,6 +91,7 @@ public class RecordListPanel extends JPanel implements ActionListener{
             } catch (RemoteException e) {
                 new ErrorDialog(parent, "服务器连接超时");
             } catch (SQLException e) {
+                System.out.println("record sql:"+e.getMessage());
                 new ErrorDialog(parent, "SQLException");
             }
         }

@@ -5,6 +5,7 @@ import presentation.uifactory.UIFactory;
 import vo.loginvo.LoginResultVO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -23,12 +24,22 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private LoginResultVO userIdentity=null;
 
+    public MainFrame(String title, GraphicsConfiguration gc) {
+        super(title, gc);
+        this.userIdentity = userIdentity;
+    }
+
+    public MainFrame(String title) throws HeadlessException {
+        super(title);
+    }
+
     public static void main(String [] argv){
         /*
         //
         try {
             DistanceStrategyBL bl=new DistanceStrategyBL();
             bl.initDistance();
+            System.out.println("距离初始化成功");
         } catch (MalformedURLException e) {
             System.out.println("挂了1");
         } catch (NotBoundException e) {
@@ -43,7 +54,7 @@ public class MainFrame extends JFrame {
         //
         */
 
-        MainFrame frame=new MainFrame();
+        MainFrame frame=new MainFrame("快递物流系统");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         try{
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");

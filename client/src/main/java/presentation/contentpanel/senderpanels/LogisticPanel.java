@@ -36,11 +36,13 @@ public class LogisticPanel extends JPanel implements ActionListener{
     MyDefaultTableModel defaultTableModel;
     MyButton backbt;
 
-    String [] name = {"时间","到达地点"};
+    Vector<String> names;
 
     GridBagConstraints gbc;
 
     public LogisticPanel(MainFrame par){
+        names.add("时间");
+        names.add("到达地点");
         this.parent=par;
         label=new MyLabel("请输入10位订单号:");
         button=new MyButton("查询");
@@ -52,7 +54,7 @@ public class LogisticPanel extends JPanel implements ActionListener{
 
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.NONE;
-
+        gbc.weightx=gbc.weighty=0.0;
         gbc.gridx=0;
         this.add(label, gbc);
         gbc.gridx=1;
@@ -62,9 +64,10 @@ public class LogisticPanel extends JPanel implements ActionListener{
         gbc.gridx=3;
         this.add(backbt,gbc);
 
-        defaultTableModel=new MyDefaultTableModel(name, 0);
+        gbc.weightx=gbc.weighty=1.0;
+        defaultTableModel=new MyDefaultTableModel(names, 0);
         table=new MyTable(defaultTableModel);
-        table.setRowSorter(null);
+        //table.setRowSorter(null);
         JScrollPane s=new JScrollPane(table);
 
         table.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -97,17 +100,22 @@ public class LogisticPanel extends JPanel implements ActionListener{
 
 
     public void actionPerformed(ActionEvent e) {
-        //todo
+
         if (e.getSource()==button){
             String id=textField.getText();
             try {
                 ArrayList<LogisticVO> logisticVOs=logisticBLService.getLogistic(id);
                 int len=logisticVOs.size();
+                Vector<Vector> data=new Vector<Vector>();
                 for (int i=0;i<len;i++){
                     LogisticVO vo=logisticVOs.get(i);
-                    String [] data={Constent.DATE_FORMAT.format(vo.getArrivalTime()), vo.getState()};
-                    defaultTableModel.addRow(data);
+                    Vector<String> item =new Vector<String>();
+                    item.add(Constent.DATE_FORMAT.format(vo.getArrivalTime()));
+                    item.add(vo.getState());
+                    data.add(item);
                 }
+                defaultTableModel.setDataVector(data, names);
+                table.revalidate();
                 table.updateUI();
             } catch (RemoteException e1) {
                 new ErrorDialog(parent, "服务器连接超时");
@@ -116,9 +124,6 @@ public class LogisticPanel extends JPanel implements ActionListener{
             }
 
 
-            String [] data={"2010/10/10","dsfadssdfadsfasfdsaadsf"};
-
-            defaultTableModel.addRow(data);
         } else if (e.getSource()==backbt){
 
             //清空表格

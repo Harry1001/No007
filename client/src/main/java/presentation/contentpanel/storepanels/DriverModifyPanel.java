@@ -1,16 +1,22 @@
 package presentation.contentpanel.storepanels;
 
 import MainFrame.MainFrame;
+import blfactory.BLFactory;
 import businessLogicService.infoblservice.DriverBLService;
+import businessLogicService.recordblservice.RecordBLService;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
 import presentation.commonpanel.ErrorDialog;
 import vo.infovo.DriverVO;
+import vo.recordvo.RecordVO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.Date;
 
 /**
  * Created by Harry on 2015/12/17.
@@ -45,6 +51,9 @@ public class DriverModifyPanel extends DriverInfoPanel {
                             limitTime.getDate());
                     driverBLService.modifyDriver(originID, vo);
                     listPanel.refreshList();
+                    RecordVO rvo=new RecordVO(new Date(),parent.getUserIdentity().getName(),"修改司机信息:"+vo.getName());
+                    RecordBLService rb= BLFactory.getRecordBLService();
+                    rb.add(rvo);
                     dialog.dispose();
                 } catch (TimeFormatException e1) {
                     new ErrorDialog(parent, "时间格式错误");
@@ -54,6 +63,10 @@ public class DriverModifyPanel extends DriverInfoPanel {
                     new ErrorDialog(parent, "SQLException");
                 } catch (InfoBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());//数据库中已经包含该司机编号
+                } catch (MalformedURLException e1) {
+                    new ErrorDialog(parent, "MalformedURLException");
+                } catch (NotBoundException e1) {
+                    new ErrorDialog(parent, "NotBoundException");
                 }
             }
         }

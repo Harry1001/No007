@@ -153,6 +153,7 @@ public class UserAccountInfoPanel extends JPanel implements ActionListener {
                 } catch (RemoteException e1) {
                     new ErrorDialog(parent, "服务器连接超时");
                 } catch (SQLException e1) {
+                    System.out.println("增加账户sql异常："+e1.getMessage());
                     new ErrorDialog(parent, "数据库异常");
                 }
             }
