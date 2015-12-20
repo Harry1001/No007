@@ -60,7 +60,7 @@ public class TruckDBManager extends DBManager{
 	}
 	
 	public TruckPO get(String id) throws SQLException {
-		String truckget = "SELECT * FROM Truck WHERE truckID = " + id;
+		String truckget = "SELECT * FROM Truck WHERE truckID = '" + id + "'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		TruckPO po = null;

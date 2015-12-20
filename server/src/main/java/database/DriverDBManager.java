@@ -62,7 +62,7 @@ public class DriverDBManager extends DBManager{
 	}
 	
 	public DriverPO get(String id) throws SQLException {
-		String driverget = "SELECT * FROM Driver WHERE driverID = " + id;
+		String driverget = "SELECT * FROM Driver WHERE driverID = '" + id + "'";
 		DriverPO driverPO = null;
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();

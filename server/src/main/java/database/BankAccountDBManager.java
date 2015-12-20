@@ -63,7 +63,7 @@ public class BankAccountDBManager extends DBManager{
 	}
 	
 	public BankAccountPO get(String id) throws SQLException {
-		String bankaccountget = "SELECT * FROM bankaccount WHERE accountuser = " + id;
+		String bankaccountget = "SELECT * FROM bankaccount WHERE accountuser = '" + id + "'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(bankaccountget);

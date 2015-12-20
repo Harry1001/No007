@@ -46,7 +46,7 @@ public class AgencyDBManager extends DBManager{
 	}
 	
 	public String getAgengcy(String agencyID) throws SQLException {
-		String find="SELECT * FROM Agency WHERE ID = '" + agencyID + "'";
+		String find="SELECT * FROM Agency WHERE agencyID = '" + agencyID + "'";
 		String result=null;
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
