@@ -50,5 +50,7 @@ public class Images {
     public static final ImageIcon QICHU_IMAGE=createIcon("ImageFiles/qichu.png");
     public static final ImageIcon SHOURU_IMAGE=createIcon("ImageFiles/shouru.png");
     public static final ImageIcon USER_ACCOUNT_IMAGE=createIcon("ImageFiles/useraccount.png");
+    public static final ImageIcon BACKGROUND_IMAGE=createIcon("ImageFiles/background.jpg");
+
 
 }
