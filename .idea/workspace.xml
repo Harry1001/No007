@@ -2,7 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71302fa9-7a8e-4e93-b6b4-92c0ab607ecd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/SalaryListPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/SalaryListPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/distance.out" afterPath="$PROJECT_DIR$/distance.out" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/AgencyInfoPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/AgencyInfoPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/BankAccountPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/BankAccountPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/ChargeReceiptPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/ChargeReceiptPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/depotpanels/DepotPanDianPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/depotpanels/DepotPanDianPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/businessLogic/strategybl/DistanceStrategyBL.java" afterPath="$PROJECT_DIR$/client/src/main/java/businessLogic/strategybl/DistanceStrategyBL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/businessLogic/infobl/bl/DriverInfoBL.java" afterPath="$PROJECT_DIR$/client/src/main/java/businessLogic/infobl/bl/DriverInfoBL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverInfoPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverInfoPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverListPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverListPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverModifyPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverModifyPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/EntruckPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/EntruckPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/HubArrivePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/HubArrivePanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/LoginPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/LoginPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/businessLogic/logisticbl/LogisticBL.java" afterPath="$PROJECT_DIR$/client/src/main/java/businessLogic/logisticbl/LogisticBL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/senderpanels/LogisticPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/senderpanels/LogisticPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/MainFrame/MainFrame.java" afterPath="$PROJECT_DIR$/client/src/main/java/MainFrame/MainFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/database/RecordDBManager.java" afterPath="$PROJECT_DIR$/server/src/main/java/database/RecordDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/RecordListPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/RecordListPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/businessLogic/transportbl/SendBL.java" afterPath="$PROJECT_DIR$/client/src/main/java/businessLogic/transportbl/SendBL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendInfoPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendInfoPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/database/SendReceiptDBManager.java" afterPath="$PROJECT_DIR$/server/src/main/java/database/SendReceiptDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/data/StrategyDataImpl.java" afterPath="$PROJECT_DIR$/server/src/main/java/data/StrategyDataImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/TruckInfoPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/TruckInfoPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/TruckListPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/TruckListPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/database/UserAccountDBManager.java" afterPath="$PROJECT_DIR$/server/src/main/java/database/UserAccountDBManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/administratorpanels/UserAccountInfoPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/administratorpanels/UserAccountInfoPanel.java" />
     </list>
     <ignored path="No007.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,84 +53,106 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SendInfoPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendInfoPanel.java">
+      <file leaf-file-name="SendPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendPanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="103" column="20" selection-start-line="103" selection-start-column="20" selection-end-line="103" selection-end-column="20" />
+              <caret line="210" column="46" selection-start-line="210" selection-start-column="46" selection-end-line="210" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainFrame.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/main/java/MainFrame/MainFrame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="54" column="10" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
               <folding>
-                <element signature="e#4340#4341#0" expanded="true" />
-                <element signature="e#4399#4400#0" expanded="true" />
+                <element signature="e#2041#2042#0" expanded="true" />
+                <element signature="e#2076#2077#0" expanded="true" />
+                <element signature="e#2139#2140#0" expanded="true" />
+                <element signature="e#2187#2188#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SendPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendPanel.java">
+      <file leaf-file-name="SendInfoPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendInfoPanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="121" column="20" selection-start-line="121" selection-start-column="20" selection-end-line="121" selection-end-column="20" />
+              <caret line="183" column="62" selection-start-line="183" selection-start-column="62" selection-end-line="183" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SalaryListPanel.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/SalaryListPanel.java">
+      <file leaf-file-name="SendReceiptDBManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/database/SendReceiptDBManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.79591835">
-              <caret line="162" column="47" selection-start-line="162" selection-start-column="47" selection-end-line="162" selection-end-column="47" />
+            <state vertical-scroll-proportion="-24.0">
+              <caret line="126" column="24" selection-start-line="126" selection-start-column="24" selection-end-line="126" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReceivePanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/ReceivePanel.java">
+      <file leaf-file-name="SendReceiptDataImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/data/SendReceiptDataImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="199" column="43" selection-start-line="199" selection-start-column="43" selection-end-line="199" selection-end-column="43" />
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LogisticDataImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/data/LogisticDataImpl.java">
+      <file leaf-file-name="SendBL.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/transportbl/SendBL.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
+              <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LogisticDBManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/database/LogisticDBManager.java">
+      <file leaf-file-name="CalCarriageFeeBL.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/strategybl/CalCarriageFeeBL.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="96" selection-start-line="20" selection-start-column="96" selection-end-line="20" selection-end-column="96" />
+              <caret line="36" column="49" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DriverListPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverListPanel.java">
+      <file leaf-file-name="EntruckPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/EntruckPanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
+              <caret line="233" column="28" selection-start-line="233" selection-start-column="28" selection-end-line="233" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DriverInfoPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverInfoPanel.java">
+      <file leaf-file-name="HubArrivePanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/HubArrivePanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="188" column="24" selection-start-line="188" selection-start-column="24" selection-end-line="188" selection-end-column="24" />
+            <state vertical-scroll-proportion="-7.75">
+              <caret line="148" column="30" selection-start-line="148" selection-start-column="30" selection-end-line="148" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LogisticBL.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/logisticbl/LogisticBL.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.74043715">
+              <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -122,6 +170,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Harry1001 &lt;benchaodong@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -135,30 +188,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/depotpanels/DepotOutPanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/depotpanels/DepotChaKanPanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/depotpanels/DepotPanDianPanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/IncomePanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/ChargeReceiptPanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomePanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/MakeBillPanel.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/dataService/infodataservice/UserAccountDataService.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/database/DistanceSerial.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/server/RMIServer.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/dataService/_RMI.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/po/strategypo/ExpressFeePO.java" />
-        <option value="$PROJECT_DIR$/common/src/main/java/po/strategypo/DistancePO.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/vo/strategyvo/StrategyVO.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/po/strategypo/StrategyPO.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/vo/strategyvo/DistanceVO.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/vo/recordvo/RecordVO.java" />
         <option value="$PROJECT_DIR$/common/src/main/java/po/recordpo/RecordPO.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/businessLogic/strategybl/DistanceStrategyBL.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/BankAccountAddPanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/BankAccountPanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/blfactory/BLFactory.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/RecordListPanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/HubArrivePanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/TransferPanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/FeeStrategyPanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/StaffInfoPanel.java" />
@@ -170,22 +206,39 @@
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/AgencyListPanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/administratorpanels/UserAccountListPanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/AdministratorGuidePanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/MainFrame/MainFrame.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/LoginPanel.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/data/StrategyDataImpl.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/database/AgencyDBManager.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/AgencyInfoPanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/AgencyModifyPanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/businessLogic/transportbl/SendBL.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/businessLogic/transportbl/SendController.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/database/SendReceiptDBManager.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendPanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendInfoPanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/ReceivePanel.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/database/LogisticDBManager.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverListPanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverInfoPanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/SalaryListPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/businessLogic/infobl/bl/AgencyInfoBL.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/AgencyInfoPanel.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/database/RecordDBManager.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/RecordListPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/administratorpanels/UserAccountInfoPanel.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/database/UserAccountDBManager.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/businessLogic/infobl/bl/DriverInfoBL.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverInfoPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverModifyPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/TruckInfoPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/TruckListPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverListPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/senderpanels/LogisticPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/depotpanels/DepotPanDianPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/BankAccountPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/ChargeReceiptPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/LoginPanel.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/data/StrategyDataImpl.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/businessLogic/strategybl/DistanceStrategyBL.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/MainFrame/MainFrame.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/database/SendReceiptDBManager.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendInfoPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/businessLogic/transportbl/SendBL.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/EntruckPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/HubArrivePanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/businessLogic/logisticbl/LogisticBL.java" />
       </list>
     </option>
   </component>
@@ -512,40 +565,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="guidepanel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="No007" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="No007" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="presentation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="contentpanel" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -698,6 +717,120 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="hubpanels" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="presentation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contentpanel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="financepanels" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="presentation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contentpanel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="depotpanels" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="presentation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contentpanel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="courierpanels" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -800,6 +933,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="presentation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commoncontainer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="MainFrame" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -827,6 +994,70 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="businessLogic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="No007" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="businessLogic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="strategybl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1172,6 +1403,13 @@
       <option name="number" value="Default" />
       <updated>1447570617445</updated>
     </task>
+    <task id="LOCAL-00001" summary="第三方">
+      <created>1450611210326</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1450611210327</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1189,21 +1427,21 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40288925" sideWeight="0.49387443" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27126807" sideWeight="0.49387443" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28731942" sideWeight="0.5060514" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16693419" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16693419" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24719101" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32744783" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2647504" sideWeight="0.47572815" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26399395" sideWeight="0.47572815" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24961714" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23146747" sideWeight="0.52427185" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28410915" sideWeight="0.49394855" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32102728" sideWeight="0.49394855" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1223,6 +1461,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="第三方" />
+    <option name="LAST_COMMIT_MESSAGE" value="第三方" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -1238,17 +1480,41 @@
           <properties />
           <option name="timeStamp" value="39" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/server/src/main/java/database/SalaryStrategyDBManager.java</url>
           <line>38</line>
           <properties />
           <option name="timeStamp" value="43" />
         </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/database/RecordDBManager.java</url>
+          <line>33</line>
+          <properties />
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/RecordListPanel.java</url>
+          <line>79</line>
+          <properties />
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/administratorpanels/UserAccountInfoPanel.java</url>
+          <line>147</line>
+          <properties />
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/data/infodataimpl/UserAccountDataImpl.java</url>
+          <line>34</line>
+          <properties />
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="47" />
+      <option name="time" value="66" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1257,274 +1523,332 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/GuidePanel.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/RowSorter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3318182">
-          <caret line="57" column="16" selection-start-line="57" selection-start-column="16" selection-end-line="57" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.33188722">
+          <caret line="94" column="22" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/AdministratorGuidePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5">
-          <caret line="26" column="23" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/CourierGuidePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5">
-          <caret line="34" column="9" selection-start-line="32" selection-start-column="8" selection-end-line="34" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/WelcomePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3181818">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/administratorpanels/UserAccountListPanel.java">
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/MyTable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="103" column="36" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
+          <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/MainFrame/MainFrame.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/table/TableRowSorter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="12" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
+          <caret line="268" column="0" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="0" />
+          <folding>
+            <element signature="e#9395#9396#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/LoginPanel.java">
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/TruckInfoPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <caret line="193" column="0" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/lang/AbstractStringBuilder.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/EventDispatchThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/lang/StringBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/jre/lib/rt.jar!/sun/rmi/server/UnicastServerRef.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35658914">
-          <caret line="169" column="0" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/jre/lib/rt.jar!/sun/rmi/transport/Transport.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.607143">
-          <caret line="75" column="19" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/jre/lib/rt.jar!/sun/rmi/transport/tcp/TCPTransport.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.928571">
-          <caret line="288" column="0" selection-start-line="288" selection-start-column="0" selection-end-line="288" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/po/infopo/AgencyPO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/dataService/StrategyDataService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.37/mysql-connector-java-5.1.37.jar!/com/mysql/jdbc/StatementImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33161953">
-          <caret line="973" column="73" selection-start-line="973" selection-start-column="73" selection-end-line="973" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/po/infopo/StaffPO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4796163">
-          <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/data/infodataimpl/StaffDataImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22781774">
-          <caret line="26" column="55" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/AgencyListPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9808154">
-          <caret line="56" column="36" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.3323782">
+          <caret line="115" column="0" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/database/SalaryStrategyDBManager.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/EventQueue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.3323782">
+          <caret line="725" column="0" selection-start-line="725" selection-start-column="0" selection-end-line="725" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/strategybl/StrategyBL.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/event/InvocationEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4796163">
-          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3323782">
+          <caret line="313" column="0" selection-start-line="313" selection-start-column="0" selection-end-line="313" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogicService/strategyblservice/SalaryStrategyBLService.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/RepaintManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35011992">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3323782">
+          <caret line="1732" column="0" selection-start-line="1732" selection-start-column="0" selection-end-line="1732" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/data/infodataimpl/AgencyDataImpl.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/JComponent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3323782">
+          <caret line="4968" column="0" selection-start-line="4968" selection-start-column="0" selection-end-line="4968" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/AgencyModifyPanel.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/plaf/synth/SynthTableUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59090906">
-          <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.3323782">
+          <caret line="275" column="0" selection-start-line="275" selection-start-column="0" selection-end-line="275" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/AgencyInfoPanel.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/JTable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59090906">
-          <caret line="189" column="37" selection-start-line="189" selection-start-column="37" selection-end-line="189" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.3323782">
+          <caret line="5705" column="0" selection-start-line="5705" selection-start-column="0" selection-end-line="5705" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/StaffInfoPanel.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/security/ProtectionDomain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45454547">
-          <caret line="126" column="109" selection-start-line="126" selection-start-column="109" selection-end-line="126" selection-end-column="109" />
+        <state vertical-scroll-proportion="0.3323782">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/JViewport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3323782">
+          <caret line="728" column="0" selection-start-line="728" selection-start-column="0" selection-end-line="728" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/table/DefaultTableModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53535354">
+          <caret line="684" column="17" selection-start-line="684" selection-start-column="17" selection-end-line="684" selection-end-column="17" />
+          <folding>
+            <element signature="e#12256#12257#0" expanded="false" />
+            <element signature="e#12304#12305#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/StaffListPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.9818182">
-          <caret line="132" column="34" selection-start-line="132" selection-start-column="34" selection-end-line="132" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.6734007">
+          <caret line="127" column="40" selection-start-line="127" selection-start-column="40" selection-end-line="127" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/StaffModifyPanel.java">
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/administratorpanels/UserAccountListPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3181819">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="43" column="19" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/SalaryListPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.1548822">
+          <caret line="162" column="47" selection-start-line="162" selection-start-column="47" selection-end-line="162" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/depotpanels/DepotChaKanPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13468014">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/depotpanels/DepotInPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.43771043">
+          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/ChenBenPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23569024">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/JingYingPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.8181818">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/uifactory/UIFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2020202">
+          <caret line="27" column="50" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/UserPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73063976">
+          <caret line="74" column="24" selection-start-line="74" selection-start-column="24" selection-end-line="74" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/AgencyListPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.47138047">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/border/LineBorder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21776505">
+          <caret line="91" column="49" selection-start-line="91" selection-start-column="49" selection-end-line="91" selection-end-column="49" />
+          <folding>
+            <element signature="e#2318#2319#0" expanded="false" />
+            <element signature="e#2363#2364#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/BorderFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38968483">
+          <caret line="74" column="22" selection-start-line="74" selection-start-column="22" selection-end-line="74" selection-end-column="22" />
+          <folding>
+            <element signature="e#1797#1798#0" expanded="false" />
+            <element signature="e#1852#1853#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/depotpanels/DepotPanDianPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.80454546">
+          <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
+          <folding>
+            <element signature="e#2881#2889#0" expanded="true" />
+            <element signature="e#3242#3250#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/BankAccountPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.13181818">
+          <caret line="74" column="23" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="23" />
+          <folding>
+            <element signature="e#2662#2670#0" expanded="true" />
+            <element signature="e#2860#2868#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/senderpanels/LogisticPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4090909">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding>
+            <element signature="e#3097#3105#0" expanded="false" />
+            <element signature="e#3255#3263#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/ChargeReceiptPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35454544">
+          <caret line="265" column="26" selection-start-line="265" selection-start-column="26" selection-end-line="265" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/TruckListPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55454546">
+          <caret line="63" column="33" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
+          <folding>
+            <element signature="e#3259#3267#0" expanded="false" />
+            <element signature="e#3886#3894#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/LoginPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.8">
+          <caret line="52" column="37" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/strategybl/CalExpressFeeBL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/util/Vector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="745" column="26" selection-start-line="745" selection-start-column="26" selection-end-line="745" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/po/strategypo/DistancePO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+          <folding>
+            <element signature="e#792#793#0" expanded="false" />
+            <element signature="e#810#811#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/strategybl/StrategyBL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.11111111">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/strategybl/DistanceStrategyBL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="62" column="33" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/data/StrategyDataImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="110" column="18" selection-start-line="110" selection-start-column="18" selection-end-line="110" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/blfactory/BLFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45454547">
-          <caret line="131" column="25" selection-start-line="131" selection-start-column="25" selection-end-line="131" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogicService/transportblservice/SendBLService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="25" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/transportbl/SendController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/transportbl/SendBL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="54" column="49" selection-start-line="54" selection-start-column="49" selection-end-line="54" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogicService/receiptblservice/SendReceiptBLService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/receiptbl/SendReceiptController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/receiptbl/SendReceiptBL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/data/SendReceiptDataImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.043715846">
+          <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1532,7 +1856,36 @@
     <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="121" column="20" selection-start-line="121" selection-start-column="20" selection-end-line="121" selection-end-column="20" />
+          <caret line="210" column="46" selection-start-line="210" selection-start-column="46" selection-end-line="210" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/database/SendReceiptDBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-24.0">
+          <caret line="126" column="24" selection-start-line="126" selection-start-column="24" selection-end-line="126" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/MainFrame/MainFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="54" column="10" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
+          <folding>
+            <element signature="e#2041#2042#0" expanded="true" />
+            <element signature="e#2076#2077#0" expanded="true" />
+            <element signature="e#2139#2140#0" expanded="true" />
+            <element signature="e#2187#2188#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/vo/receiptvo/SendReceiptVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48477158">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1540,114 +1893,74 @@
     <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/SendInfoPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="103" column="20" selection-start-line="103" selection-start-column="20" selection-end-line="103" selection-end-column="20" />
-          <folding>
-            <element signature="e#4340#4341#0" expanded="true" />
-            <element signature="e#4399#4400#0" expanded="true" />
-          </folding>
+          <caret line="183" column="62" selection-start-line="183" selection-start-column="62" selection-end-line="183" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/courierpanels/ReceivePanel.java">
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/data/SendReceiptDataImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="199" column="43" selection-start-line="199" selection-start-column="43" selection-end-line="199" selection-end-column="43" />
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/data/LogisticDataImpl.java">
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/transportbl/SendBL.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
+          <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/vo/logisticvo/LogisticVO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18181819">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/senderpanels/LogisticPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4090909">
-          <caret line="106" column="24" selection-start-line="106" selection-start-column="24" selection-end-line="106" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/database/StaffDBManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3181818">
-          <caret line="26" column="74" selection-start-line="26" selection-start-column="74" selection-end-line="26" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/database/StoreArrivalReceiptDBManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36363637">
-          <caret line="42" column="66" selection-start-line="42" selection-start-column="66" selection-end-line="42" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/database/AgencyDBManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36363637">
-          <caret line="14" column="85" selection-start-line="14" selection-start-column="85" selection-end-line="14" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/database/SendReceiptDBManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.9545455">
-          <caret line="102" column="23" selection-start-line="102" selection-start-column="23" selection-end-line="102" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/database/LogisticDBManager.java">
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/strategybl/CalCarriageFeeBL.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="96" selection-start-line="20" selection-start-column="96" selection-end-line="20" selection-end-column="96" />
+          <caret line="36" column="49" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverListPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
-          <folding />
+        <state vertical-scroll-proportion="4.739057">
+          <caret line="210" column="36" selection-start-line="210" selection-start-column="36" selection-end-line="210" selection-end-column="36" />
+          <folding>
+            <element signature="e#2303#2311#0" expanded="true" />
+            <element signature="e#3000#3008#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/TruckListPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19545455">
-          <caret line="95" column="19" selection-start-line="95" selection-start-column="19" selection-end-line="95" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/storepanels/DriverInfoPanel.java">
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/EntruckPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="188" column="24" selection-start-line="188" selection-start-column="24" selection-end-line="188" selection-end-column="24" />
+          <caret line="233" column="28" selection-start-line="233" selection-start-column="28" selection-end-line="233" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/SalaryListPanel.java">
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogicService/transportblservice/ArriveHubBLService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79591835">
-          <caret line="162" column="47" selection-start-line="162" selection-start-column="47" selection-end-line="162" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.62352943">
+          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/HubArrivePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.75">
+          <caret line="148" column="30" selection-start-line="148" selection-start-column="30" selection-end-line="148" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/businessLogic/logisticbl/LogisticBL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.74043715">
+          <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
           <folding />
         </state>
       </provider>
