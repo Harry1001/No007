@@ -19,8 +19,8 @@ public class ExpressFeeStrategyDBManager extends DBManager{
 		double stdp=po.getStdPrice();
 		double sp=po.getSpePrice();
 		
-		String expressStrategyInsert="INSERT INTO Expressfee"
-				+ " VALUES ("+ep+","+stdp+","+sp+")";
+		String expressStrategyInsert = "INSERT INTO Expressfee"
+				+ " VALUES ("+ep+", "+stdp+", "+sp+")";
 		
 		Connection connection= connectToDB();
 		

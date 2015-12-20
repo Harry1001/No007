@@ -17,7 +17,7 @@ public class RecordDBManager extends DBManager{
 		String operator=po.getOperator();
 		String operation=po.getOperation();
 		
-		String recordInsert="INSERT INTO Record"+" VALUES ("+opeTime+","+operator+","+operation+")";
+		String recordInsert = "INSERT INTO Record" + " VALUES ('"+opeTime+"', '"+operator+"', '"+operation+")'";
 		
 		Connection connection =connectToDB();
 		Statement statement=connection.createStatement();

@@ -3,6 +3,7 @@ package businessLogic.infobl.bl;
 import myexceptions.InfoBLException;
 import po.infopo.AgencyPO;
 import vo.infovo.AgencyVO;
+import vo.recordvo.RecordVO;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -10,8 +11,12 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
+import blfactory.BLFactory;
+import businessLogic.recordbl.RecordBL;
 import businessLogicService.infoblservice.AgencyBLService;
+import businessLogicService.recordblservice.RecordBLService;
 import dataService._RMI;
 import dataService.infodataservice.AgencyDataService;
 
@@ -40,24 +45,33 @@ public class AgencyInfoBL implements AgencyBLService {
         return agencyVOs;
     }
 
+    RecordBLService rb=BLFactory.getRecordBLService();
+    
     public void addAgency(AgencyVO vo) throws RemoteException, InfoBLException, SQLException{
     	AgencyPO po = new AgencyPO(vo);
     	agencyData.addItem(po);
+    	RecordVO rvo=new RecordVO(new Date(),"总经理","添加机构信息");
+    	rb.add(rvo);
     }
 
 
     public void deleteAgency(String id) throws RemoteException, SQLException{
     	agencyData.deleteItem(id);
+    	RecordVO rvo=new RecordVO(new Date(),"总经理","删除机构");
+    	rb.add(rvo);
     }
 
 
     public void modifyAgency(String id, AgencyVO vo) throws RemoteException, InfoBLException, SQLException{
     	AgencyPO po = new AgencyPO(vo);
     	agencyData.update(id, po);
+    	RecordVO rvo=new RecordVO(new Date(),"总经理","修改机构信息");
+    	rb.add(rvo);
     }
  
 	public String getAgengcy(String agencyID) throws RemoteException, SQLException{
 		return agencyData.getAgengcy(agencyID);
+		
 	}
 
 }

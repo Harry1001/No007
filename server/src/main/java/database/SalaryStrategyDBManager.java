@@ -36,12 +36,12 @@ public class SalaryStrategyDBManager extends DBManager{
 	}
 	
 	public void updateSalaryStrategy(SalaryPO po) throws SQLException{
-		String salaryUpdate="UPDATE Salary"
-				+"SET AccounantBaseSalary ="+po.getAccountantBS()+"SET AdnimisterBaseSalary ="+po.getAdministerBS()
-				+"SET DriverBaseSalary ="+po.getDriverBS()+"SET HubsalesmanBaseSalary ="+po.getHubsalesmanBS()
-				+"SET MailerBaseSalary ="+po.getMailerBS()+"SET ManagerBaseSalary ="+po.getManagerBS()
-				+"SET StorekeeperBaseSalary ="+po.getStorekeeperBS()+"SET StoresalesmanBaseSalary ="+po.getStoresalesmanBS()
-				+"SET DriverAllowance ="+po.getDriverAl()+"SET MailerAllowance ="+po.getMailerAl();
+		String salaryUpdate = "UPDATE Salary"
+				+" SET AccounantBaseSalary ="+po.getAccountantBS()+" SET AdnimisterBaseSalary ="+po.getAdministerBS()
+				+" SET DriverBaseSalary ="+po.getDriverBS()+" SET HubsalesmanBaseSalary ="+po.getHubsalesmanBS()
+				+" SET MailerBaseSalary ="+po.getMailerBS()+" SET ManagerBaseSalary ="+po.getManagerBS()
+				+" SET StorekeeperBaseSalary ="+po.getStorekeeperBS()+" SET StoresalesmanBaseSalary ="+po.getStoresalesmanBS()
+				+" SET DriverAllowance ="+po.getDriverAl()+" SET MailerAllowance ="+po.getMailerAl();
 		Connection connection=connectToDB();
 		Statement statement=connection.createStatement();
 		statement.executeUpdate(salaryUpdate);
