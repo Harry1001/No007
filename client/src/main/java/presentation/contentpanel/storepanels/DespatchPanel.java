@@ -144,6 +144,7 @@ public class DespatchPanel extends JPanel implements ActionListener{
                     } catch (NotBoundException e1) {
                         new ErrorDialog(parent,"NotBoundException");
                     } catch (SQLException e1) {
+                        System.out.println("派件单sql："+e1.getMessage());
                         new ErrorDialog(parent,"数据库异常");
                     }
                 }

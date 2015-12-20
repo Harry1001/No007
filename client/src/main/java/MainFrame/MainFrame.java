@@ -1,6 +1,7 @@
 package MainFrame;
 
 import businessLogic.strategybl.DistanceStrategyBL;
+import presentation.Images.Images;
 import presentation.uifactory.UIFactory;
 import vo.loginvo.LoginResultVO;
 
@@ -55,7 +56,13 @@ public class MainFrame extends JFrame {
         */
 
         MainFrame frame=new MainFrame("快递物流系统");
-        frame.
+        //JPanel bkPanel=(JPanel)frame.getContentPane();
+        //bkPanel.setOpaque(false);
+        //JLabel bkLabel=new JLabel(Images.BACKGROUND_IMAGE);
+        //bkLabel.setBounds(0,0,Images.BACKGROUND_IMAGE.getIconWidth(),Images.BACKGROUND_IMAGE.getIconHeight());
+
+        //frame.getLayeredPane().setLayout(null);
+        //frame.getLayeredPane().add(bkLabel, new Integer(Integer.MIN_VALUE));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         try{
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");

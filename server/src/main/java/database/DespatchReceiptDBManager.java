@@ -16,7 +16,7 @@ public class DespatchReceiptDBManager extends DBManager{
 		ArrayList<DespatchReceiptPO> po=new ArrayList<DespatchReceiptPO>();
 		Timestamp fTime = new Timestamp(fromtime.getTime());
 		Timestamp tTime = new Timestamp(toTime.getTime());
-		String despatchReceipt="SELECT * FROM DespatchReceipt WHERE arrivalTime BETWEEN "+fTime+" AND "+tTime;
+		String despatchReceipt="SELECT * FROM DespatchReceipt WHERE arrivalTime BETWEEN '"+fTime+"' AND '"+tTime+"'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(despatchReceipt);
@@ -34,7 +34,7 @@ public class DespatchReceiptDBManager extends DBManager{
 		Timestamp arrivalTime=new Timestamp(item.getArrivalTime().getTime());
 		String orderNum=item.getOrderNum();
 		String despatchMan=item.getDespatchMan();
-		String add="INSERT INTO DespatchReceipt VALUES ("+arrivalTime+", '"+orderNum+"', '"+despatchMan+"')";
+		String add="INSERT INTO DespatchReceipt VALUES ('"+arrivalTime+"', '"+orderNum+"', '"+despatchMan+"')";
 		Connection connection=connectToDB();
 		Statement statement=connection.createStatement();
 		statement.executeUpdate(add);

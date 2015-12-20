@@ -183,7 +183,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
                     {
                         int row=table.getRowCount();
                         for (int i=0;i<row;i++){
-                            orderIDs.add((String)table.getValueAt(row, 0));
+                            orderIDs.add((String)table.getValueAt(i, 0));
                         }
                     }
                     ChargeReceiptVO vo=new ChargeReceiptVO(time, money, courier, orderIDs);
