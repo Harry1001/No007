@@ -160,7 +160,7 @@ public class SalaryListPanel extends JPanel implements ActionListener {
                 } catch (RemoteException e1) {
                     new ErrorDialog(parent, "服务器连接超时");
                 } catch (SQLException e1) {
-                    System.out.println(e1.getMessage());
+                    System.out.println("salary sql"+e1.getMessage());
                     new ErrorDialog(parent, "SQLException:");
                 }
             }
