@@ -42,7 +42,7 @@ public class UserAccountDataImpl extends UnicastRemoteObject implements UserAcco
 	}
 
 	public void update(String id, UserAccountPO item) throws RemoteException, InfoBLException, SQLException {
-		if(!isExist(item.getUserID())) {
+		if(!isExist(item.getUserID()) || id.equals(item.getUserID())) {
 			deleteItem(id);
 			addItem(item);
 		}

@@ -40,11 +40,13 @@ public class AgencyDataImpl extends UnicastRemoteObject implements AgencyDataSer
 	}
 
 	public void update(String id, AgencyPO item) throws RemoteException, InfoBLException, SQLException {
-		if(!isExist(item.getAgencyID())) {
+		if(!isExist(item.getAgencyID()) || id.equals(item.getAgencyID())) {
 			agencyDBManager.delete(id);
 			agencyDBManager.add(item);					
 		}
-		else throw new InfoBLException("该机构编号已存在");
+		else {
+			throw new InfoBLException("该机构编号已存在");
+		}
 	}
 	
 	public String getAgengcy(String agencyID) throws RemoteException, SQLException {

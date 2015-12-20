@@ -39,7 +39,7 @@ public class TruckDataImpl extends UnicastRemoteObject implements TruckDataServi
 	}
 
 	public void update(String id, TruckPO item) throws RemoteException, InfoBLException, SQLException {
-		if(!isExist(item.getTruckID())){
+		if(!isExist(item.getTruckID()) || id.equals(item.getTruckID())){
 			deleteItem(id);
 			addItem(item);			
 		}

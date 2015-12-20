@@ -40,7 +40,7 @@ public class DriverDataImpl extends UnicastRemoteObject implements DriverDataSer
 	}
 
 	public void update(String id, DriverPO item) throws RemoteException, InfoBLException, SQLException {
-		if(!isExist(item.getDriverID())) {
+		if(!isExist(item.getDriverID()) || id.equals(item.getDriverID())) {
 			driverDBManager.delete(id);
 			driverDBManager.add(item);				
 		}
