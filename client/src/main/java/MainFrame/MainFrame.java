@@ -55,6 +55,7 @@ public class MainFrame extends JFrame {
         */
 
         MainFrame frame=new MainFrame("快递物流系统");
+        frame.
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         try{
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");

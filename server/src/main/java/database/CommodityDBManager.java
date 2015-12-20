@@ -42,19 +42,16 @@ public class CommodityDBManager extends DBManager{
 		stopconnection(connection);
 	}
 	
-	public void removeCommodity(String expressNum){
+	public void removeCommodity(String expressNum) throws SQLException {
 		String commodityDelete =
 				"DELETE FROM Commodity"
 				+ " WHERE expressNumber = '"+expressNum + "'";
 		Connection connection = connectToDB();
-		try {
-			Statement statement = connection.createStatement();
-			int i = statement.executeUpdate(commodityDelete);
-			System.out.println(i + " rows have been changed.");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		Statement statement = connection.createStatement();
+		int i = statement.executeUpdate(commodityDelete);
+		//System.out.println(i + " rows have been changed.");
+
 		stopconnection(connection);		
 	}
 	

@@ -282,7 +282,15 @@ public class DepotInPanel extends JPanel implements ActionListener {
                     } catch (RemoteException e1) {
                         new ErrorDialog(parent, "服务器连接超时");
                     } catch (SQLException e1) {
-                        new ErrorDialog(parent, "SQLException");
+                        System.out.println("库存入库："+e1.getMessage());
+                        String s=e1.getMessage();
+                        if ((s.length()>=15)&&(s.substring(0,15).equals("Duplicate entry"))){
+                            new ErrorDialog(parent, "该入库单已存在");
+                        }
+                        else {
+                            new ErrorDialog(parent, "SQLException");
+                        }
+
                     } catch (MalformedURLException e1) {
                         new ErrorDialog(parent, "MalformedURLException");
                     } catch (NotBoundException e1) {

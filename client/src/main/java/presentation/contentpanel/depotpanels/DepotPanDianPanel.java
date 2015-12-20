@@ -34,7 +34,7 @@ public class DepotPanDianPanel extends JPanel implements ActionListener{
     MyDefaultTableModel defaultTableModel;
     MyTable table;
 
-    Vector<String> names;
+    Vector<String> names=new Vector<String>();
 
     public DepotPanDianPanel(MainFrame par) {
 
@@ -112,6 +112,7 @@ public class DepotPanDianPanel extends JPanel implements ActionListener{
             } catch (RemoteException e) {
                 new ErrorDialog(parent, "服务器连接超时");
             } catch (SQLException e) {
+                System.out.println("库存盘点sql："+e.getMessage());
                 new ErrorDialog(parent, "SQLException");
             } catch (NamingException e) {
                 new ErrorDialog(parent, "NamingException");

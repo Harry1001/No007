@@ -83,6 +83,7 @@ public class DepotChaKanPanel extends JPanel implements ActionListener{
                 } catch (RemoteException e1) {
                     new ErrorDialog(parent, "服务器连接超时");
                 } catch (SQLException e1) {
+                    System.out.println("库存查看sql："+e1.getMessage());
                     new ErrorDialog(parent, "SQLException");
                 } catch (MalformedURLException e1) {
                     new ErrorDialog(parent, "MalformedURLException");

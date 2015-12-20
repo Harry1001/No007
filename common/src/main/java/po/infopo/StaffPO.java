@@ -21,7 +21,7 @@ public class StaffPO extends InfoPO {
 	private int workFrequency;//只有司机和快递员这项数据有意义，其他人都是0
 	
 	public StaffPO(String staffID,String name,String gender,
-			Date birthday,Job position,int basicSalary) {
+			Date birthday,Job position,int workFrequency) {
 		super(InfoType.STAFF);
 		// TODO Auto-generated constructor stub
 		this.staffID=staffID;
@@ -29,8 +29,8 @@ public class StaffPO extends InfoPO {
 		this.gender=gender;
 		this.birthday=birthday;
 		this.position=position;
-		this.basicSalary=basicSalary;
-		this.workFrequency=0;
+		this.basicSalary=0;
+		this.workFrequency=workFrequency;
 	}
 
 	public StaffPO(StaffVO s){

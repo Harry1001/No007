@@ -89,6 +89,9 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         String hubID=parent.getUserIdentity().getId().substring(0,4);
 
         textFields[1].setText(hubID+Constent.RECIEPT_NUM_FORMAT.format(new Date())+"+7位数字");
+        defaultTableModel.getDataVector().clear();
+        table.revalidate();
+        table.updateUI();
     }
 
     private boolean checkAll(){
@@ -123,7 +126,7 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         }
 
         if (!checkCounterID()){
-            new ErrorDialog(parent, "货柜还必须为正整数");
+            new ErrorDialog(parent, "货柜号必须为正整数");
             return false;
         }
 
@@ -251,6 +254,9 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
                 defaultTableModel.addRow(data);
                 orderT.setText("");
             }
+            else {
+                new ErrorDialog(parent, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位整数");
+            }
         }
         else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
@@ -268,6 +274,7 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
                     } catch (RemoteException e1) {
                         new ErrorDialog(parent, "服务器连接超时");
                     } catch (SQLException e1) {
+                        System.out.println("中转单sql："+e1.getMessage());
                         new ErrorDialog(parent, "SQLException");
                     } catch (MalformedURLException e1) {
                         new ErrorDialog(parent, "MalformedURLException");
@@ -336,7 +343,7 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         {
             int row = table.getRowCount();
             for (int i=0;i<row;i++) {
-                orderIDs.add((String)table.getValueAt(row, 0));
+                orderIDs.add((String)table.getValueAt(i, 0));
             }
         }
 

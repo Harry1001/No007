@@ -68,7 +68,7 @@ public class StaffDBManager extends DBManager{
 		while (resultSet.next()){
 			StaffPO staff = new StaffPO(resultSet.getString(1), resultSet.getString(2),
 						resultSet.getString(3), new Date(resultSet.getTimestamp(4).getTime()), 
-						Job.values()[resultSet.getInt(5)],resultSet.getInt(6));
+						Job.values()[resultSet.getInt(5)],resultSet.getInt(7));
 			staffs.add(staff);
 		}
 		return staffs;

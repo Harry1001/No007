@@ -35,7 +35,7 @@ public class TimePanel extends JPanel {
             int date=Integer.parseInt(dateT.getText());
 
             Calendar c= Calendar.getInstance();
-            c.set(year, month, date);
+            c.set(year, month-1, date);
             return c.getTime();
 
         }catch (NumberFormatException e){

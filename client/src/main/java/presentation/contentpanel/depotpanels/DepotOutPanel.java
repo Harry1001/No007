@@ -248,6 +248,7 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
                     } catch (RemoteException e1) {
                         new ErrorDialog(parent, "服务器连接超时");
                     } catch (SQLException e1) {
+                        System.out.println("库存出库："+e1.getMessage());
                         new ErrorDialog(parent, "SQLException");
                     } catch (MalformedURLException e1) {
                         new ErrorDialog(parent, "MalformedURLException");

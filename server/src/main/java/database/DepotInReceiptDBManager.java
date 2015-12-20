@@ -18,7 +18,7 @@ public class DepotInReceiptDBManager extends DBManager{
 		ArrayList<DepotInReceiptPO> po=new ArrayList<DepotInReceiptPO>();
 		Timestamp fTime = new Timestamp(fromtime.getTime());
 		Timestamp tTime = new Timestamp(toTime.getTime());
-		String depotInReceipt="SELECT * FROM DepotInReceipt WHERE inTime BETWEEN "+fTime+" AND "+tTime;
+		String depotInReceipt="SELECT * FROM DepotInReceipt WHERE inTime BETWEEN '"+fTime+"' AND '"+tTime+"'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(depotInReceipt);
