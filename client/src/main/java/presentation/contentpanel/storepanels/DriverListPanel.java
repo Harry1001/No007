@@ -46,6 +46,7 @@ public class DriverListPanel extends JPanel implements ActionListener{
         modifybt.addActionListener(this);
 
         initBL();
+        refreshList();
     }
 
     private void initBL(){

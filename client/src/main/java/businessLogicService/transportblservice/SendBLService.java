@@ -35,5 +35,5 @@ public interface SendBLService {
 	 */
 	public double calFee(SendReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException, FileNotFoundException, ClassNotFoundException, IOException;
 	
-	public SendReceiptVO getSendReceipt(String orderID) throws RemoteException, SQLException;
+	public SendReceiptVO getSendReceipt(String orderID) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
 }

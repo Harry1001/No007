@@ -71,7 +71,7 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
-        gbc.insets=new Insets(10,10,10,10);
+        gbc.insets=new Insets(5,5,5,5);
         gbc.fill=GridBagConstraints.BOTH;
         gbc.gridx=0;
         gbc.gridy=0;
@@ -198,6 +198,7 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
                 } catch (MalformedURLException e1) {
                     new ErrorDialog(parent, "MalformedURLException");
                 } catch (SQLException e1) {
+                    System.out.println("提交收件单sql："+e1.getMessage());
                     new ErrorDialog(parent, "SQLException");
                 } catch (NotBoundException e1) {
                     new ErrorDialog(parent, "NotBoundException");

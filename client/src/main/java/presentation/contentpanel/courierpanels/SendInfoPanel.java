@@ -1,16 +1,24 @@
 package presentation.contentpanel.courierpanels;
 
 import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.transportblservice.SendBLService;
 import constent.Constent;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
+import presentation.commonpanel.ErrorDialog;
+import vo.receiptvo.SendReceiptVO;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 /**
  * Created by Harry on 2015/12/2.
@@ -22,6 +30,8 @@ public class SendInfoPanel extends JPanel implements ActionListener {
     MyLabel inputL=new MyLabel("请输入订单号");
     MyTextField inputT=new MyTextField(15);
     MyButton confirmbt=new MyButton("确认");
+
+    SendBLService sendBLService;
 
     public SendInfoPanel(MainFrame par){
 
@@ -57,7 +67,7 @@ public class SendInfoPanel extends JPanel implements ActionListener {
         panel3.setBorder(BorderFactory.createTitledBorder("托运货物信息"));
 
         GridBagConstraints gbc=new GridBagConstraints();
-        gbc.insets=new Insets(10,10,10,10);
+        gbc.insets=new Insets(5,5,5,5);
         gbc.weightx=1.0;
         gbc.weighty=1.0;
         gbc.fill=GridBagConstraints.BOTH;
@@ -91,6 +101,7 @@ public class SendInfoPanel extends JPanel implements ActionListener {
             panel3.add(texts[i+12],gbc);
         }
 
+        gbc.gridy=0;
         this.setLayout(new GridBagLayout());
         gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.gridx=0;
@@ -138,12 +149,51 @@ public class SendInfoPanel extends JPanel implements ActionListener {
      * 建立逻辑层引用
      */
     private void initBL(){
-        //todo 没有接口可使用！！！！！
+        sendBLService= BLFactory.getSendBLService();
+    }
+
+    private void loadData(SendReceiptVO vo){
+        texts[0].setText(vo.getSenderName());
+        texts[1].setText(vo.getSenderLoc());
+        texts[2].setText(vo.getSenderUnit());
+        texts[3].setText(vo.getSenderPhone());
+        texts[4].setText(vo.getReceiverName());
+        texts[5].setText(vo.getReceiverLoc());
+        texts[6].setText(vo.getReceiverUnit());
+        texts[7].setText(vo.getReceiverPhone());
+        texts[8].setText(vo.getNumber()+"");
+        texts[9].setText(vo.getWeight() + "");
+        texts[10].setText(vo.getVolume() + "");
+        texts[11].setText(vo.getName());
+        texts[12].setText(vo.getExpressType());
+        texts[13].setText(vo.getPack());
+        texts[14].setText(vo.getExpressNumber());
+        texts[15].setText(vo.getMoney()+"");
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==confirmbt){
-
+            if (sendBLService!=null){
+                String id=inputT.getText();
+                if (checkOrderID(id)){
+                    try {
+                        SendReceiptVO vo = sendBLService.getSendReceipt(id);
+                        loadData(vo);
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "服务器连接超时");
+                    } catch (SQLException e1) {
+                        System.out.println("查询寄件单信息sql："+e1.getMessage());
+                        new ErrorDialog(parent, "SQLException");
+                    } catch (MalformedURLException e1) {
+                        e1.printStackTrace();
+                    } catch (NotBoundException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+            else {
+                initBL();
+            }
         }
     }
 }

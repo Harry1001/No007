@@ -50,7 +50,8 @@ public class SendBL{
 		return strategyblservice.calExpressFee(vo);
 	}
 	
-	public SendReceiptVO getSendReceipt(String orderID) throws RemoteException, SQLException {
+	public SendReceiptVO getSendReceipt(String orderID) throws RemoteException, SQLException, MalformedURLException, NotBoundException {
+		receiptblservice=BLFactory.getSendReceiptBLService();
 		SendReceiptPO po=receiptblservice.getSendReceipt(orderID);
 		SendReceiptVO vo=new SendReceiptVO(po);
 		return vo;

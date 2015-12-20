@@ -187,6 +187,7 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
                 try {
                     agencyBLService.addAgency(vo);
                     listPanel.refreshList();
+                    dialog.dispose();
                 } catch (InfoBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());
                 } catch (RemoteException e1) {

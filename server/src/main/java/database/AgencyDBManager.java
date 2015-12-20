@@ -22,7 +22,7 @@ public class AgencyDBManager extends DBManager{
 	
 	public void delete(String agencyID) throws SQLException{
 		String agencydelete = "DELETE FROM Agency"
-				+ " WHERE ID = '" + agencyID + "'";
+				+ " WHERE agencyID = '" + agencyID + "'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		statement.executeUpdate(agencydelete);

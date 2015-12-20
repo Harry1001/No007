@@ -48,6 +48,7 @@ public class AgencyModifyPanel extends AgencyInfoPanel {
                 try {
                     agencyBLService.modifyAgency(originID, vo);
                     listPanel.refreshList();
+                    dialog.dispose();
                 } catch (InfoBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());
                 } catch (RemoteException e1) {

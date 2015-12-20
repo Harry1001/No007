@@ -97,7 +97,7 @@ public class SendReceiptDBManager extends DBManager{
 	}
 
 	public SendReceiptPO getItem(String orderID) throws SQLException {
-		String sendReceipt="SELECT * FROM SendReceipt WHERE expressNumber = orderID";
+		String sendReceipt="SELECT * FROM SendReceipt WHERE expressNumber = '" + orderID + "'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sendReceipt);

@@ -79,7 +79,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         panel3.setBorder(BorderFactory.createTitledBorder("托运货物信息"));
 
         GridBagConstraints gbc=new GridBagConstraints();
-        gbc.insets=new Insets(10,10,10,10);
+        gbc.insets=new Insets(5,5,5,5);
         gbc.weightx=1.0;
         gbc.weighty=1.0;
         gbc.fill=GridBagConstraints.BOTH;
@@ -120,7 +120,6 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         gbc.gridy=0;
         this.add(panel1,gbc);
         gbc.gridx=1;
-        //gbc.insets=new Insets(10,20,10,10);
         this.add(panel2,gbc);
         gbc.gridx=0;
         gbc.gridy=1;
@@ -254,6 +253,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                 } catch (MalformedURLException e1) {
                     new ErrorDialog(parent, "MalformedURLException");
                 } catch (SQLException e1) {
+                    System.out.println("提交寄件单sql："+e1.getMessage());
                     new ErrorDialog(parent, "SQLException");
                 } catch (NotBoundException e1) {
                     new ErrorDialog(parent, "NotBoundException");

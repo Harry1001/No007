@@ -184,7 +184,7 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
         }
         birthday=new TimePanel();
         limitTime=new TimePanel();
-        genderC=new JComboBox<String>(names);
+        genderC=new JComboBox<String>(genders);
 
         for(gbc.gridx=0,gbc.gridy=0;gbc.gridy<7;gbc.gridy++){
             this.add(labels[gbc.gridy],gbc);
