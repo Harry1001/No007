@@ -10,6 +10,7 @@ import java.util.Date;
 
 import dataService.HubArrivalReceiptDataService;
 import dataService._RMI;
+import myexceptions.TransportBLException;
 import po.receiptpo.HubArrivalReceiptPO;
 import vo.receiptvo.HubArrivalReceiptVO;
 
@@ -31,7 +32,7 @@ public class HubArrivalReceiptBL {
 		return hubArrivalReceiptVOs;
 	}
 
-	public void createReceipt(HubArrivalReceiptVO item) throws RemoteException, SQLException {
+	public void createReceipt(HubArrivalReceiptVO item) throws RemoteException, SQLException, TransportBLException {
 		hubArrivalReceiptData.addItem(new HubArrivalReceiptPO(item));		
 	}
 

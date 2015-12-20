@@ -17,7 +17,7 @@ public class ArriveStoreController implements ArriveStoreBLService{
 		return arrivestorebl.verify(vo);
 	}
 
-	public void submit(StoreArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException {
+	public void submit(StoreArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException, TransportBLException {
 		arrivestorebl.submit(vo);
 	}
 

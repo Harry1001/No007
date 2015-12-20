@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import myexceptions.TransportBLException;
 import vo.receiptvo.StoreArrivalReceiptVO;
 
 public interface StoreArrivalReceiptBLService {
@@ -19,7 +20,8 @@ public interface StoreArrivalReceiptBLService {
 	 * 给其他业务逻辑对象提供创建单据的接口，比如FinanceBL创建付款单，SendBL创建寄件单
 	 * @param item
 	 * @throws SQLException 
+	 * @throws TransportBLException 
 	 */
-	public void createReceipt(StoreArrivalReceiptVO item) throws RemoteException, SQLException;
+	public void createReceipt(StoreArrivalReceiptVO item) throws RemoteException, SQLException, TransportBLException;
 	
 }

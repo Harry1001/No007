@@ -8,6 +8,7 @@ import java.util.Date;
 
 import dataService.StoreArrivalReceiptDataService;
 import database.StoreArrivalReceiptDBManager;
+import myexceptions.TransportBLException;
 import po.receiptpo.StoreArrivalReceiptPO;
 
 public class StoreArrivalReceiptDataImpl extends UnicastRemoteObject implements StoreArrivalReceiptDataService{
@@ -27,12 +28,22 @@ public class StoreArrivalReceiptDataImpl extends UnicastRemoteObject implements 
 		return storeArrivalReceipt.getList(fromtime, toTime);
 	}
 
-	public void addItem(StoreArrivalReceiptPO item) throws RemoteException, SQLException {
-		storeArrivalReceipt.addItem(item);
+	public void addItem(StoreArrivalReceiptPO item) throws RemoteException, SQLException, TransportBLException {
+		if(!isExist(item.getOrderID()))
+			storeArrivalReceipt.addItem(item);
+		else
+			throw new TransportBLException("该单据已存在！");
 	}
 
 	public void deleteAll() throws RemoteException, SQLException {
 		storeArrivalReceipt.deleteAll();
 	}
 
+	private boolean isExist(String orderID) throws SQLException{
+		StoreArrivalReceiptPO po=storeArrivalReceipt.getItem(orderID);
+		if(po==null)
+			return false;
+		else 
+			return true;
+	}
 }

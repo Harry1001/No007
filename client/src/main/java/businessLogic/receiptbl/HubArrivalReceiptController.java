@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businessLogicService.receiptblservice.HubArrivalReceiptBLService;
+import myexceptions.TransportBLException;
 import vo.receiptvo.HubArrivalReceiptVO;
 
 public class HubArrivalReceiptController implements HubArrivalReceiptBLService{
@@ -22,7 +23,7 @@ public class HubArrivalReceiptController implements HubArrivalReceiptBLService{
 		return receiptBL.getListByTime(fromTime, toTime);
 	}
 
-	public void createReceipt(HubArrivalReceiptVO item) throws RemoteException, SQLException {
+	public void createReceipt(HubArrivalReceiptVO item) throws RemoteException, SQLException, TransportBLException {
 		receiptBL.createReceipt(item);		
 	}
 

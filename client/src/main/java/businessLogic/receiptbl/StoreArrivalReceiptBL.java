@@ -10,6 +10,7 @@ import java.util.Date;
 
 import dataService.StoreArrivalReceiptDataService;
 import dataService._RMI;
+import myexceptions.TransportBLException;
 import po.receiptpo.StoreArrivalReceiptPO;
 import vo.receiptvo.StoreArrivalReceiptVO;
 
@@ -31,7 +32,7 @@ public class StoreArrivalReceiptBL {
 		return storeArrivalReceiptVOs;
 	}
 
-	public void createReceipt(StoreArrivalReceiptVO item) throws RemoteException, SQLException {
+	public void createReceipt(StoreArrivalReceiptVO item) throws RemoteException, SQLException, TransportBLException {
 		storeArrivalReceiptData.addItem(new StoreArrivalReceiptPO(item));
 	}
 

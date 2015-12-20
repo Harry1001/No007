@@ -20,6 +20,7 @@ public interface ArriveStoreBLService {
 	 * @throws NotBoundException 
 	 * @throws MalformedURLException 
 	 * @throws SQLException 
+	 * @throws TransportBLException 
 	 */
-	public void submit(StoreArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException;
+	public void submit(StoreArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException, TransportBLException;
 }

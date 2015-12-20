@@ -17,7 +17,7 @@ public class ArriveHubController implements ArriveHubBLService{
 		return arrivehubbl.verify(vo);
 	}
 
-	public void submit(HubArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException {
+	public void submit(HubArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException, TransportBLException {
 		arrivehubbl.submit(vo);
 	}
 

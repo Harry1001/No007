@@ -62,4 +62,24 @@ public class HubArrivalReceiptDBManager extends DBManager{
 		statement.executeUpdate(delete);
 		stopconnection(connection);
 	}
+	
+	public HubArrivalReceiptPO getItem(String orderID) throws SQLException{
+		String hubArrivalReceipt="SELECT * FROM HubArrivalReceipt WHERE orderID = '" + orderID + "'";
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(hubArrivalReceipt);
+		if (resultSet.next()){
+			String order=resultSet.getString(1);
+			String hubID=resultSet.getString(2);
+			Date arriveTime=new Date(resultSet.getTimestamp(3).getTime());
+			String transReceiptID=resultSet.getString(4);
+			String fromPosition=resultSet.getString(5);
+			PackArrivalState arriveState=PackArrivalState.values()[resultSet.getInt(6)];
+			HubArrivalReceiptPO po=new HubArrivalReceiptPO(order,hubID,arriveTime,transReceiptID,fromPosition,arriveState);
+			return po;
+		}
+		else{
+			return null;
+		}
+	}
 }

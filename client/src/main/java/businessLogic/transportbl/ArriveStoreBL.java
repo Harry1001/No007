@@ -32,7 +32,7 @@ public class ArriveStoreBL{
 		return true;	
 	}
 	
-	public void submit(StoreArrivalReceiptVO vo) throws  MalformedURLException, NotBoundException, RemoteException, SQLException {
+	public void submit(StoreArrivalReceiptVO vo) throws  MalformedURLException, NotBoundException, RemoteException, SQLException, TransportBLException {
 		receiptblservice=BLFactory.getStoreArrivalReceiptBLService();
 		receiptblservice.createReceipt(vo);
 	}

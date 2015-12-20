@@ -60,4 +60,22 @@ public class StoreArrivalReceiptDBManager extends DBManager{
 		stopconnection(connection);
 	}
 	
+	public StoreArrivalReceiptPO getItem(String orderID) throws SQLException {
+		String storeArrivalReceipt="SELECT * FROM StoreArrivalReceipt WHERE orderID = '" + orderID + "'";
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(storeArrivalReceipt);
+		if(resultSet.next()){
+			String order=resultSet.getString(1);
+			Date arriveTime=new Date(resultSet.getTimestamp(2).getTime());
+			String transReceiptID=resultSet.getString(3);
+			String fromPosition=resultSet.getString(4);
+			PackArrivalState arriveState=PackArrivalState.values()[resultSet.getInt(5)];
+			StoreArrivalReceiptPO po=new StoreArrivalReceiptPO(order,arriveTime,transReceiptID,fromPosition,arriveState);
+			return po;
+		}
+		else {
+			return null;
+		}
+	}
 }

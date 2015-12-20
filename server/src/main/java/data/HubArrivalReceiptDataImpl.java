@@ -8,6 +8,7 @@ import java.util.Date;
 
 import dataService.HubArrivalReceiptDataService;
 import database.HubArrivalReceiptDBManager;
+import myexceptions.TransportBLException;
 import po.receiptpo.HubArrivalReceiptPO;
 
 public class HubArrivalReceiptDataImpl extends UnicastRemoteObject implements HubArrivalReceiptDataService{
@@ -27,12 +28,22 @@ public class HubArrivalReceiptDataImpl extends UnicastRemoteObject implements Hu
 		return hubArrivalReceipt.getList(fromtime, toTime);
 	}
 
-	public void addItem(HubArrivalReceiptPO item) throws RemoteException, SQLException {
-		hubArrivalReceipt.addItem(item);
+	public void addItem(HubArrivalReceiptPO item) throws RemoteException, SQLException, TransportBLException {
+		if(!isExist(item.getOrderID()))
+			hubArrivalReceipt.addItem(item);
+		else
+			throw new TransportBLException("该单据已存在！");
 	}
 
 	public void deleteAll() throws RemoteException, SQLException {
 		hubArrivalReceipt.deleteAll();
 	}
-
+	
+	private boolean isExist(String orderID) throws SQLException{
+		HubArrivalReceiptPO po=hubArrivalReceipt.getItem(orderID);
+		if(po==null)
+			return false;
+		else 
+			return true;
+	}
 }

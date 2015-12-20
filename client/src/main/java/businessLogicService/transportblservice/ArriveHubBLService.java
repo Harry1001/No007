@@ -20,6 +20,7 @@ public interface ArriveHubBLService {
 	 * @throws NotBoundException 
 	 * @throws MalformedURLException 
 	 * @throws SQLException 
+	 * @throws TransportBLException 
 	 */
-	public void submit(HubArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException;
+	public void submit(HubArrivalReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException, TransportBLException;
 }

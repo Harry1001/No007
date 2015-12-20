@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import myexceptions.TransportBLException;
 import po.receiptpo.StoreArrivalReceiptPO;
 
 public interface StoreArrivalReceiptDataService extends Remote {
@@ -19,8 +20,9 @@ public interface StoreArrivalReceiptDataService extends Remote {
 	/**
 	 * 在持久化数据中增加一个po
 	 * @throws SQLException 
+	 * @throws TransportBLException 
 	 */
-	public void addItem(StoreArrivalReceiptPO item) throws RemoteException, SQLException;
+	public void addItem(StoreArrivalReceiptPO item) throws RemoteException, SQLException, TransportBLException;
 	
 	/**
 	 * 清空持久化数据中type类型的所有单据
