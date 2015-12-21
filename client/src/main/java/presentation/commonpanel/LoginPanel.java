@@ -40,6 +40,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
 
         this.parent=par;
         this.setLayout(new GridBagLayout());
+        this.setOpaque(false);//将login panel设为透明
         GridBagConstraints gbc =new GridBagConstraints();
 
         this.setPreferredSize(new Dimension(1000,700));
