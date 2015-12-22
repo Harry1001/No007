@@ -9,6 +9,7 @@ import dataService.infodataservice.StaffDataService;
 import database.StaffDBManager;
 import myexceptions.InfoBLException;
 import po.infopo.StaffPO;
+import vo.infovo.StaffVO;
 
 public class StaffDataImpl extends UnicastRemoteObject implements StaffDataService {
 
@@ -48,7 +49,26 @@ public class StaffDataImpl extends UnicastRemoteObject implements StaffDataServi
 		}
 		else throw new InfoBLException("该工号已存在!");
 	}
-	
+
+	public void addWorkFrequency(String staffID) throws SQLException, RemoteException, InfoBLException {
+		StaffPO po=staffDBManager.get(staffID);
+		if (po!=null){
+			po.addWorkFrequency();
+			deleteItem(po.getStaffID());
+			addItem(po);
+		}
+	}
+
+	public void refreshWorkFreqeuncy(String staffID) throws SQLException, RemoteException, InfoBLException {
+		StaffPO po=staffDBManager.get(staffID);
+		if (po!=null){
+			po.setWorkFrequency(0);
+			deleteItem(po.getStaffID());
+			addItem(po);
+		}
+	}
+
+
 	private boolean isExist(String id) throws SQLException {
 		StaffPO staffPO = staffDBManager.get(id);
 		if(staffPO == null) return false;

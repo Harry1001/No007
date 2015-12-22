@@ -38,4 +38,8 @@ public interface StaffBLService {
      * @throws SQLException 
      */
     public void modifyStaff( String id, StaffVO vo) throws InfoBLException, RemoteException, SQLException;
+
+    public void addWorkFrequency(String staffID) throws InfoBLException, SQLException, RemoteException;
+
+    public void refreshWorkFrequency(String staffID) throws InfoBLException, SQLException, RemoteException;
 }

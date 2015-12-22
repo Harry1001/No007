@@ -54,4 +54,12 @@ public class StaffInfoBL implements StaffBLService {
     	StaffPO po = new StaffPO(vo);
     	staffData.update(id, po);
     }
+
+    public void addWorkFrequency(String staffID) throws InfoBLException, SQLException, RemoteException {
+        staffData.addWorkFrequency(staffID);
+    }
+
+    public void refreshWorkFrequency(String staffID) throws InfoBLException, SQLException, RemoteException {
+        staffData.refreshWorkFreqeuncy(staffID);
+    }
 }

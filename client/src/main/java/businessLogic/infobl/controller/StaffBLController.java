@@ -37,4 +37,12 @@ public class StaffBLController implements StaffBLService {
     public void modifyStaff(String id, StaffVO vo) throws InfoBLException, RemoteException, SQLException {
         staffInfoBL.modifyStaff(id, vo);
     }
+
+    public void addWorkFrequency(String staffID) throws InfoBLException, SQLException, RemoteException {
+        staffInfoBL.addWorkFrequency(staffID);
+    }
+
+    public void refreshWorkFrequency(String staffID) throws InfoBLException, SQLException, RemoteException {
+        staffInfoBL.refreshWorkFrequency(staffID);
+    }
 }

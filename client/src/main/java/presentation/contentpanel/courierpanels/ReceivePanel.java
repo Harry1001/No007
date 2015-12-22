@@ -2,9 +2,11 @@ package presentation.contentpanel.courierpanels;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
+import businessLogicService.infoblservice.StaffBLService;
 import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.transportblservice.ReceiveBLService;
 import constent.Constent;
+import myexceptions.InfoBLException;
 import myexceptions.TransportBLException;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
@@ -33,6 +35,7 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
 
     private ReceiveBLService receiveBLService;
     private LogisticBLService logisticBLService;
+    private StaffBLService staffBLService;
     private MainFrame parent;
     private MyLabel l1;
     private MyLabel l2;
@@ -131,6 +134,7 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
     private void initBL(){
         receiveBLService= BLFactory.getReceiveBLService();
         try {
+            staffBLService=BLFactory.getStaffBLService();
             logisticBLService=BLFactory.getLogisticBLService();
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
@@ -184,13 +188,14 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
 
         //提价按钮点击
         if (e.getSource()==submitbt){
-            if ( (logisticBLService!=null) && (receiveBLService!=null)){
+            if ( (logisticBLService!=null) && (receiveBLService!=null)&&(staffBLService!=null)){
                 try {
                     Date date= Constent.DATE_FORMAT.parse(t4.getText());
                     ReceiveReceiptVO vo=new ReceiveReceiptVO(t3.getText(), t1.getText(), date);
                     receiveBLService.verify(vo);
                     receiveBLService.submit(vo);
                     logisticBLService.update(parent.getUserIdentity().getId(), vo);
+                    staffBLService.addWorkFrequency(parent.getUserIdentity().getId());
                     refresh();
                 } catch (TransportBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());
@@ -205,6 +210,8 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
                     new ErrorDialog(parent, "NotBoundException");
                 } catch (ParseException e1) {
                     new ErrorDialog(parent, "请不要改变默认时间格式");
+                } catch (InfoBLException e1) {
+                    new ErrorDialog(parent, e1.getMessage());
                 }
             }
             else {

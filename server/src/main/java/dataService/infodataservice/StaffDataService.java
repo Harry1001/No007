@@ -33,4 +33,22 @@ public interface StaffDataService extends Remote {
 	 * @throws RemoteException, InfoBLException, SQLException
 	 */
 	public void update(String id, StaffPO item) throws RemoteException, InfoBLException, SQLException;
+
+	/**
+	 * 当快递员完成一单后增加他的工作次数
+	 * @param staffID
+	 * @throws SQLException
+	 * @throws RemoteException
+	 * @throws InfoBLException
+	 */
+	public void addWorkFrequency(String staffID) throws SQLException, RemoteException, InfoBLException;
+
+	/**
+	 * 每次付完工资后需要清空工作次数
+	 * @param id
+	 * @throws SQLException
+	 * @throws RemoteException
+	 * @throws InfoBLException
+	 */
+	public void refreshWorkFreqeuncy(String id) throws SQLException, RemoteException, InfoBLException;
 }

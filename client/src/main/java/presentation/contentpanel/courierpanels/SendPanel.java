@@ -2,10 +2,12 @@ package presentation.contentpanel.courierpanels;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
+import businessLogicService.infoblservice.StaffBLService;
 import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.strategyblservice.CalExpressfeeService;
 import businessLogicService.transportblservice.SendBLService;
 import constent.Constent;
+import myexceptions.InfoBLException;
 import myexceptions.TransportBLException;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
@@ -36,6 +38,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
 
     private SendBLService sendBLService;
     private CalExpressfeeService calExpressfeeService;
+    private StaffBLService staffBLService;
     private LogisticBLService logisticBLService;
     private MainFrame parent;
     private MyLabel[] labels=new MyLabel[16];
@@ -170,6 +173,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
     private void initBL(){
         sendBLService= BLFactory.getSendBLService();
         try {
+            staffBLService=BLFactory.getStaffBLService();
             logisticBLService=BLFactory.getLogisticBLService();
             calExpressfeeService=BLFactory.getCalExpressfeeService();
         } catch (MalformedURLException e) {
@@ -237,7 +241,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
 
             //提交按钮事件
         } else if (e.getSource()==submitbt){
-            if ((sendBLService!=null)&&(logisticBLService!=null)){
+            if ((sendBLService!=null)&&(logisticBLService!=null)&&(staffBLService!=null)){
                 try {
                     checkAllFormat();
                     SendReceiptVO vo=new SendReceiptVO(texts[0].getText(),texts[1].getText(),texts[2].getText(),
@@ -248,6 +252,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                             new Date());
                     sendBLService.submit(vo);
                     logisticBLService.update(parent.getUserIdentity().getId(), vo);
+                    staffBLService.addWorkFrequency(parent.getUserIdentity().getId());
                     refresh();
                 } catch (TransportBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());
@@ -260,6 +265,8 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                     new ErrorDialog(parent, "SQLException");
                 } catch (NotBoundException e1) {
                     new ErrorDialog(parent, "NotBoundException");
+                } catch (InfoBLException e1) {
+                    new ErrorDialog(parent, e1.getMessage());
                 }
             }
             else {
