@@ -62,6 +62,7 @@ public class StaffModifyPanel extends StaffInfoPanel {
                 } catch (RemoteException e1) {
                     new ErrorDialog(parent, "服务器连接超时");
                 } catch (SQLException e1) {
+                    System.out.println("修改人员信息sql："+e1.getMessage());
                     new ErrorDialog(parent, "SQLException");
                 } catch (InfoBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());

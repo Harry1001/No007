@@ -135,6 +135,7 @@ public class StaffInfoPanel extends JPanel implements ActionListener{
                 } catch (RemoteException e1) {
                     new ErrorDialog(parent, "服务器连接超时");
                 } catch (SQLException e1) {
+                    System.out.println("新增人员sql："+e1.getMessage());
                     new ErrorDialog(parent, "SQLException");
                 } catch (InfoBLException e1) {
                     new ErrorDialog(parent, e1.getMessage());

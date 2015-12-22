@@ -31,7 +31,7 @@ public class RecordDBManager extends DBManager{
 		ResultSet resultset=statement.executeQuery(recordGet);
 		while(resultset.next()){
 			//resultset.next();
-			po=new RecordPO(resultset.getDate(1),resultset.getString(2),resultset.getString(3));
+			po=new RecordPO(new Date(resultset.getTimestamp(1).getTime()),resultset.getString(2),resultset.getString(3));
 			apo.add(po);
 		}
 		return apo;

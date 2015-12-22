@@ -27,8 +27,7 @@ public class LogisticDataImpl extends UnicastRemoteObject implements LogisticDat
 	}
 
 	public ArrayList<LogisticPO> read(String num) throws RemoteException, SQLException {
-		logisticDBManager.read(num);
-		return null;
+		return logisticDBManager.read(num);
 	}
 
 	public void remove(String num) throws RemoteException, SQLException {

@@ -20,7 +20,7 @@ public class CarriageStrategyDBManager extends DBManager{
 		double tp=po.getTrainPrice();
 		
 		String carriageInsert="INSERT INTO carriagefee"
-				+" VALUES ("+bp+", "+pp+", "+tp+")";
+				+" VALUES ("+bp+", "+tp+", "+pp+")";
 		
 		Connection connection=connectToDB();
 		

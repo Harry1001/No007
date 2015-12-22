@@ -53,13 +53,13 @@ public class StrategyDataImpl extends UnicastRemoteObject implements StrategyDat
 	public void updateExpressFeeStrategy(ExpressFeePO efpo) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		
-		efs.addExpressFeeStrategy(efpo);
+		efs.updateExpressFeeStrategy(efpo);
 	}
 
 	public void updateCarriageFeeStrategy(CarriageFeePO cfpo) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		
-		cfs.addCarriageStrategy(cfpo);
+		cfs.updateCarriageStrategy(cfpo);
 	}
 
 	public SalaryPO getSalary() throws RemoteException, SQLException {

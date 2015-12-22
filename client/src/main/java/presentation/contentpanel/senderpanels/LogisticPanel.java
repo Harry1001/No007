@@ -36,7 +36,7 @@ public class LogisticPanel extends JPanel implements ActionListener{
     MyDefaultTableModel defaultTableModel;
     MyButton backbt;
 
-    Vector<String> names;
+    Vector<String> names=new Vector<String>();
 
     GridBagConstraints gbc;
 
@@ -106,17 +106,22 @@ public class LogisticPanel extends JPanel implements ActionListener{
             try {
                 ArrayList<LogisticVO> logisticVOs=logisticBLService.getLogistic(id);
                 int len=logisticVOs.size();
-                Vector<Vector> data=new Vector<Vector>();
-                for (int i=0;i<len;i++){
-                    LogisticVO vo=logisticVOs.get(i);
-                    Vector<String> item =new Vector<String>();
-                    item.add(Constent.DATE_FORMAT.format(vo.getArrivalTime()));
-                    item.add(vo.getState());
-                    data.add(item);
+                if (len<=0){
+                    new ErrorDialog(parent, "无此订单信息");
                 }
-                defaultTableModel.setDataVector(data, names);
-                table.revalidate();
-                table.updateUI();
+                else {
+                    Vector<Vector> data=new Vector<Vector>();
+                    for (int i=0;i<len;i++){
+                        LogisticVO vo=logisticVOs.get(i);
+                        Vector<String> item =new Vector<String>();
+                        item.add(Constent.DATE_FORMAT.format(vo.getArrivalTime()));
+                        item.add(vo.getState());
+                        data.add(item);
+                    }
+                    defaultTableModel.setDataVector(data, names);
+                    table.revalidate();
+                    table.updateUI();
+                }
             } catch (RemoteException e1) {
                 new ErrorDialog(parent, "服务器连接超时");
             } catch (SQLException e1) {

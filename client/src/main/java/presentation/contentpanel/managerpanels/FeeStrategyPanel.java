@@ -38,9 +38,9 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
     public FeeStrategyPanel(MainFrame par){
         this.parent=par;
 
-        labels[0]=new MyLabel("飞机");
+        labels[0]=new MyLabel("汽车");
         labels[1]=new MyLabel("火车");
-        labels[2]=new MyLabel("汽车");
+        labels[2]=new MyLabel("飞机");
         labels[3]=new MyLabel("经济快递");
         labels[4]=new MyLabel("标准快递");
         labels[5]=new MyLabel("特快快递");
@@ -148,9 +148,9 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
         if (e.getSource()==confirmbt){
             if (checkInput()){
                 if (feeService!=null){
-                    double plane=Double.parseDouble(textFields[0].getText());
+                    double bus=Double.parseDouble(textFields[0].getText());
                     double train=Double.parseDouble(textFields[1].getText());
-                    double bus=Double.parseDouble(textFields[2].getText());
+                    double plane=Double.parseDouble(textFields[2].getText());
                     double economic=Double.parseDouble(textFields[3].getText());
                     double standard=Double.parseDouble(textFields[4].getText());
                     double special=Double.parseDouble(textFields[5].getText());
