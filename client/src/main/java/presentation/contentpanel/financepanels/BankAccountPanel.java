@@ -33,7 +33,7 @@ public class BankAccountPanel extends JPanel implements ActionListener{
 
     private BankAccountBLService bankAccountBLService;
 
-    protected Vector<String> names;
+    protected Vector<String> names=new Vector<String>();
 
     public BankAccountPanel(MainFrame par){
         this.parent=par;
@@ -113,7 +113,6 @@ public class BankAccountPanel extends JPanel implements ActionListener{
                 dialog.getContentPane().add(new BankAccountAddPanel(parent, dialog, this, bankAccountBLService));
                 dialog.setLocationRelativeTo(parent);
                 dialog.pack();
-                dialog.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 dialog.setVisible(true);
             }
             else {

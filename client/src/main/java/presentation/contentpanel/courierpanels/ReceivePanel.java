@@ -114,6 +114,7 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 20)));
 
         rbt2.setSelected(true);
+        t2.setEditable(false);
         rbt1.addItemListener(this);
         rbt2.addItemListener(this);
         submitbt.addActionListener(this);

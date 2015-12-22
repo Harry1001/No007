@@ -54,7 +54,7 @@ public class BankAccountAddPanel extends JPanel implements ActionListener {
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
-        gbc.fill=GridBagConstraints.BOTH;
+        gbc.fill=GridBagConstraints.NONE;
         gbc.gridx=gbc.gridy=0;
         this.add(accountL,gbc);
         gbc.gridy++;
