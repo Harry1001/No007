@@ -9,7 +9,7 @@ import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import typeDefinition.Vehicle;
 import vo.receiptvo.TransferReceiptVO;
 

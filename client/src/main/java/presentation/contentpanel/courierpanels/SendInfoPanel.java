@@ -7,11 +7,10 @@ import constent.Constent;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import vo.receiptvo.SendReceiptVO;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

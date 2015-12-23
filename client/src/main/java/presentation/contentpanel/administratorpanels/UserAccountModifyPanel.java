@@ -3,7 +3,7 @@ package presentation.contentpanel.administratorpanels;
 import MainFrame.MainFrame;
 import businessLogicService.infoblservice.UserAccoutBLService;
 import myexceptions.InfoBLException;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
 

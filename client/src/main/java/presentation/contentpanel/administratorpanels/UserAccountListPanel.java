@@ -7,15 +7,11 @@ import constent.Constent;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-import javax.swing.text.AbstractDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

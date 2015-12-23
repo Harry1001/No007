@@ -4,7 +4,7 @@ import MainFrame.MainFrame;
 import businessLogicService.infoblservice.TruckBLService;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import vo.infovo.TruckVO;
 
 import javax.swing.*;

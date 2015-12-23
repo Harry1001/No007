@@ -7,7 +7,7 @@ import myexceptions.InfoBLException;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import vo.infovo.AgencyVO;
 
 import javax.swing.*;

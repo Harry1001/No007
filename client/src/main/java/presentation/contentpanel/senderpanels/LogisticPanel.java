@@ -5,12 +5,11 @@ import blfactory.BLFactory;
 import businessLogicService.logisticblservice.LogisticBLService;
 import constent.Constent;
 import presentation.commoncontainer.*;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import presentation.uifactory.UIFactory;
 import vo.logisticvo.LogisticVO;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

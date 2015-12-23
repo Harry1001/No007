@@ -12,7 +12,7 @@ import myexceptions.TransportBLException;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import vo.receiptvo.SendReceiptVO;
 
 import javax.swing.*;

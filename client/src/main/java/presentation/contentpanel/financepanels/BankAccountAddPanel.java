@@ -6,7 +6,7 @@ import myexceptions.InfoBLException;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import vo.infovo.BankAccountVO;
 
 import javax.swing.*;

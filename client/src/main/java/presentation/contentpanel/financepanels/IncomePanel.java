@@ -4,7 +4,7 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
 import presentation.commoncontainer.*;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 
 import javax.naming.NamingException;
 import javax.swing.*;

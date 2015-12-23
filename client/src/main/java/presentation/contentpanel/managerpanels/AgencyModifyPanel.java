@@ -3,7 +3,7 @@ package presentation.contentpanel.managerpanels;
 import MainFrame.MainFrame;
 import businessLogicService.infoblservice.AgencyBLService;
 import myexceptions.InfoBLException;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import vo.infovo.AgencyVO;
 
 import javax.swing.*;

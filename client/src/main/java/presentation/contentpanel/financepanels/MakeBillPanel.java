@@ -5,9 +5,8 @@ import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTable;
 import presentation.commoncontainer.MyTextField;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 
 import javax.naming.NamingException;
 import javax.swing.*;

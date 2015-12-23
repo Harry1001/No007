@@ -5,7 +5,6 @@ import javax.swing.*;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.infoblservice.DriverBLService;
-import businessLogicService.infoblservice.TruckBLService;
 import businessLogicService.recordblservice.RecordBLService;
 import constent.Constent;
 import myexceptions.InfoBLException;
@@ -14,7 +13,7 @@ import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
 import presentation.commoncontainer.TimePanel;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import vo.infovo.DriverVO;
 import vo.recordvo.RecordVO;
 

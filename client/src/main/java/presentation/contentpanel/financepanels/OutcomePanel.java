@@ -8,7 +8,7 @@ import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
 import presentation.commoncontainer.TimePanel;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import typeDefinition.FeeType;
 import vo.receiptvo.PayReceiptVO;
 

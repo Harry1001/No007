@@ -2,18 +2,14 @@ package presentation.contentpanel.managerpanels;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
-import businessLogic.strategybl.StrategyBL;
 import businessLogicService.strategyblservice.SalaryStrategyBLService;
 import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyTable;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import vo.strategyvo.SalaryVO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

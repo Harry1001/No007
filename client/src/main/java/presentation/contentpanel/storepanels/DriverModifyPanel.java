@@ -6,7 +6,7 @@ import businessLogicService.infoblservice.DriverBLService;
 import businessLogicService.recordblservice.RecordBLService;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import vo.infovo.DriverVO;
 import vo.recordvo.RecordVO;
 

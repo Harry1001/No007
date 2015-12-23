@@ -4,7 +4,7 @@ import MainFrame.MainFrame;
 import businessLogicService.infoblservice.StaffBLService;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import typeDefinition.Job;
 import vo.infovo.StaffVO;
 

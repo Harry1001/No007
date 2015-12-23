@@ -82,6 +82,13 @@ public class Constent {
     public static final int DRIVER_ID_LENGTH=9;
 
     /**
+     * 收付款时的条目，对应
+     * @see typeDefinition.FeeType
+     * 中的顺序
+     */
+    public static final String [] FEE_TYPE_STR = {"租金","运费","工资","奖金","快递费"};
+
+    /**
      * 拥有登录该系统帐号的职位
      */
     public static final String [] USER_ACCOUNR_JOB = {"快递员","营业厅业务员","中转中心业务员","财务人员",

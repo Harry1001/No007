@@ -7,22 +7,12 @@ import constent.Constent;
 import presentation.commoncontainer.MyButton;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
-import presentation.commonpanel.ErrorDialog;
+import presentation.commoncontainer.ErrorDialog;
 import typeDefinition.Location;
 import vo.receiptvo.DepotInReceiptVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
-
-import MainFrame.MainFrame;
-import blfactory.BLFactory;
-import businessLogicService.commodityblservice.CommodityBLService;
-import constent.Constent;
-import myexceptions.TransportBLException;
-import presentation.commonpanel.ErrorDialog;
-import typeDefinition.Location;
-import vo.commodityvo.CommodityVO;
-import vo.receiptvo.DepotInReceiptVO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,9 +23,6 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Date;
 
 /**
  * Created by Harry on 2015/11/28.

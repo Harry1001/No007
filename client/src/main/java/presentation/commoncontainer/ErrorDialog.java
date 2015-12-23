@@ -1,8 +1,4 @@
-package presentation.commonpanel;
-
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-
+package presentation.commoncontainer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

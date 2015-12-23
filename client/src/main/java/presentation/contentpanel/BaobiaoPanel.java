@@ -1,18 +1,30 @@
 package presentation.contentpanel;
 
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.TimePanel;
+import MainFrame.MainFrame;
+import blfactory.BLFactory;
+import businessLogicService.financeblservice.FinanceBLService;
+import myexceptions.TimeFormatException;
+import presentation.commoncontainer.*;
+import vo.financevo.ProfitVO;
+import vo.receiptvo.ReceiptVO;
 
+import javax.naming.NamingException;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Harry on 2015/12/4.
  */
-public class BaobiaoPanel extends JPanel {
-    private Frame parent;
+public class BaobiaoPanel extends JPanel implements ActionListener {
+    private MainFrame parent;
     private JRadioButton chengben=new JRadioButton("成本收益表");
     private JRadioButton jingying=new JRadioButton("经营情况表");
     private JRadioButton zhangmu=new JRadioButton("账目查询");
@@ -24,13 +36,32 @@ public class BaobiaoPanel extends JPanel {
     private MyTextField yearT=new MyTextField();
     private MyButton confirmbt=new MyButton("确认");
 
-    public BaobiaoPanel(Frame par){
+    private FinanceBLService financeBLService;
+
+    public BaobiaoPanel(MainFrame par){
         this.parent=par;
-        init();
+        initUI();
         refresh();
+        confirmbt.addActionListener(this);
+
+        initBL();
     }
 
-    private void init(){
+    private void initBL(){
+        try {
+            financeBLService= BLFactory.getFinanceBLService();
+        } catch (RemoteException e) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (MalformedURLException e) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
+        } catch (NamingException e) {
+            new ErrorDialog(parent, "NamingException");
+        }
+    }
+
+    private void initUI(){
         ButtonGroup btgroup=new ButtonGroup();
         btgroup.add(chengben);
         btgroup.add(jingying);
@@ -74,4 +105,43 @@ public class BaobiaoPanel extends JPanel {
         yearT.setText("");
     }
 
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==confirmbt){
+            if (financeBLService!=null){
+                if (chengben.isSelected()){
+                    try {
+                        ProfitVO vo=financeBLService.checkProfit();
+                        new ContentDialog(parent, "成本收益表", new ChenBenPanel(vo));
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "服务器连接超时");
+                    }
+                }
+                else if (jingying.isSelected()){
+                    try{
+                        Date fromtime=fromTimeP.getDate();
+                        Date totime=toTimeP.getDate();
+                        ArrayList<ReceiptVO> list=financeBLService.seeRecord(fromtime, totime);
+                        new ContentDialog(parent, "经营情况表", new JingYingPanel(list));
+                    } catch (TimeFormatException e1) {
+                        new ErrorDialog(parent, e1.getMessage());
+                    } catch (MalformedURLException e1) {
+                        new ErrorDialog(parent, "MalformedURLException");
+                    } catch (RemoteException e1) {
+                        new ErrorDialog(parent, "服务器连接超时");
+                    } catch (SQLException e1) {
+                        System.out.println("查询经营情况表sql："+e1.getMessage());
+                        new ErrorDialog(parent, "SQLException");
+                    } catch (NotBoundException e1) {
+                        new ErrorDialog(parent, "NotBoundException");
+                    }
+                }
+                else if (zhangmu.isSelected()){
+
+                }
+            }
+            else {
+                initBL();
+            }
+        }
+    }
 }
