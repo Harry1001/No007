@@ -1,5 +1,7 @@
 package businessLogicService.financeblservice;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -47,7 +49,7 @@ public interface FinanceBLService {
 	 * @return
 	 * @throws RemoteException 
 	 */
-	public FinanceVO getCredit(int year) throws RemoteException;
+	public FinanceVO getCredit(int year) throws IOException, ClassNotFoundException;
 	
 	/**
 	 *

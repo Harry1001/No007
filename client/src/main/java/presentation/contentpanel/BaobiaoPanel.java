@@ -5,6 +5,7 @@ import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
 import myexceptions.TimeFormatException;
 import presentation.commoncontainer.*;
+import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;
 import vo.receiptvo.ReceiptVO;
 
@@ -13,6 +14,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -105,6 +108,12 @@ public class BaobiaoPanel extends JPanel implements ActionListener {
         yearT.setText("");
     }
 
+    private int getYear() throws NumberFormatException{
+        String s=yearT.getText();
+        int year=Integer.parseInt(s);
+        return year;
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==confirmbt){
             if (financeBLService!=null){
@@ -136,7 +145,21 @@ public class BaobiaoPanel extends JPanel implements ActionListener {
                     }
                 }
                 else if (zhangmu.isSelected()){
-
+                    //todo
+                    try{
+                        int year=getYear();
+                        FinanceVO vo=financeBLService.getCredit(year);
+                    } catch (NumberFormatException e1){
+                        new ErrorDialog(parent, "请输入正确的年份");
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (RemoteException e1){
+                        new ErrorDialog(parent, "服务器连接超时");
+                    } catch (FileNotFoundException e1){
+                        new ErrorDialog(parent, "账目信息不存在！");
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
             else {

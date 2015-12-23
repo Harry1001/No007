@@ -16,7 +16,7 @@ public class ChargeReceiptVO extends ReceiptVO {
 	private static final long serialVersionUID = 1L;
 	private Date chargeTime;//收款日期
     private double fee;
-    private String courier;//TODO 收款快递员，应该名字和工号都需要，待改进
+    private String courier;// 收款快递员工号,不是名字，注意！
     private ArrayList<String> orderIDs;//所有订单条形码号
 
     public ChargeReceiptVO(Date time, double money, String courier, ArrayList<String> orderList) {

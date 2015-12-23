@@ -33,7 +33,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
 
     MyLabel timeL=new MyLabel("收款日期");
     MyLabel moneyL=new MyLabel("收款金额");
-    MyLabel courierL=new MyLabel("收款快递员");
+    MyLabel courierL=new MyLabel("收款快递员工号");
 
     MyTextField timeT=new MyTextField();
     MyTextField moneyT=new MyTextField();

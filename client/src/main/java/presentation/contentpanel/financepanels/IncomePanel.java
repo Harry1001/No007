@@ -3,8 +3,14 @@ package presentation.contentpanel.financepanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
+import businessLogicService.infoblservice.AgencyBLService;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
+import constent.Constent;
+import myexceptions.TimeFormatException;
 import presentation.commoncontainer.*;
 import presentation.commoncontainer.ErrorDialog;
+import vo.infovo.AgencyVO;
+import vo.receiptvo.ChargeReceiptVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
@@ -14,6 +20,10 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Vector;
 
 /**
  * Created by Harry on 2015/12/4.
@@ -21,26 +31,34 @@ import java.rmi.RemoteException;
 public class IncomePanel extends JPanel implements ActionListener{
 
     private FinanceBLService financeBLService;
+    private AgencyBLService agencyBLService;
 
     private MainFrame parent;
     private MyDefaultTableModel defaultTableModel;
     private MyTable table;
-    private MyButton totalbt;
+    //private MyButton totalbt;
     private MyButton timebt;
     private TimePanel fromTimeP;
     private TimePanel toTimeP;
     private MyLabel fromTimeL;
     private MyLabel toTimeL;
+    private MyLabel storeL;
+    private JComboBox<String> storelist;
+    private MyLabel totalMoneyL=new MyLabel("总收入: ");
+    private MyLabel totalMoneyNum=new MyLabel("0.00");
+
+    private Vector<String> names;
 
     public IncomePanel(MainFrame par){
         this.parent=par;
-        initUI();
-
         initBL();
+
+        initUI();
     }
 
     private void initBL(){
         try {
+            agencyBLService=BLFactory.getAgencyBLService();
             financeBLService= BLFactory.getFinanceBLService();
         } catch (RemoteException e) {
             new ErrorDialog(parent, "服务器连接超时");
@@ -57,19 +75,28 @@ public class IncomePanel extends JPanel implements ActionListener{
      * 初始化所有组件
      */
     private void initUI(){
-        String[] names={"收款快递员工号","收款日期","收款金额"};
+        initStoreList();
+        names=new Vector<String>();
+        names.add("收款快递员工号");
+        names.add("收款日期");
+        names.add("收款金额");
+
         defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);
-        totalbt=new MyButton("合计");
+        //totalbt=new MyButton("合计");
         timebt=new MyButton("确认");
         fromTimeP=new TimePanel();
         toTimeP=new TimePanel();
         fromTimeL=new MyLabel("起始时间");
         toTimeL=new MyLabel("截止时间");
+        storeL=new MyLabel("营业厅编号");
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
+        gbc.anchor=GridBagConstraints.EAST;
+        gbc.fill=GridBagConstraints.NONE;
+
         gbc.weightx=1.0;
 
         gbc.gridx=gbc.gridy=0;
@@ -81,16 +108,45 @@ public class IncomePanel extends JPanel implements ActionListener{
         this.add(toTimeL,gbc);
         gbc.gridx=1;
         this.add(toTimeP,gbc);
+        gbc.gridy=2;
+        gbc.gridx=0;
+        this.add(storeL,gbc);
+        gbc.gridx=1;
+        this.add(storelist, gbc);
         gbc.gridx=2;
         this.add(timebt,gbc);
-        gbc.gridy=2;
+
+        gbc.gridy=3;
         gbc.gridx=0;
         gbc.gridwidth=4;
         this.add(new JScrollPane(table),gbc);
         gbc.gridwidth=1;
-        gbc.gridy=3;
-        gbc.gridx=2;
-        this.add(totalbt,gbc);
+        gbc.gridy=4;
+        gbc.gridx=0;
+        this.add(totalMoneyL,gbc);
+        gbc.gridx=1;
+        this.add(totalMoneyNum, gbc);
+    }
+
+    private void initStoreList(){
+        if (agencyBLService!=null){
+            try {
+                ArrayList<AgencyVO> agencyVOs=agencyBLService.getAgencyList();
+                Vector<String> v = new Vector<String>();
+                for (AgencyVO vo : agencyVOs){
+                    v.add(vo.getAgencyID());
+                }
+                storelist=new JComboBox<String>(v);
+            } catch (RemoteException e) {
+                new ErrorDialog(parent, "服务器连接超时，载入营业厅列表失败");
+            } catch (SQLException e) {
+                new ErrorDialog(parent, "sqlexception，载入营业厅列表失败");
+            }
+        }
+        else {
+            initBL();
+        }
+
     }
 
     public void refresh(){
@@ -98,10 +154,49 @@ public class IncomePanel extends JPanel implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == timebt){
-            //todo
-        } else if (e.getSource() == totalbt){
+        if(financeBLService!=null){
+            if (e.getSource() == timebt){
+                //todo
+                String storeNum=(String)storelist.getSelectedItem();
+                double totalMoney=0.0;
+                try {
+                    Date fromtime=fromTimeP.getDate();
+                    Date totime=toTimeP.getDate();
+                    ArrayList<ChargeReceiptVO> vos= financeBLService.checkStore(fromtime, totime, storeNum);
+                    defaultTableModel.getDataVector().clear();
+                    Vector<Vector> data=new Vector<Vector>();
+                    for (ChargeReceiptVO vo: vos){
+                        String courierID=vo.getCourier();
+                        String time= Constent.DATE_FORMAT.format(vo.getChargeTime());
+                        double fee=vo.getFee();
+                        Vector<Object> item=new Vector<Object>();
+                        item.add(courierID);
+                        item.add(time);
+                        item.add(fee);
+                        data.add(item);
+                        totalMoney+=vo.getFee();
+                    }
+                    defaultTableModel.setDataVector(data, names);
+                    totalMoneyNum.setText(totalMoney+"");
+                    table.revalidate();
+                    table.updateUI();
+                } catch (TimeFormatException e1) {
+                    new ErrorDialog(parent, e1.getMessage());
+                } catch (RemoteException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (SQLException e1) {
+                    System.out.println("成本管理sql:"+e1.getMessage());
+                    new ErrorDialog(parent, "SQLException");
+                } catch (MalformedURLException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                } catch (NotBoundException e1) {
+                    new ErrorDialog(parent, "服务器连接超时");
+                }
 
+            }
+        }
+        else {
+            initBL();
         }
     }
 }

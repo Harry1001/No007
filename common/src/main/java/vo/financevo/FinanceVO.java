@@ -1,5 +1,6 @@
 package vo.financevo;
 
+import typeDefinition.Job;
 import vo.commodityvo.CommodityVO;
 import vo.infovo.StaffVO;
 import vo.infovo.TruckVO;
@@ -135,6 +136,58 @@ public class FinanceVO implements Serializable{
 
 	public void setBankAccounts(ArrayList<BankAccountVO> bankAccounts) {
 		this.bankAccounts = bankAccounts;
+	}
+
+	public String printStaff(){
+		int staffNum=staffs.size();
+		int [] explicitNum=new int[9];//对应Job枚举类中的每个职位
+		for (int i=0;i<explicitNum.length;i++){
+			explicitNum[i]=0;
+		}
+		for (StaffVO vo : staffs){//表驱动
+			int index= vo.getPosition().ordinal();
+			explicitNum[index]++;
+		}
+		//explicitNum[0]是寄件人，一直为0，不考虑
+		String result="公司总人员数:"+staffNum+", 其中快递员:"+explicitNum[1]+", 营业厅业务员:"+explicitNum[2]+
+				", 中转中心业务员:"+explicitNum[3]+", 财务人员"+explicitNum[4]+", 仓库管理员:"+explicitNum[5]+
+				", 总经理:"+explicitNum[6]+", 系统管理员"+explicitNum[7]+", 司机:"+explicitNum[8];
+		return result;
+	}
+
+	public String printAgency(){
+		int agencyNum=agencies.size();
+		int store=0;
+		int hub=0;
+		long storeArea=0;
+		long hubArea=0;
+		for (AgencyVO vo:agencies){
+			if (vo.getAgencyType().equals("中转中心")){
+				hub++;
+				hubArea+=vo.getArea();
+			}
+			else {
+				store++;
+				storeArea+=vo.getArea();
+			}
+		}
+		String result="公司总机构数:"+agencyNum+", 其中中转中心:"+hub+", 营业厅:"+store+". 中转中心总面积:"+hubArea+
+				", 营业厅总面积:"+storeArea;
+		return result;
+	}
+
+	public String ptintTruck(){
+		int truckNum=trucks.size();
+		return "公司总车辆:"+truckNum;
+	}
+
+	public String printBankAccount(){
+		int accNum=bankAccounts.size();
+		String result="公司共有"+accNum+"个银行账户, 分别为:";
+		for(BankAccountVO vo:bankAccounts){
+			result=result+"帐号:"+vo.getAccountUser()+", 余额:"+vo.getBalance()+"; \n";
+		}
+		return result;
 	}
 		
 }

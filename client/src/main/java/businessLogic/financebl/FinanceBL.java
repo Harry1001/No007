@@ -1,5 +1,7 @@
 package businessLogic.financebl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -12,6 +14,7 @@ import javax.naming.NamingException;
 
 import blfactory.BLFactory;
 import businessLogic.commoditybl.CommodityBL;
+import businessLogicService.commodityblservice.CommodityBLService;
 import businessLogicService.financeblservice.FinanceBLService;
 import businessLogicService.infoblservice.AgencyBLService;
 import businessLogicService.infoblservice.BankAccountBLService;
@@ -89,7 +92,7 @@ public class FinanceBL implements FinanceBLService{
 		financeData.addOutcome(vo.getFee());
 	}
 
-	public FinanceVO getCredit(int year) throws RemoteException {
+	public FinanceVO getCredit(int year) throws IOException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		FinancePO credit = financeData.find(year);
 		FinanceVO fVO = new FinanceVO(credit);
@@ -178,9 +181,9 @@ public class FinanceBL implements FinanceBLService{
 	 */
 	public void makeCredit(int year) throws RemoteException, NamingException, SQLException, MalformedURLException, NotBoundException{
 		FinanceDataService financeData = new FinanceDataImpl();
-		CommodityBL commodityBL=null;
+		CommodityBLService commodityBLService=null;
 		try{
-			commodityBL = new CommodityBL();
+			commodityBLService = BLFactory.getCommodityBLService();
 		}catch (Exception e){
 			//todo 此处这是为了写界面时调试，后续需要删除trycatch!!!!!!!!!!!!!
 		}
@@ -190,7 +193,7 @@ public class FinanceBL implements FinanceBLService{
 		DriverBLService driverInfoBL = BLFactory.getDriverBLService();
 		StaffBLService staffInfoBL = BLFactory.getStaffBLService();
 		TruckBLService truckInfoBL = BLFactory.getTruckBLService();
-		ArrayList<CommodityVO> commodity = commodityBL.getTotal();
+		ArrayList<CommodityVO> commodity = commodityBLService.getTotal();
 		ArrayList<AgencyVO> agency = agencyInfoBL.getAgencyList();
 		ArrayList<BankAccountVO> bankaccount = 	bankAccountInfoBL.getBankAccountList();
 		ArrayList<DriverVO> driver = driverInfoBL.getDriverList();
@@ -208,6 +211,10 @@ public class FinanceBL implements FinanceBLService{
 		try {
 			financeData.add(new FinancePO(finance),year);
 		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
