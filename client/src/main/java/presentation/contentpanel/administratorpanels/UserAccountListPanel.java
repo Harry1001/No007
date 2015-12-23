@@ -88,6 +88,7 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
         table=new MyTable(defaultTableModel);
 
         this.setLayout(new GridBagLayout());
+        this.setOpaque(false);
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.BOTH;

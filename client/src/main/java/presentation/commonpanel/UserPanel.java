@@ -35,6 +35,7 @@ public class UserPanel extends JPanel implements ActionListener{
         this.userName=result.getName();
 
         this.setLayout(new GridBagLayout());
+        this.setOpaque(false);
         GridBagConstraints gbc=new GridBagConstraints();
 
         JLabel pic=new JLabel(Images.USERHEAD);
