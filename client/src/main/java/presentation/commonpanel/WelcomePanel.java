@@ -13,5 +13,6 @@ public class WelcomePanel extends JPanel{
         welcome.setFont(new Font("宋体",Font.BOLD,40));
         welcome.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         this.add(welcome);
+        this.setOpaque(false);
     }
 }

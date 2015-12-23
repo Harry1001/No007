@@ -43,6 +43,7 @@ public class UIFactory {
         contentPane.add(new HeadPanel(),gbc);
 
         JPanel contentp=new JPanel(new CardLayout());
+        contentp.setOpaque(false);
         contentp.setPreferredSize(new Dimension(800,500));
 
         gbc.fill=GridBagConstraints.HORIZONTAL;

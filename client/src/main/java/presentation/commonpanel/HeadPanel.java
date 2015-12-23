@@ -28,6 +28,8 @@ public class HeadPanel extends JPanel {
         gbc.gridy=1;
         this.add(english,gbc);
 
+        this.setOpaque(false);
+
         this.setBorder(BorderFactory.createLineBorder(Color.CYAN, 4));
         this.setPreferredSize(new Dimension(600, 70));
     }

@@ -23,7 +23,7 @@ public class ChenBenPanel extends JPanel {
     private MyTextField incomeT=new MyTextField();
     private MyTextField outcomeT=new MyTextField();
     private MyTextField profitT=new MyTextField();
-    private MyButton confirmbt=new MyButton("确认");
+    //private MyButton confirmbt=new MyButton("确认");
 
     public ChenBenPanel( ProfitVO vo){
         initUI();
@@ -62,7 +62,7 @@ public class ChenBenPanel extends JPanel {
         gbc.gridy++;
         this.add(profitT,gbc);
         gbc.gridy++;
-        this.add(confirmbt,gbc);
+        //this.add(confirmbt,gbc);
 
         //设置成本收益表的文本框不可被编辑
         incomeT.setEditable(false);

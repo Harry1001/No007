@@ -40,6 +40,7 @@ public class LogisticPanel extends JPanel implements ActionListener{
     GridBagConstraints gbc;
 
     public LogisticPanel(MainFrame par){
+        this.setOpaque(false);
         names.add("时间");
         names.add("到达地点");
         this.parent=par;

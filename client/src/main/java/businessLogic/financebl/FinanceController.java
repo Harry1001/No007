@@ -1,5 +1,6 @@
 package businessLogic.financebl;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -26,7 +27,7 @@ public class FinanceController implements FinanceBLService{
 		this.financeBL = new FinanceBL();
 	}
 
-	public FinanceVO getCredit(int year) throws RemoteException {
+	public FinanceVO getCredit(int year) throws IOException, ClassNotFoundException {
 		FinanceVO financeVO = financeBL.getCredit(year);
 		return financeVO;
 	}

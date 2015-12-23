@@ -63,6 +63,7 @@ public class UserPanel extends JPanel implements ActionListener{
         gbc.gridy=2;
         this.add(logoutbt,gbc);
         this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        this.setOpaque(false);
 
         logoutbt.addActionListener(this);
     }

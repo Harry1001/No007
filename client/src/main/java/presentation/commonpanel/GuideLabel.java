@@ -15,5 +15,6 @@ public class GuideLabel extends JLabel {
         this.setHorizontalAlignment(JLabel.CENTER);
         this.setPreferredSize(new Dimension(250,70));
         this.setMinimumSize(new Dimension(250,70));
+        this.setOpaque(false);
     }
 }

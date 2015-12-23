@@ -95,7 +95,7 @@ public class IncomePanel extends JPanel implements ActionListener{
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
         gbc.anchor=GridBagConstraints.EAST;
-        gbc.fill=GridBagConstraints.NONE;
+        gbc.fill=GridBagConstraints.BOTH;
 
         gbc.weightx=1.0;
 
@@ -112,17 +112,21 @@ public class IncomePanel extends JPanel implements ActionListener{
         gbc.gridx=0;
         this.add(storeL,gbc);
         gbc.gridx=1;
+
         this.add(storelist, gbc);
+        gbc.fill=GridBagConstraints.NONE;
         gbc.gridx=2;
         this.add(timebt,gbc);
 
         gbc.gridy=3;
         gbc.gridx=0;
         gbc.gridwidth=4;
+        gbc.fill=GridBagConstraints.BOTH;
         this.add(new JScrollPane(table),gbc);
         gbc.gridwidth=1;
         gbc.gridy=4;
         gbc.gridx=0;
+        gbc.fill=GridBagConstraints.NONE;
         this.add(totalMoneyL,gbc);
         gbc.gridx=1;
         this.add(totalMoneyNum, gbc);
@@ -134,7 +138,9 @@ public class IncomePanel extends JPanel implements ActionListener{
                 ArrayList<AgencyVO> agencyVOs=agencyBLService.getAgencyList();
                 Vector<String> v = new Vector<String>();
                 for (AgencyVO vo : agencyVOs){
-                    v.add(vo.getAgencyID());
+                    if (vo.getAgencyType().equals("营业厅")){
+                        v.add(vo.getAgencyID());
+                    }
                 }
                 storelist=new JComboBox<String>(v);
             } catch (RemoteException e) {

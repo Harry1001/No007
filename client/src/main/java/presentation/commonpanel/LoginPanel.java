@@ -108,44 +108,54 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         gbc.anchor=GridBagConstraints.EAST;
         this.add(logisticbt, gbc);
 
-       // numText.setText("请输入"+ Constent.USER_ID_LENGTH+"位数字");
+        numText.setText("请输入"+ Constent.USER_ID_LENGTH+"位数字");
 
         //注册监听事件
         logButton.addActionListener(this);
         logisticbt.addActionListener(this);
         numText.addFocusListener(this);
+        passwordField.addActionListener(this);
+
+        //this.getRootPane().setDefaultButton(logButton);//设置默认按钮
+    }
+
+    private void loginEvent(){
+        LoginBLService loginBLService = BLFactory.getLoginBLService();
+        LoginResultVO loginResult= null;
+        try {
+            loginResult = loginBLService.getPermission(new LoginInputVO(numText.getText(),new String(passwordField.getPassword())));
+            if (loginResult.getJob()== Job.NOTFOUND){
+                new ErrorDialog(parent,"用户名或密码错误");
+            } else {
+                UIFactory.showContentPanel(parent,loginResult);
+            }
+        } catch (RemoteException e1) {
+            new ErrorDialog(parent, "服务器连接超时");
+        } catch (MalformedURLException e1) {
+            new ErrorDialog(parent, "MalformedURLException");
+        } catch (NotBoundException e1) {
+            new ErrorDialog(parent, "NotBoundException");
+        }
     }
 
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==logButton){
-
-
-            LoginBLService loginBLService = BLFactory.getLoginBLService();
-            LoginResultVO loginResult= null;
-            try {
-                loginResult = loginBLService.getPermission(new LoginInputVO(numText.getText(),new String(passwordField.getPassword())));
-                if (loginResult.getJob()== Job.NOTFOUND){
-                    new ErrorDialog(parent,"用户名或密码错误");
-                } else {
-                    UIFactory.showContentPanel(parent,loginResult);
-                }
-            } catch (RemoteException e1) {
-                new ErrorDialog(parent, "服务器连接超时");
-            } catch (MalformedURLException e1) {
-                new ErrorDialog(parent, "MalformedURLException");
-            } catch (NotBoundException e1) {
-                new ErrorDialog(parent, "NotBoundException");
-            }
-
-
+            loginEvent();
         }else if (e.getSource()==logisticbt){
             UIFactory.showLogisticPanel(parent);
+        } else if (e.getSource()==passwordField){
+            loginEvent();
         }
     }
 
     public void focusGained(FocusEvent e) {
-
+        if (e.getSource()==numText){
+            String s=numText.getText();
+            if (s.equals("请输入"+ Constent.USER_ID_LENGTH+"位数字")){
+                numText.setText("");
+            }
+        }
     }
 
     public void focusLost(FocusEvent e) {
