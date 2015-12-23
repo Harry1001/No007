@@ -1,7 +1,5 @@
 package businessLogic.transportbl;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -9,7 +7,6 @@ import java.sql.SQLException;
 
 import blfactory.BLFactory;
 import businessLogicService.receiptblservice.SendReceiptBLService;
-import businessLogicService.strategyblservice.CalExpressfeeService;
 import myexceptions.TransportBLException;
 import po.receiptpo.SendReceiptPO;
 import vo.receiptvo.SendReceiptVO;
@@ -17,7 +14,6 @@ import vo.receiptvo.SendReceiptVO;
 public class SendBL{
 	
 	SendReceiptBLService receiptblservice;
-	CalExpressfeeService strategyblservice;
 	
 	public boolean verify(SendReceiptVO vo) throws TransportBLException {
 		String s1=vo.getSenderPhone();
@@ -43,11 +39,6 @@ public class SendBL{
 	public void submit(SendReceiptVO vo) throws RemoteException, MalformedURLException, NotBoundException, SQLException{
 		receiptblservice=BLFactory.getSendReceiptBLService();
 		receiptblservice.createReceipt(vo);
-	}
-	
-	public double calFee(SendReceiptVO vo) throws SQLException, NotBoundException, FileNotFoundException, ClassNotFoundException, IOException{
-		strategyblservice=BLFactory.getCalExpressfeeService();
-		return strategyblservice.calExpressFee(vo);
 	}
 	
 	public SendReceiptVO getSendReceipt(String orderID) throws RemoteException, SQLException, MalformedURLException, NotBoundException {
