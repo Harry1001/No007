@@ -73,6 +73,7 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
         btgroup.add(rbt2);
 
         this.setLayout(new GridBagLayout());
+       
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(5,5,5,5);
         gbc.fill=GridBagConstraints.BOTH;

@@ -23,6 +23,7 @@ public abstract class GuidePanel extends JPanel {
         this.setOpaque(false);
         this.parent=par;
         this.gbc=new GridBagConstraints();
+        this.setOpaque(false);
         gbc.weightx=1.0;
         gbc.weighty=0.0;
         gbc.gridx=0;

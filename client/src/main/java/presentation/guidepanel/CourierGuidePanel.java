@@ -35,6 +35,7 @@ public class CourierGuidePanel extends GuidePanel implements ActionListener{
         }
 
         this.setLayout(new GridBagLayout());
+        this.setOpaque(false);
         addbts(bts);
         initContentPanels();
 

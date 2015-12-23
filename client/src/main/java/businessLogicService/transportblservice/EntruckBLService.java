@@ -1,7 +1,5 @@
 package businessLogicService.transportblservice;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -24,14 +22,5 @@ public interface EntruckBLService {
 	 * @throws MalformedURLException 
 	 */
 	public void submit(EntruckReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
-	/**
-	 * 输入参数获得运费
-	 * @throws SQLException 
-	 * @throws NotBoundException 
-	 * @throws MalformedURLException 
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
-	 * @throws FileNotFoundException 
-	 */
-	public double calFee(EntruckReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException, FileNotFoundException, ClassNotFoundException, IOException;
+	
 }

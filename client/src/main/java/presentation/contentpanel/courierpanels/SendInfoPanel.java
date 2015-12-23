@@ -102,6 +102,7 @@ public class SendInfoPanel extends JPanel implements ActionListener {
 
         gbc.gridy=0;
         this.setLayout(new GridBagLayout());
+        this.setOpaque(false);
         gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.gridx=0;
         this.add(inputL,gbc);

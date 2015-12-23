@@ -1,7 +1,5 @@
 package businessLogic.transportbl;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -13,14 +11,12 @@ import java.util.Date;
 
 import blfactory.BLFactory;
 import businessLogicService.receiptblservice.EntruckReceiptBLService;
-import businessLogicService.strategyblservice.CalCarriageService;
 import myexceptions.TransportBLException;
 import vo.receiptvo.EntruckReceiptVO;
 
 public class EntruckBL{
 
 	EntruckReceiptBLService receiptblservice;
-	CalCarriageService strategyblservice;
 	
 	public boolean verify(EntruckReceiptVO vo) throws TransportBLException{
 		String s1=vo.getTransportID();
@@ -69,11 +65,6 @@ public class EntruckBL{
 	public void submit(EntruckReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException {
 		receiptblservice=BLFactory.getEntruckReceiptBLService();
 		receiptblservice.createReceipt(vo);
-	}
-	
-	public double calFee(EntruckReceiptVO vo) throws SQLException, NotBoundException, FileNotFoundException, ClassNotFoundException, IOException{
-		strategyblservice=BLFactory.getCalCarriageService();
-		return strategyblservice.calCarriage(vo);
 	}
 	
 }

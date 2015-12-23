@@ -48,6 +48,7 @@ public class UserAccountInfoPanel extends JPanel implements ActionListener {
         jobC=new JComboBox<String>(Constent.USER_ACCOUNR_JOB);
 
         this.setLayout(new GridBagLayout());
+        this.setOpaque(false);
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
 

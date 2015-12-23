@@ -120,6 +120,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         panel3.add(texts[13],gbc);
 
         this.setLayout(new GridBagLayout());
+        this.setOpaque(false);
         gbc.gridx=0;
         gbc.gridy=0;
         this.add(panel1,gbc);
