@@ -5,6 +5,7 @@ import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
 import myexceptions.TimeFormatException;
 import presentation.commoncontainer.*;
+import presentation.contentpanel.storepanels.BankInfoPanel;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;
 import vo.receiptvo.ReceiptVO;
@@ -149,6 +150,7 @@ public class BaobiaoPanel extends JPanel implements ActionListener {
                     try{
                         int year=getYear();
                         FinanceVO vo=financeBLService.getCredit(year);
+                        new ContentDialog(parent, "账户信息", new BankInfoPanel(vo));
                     } catch (NumberFormatException e1){
                         new ErrorDialog(parent, "请输入正确的年份");
                     } catch (ClassNotFoundException e1) {
