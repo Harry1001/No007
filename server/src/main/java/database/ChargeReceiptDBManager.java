@@ -17,17 +17,28 @@ public class ChargeReceiptDBManager extends DBManager{
 		//TODO
 		Timestamp fromTimestamp = new Timestamp(fromtime.getTime());
 		Timestamp toTimestamp = new Timestamp(toTime.getTime());
-		String find = "SELECT * FROM Chargereceipt Where chargetime > " + fromTimestamp.toString()
-					+ " AND chargetime < " + toTimestamp.toString() + " ORDER BY courier, orderID";
+		String find = "SELECT * FROM Chargereceipt Where chargetime > '" + fromTimestamp.toString()
+					+ "' AND chargetime < '" + toTimestamp.toString() + "' ORDER BY courier, orderID";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(find);
 		ArrayList<ChargeReceiptPO> pos = new ArrayList<ChargeReceiptPO>();
-		String formercourier = "";
+		String formercourier = "#";
 		ArrayList<String> orderIDs = new ArrayList<String>();
 		ChargeReceiptPO po = null;
 		while(resultSet.next()){
 			String courier = resultSet.getString(3);
+			if (formercourier.equals("#")){
+				orderIDs = new ArrayList<String>();
+				String orderID = resultSet.getString(4);
+				orderIDs.add(orderID);
+
+				Date chargeTime = new Date(resultSet.getTimestamp(1).getTime());
+				double fee = resultSet.getDouble(2);
+				po = new ChargeReceiptPO(chargeTime, fee, courier, null);
+				formercourier=courier;
+				continue;
+			}
 			if(courier.equals(formercourier)){
 				String orderID = resultSet.getString(4);
 				orderIDs.add(orderID);
@@ -44,7 +55,10 @@ public class ChargeReceiptDBManager extends DBManager{
 				double fee = resultSet.getDouble(2);
 				po = new ChargeReceiptPO(chargeTime, fee, courier, null);
 			}
+			formercourier=courier;
 		}
+		po.setOrderIDs(orderIDs);
+		pos.add(po);
 		stopconnection(connection);
 		return pos;
 	}

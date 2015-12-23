@@ -152,9 +152,9 @@ public class FinanceVO implements Serializable{
 			explicitNum[index]++;
 		}
 		//explicitNum[0]是寄件人，一直为0，不考虑
-		String result="公司总人员数:"+staffNum+", 其中快递员:"+explicitNum[1]+", 营业厅业务员:"+explicitNum[2]+
+		String result="\r\n公司总人员数:"+staffNum+", 其中快递员:"+explicitNum[1]+", 营业厅业务员:"+explicitNum[2]+
 				", 中转中心业务员:"+explicitNum[3]+", 财务人员"+explicitNum[4]+", 仓库管理员:"+explicitNum[5]+
-				", 总经理:"+explicitNum[6]+", 系统管理员"+explicitNum[7]+", 司机:"+explicitNum[8];
+				", 总经理:"+explicitNum[6]+", 系统管理员"+explicitNum[7]+", 司机:"+explicitNum[8]+"; ";
 		return result;
 	}
 
@@ -174,21 +174,21 @@ public class FinanceVO implements Serializable{
 				storeArea+=vo.getArea();
 			}
 		}
-		String result="公司总机构数:"+agencyNum+", 其中中转中心:"+hub+", 营业厅:"+store+". 中转中心总面积:"+hubArea+
-				", 营业厅总面积:"+storeArea;
+		String result="\r\n公司总机构数:"+agencyNum+", 其中中转中心:"+hub+", 营业厅:"+store+". 中转中心总面积:"+hubArea+
+				", 营业厅总面积:"+storeArea+"; ";
 		return result;
 	}
 
 	public String ptintTruck(){
 		int truckNum=trucks.size();
-		return "公司总车辆:"+truckNum;
+		return "\r\n公司总车辆:"+truckNum+"; ";
 	}
 
 	public String printBankAccount(){
 		int accNum=bankAccounts.size();
-		String result="公司共有"+accNum+"个银行账户, 分别为:";
+		String result="\r\n公司共有"+accNum+"个银行账户, 分别为:";
 		for(BankAccountVO vo:bankAccounts){
-			result=result+"帐号:"+vo.getAccountUser()+", 余额:"+vo.getBalance()+"; \n";
+			result=result+"帐号:"+vo.getAccountUser()+", 余额:"+vo.getBalance()+"; ";
 		}
 		return result;
 	}

@@ -18,7 +18,7 @@ public class PayReceiptDBManager extends DBManager{
 		ArrayList<PayReceiptPO> po=new ArrayList<PayReceiptPO>();
 		Timestamp fTime = new Timestamp(fromtime.getTime());
 		Timestamp tTime = new Timestamp(toTime.getTime());
-		String payReceipt="SELECT * FROM PayReceipt WHERE payTime BETWEEN "+fTime+" AND "+tTime;
+		String payReceipt="SELECT * FROM PayReceipt WHERE payTime BETWEEN '"+fTime+"' AND '"+tTime+"'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(payReceipt);

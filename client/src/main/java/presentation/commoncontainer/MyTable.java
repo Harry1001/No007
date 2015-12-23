@@ -22,6 +22,6 @@ public class MyTable extends JTable {
         this.setRowSorter(sorter);
         //this.setPreferredSize(new Dimension(500, 300));
         this.setPreferredScrollableViewportSize(new Dimension(500, 300));
-        this.setMinimumSize(new Dimension(300,240));
+        //this.setMinimumSize(new Dimension(300,240));
     }
 }

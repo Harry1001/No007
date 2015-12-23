@@ -17,9 +17,12 @@ public class BankInfoPanel extends JPanel {
     }
 
     private void initUI(FinanceVO vo){
-        this.textArea=new JTextArea();
+        this.textArea=new JTextArea(20, 50);
         textArea.append(vo.printStaff());
         textArea.append(vo.printAgency());
         textArea.append(vo.printBankAccount());
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        this.add(new JScrollPane(textArea));
     }
 }

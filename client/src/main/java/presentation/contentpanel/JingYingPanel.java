@@ -73,12 +73,15 @@ public class JingYingPanel extends JPanel{
         chargeTable=new MyTable(chargeModel);
         payTable=new MyTable(payModel);
         //todo 修改表格尺寸
+        chargeTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        payTable.setPreferredScrollableViewportSize(new Dimension(500,200));
 
+        /*
         chargeTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"收款单",
                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 20)));
         payTable.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"付款单",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 20)));
-
+        */
 
 
         this.setLayout(new GridBagLayout());
