@@ -22,7 +22,7 @@ public class Images {
         return new ImageIcon(path);
     }
 
-    public static final ImageIcon LOGIN_IMAGE=createIcon("ImageFiles/LOGIN_IMAGE.JPG");
+    public static final ImageIcon LOGIN_IMAGE=createIcon("ImageFiles/LOGIN_IMAGE.png");
     public static final ImageIcon USERHEAD=createIcon("ImageFiles/userHead.png");
     public static final ImageIcon RECEIPT_IMAGE=createIcon("ImageFiles/receipt.png");
     public static final ImageIcon SALARY_IMAGE=createIcon("ImageFiles/salary.png");

@@ -34,6 +34,7 @@ public class MakeBillPanel extends JPanel implements ActionListener {
         this.parent=par;
         initUI();
 
+        submitbt.addActionListener(this);
         initBL();
     }
 

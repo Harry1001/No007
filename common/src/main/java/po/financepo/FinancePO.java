@@ -5,8 +5,9 @@ import java.util.ArrayList;
 
 import po.commoditypo.CommodityPO;
 import po.infopo.*;
+import vo.commodityvo.CommodityVO;
 import vo.financevo.FinanceVO;
-import vo.infovo.StaffVO;
+import vo.infovo.*;
 
 public class FinancePO implements Serializable{
 
@@ -43,16 +44,30 @@ public class FinancePO implements Serializable{
 		this.setBankAccounts(new ArrayList<BankAccountPO>());
 		ArrayList<StaffVO> sVOs = f.getStaffs();
 		for(StaffVO sVO: sVOs){
-			this.staffs.add(StaffPO(sVO));
+			this.staffs.add(new StaffPO(sVO));
 		}
-
+		for (DriverVO vo:f.getDrivers()){
+			this.drivers.add(new DriverPO(vo));
+		}
+		for (AgencyVO vo:f.getAgencies()){
+			this.agencies.add(new AgencyPO(vo));
+		}
+		for (TruckVO vo:f.getTrucks()){
+			this.trucks.add(new TruckPO(vo));
+		}
+		for (CommodityVO vo:f.getCommodity()){
+			this.commodity.add(new CommodityPO(vo));
+		}
+		for (BankAccountVO vo:f.getBankAccounts()){
+			this.bankAccounts.add(new BankAccountPO(vo));
+		}
 		
 	}
 
-	private StaffPO StaffPO(StaffVO sVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	//private StaffPO StaffPO(StaffVO sVO) {
+	//	// TODO Auto-generated method stub
+	//	return null;
+	//}
 
 	public ArrayList<StaffPO> getStaffs() {
 		return staffs;

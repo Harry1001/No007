@@ -55,6 +55,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         JSeparator seph=new JSeparator();
         seph.setVisible(true);
 
+        panel.setOpaque(false);
         c.gridx=0;
         c.gridy=0;
         c.insets=new Insets(10,10,10,10);

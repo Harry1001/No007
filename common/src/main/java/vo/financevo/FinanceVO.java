@@ -1,5 +1,6 @@
 package vo.financevo;
 
+import po.infopo.*;
 import typeDefinition.Job;
 import vo.commodityvo.CommodityVO;
 import vo.infovo.StaffVO;
@@ -13,10 +14,6 @@ import java.util.ArrayList;
 
 import po.commoditypo.CommodityPO;
 import po.financepo.FinancePO;
-import po.infopo.AgencyPO;
-import po.infopo.DriverPO;
-import po.infopo.StaffPO;
-import po.infopo.TruckPO;
 
 public class FinanceVO implements Serializable{
 
@@ -79,7 +76,13 @@ public class FinanceVO implements Serializable{
 			cVOs.add(cVO);
 		}
 		this.setCommodity(cVOs);
-		
+
+		ArrayList<BankAccountVO> bVOs=new ArrayList<BankAccountVO>();
+		for (BankAccountPO bpo: f.getBankAccounts()){
+			BankAccountVO bvo=new BankAccountVO(bpo);
+			bVOs.add(bvo);
+		}
+		this.setBankAccounts(bVOs);
 	}
 
 	public int getYear() {

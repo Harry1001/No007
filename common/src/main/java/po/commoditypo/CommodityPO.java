@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import typeDefinition.Location;
+import vo.commodityvo.CommodityVO;
 
 
 public class CommodityPO implements Serializable{
@@ -31,6 +32,13 @@ public class CommodityPO implements Serializable{
 		inTime = new Date(System.currentTimeMillis());
 		destination = null;
 		setStoreloc(loc);
+	}
+
+	public CommodityPO(CommodityVO vo){
+		expressNumber=vo.getExpressNumber();
+		inTime=vo.getInTime();
+		destination=vo.getDestination();
+		storeloc=vo.getStoreloc();
 	}
 
 	public String getExpressNumber() {
