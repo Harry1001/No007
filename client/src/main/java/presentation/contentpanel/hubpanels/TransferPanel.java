@@ -230,7 +230,7 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         if (e.getSource()==calfeebt){
             if (checkCalFeeCondition()){
                 if (carriageService!=null){
-                    TransferReceiptVO vo=getVO();
+                    TransferReceiptVO vo= getTempVO();
                     double fee=0;
                     try {
                         fee = carriageService.calCarriage(vo);
@@ -241,6 +241,8 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
                         new ErrorDialog(parent, "ClassNotFoundException");
                     } catch (IOException e1) {
                         new ErrorDialog(parent, "IOException");
+                    } catch (NotBoundException e1) {
+                        new ErrorDialog(parent, "NotBoundException");
                     }
                 }
                 else {
@@ -267,7 +269,7 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         else if (e.getSource()==submitbt){
             if (checkAll()){
                 if (transferBLService!=null){
-                    TransferReceiptVO vo=getVO();
+                    TransferReceiptVO vo= getFinalVO();
                     try {
                         transferBLService.submit(vo);
                         refresh();
@@ -315,7 +317,23 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         return true;
     }
 
-    private TransferReceiptVO getVO(){
+    private TransferReceiptVO getTempVO(){
+        String fromLoc=textFields[4].getText();
+        String toLoc=textFields[5].getText();
+        int vehicleNum=0;
+        for (; vehicleNum<3;vehicleNum++){
+            if (vehicles[vehicleNum].isSelected())
+                break;
+        }
+        Vehicle vehicle=Vehicle.values()[vehicleNum];
+        return new TransferReceiptVO(vehicle, null, null, null, fromLoc, toLoc, 0, null, 0.0);
+    }
+
+    /**
+     * 提交单据时完整的vo，包含运费等所有信息
+     * @return
+     */
+    private TransferReceiptVO getFinalVO(){
         int vehicleNum=0;
         for (; vehicleNum<3;vehicleNum++){
             if (vehicles[vehicleNum].isSelected())

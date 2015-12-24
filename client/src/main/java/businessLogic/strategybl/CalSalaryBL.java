@@ -1,5 +1,7 @@
 package businessLogic.strategybl;
 
+import blfactory.StrategyFactory;
+import businessLogicService.strategyblservice.StrategyPatternService.SalaryStrategyPatternService;
 import dataService.StrategyDataService;
 import dataService._RMI;
 import po.strategypo.SalaryPO;
@@ -13,48 +15,21 @@ import java.sql.SQLException;
 
 import businessLogicService.strategyblservice.CalSalaryService;
 
-public class CalSalaryBL extends StrategyBL implements CalSalaryService{
-	StrategyDataService sd;
-	SalaryPO po;
-	
-	public CalSalaryBL() throws MalformedURLException, RemoteException, NotBoundException{
-		String url="rmi://"+_RMI.getIP()+"/central_strategy";
-		sd=(StrategyDataService)Naming.lookup(url);
-	}
-	
+public class CalSalaryBL implements CalSalaryService {
 
-	public CalSalaryBL(StrategyDataService dataService)throws MalformedURLException, RemoteException, NotBoundException, SQLException{
-		this.sd=dataService;
-		initPO();
-	}
-
-	public double calSalary(Job job, int times) {
-		// TODO Auto-generated method stub
-		double salary=0;
-		switch(job){
-		case COURIER:salary=po.getMailerBS()+po.getMailerAl()*times;break;
-		case DRIVER:salary=po.getDriverBS()+po.getDriverAl()*times;break;
-		case MANAGER:salary=po.getManagerBS();break;
-		case ACCOUNTANT:salary=po.getAccountantBS();break;
-		case STORESALESMAN:salary=po.getStoresalesmanBS();break;
-		case HUBSALESMAN:salary=po.getHubsalesmanBS();break;
-		case STOREKEEPER:salary=po.getStorekeeperBS();break;
-		case ADMINISTRATOR:salary=po.getAdministerBS();break;
-		default:
-			break;
-		}
-		
-		
-		return salary;
-		
-	}
-	
-
-	private void initPO() throws SQLException{
-		try{
-			po=sd.getSalary();
-		}catch (RemoteException e){
-			System.out.println("load salarypo from data layer fail");
-		}
+	/**
+	 * 利用策略模式计算人员工资
+	 * @param job 人员职位
+	 * @param times 工作次数，目前仅快递员和司机此项信息有用
+	 * @return
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 * @throws SQLException
+	 * @throws NotBoundException
+	 */
+	public double calSalary(Job job, int times) throws RemoteException, MalformedURLException, SQLException, NotBoundException {
+		SalaryStrategyPatternService salaryStrategyService = StrategyFactory.getSalaryService(job);
+		return salaryStrategyService.getSalary(times);
 	}
 }
+

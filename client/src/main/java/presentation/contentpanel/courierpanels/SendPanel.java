@@ -60,8 +60,8 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         labels[6]=new MyLabel("单位");
         labels[7]=new MyLabel("手机");
         labels[8]=new MyLabel("原件数");
-        labels[9]=new MyLabel("实际重量");
-        labels[10]=new MyLabel("体积");
+        labels[9]=new MyLabel("实际重量(kg)");
+        labels[10]=new MyLabel("体积(m^3)");
         labels[11]=new MyLabel("内件品名");
         labels[12]=new MyLabel("快递类型");
         labels[13]=new MyLabel("包装类型");
@@ -230,6 +230,8 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                         new ErrorDialog(parent, "FileNotFoundException");
                     } catch (IOException e1) {
                         new ErrorDialog(parent, "IOException");
+                    } catch (NotBoundException e1) {
+                        new ErrorDialog(parent, "NotBoundException");
                     }
 
                 } else {

@@ -189,6 +189,8 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
             new ErrorDialog(parent, "FileNotFoundException");
         } catch (IOException e1) {
             new ErrorDialog(parent, "IOException");
+        } catch (NotBoundException e) {
+            new ErrorDialog(parent, "NotBoundException");
         }
 
     }

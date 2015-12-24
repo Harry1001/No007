@@ -6,6 +6,27 @@ import java.text.SimpleDateFormat;
  * 系统通用常量定义
  */
 public class Constent {
+
+    /**
+     * 默认汽车装载量为10吨
+     */
+    public static final int TRUCK_LOAD = 10;
+
+    /**
+     * 默认火车装载量为2000吨
+     */
+    public static final int TRAIN_LOAD = 2000;
+
+    /**
+     * 默认飞机装载量为50吨
+     */
+    public static final int PLANE_LOAD = 50;
+
+    /**
+     * 同一个城市内营业厅之间距离以及营业厅和本地中转中心之间的距离默认全部都是30km
+     */
+    public static final int LOCAL_DISTANCE = 30;
+
     /**
      * 用户工号长度定义
      */

@@ -168,4 +168,8 @@ public class BLFactory {
     public static RecordBLService getRecordBLService() throws RemoteException, NotBoundException, MalformedURLException {
         return new RecordBL();
     }
+
+    public static DistanceService getDistanceService() throws RemoteException, NotBoundException, MalformedURLException {
+        return new DistanceStrategyBL();
+    }
 }
