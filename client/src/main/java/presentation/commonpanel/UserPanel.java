@@ -40,8 +40,8 @@ public class UserPanel extends JPanel implements ActionListener{
 
         JLabel pic=new JLabel(Images.USERHEAD);
         MyLabel welcome=new MyLabel("欢迎您，"+userName+"!");
-        MyLabel identity=new MyLabel("当前身份："+jobTable[userJob.ordinal()]);
-
+        MyLabel identity=new MyLabel("当前身份："/*+jobTable[userJob.ordinal()]*/);
+        MyLabel identity1=new MyLabel(jobTable[userJob.ordinal()]);
         logoutbt=new JButton("退出 ");
 
         gbc.insets=new Insets(10, 10,10,20);
@@ -59,9 +59,13 @@ public class UserPanel extends JPanel implements ActionListener{
         gbc.gridy=1;
         gbc.anchor=GridBagConstraints.SOUTH;
         this.add(identity,gbc);
-
-        gbc.gridx=0;
+//-------------------------------------------------
         gbc.gridy=2;
+        gbc.anchor=GridBagConstraints.SOUTH;
+        this.add(identity1,gbc);
+//-------------------------------------------------
+        gbc.gridx=0;
+        gbc.gridy=3;
         this.add(logoutbt,gbc);
         this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         this.setOpaque(false);

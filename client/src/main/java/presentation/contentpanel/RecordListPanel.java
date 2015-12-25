@@ -11,6 +11,8 @@ import presentation.commoncontainer.ErrorDialog;
 import vo.recordvo.RecordVO;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +37,10 @@ public class RecordListPanel extends JPanel implements ActionListener{
     public RecordListPanel(MainFrame par) {
 
         this.parent = par;
-
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"系统日志",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         String[] names = {"操作时间", "操作人", "操作概要简述"};
 
         defaultTableModel = new MyDefaultTableModel(names, 0);

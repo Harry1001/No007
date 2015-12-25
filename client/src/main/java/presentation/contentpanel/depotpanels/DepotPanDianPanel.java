@@ -13,6 +13,8 @@ import vo.commodityvo.CommodityVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +41,9 @@ public class DepotPanDianPanel extends JPanel implements ActionListener{
     public DepotPanDianPanel(MainFrame par) {
 
         this.parent=par;
-
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"库存盘点",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         String [] namestr={"快递编号","入库日期","目的地","区号","排号","架号","位号"};
         for (int i=0;i<namestr.length;i++){
             names.add(namestr[i]);

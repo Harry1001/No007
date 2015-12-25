@@ -12,6 +12,8 @@ import typeDefinition.Job;
 import vo.infovo.StaffVO;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,6 +44,9 @@ public class StaffListPanel extends JPanel implements ActionListener{
     public StaffListPanel(MainFrame par) {
 
         this.parent=par;
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"人员管理",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         initNames();
 
         defaultTableModel=new MyDefaultTableModel(names,0);

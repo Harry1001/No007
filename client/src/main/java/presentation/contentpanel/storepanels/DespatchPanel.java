@@ -49,7 +49,7 @@ public class DespatchPanel extends JPanel implements ActionListener{
     
     public DespatchPanel(MainFrame par){
         this.parent=par;
-
+         
         timeL=new MyLabel("到达日期");
         numL=new MyLabel("订单条形码号");
         courierL=new MyLabel("派送员");
@@ -93,10 +93,11 @@ public class DespatchPanel extends JPanel implements ActionListener{
         submitBT.addActionListener(this);
         cancelBT.addActionListener(this);
 
-        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"派件单",
-                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 20)));
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"派件单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         
         initBL();
+        
     }
 
     

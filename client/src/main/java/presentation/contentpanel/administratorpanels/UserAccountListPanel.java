@@ -12,6 +12,8 @@ import typeDefinition.Job;
 import vo.infovo.UserAccountVO;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,7 +45,10 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
     public UserAccountListPanel(MainFrame par) {
 
         this.parent=par;
-
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"用户账户管理",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         initUI();
 
         //为组件添加监听

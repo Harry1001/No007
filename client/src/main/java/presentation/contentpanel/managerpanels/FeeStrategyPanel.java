@@ -12,6 +12,8 @@ import vo.strategyvo.CarriageFeeVO;
 import vo.strategyvo.ExpressFeeVO;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +39,10 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
 
     public FeeStrategyPanel(MainFrame par){
         this.parent=par;
-
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"价格距离策略",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         labels[0]=new MyLabel("汽车");
         labels[1]=new MyLabel("火车");
         labels[2]=new MyLabel("飞机");

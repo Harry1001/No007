@@ -12,7 +12,7 @@ public class HeadPanel extends JPanel {
 
     public HeadPanel(){
         chinese=new JLabel("  快 递 物 流 系 统  ", JLabel.HORIZONTAL);
-        chinese.setFont(new Font("楷体", Font.ITALIC, 48));
+        chinese.setFont(new Font("华文新魏", Font.BOLD, 48));
         chinese.setForeground(Color.BLACK);
         english=new JLabel("Express And Logistic System",JLabel.CENTER);
         english.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));

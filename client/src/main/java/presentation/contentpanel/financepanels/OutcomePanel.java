@@ -14,6 +14,8 @@ import vo.receiptvo.PayReceiptVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,6 +54,10 @@ public class OutcomePanel extends JPanel implements ActionListener{
 
     public OutcomePanel(MainFrame par){
         this.parent=par;
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"成本管理",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         initUI();
 
         submitbt.addActionListener(this);

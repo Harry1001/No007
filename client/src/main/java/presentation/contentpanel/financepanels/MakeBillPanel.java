@@ -10,6 +10,8 @@ import presentation.commoncontainer.ErrorDialog;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +34,10 @@ public class MakeBillPanel extends JPanel implements ActionListener {
 
     public MakeBillPanel(MainFrame par){
         this.parent=par;
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"期初建账",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         initUI();
 
         submitbt.addActionListener(this);

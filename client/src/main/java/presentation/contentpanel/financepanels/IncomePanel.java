@@ -14,6 +14,8 @@ import vo.receiptvo.ChargeReceiptVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,6 +53,10 @@ public class IncomePanel extends JPanel implements ActionListener{
 
     public IncomePanel(MainFrame par){
         this.parent=par;
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"收入管理",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         initBL();
 
         initUI();

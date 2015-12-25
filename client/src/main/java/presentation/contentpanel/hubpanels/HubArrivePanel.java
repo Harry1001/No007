@@ -1,6 +1,7 @@
 package presentation.contentpanel.hubpanels;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
@@ -55,6 +56,10 @@ public class HubArrivePanel extends JPanel implements ActionListener{
     
     public HubArrivePanel(MainFrame par){
         this.parent=par;
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"中转中心到达单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         String[] s={"完整", "损坏", "丢失"};
         stateC=new JComboBox(s);
 

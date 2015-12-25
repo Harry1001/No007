@@ -12,6 +12,8 @@ import vo.receiptvo.ReceiptVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,7 +45,14 @@ public class BaobiaoPanel extends JPanel implements ActionListener {
     private FinanceBLService financeBLService;
 
     public BaobiaoPanel(MainFrame par){
+    	chengben.setFont(new Font("微软雅黑",Font.PLAIN,16));
+    	jingying.setFont(new Font("微软雅黑",Font.PLAIN,16));
+    	zhangmu.setFont(new Font("微软雅黑",Font.PLAIN,16));
         this.parent=par;
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"报表查询",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         initUI();
         refresh();
         confirmbt.addActionListener(this);

@@ -14,6 +14,8 @@ import vo.receiptvo.ChargeReceiptVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,7 +54,9 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
 
     public ChargeReceiptPanel(MainFrame par){
         this.parent=par;
-
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"收款单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         initUI();
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//单选模式

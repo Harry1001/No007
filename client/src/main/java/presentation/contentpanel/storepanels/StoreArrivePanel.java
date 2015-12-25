@@ -1,6 +1,7 @@
 package presentation.contentpanel.storepanels;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
@@ -56,6 +57,9 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
     
     public StoreArrivePanel(MainFrame par){
         this.parent=par;
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"营业厅到达单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         String[] s={"完整", "损坏", "丢失"};
         stateC=new JComboBox(s);
 

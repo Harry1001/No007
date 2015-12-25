@@ -14,6 +14,8 @@ import typeDefinition.Vehicle;
 import vo.receiptvo.TransferReceiptVO;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,11 +50,15 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
 
     MyDefaultTableModel defaultTableModel;
     JTable table;
+    JPanel transferWay;
     MyTextField orderT=new MyTextField();
 
     public TransferPanel(MainFrame par) {
         this.parent=par;
-
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"中转单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         initUI();
 
         calfeebt.addActionListener(this);
@@ -388,6 +394,12 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         vehicles[0]=new JRadioButton("汽车");
         vehicles[1]=new JRadioButton("火车");
         vehicles[2]=new JRadioButton("飞机");
+        transferWay = new JPanel();
+        transferWay.setOpaque(false);
+        transferWay.setLayout(new GridLayout(1,3));
+        transferWay.add(vehicles[0]);
+        transferWay.add(vehicles[1]);
+        transferWay.add(vehicles[2]);
         ButtonGroup btgroup=new ButtonGroup();
         for(JRadioButton bt:vehicles){
             btgroup.add(bt);
@@ -412,9 +424,9 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         }
 
         gbc.gridy=0;
-        for( gbc.gridx=1;gbc.gridx<4;gbc.gridx++){
-            this.add(vehicles[gbc.gridx-1],gbc);
-        }
+        gbc.gridx=1;
+            this.add(transferWay,gbc);
+        
 
         gbc.weightx=1.0;
         for(gbc.gridx=1,gbc.gridy=1;gbc.gridy<5;gbc.gridy++){
