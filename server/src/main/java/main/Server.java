@@ -1,8 +1,12 @@
 package main;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
+import javax.swing.*;
 
 import server.ChargeReceiptServer;
 import server.CommodityServer;
@@ -146,5 +150,21 @@ public class Server {
 		 */
 		RecordServer recordServer = new RecordServer();
 		recordServer.register();
+
+		JFrame frame=new JFrame("服务器端启动程序");
+		JLabel label=new JLabel("点击退出按钮关闭服务器");
+		JButton exitbt=new JButton("退出");
+		frame.getContentPane().add(label, BorderLayout.CENTER);
+		frame.getContentPane().add(exitbt, BorderLayout.SOUTH);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setSize(300, 200);
+
+		exitbt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+
+		frame.setVisible(true);
 	}
 }

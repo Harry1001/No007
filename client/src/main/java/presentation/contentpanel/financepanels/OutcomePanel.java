@@ -58,6 +58,7 @@ public class OutcomePanel extends JPanel implements ActionListener{
         cancelbt.addActionListener(this);
 
         initBL();
+        refresh();
     }
 
     private void initUI(){
@@ -132,7 +133,7 @@ public class OutcomePanel extends JPanel implements ActionListener{
 
     public void refresh(){
         feeT.setText("");
-        personT.setText("");
+        personT.setText(parent.getUserIdentity().getId());
         accountT.setText("");
         additionT.setText("");
         timeP.setPresentTime();

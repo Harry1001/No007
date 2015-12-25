@@ -11,6 +11,7 @@ import java.util.Date;
 
 import po.receiptpo.PayReceiptPO;
 import typeDefinition.FeeType;
+import typeDefinition.ReceiptState;
 
 public class PayReceiptDBManager extends DBManager{
 
@@ -32,6 +33,11 @@ public class PayReceiptDBManager extends DBManager{
 			po.add(temppo);
 		}
 		return po;
+	}
+
+	public ArrayList<PayReceiptPO> getListByState(ReceiptState state){
+		//todo 刘卉继续写
+		return null;
 	}
 	
 	public void addItem(PayReceiptPO item) throws SQLException{
