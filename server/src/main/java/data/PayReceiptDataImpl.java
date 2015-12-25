@@ -9,6 +9,7 @@ import java.util.Date;
 import dataService.PayReceiptDataService;
 import database.PayReceiptDBManager;
 import po.receiptpo.PayReceiptPO;
+import typeDefinition.ReceiptState;
 
 public class PayReceiptDataImpl extends UnicastRemoteObject implements PayReceiptDataService{
 
@@ -27,10 +28,18 @@ public class PayReceiptDataImpl extends UnicastRemoteObject implements PayReceip
 		return payReceiptDBManager.getList(fromtime, toTime);
 	}
 
+	public ArrayList<PayReceiptPO> getListByState(ReceiptState state) throws RemoteException, SQLException{
+		return payReceiptDBManager.getListByState(state);
+	}
+	
 	public void addItem(PayReceiptPO item) throws RemoteException, SQLException {
 		payReceiptDBManager.addItem(item);
 	}
 
+	public void updateItem(String orderID,ReceiptState state) throws RemoteException, SQLException {
+		payReceiptDBManager.update(orderID, state);
+	}
+	
 	public void deleteAll() throws RemoteException, SQLException {
 		payReceiptDBManager.deleteAll();
 	}

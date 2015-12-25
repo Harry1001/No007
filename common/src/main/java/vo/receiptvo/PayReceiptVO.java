@@ -4,6 +4,7 @@ import java.util.Date;
 
 import po.receiptpo.PayReceiptPO;
 import typeDefinition.FeeType;
+import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 
 
@@ -20,18 +21,22 @@ public class PayReceiptVO extends ReceiptVO {
     private String payMan;//付款人
     private String payAccount;//付款帐号
     private FeeType payType;//付款条目
+    private ReceiptState state;
+    private String id;
 
-    public PayReceiptVO(Date time, double money, String man, String account, FeeType type) {
+    public PayReceiptVO(Date time, double money, String man, String account, FeeType type,ReceiptState state,String id) {
         super(ReceiptType.PAY);
         this.payTime=time;
         this.fee=money;
         this.payMan=man;
         this.payAccount=account;
         this.payType=type;
+        this.state=state;
+        this.id=id;
     }
 
     public PayReceiptVO(PayReceiptPO po){
-        this(po.getPayTime(),po.getFee(),po.getPayMan(),po.getPayAccount(),po.getPayType());
+        this(po.getPayTime(),po.getFee(),po.getPayMan(),po.getPayAccount(),po.getPayType(),po.getState(),po.getId());
     }
 
     public Date getPayTime() {
@@ -73,4 +78,17 @@ public class PayReceiptVO extends ReceiptVO {
     public void setPayType(FeeType payType) {
         this.payType = payType;
     }
+
+	public ReceiptState getState() {
+		return state;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 }

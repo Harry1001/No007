@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businessLogicService.receiptblservice.PayReceiptBLService;
+import typeDefinition.ReceiptState;
 import vo.receiptvo.PayReceiptVO;
 
 public class PayReceiptController implements PayReceiptBLService{
@@ -24,6 +25,14 @@ public class PayReceiptController implements PayReceiptBLService{
 	
 	public void createReceipt(PayReceiptVO item) throws RemoteException, SQLException{
 		receiptBL.createReceipt(item);
+	}
+
+	public ArrayList<PayReceiptVO> getListByState(ReceiptState state) throws RemoteException, SQLException {
+		return receiptBL.getListByState(state);
+	}
+
+	public void updateState(String orderID, ReceiptState state) throws RemoteException, SQLException {
+		receiptBL.updateState(orderID, state);
 	}
 	
 }
