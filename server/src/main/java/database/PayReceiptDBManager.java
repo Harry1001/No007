@@ -29,15 +29,32 @@ public class PayReceiptDBManager extends DBManager{
 			String payMan=resultSet.getString(3);
 			String payAccount=resultSet.getString(4);
 			FeeType payType=FeeType.values()[resultSet.getInt(5)];
-			PayReceiptPO temppo=new PayReceiptPO(payTime,fee,payMan,payAccount,payType);
+			ReceiptState state=ReceiptState.values()[resultSet.getInt(6)];
+			String id=resultSet.getString(7);
+			PayReceiptPO temppo=new PayReceiptPO(payTime,fee,payMan,payAccount,payType,state,id);
 			po.add(temppo);
 		}
 		return po;
 	}
 
-	public ArrayList<PayReceiptPO> getListByState(ReceiptState state){
-		//todo 刘卉继续写
-		return null;
+	public ArrayList<PayReceiptPO> getListByState(ReceiptState state) throws SQLException{
+		ArrayList<PayReceiptPO> po=new ArrayList<PayReceiptPO>();
+		String payReceipt="SELECT * FROM PayReceipt WHERE state= '"+state+"'";
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(payReceipt);
+		while(resultSet.next()){
+			Date payTime=new Date(resultSet.getTimestamp(1).getTime());
+			double fee=resultSet.getDouble(2);
+			String payMan=resultSet.getString(3);
+			String payAccount=resultSet.getString(4);
+			FeeType payType=FeeType.values()[resultSet.getInt(5)];
+			ReceiptState state1=ReceiptState.values()[resultSet.getInt(6)];
+			String id=resultSet.getString(7);
+			PayReceiptPO temppo=new PayReceiptPO(payTime,fee,payMan,payAccount,payType,state1,id);
+			po.add(temppo);
+		}
+		return po;
 	}
 	
 	public void addItem(PayReceiptPO item) throws SQLException{
@@ -46,7 +63,9 @@ public class PayReceiptDBManager extends DBManager{
 		String payMan=item.getPayMan();
 		String payAccount=item.getPayAccount();
 		int payType=item.getPayType().ordinal();
-		String add="INSERT INTO PayReceipt VALUES (?,?,?,?,?)";
+		int state=item.getState().ordinal();
+		String id=item.getId();
+		String add="INSERT INTO PayReceipt VALUES (?,?,?,?,?,?,?)";
 		Connection connection=connectToDB();
 		PreparedStatement statement = connection.prepareStatement(add);
 		statement.setTimestamp(1, payTime);
@@ -54,7 +73,19 @@ public class PayReceiptDBManager extends DBManager{
 		statement.setString(3, payMan);
 		statement.setString(4, payAccount);
 		statement.setInt(5, payType);
+		statement.setInt(6, state);
+		statement.setString(7, id);
 		statement.executeUpdate();
+		stopconnection(connection);
+	}
+	
+	public void update(String orderID,ReceiptState state) throws SQLException {
+		String update = "UPDATE PayReceipt"
+				+ " SET state = '" + state + "'state"
+				+ " WHERE id = '" + orderID + "'";
+		Connection connection = connectToDB();
+		Statement statement = connection.createStatement();
+		statement.executeUpdate(update);
 		stopconnection(connection);
 	}
 	
