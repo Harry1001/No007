@@ -25,8 +25,9 @@ public class CourierGuidePanel extends GuidePanel implements ActionListener{
     public CourierGuidePanel(JPanel content, MainFrame par){
         super(content, par);
 
-        bts[0] =new MyToggleButton("新建寄件单", Images.SEND_IMAGE);
-        bts[1] =new MyToggleButton("新建收件单", Images.RECEIVE_IMAGE);
+        bts[0] =new MyToggleButton("  新建寄件单", Images.SEND_IMAGE);
+         
+        bts[1] =new MyToggleButton("  新建收件单", Images.RECEIVE_IMAGE);
         bts[2]=new MyToggleButton("查询订单信息", Images.RECORD_IMAGE);
 
 

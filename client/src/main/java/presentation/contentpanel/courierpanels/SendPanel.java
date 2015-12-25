@@ -76,10 +76,13 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         comboBox2=new JComboBox(Constent.PACK_TYPE);
 
         JPanel panel1=new JPanel(new GridBagLayout());
+        panel1.setOpaque(false);
         panel1.setBorder(BorderFactory.createTitledBorder("寄件人信息"));
         JPanel panel2=new JPanel(new GridBagLayout());
+        panel2.setOpaque(false);
         panel2.setBorder(BorderFactory.createTitledBorder("收件人信息"));
         JPanel panel3=new JPanel(new GridBagLayout());
+        panel3.setOpaque(false);
         panel3.setBorder(BorderFactory.createTitledBorder("托运货物信息"));
 
         GridBagConstraints gbc=new GridBagConstraints();

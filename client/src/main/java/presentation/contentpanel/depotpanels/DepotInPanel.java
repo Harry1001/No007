@@ -58,6 +58,7 @@ public class DepotInPanel extends JPanel implements ActionListener {
         this.parent=par;
 
         this.setLayout(new GridBagLayout());
+        this.setOpaque(false);
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
 
