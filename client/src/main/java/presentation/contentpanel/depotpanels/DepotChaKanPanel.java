@@ -111,6 +111,7 @@ public class DepotChaKanPanel extends JPanel implements ActionListener{
         confirmbt=new MyButton("确认");
 
         this.setLayout(new GridBagLayout());
+        this.setOpaque(false);
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.NONE;

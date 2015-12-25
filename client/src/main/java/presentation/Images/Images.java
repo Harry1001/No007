@@ -22,7 +22,7 @@ public class Images {
         return new ImageIcon(path);
     }
 
-    public static final ImageIcon LOGIN_IMAGE=createIcon("ImageFiles/LOGIN_IMAGE.png");
+    public static final Image LOGIN_IMAGE=createImage("ImageFiles/login.jpg");
     public static final ImageIcon USERHEAD=createIcon("ImageFiles/userHead.png");
     public static final ImageIcon RECEIPT_IMAGE=createIcon("ImageFiles/receipt.png");
     public static final ImageIcon SALARY_IMAGE=createIcon("ImageFiles/salary.png");
@@ -50,7 +50,7 @@ public class Images {
     public static final ImageIcon QICHU_IMAGE=createIcon("ImageFiles/qichu.png");
     public static final ImageIcon SHOURU_IMAGE=createIcon("ImageFiles/shouru.png");
     public static final ImageIcon USER_ACCOUNT_IMAGE=createIcon("ImageFiles/useraccount.png");
-    public static final ImageIcon BACKGROUND_IMAGE=createIcon("ImageFiles/background.jpg");
-
+    public static final ImageIcon BACKGROUND_IMAGE=createIcon("ImageFiles/背景.jpg");
+     
 
 }

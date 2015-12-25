@@ -36,18 +36,16 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
     JPasswordField passwordField=new JPasswordField();
     MyButton logButton=new MyButton("登录");
     MyButton logisticbt=new MyButton("查询物流信息");
-
     public LoginPanel(MainFrame par){
-
         this.parent=par;
         this.setLayout(new GridBagLayout());
-        this.setOpaque(false);//将login panel设为透明
+        //this.setOpaque(false);//将login panel设为透明
         GridBagConstraints gbc =new GridBagConstraints();
 
         this.setPreferredSize(new Dimension(1000,700));
 
-        JLabel picLabel=new JLabel(Images.LOGIN_IMAGE);
-
+        //JLabel picLabel=new JLabel(Images.LOGIN_IMAGE);
+        
         JPanel panel=new JPanel(new GridBagLayout());
         GridBagConstraints c=new GridBagConstraints();
 
@@ -93,7 +91,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
 
         gbc.fill=GridBagConstraints.BOTH;
         gbc.insets=new Insets(10,10,10,10);
-        this.add(picLabel,gbc);
+      //  this.add(picLabel,gbc);
 
         gbc.gridx=4;
 
@@ -120,6 +118,10 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         //this.getRootPane().setDefaultButton(logButton);//设置默认按钮
     }
 
+    protected void paintComponent(Graphics g){
+    	g.drawImage(Images.LOGIN_IMAGE, WIDTH, HEIGHT, this);
+    }
+    
     private void loginEvent(){
         LoginBLService loginBLService = BLFactory.getLoginBLService();
         LoginResultVO loginResult= null;

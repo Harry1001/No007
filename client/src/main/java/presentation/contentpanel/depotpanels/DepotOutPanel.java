@@ -60,6 +60,7 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
         btgroup.add(rbt3);
 
         this.setLayout(new GridBagLayout());
+        this.setOpaque(false);
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
 
