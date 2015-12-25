@@ -27,6 +27,7 @@ public class DespatchReceiptDBManager extends DBManager{
 			DespatchReceiptPO temppo=new DespatchReceiptPO(arrivalTime,orderNum,despatchMan);
 			po.add(temppo);
 		}
+		stopconnection(connection);
 		return po;
 	}
 	

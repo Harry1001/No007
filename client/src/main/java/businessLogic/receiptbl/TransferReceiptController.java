@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businessLogicService.receiptblservice.TransferReceiptBLService;
+import typeDefinition.ReceiptState;
 import vo.receiptvo.TransferReceiptVO;
 
 public class TransferReceiptController implements TransferReceiptBLService{
@@ -26,4 +27,11 @@ public class TransferReceiptController implements TransferReceiptBLService{
 		receiptBL.createReceipt(item);		
 	}
 
+	public ArrayList<TransferReceiptVO> getListByState(ReceiptState state) throws RemoteException, SQLException {
+		return receiptBL.getListByState(state);
+	}
+	
+	public void updateState(String orderID, ReceiptState state) throws RemoteException, SQLException {
+		receiptBL.updateState(orderID, state);
+	}
 }

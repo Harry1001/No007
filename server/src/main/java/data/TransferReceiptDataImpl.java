@@ -9,6 +9,7 @@ import java.util.Date;
 import dataService.TransferReceiptDataService;
 import database.TransferReceiptDBManager;
 import po.receiptpo.TransferReceiptPO;
+import typeDefinition.ReceiptState;
 
 public class TransferReceiptDataImpl extends UnicastRemoteObject implements TransferReceiptDataService{
 
@@ -32,6 +33,14 @@ public class TransferReceiptDataImpl extends UnicastRemoteObject implements Tran
 
 	public void deleteAll() throws RemoteException, SQLException {
 		transferreceiptDBManager.deleteAll();
+	}
+
+	public ArrayList<TransferReceiptPO> getListByState(ReceiptState state) throws RemoteException, SQLException {
+		return transferreceiptDBManager.getListByState(state);
+	}
+
+	public void updateItem(String orderID, ReceiptState state) throws RemoteException, SQLException {
+		transferreceiptDBManager.update(orderID,state);
 	}
 
 }
