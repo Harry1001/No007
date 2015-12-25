@@ -11,6 +11,7 @@ import java.util.Date;
 
 import javax.naming.NamingException;
 
+import myexceptions.InfoBLException;
 import vo.salaryfeevo.SalaryFeeVO;
 import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;
@@ -30,7 +31,7 @@ public interface FinanceBLService {
 	 * @throws NotBoundException 
 	 * @throws MalformedURLException 
 	 */
-	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException;
+	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException, InfoBLException;
 	
 	/**
 	 * 在一个付款回合中，新建付款单

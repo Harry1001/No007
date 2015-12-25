@@ -32,8 +32,12 @@ public interface BankAccountBLService {
     public void deleteBankAccount(String id) throws RemoteException, SQLException;
 
     /**
-     * 更新余额
-     * @throws SQLException 
+     *
+     * @param id 需要改变余额的账户
+     * @param change 余额改变值，正数表示收入，负数表示支出
+     * @throws InfoBLException 如果余额不足可能会抛出该异常
+     * @throws RemoteException
+     * @throws SQLException
      */
     public void modifyBankAccount( String id, double change) throws InfoBLException, RemoteException, SQLException;
 }

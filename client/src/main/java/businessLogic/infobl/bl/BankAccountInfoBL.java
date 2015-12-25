@@ -60,7 +60,7 @@ public class BankAccountInfoBL implements BankAccountBLService{
 
 	public void modifyBankAccount(String id, double change) throws InfoBLException, RemoteException, SQLException {
 		bankAccountData.update(id, change);
-		RecordVO rvo=new RecordVO(new Date(),"财务人员","修改银行账户信息");
+		RecordVO rvo=new RecordVO(new Date(),"财务人员或营业厅业务员","增加或减少银行余额");
     	rb.add(rvo);
 	}
 

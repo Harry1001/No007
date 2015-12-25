@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import myexceptions.InfoBLException;
 import po.infopo.BankAccountPO;
 
 public class BankAccountDBManager extends DBManager{
@@ -38,15 +39,23 @@ public class BankAccountDBManager extends DBManager{
 	 * @param money
 	 * @throws SQLException 
 	 */
-	public void updateBankAccount(String accountuser, double money) throws SQLException{
+	public void updateBankAccount(String accountuser, double money) throws SQLException, InfoBLException {
+		BankAccountPO po = get(accountuser);
 		BigDecimal change = new BigDecimal(money);
-		String bankaccountupdate = "UPDATE Bankaccount"
-				+ " SET balance = " + change.toString() + "balance"
-				+ " WHERE accountuser = '" + accountuser + "'";
-		Connection connection = connectToDB();
-		Statement statement = connection.createStatement();
-		statement.executeUpdate(bankaccountupdate);
-		stopconnection(connection);
+		BigDecimal balance=po.getBalance();
+		balance=balance.add(change);
+		if (balance.compareTo(new BigDecimal(0))<0){
+			throw new InfoBLException("当前账户银行余额不足，支付失败");
+		}
+		else {
+			String bankaccountupdate = "UPDATE Bankaccount"
+					+ " SET balance = " + balance.toString() + "balance"
+					+ " WHERE accountuser = '" + accountuser + "'";
+			Connection connection = connectToDB();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(bankaccountupdate);
+			stopconnection(connection);
+		}
 	}
 	
 	public ArrayList<BankAccountPO> getAll() throws SQLException{

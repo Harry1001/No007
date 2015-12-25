@@ -27,6 +27,7 @@ import businessLogicService.strategyblservice.CalSalaryService;
 import data.FinanceDataImpl;
 import dataService.FinanceDataService;
 import dataService._RMI;
+import myexceptions.InfoBLException;
 import po.financepo.FinancePO;
 import vo.commodityvo.CommodityVO;
 import vo.financevo.AddUpResultVO;
@@ -71,11 +72,12 @@ public class FinanceBL implements FinanceBLService{
 	 * @throws NotBoundException 
 	 * @throws MalformedURLException 
 	 */
-	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException{
+	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException, InfoBLException {
 		// TODO Auto-generated method stub
 		ChargeReceiptBLService receiptBL = BLFactory.getChargeReceiptBLService();
 		receiptBL.createReceipt(vo);
 		financeData.addIncome(vo.getFee());
+		updateBankBanlance(vo.getFee());
 	}
 
 	/**
@@ -90,6 +92,23 @@ public class FinanceBL implements FinanceBLService{
 		PayReceiptBLService receiptBL = BLFactory.getPayReceiptBLService();
 		receiptBL.createReceipt(vo);
 		financeData.addOutcome(vo.getFee());
+	}
+
+	/**
+	 *
+	 * @param change 改变的金额，正数增加，负数减少
+	 */
+	private void updateBankBanlance( double change) throws RemoteException, NotBoundException, MalformedURLException, InfoBLException, SQLException {
+		BankAccountBLService bankAccountBLService=BLFactory.getBankAccountBLService();
+		ArrayList<BankAccountVO> vos = bankAccountBLService.getBankAccountList();
+		if (vos.size()<=0){
+			throw new InfoBLException("无银行账户，改变余额失败");
+		}
+		else {
+			BankAccountVO vo=vos.get(0);
+			String account=vo.getAccountUser();//去数据库中第一个银行作为默认银行
+			bankAccountBLService.modifyBankAccount(account, change);
+		}
 	}
 
 	public FinanceVO getCredit(int year) throws IOException, ClassNotFoundException {
