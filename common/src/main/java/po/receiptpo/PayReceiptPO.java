@@ -32,7 +32,7 @@ public class PayReceiptPO extends ReceiptPO {
         this.payAccount=account;
         this.payType=type;
         this.state=state;
-        this.setId(id);
+        this.id=id;
     }
 
     public PayReceiptPO(PayReceiptVO vo){

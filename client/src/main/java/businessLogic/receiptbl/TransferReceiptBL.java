@@ -11,6 +11,7 @@ import java.util.Date;
 import dataService.TransferReceiptDataService;
 import dataService._RMI;
 import po.receiptpo.TransferReceiptPO;
+import typeDefinition.ReceiptState;
 import vo.receiptvo.TransferReceiptVO;
 
 public class TransferReceiptBL {
@@ -33,6 +34,19 @@ public class TransferReceiptBL {
 
 	public void createReceipt(TransferReceiptVO item) throws RemoteException, SQLException {
 		transferReceiptData.addItem(new TransferReceiptPO(item));
+	}
+	
+	public ArrayList<TransferReceiptVO> getListByState(ReceiptState state) throws RemoteException, SQLException {
+		ArrayList<TransferReceiptVO> transferReceiptVOs=new ArrayList<TransferReceiptVO>();
+		ArrayList<TransferReceiptPO> transferReceiptPOs=transferReceiptData.getListByState(state);
+		for(TransferReceiptPO po:transferReceiptPOs){
+			transferReceiptVOs.add(new TransferReceiptVO(po));
+		}
+		return transferReceiptVOs;
+	}
+	
+	public void updateState(String orderID, ReceiptState state) throws RemoteException, SQLException {
+		transferReceiptData.updateItem(orderID,state);
 	}
 	
 }

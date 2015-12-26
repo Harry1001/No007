@@ -1,6 +1,7 @@
 package vo.receiptvo;
 
 import po.receiptpo.TransferReceiptPO;
+import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
 import typeDefinition.Vehicle;
 
@@ -24,10 +25,12 @@ public class TransferReceiptVO extends ReceiptVO {
     private int counterID;//货柜号
     private ArrayList<String> orderID;//本次装箱所有货物的单号
 	private double transferFee;
+	private ReceiptState state;
+    private String id;
 
     public TransferReceiptVO(Vehicle transferType,Date transferDate,
                              String transferID,String vehicleID,String departLoc,String arriveLoc,
-                             int counterID,ArrayList<String> orderID,double transferFee) {
+                             int counterID,ArrayList<String> orderID,double transferFee,ReceiptState state,String id) {
         super(ReceiptType.TRANSFER);
         
         this.transferType=transferType;
@@ -39,11 +42,13 @@ public class TransferReceiptVO extends ReceiptVO {
         this.counterID=counterID;
         this.orderID=orderID;
         this.transferFee=transferFee;
+        this.state=state;
+        this.id=id;
     }
 
     public TransferReceiptVO(TransferReceiptPO po){
         this(po.getTransferType(),po.getTransferDate(),po.getTransferID(),po.getVehicleID(),
-                po.getDepartLoc(),po.getArriveLoc(),po.getCounterID(),po.getOrderID(),po.getTransferFee());
+                po.getDepartLoc(),po.getArriveLoc(),po.getCounterID(),po.getOrderID(),po.getTransferFee(),po.getState(),po.getId());
     }
 
     public Vehicle getTransferType() {
@@ -112,6 +117,18 @@ public class TransferReceiptVO extends ReceiptVO {
 
 	public void setTransferFee(double transferFee) {
 		this.transferFee = transferFee;
+	}
+
+	public ReceiptState getState() {
+		return state;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

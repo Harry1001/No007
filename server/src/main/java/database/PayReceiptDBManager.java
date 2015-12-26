@@ -34,6 +34,7 @@ public class PayReceiptDBManager extends DBManager{
 			PayReceiptPO temppo=new PayReceiptPO(payTime,fee,payMan,payAccount,payType,state,id);
 			po.add(temppo);
 		}
+		stopconnection(connection);
 		return po;
 	}
 
@@ -54,6 +55,7 @@ public class PayReceiptDBManager extends DBManager{
 			PayReceiptPO temppo=new PayReceiptPO(payTime,fee,payMan,payAccount,payType,state1,id);
 			po.add(temppo);
 		}
+		stopconnection(connection);
 		return po;
 	}
 	

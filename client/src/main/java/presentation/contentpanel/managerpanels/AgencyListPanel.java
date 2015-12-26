@@ -10,6 +10,8 @@ import presentation.commoncontainer.ErrorDialog;
 import vo.infovo.AgencyVO;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +41,10 @@ public class AgencyListPanel extends JPanel implements ActionListener {
     public AgencyListPanel(MainFrame par) {
 
         this.parent=par;
-
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"机构管理",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         initNames();
         defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);

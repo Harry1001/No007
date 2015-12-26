@@ -14,6 +14,8 @@ import vo.receiptvo.DepotOutReceiptVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,7 +55,8 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
 
     public DepotOutPanel(MainFrame par){
         this.parent=par;
-
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"库存出库",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         ButtonGroup btgroup=new ButtonGroup();
         btgroup.add(rbt1);
         btgroup.add(rbt2);

@@ -15,6 +15,8 @@ import vo.loginvo.LoginResultVO;
 import vo.receiptvo.EntruckReceiptVO;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,7 +67,9 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
 
     public EntruckPanel(MainFrame par){
         this.parent=par;
-
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"装车单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         initUI();
         setPresentTime();
 
@@ -146,11 +150,11 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
 
         gbc.gridheight=1;
         gbc.gridwidth=2;
-        gbc.gridy=6;
+        gbc.gridy=5;
         this.add(orderNumText,gbc);
 
         gbc.gridx=4;
-        gbc.gridy=6;
+        gbc.gridy=5;
         gbc.gridwidth=1;
         //gbc.fill=GridBagConstraints.BOTH;
         gbc.anchor=GridBagConstraints.EAST;

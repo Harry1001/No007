@@ -43,6 +43,7 @@ public class SendReceiptDBManager extends DBManager{
 					receiverUnit,receiverPhone,number,weight,volume,name,expressType,pack,expressNumber,money,time);
 			po.add(temppo);
 		}
+		stopconnection(connection);
 		return po;
 	}
 	
@@ -121,9 +122,11 @@ public class SendReceiptDBManager extends DBManager{
 			Date time=new Date(resultSet.getTimestamp(17).getTime());
 			SendReceiptPO po=new SendReceiptPO(senderName,senderLoc,senderUnit,senderPhone,receiverName,receiverLoc,
 					receiverUnit,receiverPhone,number,weight,volume,name,expressType,pack,expressNumber,money,time);
+			stopconnection(connection);
 			return po;
 		}
 		else {
+			stopconnection(connection);
 			return null;
 		}
 	}

@@ -13,6 +13,7 @@ import vo.receiptvo.DepotInReceiptVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -56,7 +57,8 @@ public class DepotInPanel extends JPanel implements ActionListener {
 
     public DepotInPanel(MainFrame par){
         this.parent=par;
-
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"库存入库",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         this.setLayout(new GridBagLayout());
         this.setOpaque(false);
         GridBagConstraints gbc=new GridBagConstraints();

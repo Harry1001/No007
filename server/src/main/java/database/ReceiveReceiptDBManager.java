@@ -27,6 +27,7 @@ public class ReceiveReceiptDBManager extends DBManager{
 			ReceiveReceiptPO temppo=new ReceiveReceiptPO(receiveNum,receiver,receiveTime);
 			po.add(temppo);
 		}
+		stopconnection(connection);
 		return po;
 	}
 	

@@ -49,6 +49,7 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
         this.truckBLService=blService;
 
         this.setLayout(new GridBagLayout());
+       // this.setBackground(Color.WHITE);
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
 

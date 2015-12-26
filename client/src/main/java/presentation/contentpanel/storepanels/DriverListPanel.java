@@ -45,7 +45,9 @@ public class DriverListPanel extends JPanel implements ActionListener{
 
     public DriverListPanel(MainFrame par){
         this.parent=par;
-
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder("司机信息"));
+        
         this.storeID=parent.getUserIdentity().getId().substring(0,6);
         initUI();
 

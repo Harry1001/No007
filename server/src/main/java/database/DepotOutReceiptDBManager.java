@@ -31,6 +31,7 @@ public class DepotOutReceiptDBManager extends DBManager{
 			DepotOutReceiptPO temppo=new DepotOutReceiptPO(packID,outTime,destination,vehicle,transID);
 			po.add(temppo);
 		}
+		stopconnection(connection);
 		return po;
 	}
 	

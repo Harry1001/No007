@@ -43,7 +43,9 @@ public class TruckListPanel extends JPanel implements ActionListener {
 
     public TruckListPanel(MainFrame par){
         this.parent=par;
-
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder("车辆信息"));
+        
         this.storID=parent.getUserIdentity().getId().substring(0,6);
         initNames();
         defaultTableModel=new MyDefaultTableModel(names,0);

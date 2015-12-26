@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import po.receiptpo.TransferReceiptPO;
+import typeDefinition.ReceiptState;
 
 public interface TransferReceiptDataService {
 
@@ -26,5 +27,23 @@ public interface TransferReceiptDataService {
 	 * @throws SQLException 
 	 */
 	public void deleteAll() throws RemoteException, SQLException;
+
+	/**
+	 * 按对应state返回相应TransferReceiptPO列表
+	 * @param state
+	 * @return
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
+	public ArrayList<TransferReceiptPO> getListByState(ReceiptState state) throws RemoteException, SQLException;
+
+	/**
+	 * 更新订单号对应单据的状态
+	 * @param orderID
+	 * @param state
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
+	public void updateItem(String orderID, ReceiptState state) throws RemoteException, SQLException;
 
 }

@@ -114,8 +114,8 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
         gbc.gridx=1;
         this.add(submitbt,gbc);
 
-        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"收件单",
-                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 20)));
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"收件单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
 
         rbt2.setSelected(true);
         t2.setEditable(false);

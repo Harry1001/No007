@@ -32,6 +32,7 @@ public class HubArrivalReceiptDBManager extends DBManager{
 			HubArrivalReceiptPO temppo=new HubArrivalReceiptPO(orderID,hubID,arriveTime,transReceiptID,fromPosition,arriveState);
 			po.add(temppo);
 		}
+		stopconnection(connection);
 		return po;
 	}
 	
@@ -76,9 +77,11 @@ public class HubArrivalReceiptDBManager extends DBManager{
 			String fromPosition=resultSet.getString(5);
 			PackArrivalState arriveState=PackArrivalState.values()[resultSet.getInt(6)];
 			HubArrivalReceiptPO po=new HubArrivalReceiptPO(order,hubID,arriveTime,transReceiptID,fromPosition,arriveState);
+			stopconnection(connection);
 			return po;
 		}
 		else{
+			stopconnection(connection);
 			return null;
 		}
 	}

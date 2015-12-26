@@ -31,6 +31,7 @@ public class StoreArrivalReceiptDBManager extends DBManager{
 			StoreArrivalReceiptPO temppo=new StoreArrivalReceiptPO(orderID,arriveTime,transReceiptID,fromPosition,arriveState);
 			po.add(temppo);
 		}
+		stopconnection(connection);
 		return po;
 	}
 	
@@ -72,9 +73,11 @@ public class StoreArrivalReceiptDBManager extends DBManager{
 			String fromPosition=resultSet.getString(4);
 			PackArrivalState arriveState=PackArrivalState.values()[resultSet.getInt(5)];
 			StoreArrivalReceiptPO po=new StoreArrivalReceiptPO(order,arriveTime,transReceiptID,fromPosition,arriveState);
+			stopconnection(connection);
 			return po;
 		}
 		else {
+			stopconnection(connection);
 			return null;
 		}
 	}

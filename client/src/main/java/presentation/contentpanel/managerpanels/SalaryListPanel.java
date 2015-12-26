@@ -9,6 +9,7 @@ import presentation.commoncontainer.ErrorDialog;
 import vo.strategyvo.SalaryVO;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,7 +38,10 @@ public class SalaryListPanel extends JPanel implements ActionListener {
 
     public SalaryListPanel(MainFrame par){
         this.parent=par;
-
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"薪水策略",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        
         //todo 读取数据后初始化表格data
         defaultTableModel=new EditableTableModel(names,0);
         table=new MyTable(defaultTableModel);

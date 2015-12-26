@@ -12,6 +12,8 @@ import vo.commodityvo.CheckResultVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,7 +43,8 @@ public class DepotChaKanPanel extends JPanel implements ActionListener{
 
     public DepotChaKanPanel(MainFrame par){
         this.parent=par;
-
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"库存查看",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         initUI();
 
         confirmbt.addActionListener(this);
