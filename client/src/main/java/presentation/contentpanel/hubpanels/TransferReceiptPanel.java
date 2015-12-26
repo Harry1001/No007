@@ -5,6 +5,7 @@ import blfactory.BLFactory;
 import businessLogicService.strategyblservice.CalCarriageService;
 import businessLogicService.transportblservice.TransferBLService;
 import constent.Constent;
+import presentation.Images.Images;
 import presentation.commoncontainer.*;
 import typeDefinition.MessageType;
 import typeDefinition.ReceiptState;
@@ -44,6 +45,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
     MyButton deletebt=new MyButton("Delete");
     MyButton submitbt=new MyButton("Submit");
     MyButton cancelbt=new MyButton("Refresh");
+    MyButton backbt=new MyButton(" Back ", Images.BACK_IMAGE);
 
     MyDefaultTableModel defaultTableModel;
     JTable table;
@@ -65,6 +67,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
         deletebt.addActionListener(this);
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
+        backbt.addActionListener(this);
         textFields[1].addFocusListener(this);
 
         refresh();
@@ -394,7 +397,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
         labels[7]=new MyLabel("货柜号");
 
         for(int i=0;i<7;i++){
-            textFields[i]=new MyTextField(25);
+            textFields[i]=new MyTextField();
         }
 
         vehicles[0]=new JRadioButton("汽车");

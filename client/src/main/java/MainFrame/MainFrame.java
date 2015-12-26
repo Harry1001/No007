@@ -1,6 +1,7 @@
 package MainFrame;
 
 import businessLogic.strategybl.DistanceStrategyBL;
+import dataService._RMI;
 import presentation.Images.Images;
 import presentation.uifactory.UIFactory;
 import vo.loginvo.LoginResultVO;
@@ -55,6 +56,7 @@ public class MainFrame extends JFrame {
         //
         */
 
+        _RMI.setIP();
         MainFrame frame=new MainFrame("快递物流系统");
         JPanel bkPanel=(JPanel)frame.getContentPane();
         bkPanel.setOpaque(false);
