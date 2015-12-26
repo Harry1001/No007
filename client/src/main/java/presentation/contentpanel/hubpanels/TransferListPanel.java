@@ -1,16 +1,14 @@
-package presentation.contentpanel.financepanels;
+package presentation.contentpanel.hubpanels;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
-import businessLogicService.infoblservice.BankAccountBLService;
-import businessLogicService.receiptblservice.PayReceiptBLService;
+import businessLogicService.receiptblservice.TransferReceiptBLService;
 import constent.Constent;
-import myexceptions.InfoBLException;
 import presentation.Images.Images;
 import presentation.commoncontainer.*;
 import typeDefinition.MessageType;
 import typeDefinition.ReceiptState;
-import vo.receiptvo.PayReceiptVO;
+import vo.receiptvo.TransferReceiptVO;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -25,12 +23,11 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 /**
- * Created by Harry on 2015/12/25.
+ * Created by Harry on 2015/12/26.
  */
-public class OutcomeListPanel extends JPanel implements ActionListener {
-
+public class TransferListPanel extends JPanel implements ActionListener {
     private MainFrame parent;
-    private OutcomePanel outcomePanel;
+    private TransferPanel transferPanel;
 
     private MyTable table;
     private MyDefaultTableModel defaultTableModel;
@@ -40,12 +37,11 @@ public class OutcomeListPanel extends JPanel implements ActionListener {
 
     private Vector<String> names;//表格列名
 
-    private PayReceiptBLService payReceiptBLService;
-    private BankAccountBLService bankAccountBLService;
+    private TransferReceiptBLService transferReceiptBLService;
 
-    public OutcomeListPanel(MainFrame par, OutcomePanel outcomePanel){
+    public TransferListPanel(MainFrame par, TransferPanel transferPanel){
         this.parent=par;
-        this.outcomePanel=outcomePanel;
+        this.transferPanel=transferPanel;
 
         initUI();
         setHotKey();
@@ -60,8 +56,7 @@ public class OutcomeListPanel extends JPanel implements ActionListener {
 
     private void initBL(){
         try {
-            payReceiptBLService= BLFactory.getPayReceiptBLService();
-            bankAccountBLService=BLFactory.getBankAccountBLService();
+            transferReceiptBLService= BLFactory.getTransferReceiptBLService();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
@@ -72,34 +67,37 @@ public class OutcomeListPanel extends JPanel implements ActionListener {
     }
 
     private void refreshList(){
-        if (payReceiptBLService!=null){
+        if (transferReceiptBLService!=null){
             try {
-                ArrayList<PayReceiptVO> approvedVOs=payReceiptBLService.getListByState(ReceiptState.APPROVED);
-                ArrayList<PayReceiptVO> unapprovedVOs=payReceiptBLService.getListByState(ReceiptState.UNAPPROVED);
+                ArrayList<TransferReceiptVO> approvedVOs=transferReceiptBLService.getListByState(ReceiptState.APPROVED);
+                ArrayList<TransferReceiptVO> unapprovedVOs=transferReceiptBLService.getListByState(ReceiptState.UNAPPROVED);
                 approvedVOs.addAll(unapprovedVOs);
                 defaultTableModel.getDataVector().clear();
                 Vector<Vector> data=new Vector<Vector>();
 
-                for (PayReceiptVO vo : approvedVOs ) {
-                    String id=vo.getId();
-                    double fee=vo.getFee();
-                    String statestr;
-                    if (vo.getState()==ReceiptState.APPROVED){
-                        statestr="审批通过";
-                    } else {
-                        statestr="审批不通过";
+                for (TransferReceiptVO vo : approvedVOs ) {
+                    String id=vo.getTransferID();
+                    if (id.substring(0,4).equals(getMyHubID())){
+                        String timestr=Constent.DATE_FORMAT.format(vo.getTransferDate());
+                        double fee=vo.getTransferFee();
+                        String fromPlace=vo.getDepartLoc();
+                        String toPlace=vo.getArriveLoc();
+                        String statestr;
+                        if (vo.getState()==ReceiptState.APPROVED){
+                            statestr="审批通过";
+                        } else {
+                            statestr="审批不通过";
+                        }
+
+                        Vector<Object> item=new Vector<Object>();
+                        item.add(id);
+                        item.add(timestr);
+                        item.add(fee);
+                        item.add(fromPlace);
+                        item.add(toPlace);
+                        item.add(statestr);
+                        data.add(item);
                     }
-                    String acc=vo.getPayAccount();
-                    String typestr= Constent.FEE_TYPE_STR[vo.getPayType().ordinal()];
-                    String timestr=Constent.DATE_FORMAT.format(vo.getPayTime());
-                    Vector<Object> item=new Vector<Object>();
-                    item.add(id);
-                    item.add(fee);
-                    item.add(statestr);
-                    item.add(acc);
-                    item.add(typestr);
-                    item.add(timestr);
-                    data.add(item);
                 }
                 defaultTableModel.setDataVector(data, names);
                 table.revalidate();
@@ -115,16 +113,21 @@ public class OutcomeListPanel extends JPanel implements ActionListener {
         }
     }
 
+    private String getMyHubID(){
+        String s=parent.getUserIdentity().getId();
+        return s.substring(0,4);
+    }
+
     private void initUI(){
 
         names=new Vector<String>();
         names.clear();
-        names.add("付款单编号");
-        names.add("付款金额");
-        names.add("单据状态");
-        names.add("付款账户");
-        names.add("付款条目");
-        names.add("付款时间");
+        names.add("中转单编号");
+        names.add("中转日期");
+        names.add("运费");
+        names.add("出发地");
+        names.add("目的地");
+        names.add("审批结果");
 
         defaultTableModel=new MyDefaultTableModel(names, 0);
         table=new MyTable(defaultTableModel);
@@ -156,7 +159,7 @@ public class OutcomeListPanel extends JPanel implements ActionListener {
         this.add(new BlankBlock(), gbc);
 
         this.setOpaque(false);
-        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"付款单列表",
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"中转单列表",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
     }
 
@@ -175,34 +178,17 @@ public class OutcomeListPanel extends JPanel implements ActionListener {
             new TranslucentFrame(this, "请选择待处理单据(按住ctrl可多选)", Color.RED);
         }
         else {
-            if (payReceiptBLService!=null && bankAccountBLService!=null){
-                try{
-                    for (int i:rows){
-                        String id=(String)table.getValueAt(i, 0);
-                        String state=(String)table.getValueAt(i, 2);
-                        if (state.equals("审批不通过")){
-                            payReceiptBLService.updateState(id, ReceiptState.HANDLED);
-                        }
-                        else {
-                            payReceiptBLService.updateState(id, ReceiptState.HANDLED);
+            try{
+                for (int i:rows){
+                    String id=(String)table.getValueAt(i, 0);
+                    transferReceiptBLService.updateState(id, ReceiptState.HANDLED);
 
-                            //银行扣钱
-                            bankAccountBLService.modifyBankAccount(id, -(Double)table.getValueAt(i, 1));//负号不能丢！
-
-                        }
-                    }
-                    refreshList();
-                    new TranslucentFrame(this, "已处理", Color.GREEN);
-                } catch (RemoteException e) {
-                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
-                } catch (InfoBLException e) {
-                    new TranslucentFrame(this, e.getMessage(), Color.RED);
                 }
-            }
-            else {
-                initBL();
+                refreshList();
+            } catch (RemoteException e) {
+                new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -212,7 +198,8 @@ public class OutcomeListPanel extends JPanel implements ActionListener {
             refreshList();
         }
         else if (e.getSource()==addbt){
-            outcomePanel.showPayReceipt();
+            //todo
+         //   outcomePanel.showPayReceipt();
         }
         else if (e.getSource()==handlebt){
             setReceiptHandled();

@@ -5,18 +5,14 @@ import blfactory.BLFactory;
 import businessLogicService.strategyblservice.CalCarriageService;
 import businessLogicService.transportblservice.TransferBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import typeDefinition.ReceiptState;
 import typeDefinition.Vehicle;
 import vo.receiptvo.TransferReceiptVO;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,13 +28,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by Harry on 2015/11/28.
+ * Created by Harry on 2015/12/26.
  */
-public class TransferPanel extends JPanel implements ActionListener, FocusListener {
-
+public class TransferReceiptPanel extends JPanel implements ActionListener, FocusListener {
     TransferBLService transferBLService;
     CalCarriageService carriageService;
     MainFrame parent;
+    TransferPanel transferPanel;
 
     MyLabel[] labels=new MyLabel[8];
     MyTextField[] textFields=new MyTextField[7];
@@ -54,12 +50,13 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
     JPanel transferWay;
     MyTextField orderT=new MyTextField();
 
-    public TransferPanel(MainFrame par) {
+    public TransferReceiptPanel(MainFrame par, TransferPanel transferPanel) {
         this.parent=par;
+        this.transferPanel=transferPanel;
         this.setOpaque(false);
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"中转单",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
-        
+
         initUI();
         setHotKey();
 
@@ -87,11 +84,11 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         try {
             this.carriageService=BLFactory.getCalCarriageService();
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -104,7 +101,7 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         vehicles[0].setSelected(true);
         String hubID=parent.getUserIdentity().getId().substring(0,4);
 
-        textFields[1].setText(hubID+Constent.RECIEPT_NUM_FORMAT.format(new Date())+"+7位数字");
+        textFields[1].setText(hubID+ Constent.RECIEPT_NUM_FORMAT.format(new Date())+"+7位数字");
         defaultTableModel.getDataVector().clear();
         table.revalidate();
         table.updateUI();
@@ -112,37 +109,37 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
 
     private boolean checkAll(){
         if (!checkTime()){
-            new ErrorDialog(parent, "日期格式必须为：yyyy-MM-dd HH:mm:ss");
+            new TranslucentFrame(this, "日期格式必须为：yyyy-MM-dd HH:mm:ss", Color.RED);
             return false;
         }
 
         if (!checkTransID()){
-            new ErrorDialog(parent, "中转单号必须为"+Constent.Transfer_ID_LENGTH+"位数字");
+            new TranslucentFrame(this, "中转单号必须为"+Constent.Transfer_ID_LENGTH+"位数字", Color.RED);
             return false;
         }
 
         if (!checkVehicleID()){
-            new ErrorDialog(parent, "班次/车牌号不可为空");
+            new TranslucentFrame(this, "班次/车牌号不可为空", Color.RED);
             return false;
         }
 
         if (!checkFee()){
-            new ErrorDialog(parent, "运费必须为正数");
+            new TranslucentFrame(this, "运费必须为正数", Color.RED);
             return false;
         }
 
         if (!checkFromLoc()){
-            new ErrorDialog(parent, "出发地前两位必须为市名");
+            new TranslucentFrame(this, "出发地前两位必须为市名", Color.RED);
             return false;
         }
 
         if (!checkToLoc()){
-            new ErrorDialog(parent, "到达地前两位必须为市名");
+            new TranslucentFrame(this, "到达地前两位必须为市名", Color.RED);
             return false;
         }
 
         if (!checkCounterID()){
-            new ErrorDialog(parent, "货柜号必须为正整数");
+            new TranslucentFrame(this, "货柜号必须为正整数", Color.RED);
             return false;
         }
 
@@ -151,12 +148,12 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
 
     private boolean checkCalFeeCondition(){
         if (!checkFromLoc()){
-            new ErrorDialog(parent, "出发地前两位必须为市名");
+            new TranslucentFrame(this, "出发地前两位必须为市名", Color.RED);
             return false;
         }
 
         if (!checkToLoc()){
-            new ErrorDialog(parent, "到达地前两位必须为市名");
+            new TranslucentFrame(this, "到达地前两位必须为市名", Color.RED);
             return false;
         }
 
@@ -252,13 +249,13 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
                         fee = carriageService.calCarriage(vo);
                         textFields[3].setText(fee+"");
                     } catch (SQLException e1) {
-                        new ErrorDialog(parent, "SQLException");
+                        System.out.println(e1.getMessage());
                     } catch (ClassNotFoundException e1) {
-                        new ErrorDialog(parent, "ClassNotFoundException");
+                        System.out.println(e1.getMessage());
                     } catch (IOException e1) {
-                        new ErrorDialog(parent, "IOException");
+                        System.out.println(e1.getMessage());
                     } catch (NotBoundException e1) {
-                        new ErrorDialog(parent, "NotBoundException");
+                        System.out.println(e1.getMessage());
                     }
                 }
                 else {
@@ -273,7 +270,7 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
                 orderT.setText("");
             }
             else {
-                new ErrorDialog(parent, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位整数");
+                new TranslucentFrame(this, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位整数", Color.RED);
             }
         }
         else if (e.getSource()==deletebt){
@@ -290,14 +287,13 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
                         transferBLService.submit(vo);
                         refresh();
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
                         System.out.println("中转单sql："+e1.getMessage());
-                        new ErrorDialog(parent, "SQLException");
                     } catch (MalformedURLException e1) {
-                        new ErrorDialog(parent, "MalformedURLException");
+                        System.out.println(e1.getMessage());
                     } catch (NotBoundException e1) {
-                        new ErrorDialog(parent, "NotBoundException");
+                        System.out.println(e1.getMessage());
                     }
                 }
                 else {
@@ -362,9 +358,9 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
             time=Constent.DATE_FORMAT.parse(textFields[0].getText());
             fee=Double.parseDouble(textFields[3].getText());
         } catch (ParseException e) {
-            //new ErrorDialog(parent, "日期格式必须为：yyyy-MM-dd HH:mm:ss");
+            new TranslucentFrame(this, "日期格式必须为：yyyy-MM-dd HH:mm:ss", Color.RED);
         } catch (NumberFormatException e){
-            //new ErrorDialog(parent, "运费必须为正数");
+            new TranslucentFrame(this, "运费必须为正数", Color.RED);
         }
         String transID=textFields[1].getText();
         String vehicleID=textFields[2].getText();
@@ -435,8 +431,8 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
 
         gbc.gridy=0;
         gbc.gridx=1;
-            this.add(transferWay,gbc);
-        
+        this.add(transferWay,gbc);
+
 
         gbc.weightx=1.0;
         for(gbc.gridx=1,gbc.gridy=1;gbc.gridy<5;gbc.gridy++){
@@ -505,6 +501,4 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         String time= Constent.DATE_FORMAT.format(new Date());
         textFields[0].setText(time);
     }
-
-
 }
