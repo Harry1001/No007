@@ -3,10 +3,8 @@ package presentation.contentpanel.financepanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 
 import javax.naming.NamingException;
 import javax.swing.*;
@@ -27,8 +25,8 @@ public class MakeBillPanel extends JPanel implements ActionListener {
 
     private MainFrame parent;
     private MyLabel yearL = new MyLabel("保存年份");
-    private MyTextField yearT = new MyTextField();
-    private MyButton submitbt=new MyButton("提交");
+    private JComboBox<Integer> yearT = new JComboBox<Integer>();
+    private MyButton submitbt=new MyButton("Submit");
 
     private FinanceBLService financeBLService;
 
@@ -39,9 +37,14 @@ public class MakeBillPanel extends JPanel implements ActionListener {
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         
         initUI();
+        setHotKey();
 
         submitbt.addActionListener(this);
         initBL();
+    }
+
+    private void setHotKey(){
+        submitbt.setMnemonic('S');
     }
 
     private void initUI(){
@@ -50,12 +53,23 @@ public class MakeBillPanel extends JPanel implements ActionListener {
         gbc.insets=new Insets(10,10,10,10);
        // gbc.weightx=1.0;
         //gbc.weighty=1.0;
+        yearT.addItem(2015);
+        yearT.addItem(2016);
+        yearT.addItem(2017);
+        yearT.addItem(2018);
+        yearT.addItem(2019);
 
         gbc.gridx=gbc.gridy=0;
         this.add(yearL,gbc);
         gbc.gridx++;
+        gbc.fill=GridBagConstraints.BOTH;
+        gbc.ipadx=100;
+
         this.add(yearT,gbc);
+        gbc.ipadx=0;
+        gbc.ipady=0;
         gbc.gridy++;
+        gbc.fill=GridBagConstraints.NONE;
         this.add(submitbt,gbc);
         refresh();
     }
@@ -64,51 +78,43 @@ public class MakeBillPanel extends JPanel implements ActionListener {
         try {
             financeBLService= BLFactory.getFinanceBLService();
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         } catch (NamingException e) {
-            new ErrorDialog(parent, "NamingException");
+            System.out.println(e.getMessage());
         }
     }
 
 
     public void refresh(){
-        yearT.setText("");
+        yearT.setSelectedIndex(0);
     }
 
-    private boolean checkYear(){
-        String s=yearT.getText();
-        try{
-            int year=Integer.parseInt(s);
-            return year>0;
-        }catch (NumberFormatException e){
-            return false;
-        }
-    }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submitbt){
             if (financeBLService!=null){
-                if (checkYear()){
-                    int year=Integer.parseInt(yearT.getText());
+
+                    int year=(Integer)yearT.getSelectedItem();
                     try {
                         financeBLService.makeCredit(year);
                         refresh();
+                        new TranslucentFrame(this, "期初建账成功", Color.GREEN);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (NamingException e1) {
-                        new ErrorDialog(parent, "NamingException");
+                        System.out.println(e1.getMessage());
                     } catch (SQLException e1) {
-                        new ErrorDialog(parent, "SQLException");
+                        System.out.println(e1.getMessage());
                     } catch (MalformedURLException e1) {
-                        new ErrorDialog(parent, "MalformedURLException");
+                        System.out.println(e1.getMessage());
                     } catch (NotBoundException e1) {
-                        new ErrorDialog(parent, "NotBoundException");
+                        System.out.println(e1.getMessage());
                     }
-                }
+
             }
             else{
                 initBL();

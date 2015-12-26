@@ -32,7 +32,7 @@ public abstract class GuidePanel extends JPanel {
         gbc.fill=GridBagConstraints.HORIZONTAL;
 
         //加入“导航栏”label
-        gbc.ipady=30;
+        gbc.ipady=50;
         this.add(new GuideLabel(),gbc);
         gbc.ipady=0;
 

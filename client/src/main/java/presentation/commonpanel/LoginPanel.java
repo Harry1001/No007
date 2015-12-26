@@ -5,12 +5,10 @@ import blfactory.BLFactory;
 import businessLogicService.loginblservice.LoginBLService;
 import constent.Constent;
 import presentation.Images.Images;
-import presentation.commoncontainer.ErrorDialog;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
+import presentation.commoncontainer.*;
 import presentation.uifactory.UIFactory;
 import typeDefinition.Job;
+import typeDefinition.MessageType;
 import vo.loginvo.LoginInputVO;
 import vo.loginvo.LoginResultVO;
 
@@ -49,7 +47,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         JPanel panel=new JPanel(new GridBagLayout());
         GridBagConstraints c=new GridBagConstraints();
 
-        JLabel label=new JLabel("用户登录", JLabel.CENTER);
+        MyLabel label=new MyLabel("用户登录");
         JSeparator seph=new JSeparator();
         seph.setVisible(true);
 
@@ -84,16 +82,18 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         c.weightx=c.weighty=0.0;
         panel.add(logButton,c);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-        panel.setPreferredSize(new Dimension(300, 200));
+        panel.setSize(new Dimension(250, 200));
 
         gbc.gridx=0;
         gbc.gridy=1;
 
         gbc.fill=GridBagConstraints.BOTH;
         gbc.insets=new Insets(10,10,10,10);
-      //  this.add(picLabel,gbc);
+        BlankBlock blankBlock=new BlankBlock();
+        blankBlock.setSize(800, 50);
+        this.add(blankBlock,gbc);
 
-        gbc.gridx=4;
+        gbc.gridx=2;
 
         gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.insets=new Insets(10,200,10,10);
@@ -107,7 +107,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         gbc.anchor=GridBagConstraints.EAST;
         this.add(logisticbt, gbc);
 
-        numText.setText("请输入"+ Constent.USER_ID_LENGTH+"位数字");
+        //numText.setText("请输入"+ Constent.USER_ID_LENGTH+"位数字");
 
         //注册监听事件
         logButton.addActionListener(this);
@@ -128,16 +128,16 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         try {
             loginResult = loginBLService.getPermission(new LoginInputVO(numText.getText(),new String(passwordField.getPassword())));
             if (loginResult.getJob()== Job.NOTFOUND){
-                new ErrorDialog(parent,"用户名或密码错误");
+                new TranslucentFrame(this, "用户名或密码错误", Color.RED);
             } else {
                 UIFactory.showContentPanel(parent,loginResult);
             }
         } catch (RemoteException e1) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.RED);
         } catch (MalformedURLException e1) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e1.getMessage());
         } catch (NotBoundException e1) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e1.getMessage());
         }
     }
 
@@ -153,12 +153,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
     }
 
     public void focusGained(FocusEvent e) {
-        if (e.getSource()==numText){
-            String s=numText.getText();
-            if (s.equals("请输入"+ Constent.USER_ID_LENGTH+"位数字")){
-                numText.setText("");
-            }
-        }
+
     }
 
     public void focusLost(FocusEvent e) {
@@ -167,7 +162,7 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
                 numText.setBorder(BorderFactory.createLineBorder(Color.GREEN));
             }else {
                 numText.setBorder(BorderFactory.createLineBorder(Color.RED));
-                numText.setText("请输入"+ Constent.USER_ID_LENGTH+"位数字");
+                new TranslucentFrame(this, "请输入"+Constent.USER_ID_LENGTH+"位数字帐号",Color.ORANGE);
             }
         }
     }

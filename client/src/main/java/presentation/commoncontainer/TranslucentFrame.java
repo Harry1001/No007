@@ -16,11 +16,7 @@ public class TranslucentFrame implements Runnable {
     JLabel messageLabel=new JLabel();
 
     private JPanel mainPanel;
-    private int width;//窗体宽度
-    private int height;//窗体高度
-    private int stayTime;//休眠时间
 
-    private int style;//窗体样式
 
     public TranslucentFrame(JPanel panel, MessageType type, Color color){
         this(panel, Constent.TIP_MESSAGE[type.ordinal()], color);
@@ -28,13 +24,21 @@ public class TranslucentFrame implements Runnable {
 
     public TranslucentFrame(JPanel panel, String message, Color color){
         this.mainPanel=panel;
-        messageLabel.setText(message);
-        messageLabel.setBackground(color);
 
+        initLabel(message, color);
 
         //运行线程
         Thread thread=new Thread(this);
         thread.start();
+    }
+
+    private void initLabel(String message, Color color){
+        messageLabel.setText(message);
+        messageLabel.setBackground(color);
+        messageLabel.setForeground(Color.WHITE);
+        messageLabel.setFont(new Font("", Font.BOLD, 23));
+        messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        messageLabel.setOpaque(true);
     }
 
 
@@ -42,11 +46,13 @@ public class TranslucentFrame implements Runnable {
      * 设置渐隐窗口的相对位置
      */
     private void initLocation(){
-        int x=mainPanel.getX();
-        int y=mainPanel.getY();
+        frame.setLocationRelativeTo(mainPanel);
+        int x=frame.getX();
+        int y=frame.getY();
         int width=mainPanel.getWidth();
         int height=mainPanel.getHeight();
-        y=y+(height-50);
+        x=x-width/2;
+        y=y+height/2-50;
         height=50;
         frame.setBounds(x,y,width,height);
     }
@@ -100,7 +106,7 @@ public class TranslucentFrame implements Runnable {
         print();
         show();
         try {
-            Thread.sleep(stayTime*1000);
+            Thread.sleep(1000);
         } catch (Exception e) {}
         hide();
     }

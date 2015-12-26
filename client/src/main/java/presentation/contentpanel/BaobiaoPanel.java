@@ -6,6 +6,7 @@ import businessLogicService.financeblservice.FinanceBLService;
 import myexceptions.TimeFormatException;
 import presentation.commoncontainer.*;
 import presentation.contentpanel.storepanels.BankInfoPanel;
+import typeDefinition.MessageType;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;
 import vo.receiptvo.ReceiptVO;
@@ -40,7 +41,7 @@ public class BaobiaoPanel extends JPanel implements ActionListener {
     private TimePanel fromTimeP=new TimePanel();
     private TimePanel toTimeP=new TimePanel();
     private MyTextField yearT=new MyTextField();
-    private MyButton confirmbt=new MyButton("确认");
+    private MyButton confirmbt=new MyButton("OK");
 
     private FinanceBLService financeBLService;
 
@@ -54,23 +55,28 @@ public class BaobiaoPanel extends JPanel implements ActionListener {
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         
         initUI();
+        setHotKey();
         refresh();
         confirmbt.addActionListener(this);
 
         initBL();
     }
 
+    private void setHotKey(){
+        confirmbt.setMnemonic('O');
+    }
+
     private void initBL(){
         try {
             financeBLService= BLFactory.getFinanceBLService();
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         } catch (NamingException e) {
-            new ErrorDialog(parent, "NamingException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -132,7 +138,7 @@ public class BaobiaoPanel extends JPanel implements ActionListener {
                         ProfitVO vo=financeBLService.checkProfit();
                         new ContentDialog(parent, "成本收益表", new ChenBenPanel(vo));
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     }
                 }
                 else if (jingying.isSelected()){
@@ -142,32 +148,31 @@ public class BaobiaoPanel extends JPanel implements ActionListener {
                         ArrayList<ReceiptVO> list=financeBLService.seeRecord(fromtime, totime);
                         new ContentDialog(parent, "经营情况表", new JingYingPanel(list));
                     } catch (TimeFormatException e1) {
-                        new ErrorDialog(parent, e1.getMessage());
+                        new TranslucentFrame(this, e1.getMessage(), Color.RED);
                     } catch (MalformedURLException e1) {
-                        new ErrorDialog(parent, "MalformedURLException");
+                        System.out.println(e1.getMessage());
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                       new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
-                        System.out.println("查询经营情况表sql："+e1.getMessage());
-                        new ErrorDialog(parent, "SQLException");
+                        System.out.println(e1.getMessage());
                     } catch (NotBoundException e1) {
-                        new ErrorDialog(parent, "NotBoundException");
+                        System.out.println(e1.getMessage());
                     }
                 }
                 else if (zhangmu.isSelected()){
-                    //todo
+
                     try{
                         int year=getYear();
                         FinanceVO vo=financeBLService.getCredit(year);
                         new ContentDialog(parent, "账户信息", new BankInfoPanel(vo));
                     } catch (NumberFormatException e1){
-                        new ErrorDialog(parent, "请输入正确的年份");
+                        new TranslucentFrame(this, "请输入正确的年份", Color.RED);
                     } catch (ClassNotFoundException e1) {
                         e1.printStackTrace();
                     } catch (RemoteException e1){
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (FileNotFoundException e1){
-                        new ErrorDialog(parent, "账目信息不存在！");
+                        new TranslucentFrame(this, "账目信息不存在", Color.RED);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }

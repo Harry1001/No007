@@ -40,7 +40,7 @@ public class PayReceiptDBManager extends DBManager{
 
 	public ArrayList<PayReceiptPO> getListByState(ReceiptState state) throws SQLException{
 		ArrayList<PayReceiptPO> po=new ArrayList<PayReceiptPO>();
-		String payReceipt="SELECT * FROM PayReceipt WHERE state= '"+state+"'";
+		String payReceipt="SELECT * FROM PayReceipt WHERE state= '"+state.ordinal()+"'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(payReceipt);
@@ -83,7 +83,7 @@ public class PayReceiptDBManager extends DBManager{
 	
 	public void update(String orderID,ReceiptState state) throws SQLException {
 		String update = "UPDATE PayReceipt"
-				+ " SET state = '" + state + "'state"
+				+ " SET state = " + state.ordinal()
 				+ " WHERE id = '" + orderID + "'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();

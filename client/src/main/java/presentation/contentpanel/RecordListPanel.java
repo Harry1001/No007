@@ -4,10 +4,8 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.recordblservice.RecordBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyTable;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.recordvo.RecordVO;
 
 import javax.swing.*;
@@ -32,15 +30,25 @@ public class RecordListPanel extends JPanel implements ActionListener{
     MainFrame parent;
     MyDefaultTableModel defaultTableModel;
     MyTable table;
-    MyButton refreshbt=new MyButton("刷新日志");
+    MyButton refreshbt=new MyButton("Refresh");
 
     public RecordListPanel(MainFrame par) {
 
         this.parent = par;
+
+        initUI();
+        setHotKey();
+
+        initBL();
+
+        refreshbt.addActionListener(this);
+    }
+
+    private void initUI(){
         this.setOpaque(false);
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"系统日志",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
-        
+
         String[] names = {"操作时间", "操作人", "操作概要简述"};
 
         defaultTableModel = new MyDefaultTableModel(names, 0);
@@ -64,18 +72,23 @@ public class RecordListPanel extends JPanel implements ActionListener{
         gbc.anchor=GridBagConstraints.EAST;
         this.add(refreshbt,gbc);
 
-        refreshbt.addActionListener(this);
+        gbc.gridy++;
+        this.add(new BlankBlock(), gbc);
+    }
+
+    private void setHotKey(){
+        refreshbt.setMnemonic('R');
     }
 
     private void initBL(){
         try {
             recordBLService=BLFactory.getRecordBLService();
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -93,11 +106,11 @@ public class RecordListPanel extends JPanel implements ActionListener{
                 }
                 table.revalidate();
                 table.updateUI();
+                new TranslucentFrame(this, "刷新成功", Color.GREEN);
             } catch (RemoteException e) {
-                new ErrorDialog(parent, "服务器连接超时");
+                new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
             } catch (SQLException e) {
                 System.out.println("record sql:"+e.getMessage());
-                new ErrorDialog(parent, "SQLException");
             }
         }
         else {

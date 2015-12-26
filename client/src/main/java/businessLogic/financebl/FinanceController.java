@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.naming.NamingException;
 
 import businessLogicService.financeblservice.FinanceBLService;
+import myexceptions.InfoBLException;
 import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;
@@ -69,7 +70,7 @@ public class FinanceController implements FinanceBLService{
 
 
 
-	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException {
+	public void submitIn(ChargeReceiptVO vo) throws RemoteException, SQLException, MalformedURLException, NotBoundException, InfoBLException {
 		financeBL.submitIn(vo);		
 	}
 

@@ -137,5 +137,10 @@ public class Constent {
      * 常用提示消息，与MessageType枚举类中的顺序相对应，不可颠倒！
      */
     public static final String[] TIP_MESSAGE= {"网络连接超时，请检查网络","该单据已存在","该员工已存在","该机构已存在",
-            "该司机已存在","该车辆已存在","该账户已存在","该订单不存在"};
+            "该司机已存在","该车辆已存在","该账户已存在","该订单不存在", "提交成功", "添加成功", "删除成功","修改信息成功"};
+
+    /**
+     * 付款单编号默认11位
+     */
+    public static final int PAY_RECEIPT_LENGTH = 11;
 }

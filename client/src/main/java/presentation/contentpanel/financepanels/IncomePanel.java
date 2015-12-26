@@ -9,6 +9,7 @@ import constent.Constent;
 import myexceptions.TimeFormatException;
 import presentation.commoncontainer.*;
 import presentation.commoncontainer.ErrorDialog;
+import typeDefinition.MessageType;
 import vo.infovo.AgencyVO;
 import vo.receiptvo.ChargeReceiptVO;
 
@@ -54,12 +55,12 @@ public class IncomePanel extends JPanel implements ActionListener{
     public IncomePanel(MainFrame par){
         this.parent=par;
         this.setOpaque(false);
-        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"收入管理",
-                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
-        
+
         initBL();
 
         initUI();
+        setHotKey();
+        timebt.addActionListener(this);
     }
 
     private void initBL(){
@@ -89,8 +90,9 @@ public class IncomePanel extends JPanel implements ActionListener{
 
         defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(270, 100));
         //totalbt=new MyButton("合计");
-        timebt=new MyButton("确认");
+        timebt=new MyButton("OK");
         fromTimeP=new TimePanel();
         toTimeP=new TimePanel();
         fromTimeL=new MyLabel("起始时间");
@@ -121,12 +123,13 @@ public class IncomePanel extends JPanel implements ActionListener{
 
         this.add(storelist, gbc);
         gbc.fill=GridBagConstraints.NONE;
+        gbc.anchor=GridBagConstraints.CENTER;
         gbc.gridx=2;
         this.add(timebt,gbc);
 
         gbc.gridy=3;
         gbc.gridx=0;
-        gbc.gridwidth=4;
+        gbc.gridwidth=3;
         gbc.fill=GridBagConstraints.BOTH;
         this.add(new JScrollPane(table),gbc);
         gbc.gridwidth=1;
@@ -136,6 +139,14 @@ public class IncomePanel extends JPanel implements ActionListener{
         this.add(totalMoneyL,gbc);
         gbc.gridx=1;
         this.add(totalMoneyNum, gbc);
+
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"收入管理",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+
+    }
+
+    private void setHotKey(){
+        timebt.setMnemonic('O');
     }
 
     private void initStoreList(){
@@ -150,9 +161,9 @@ public class IncomePanel extends JPanel implements ActionListener{
                 }
                 storelist=new JComboBox<String>(v);
             } catch (RemoteException e) {
-                new ErrorDialog(parent, "服务器连接超时，载入营业厅列表失败");
+                new TranslucentFrame(this, "服务器连接超时，载入营业厅列表失败", Color.RED);
             } catch (SQLException e) {
-                new ErrorDialog(parent, "sqlexception，载入营业厅列表失败");
+                System.out.println(e.getMessage());
             }
         }
         else {
@@ -193,16 +204,16 @@ public class IncomePanel extends JPanel implements ActionListener{
                     table.revalidate();
                     table.updateUI();
                 } catch (TimeFormatException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.RED);
                 } catch (SQLException e1) {
                     System.out.println("成本管理sql:"+e1.getMessage());
-                    new ErrorDialog(parent, "SQLException");
+
                 } catch (MalformedURLException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    System.out.println(e1.getMessage());
                 } catch (NotBoundException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    System.out.println(e1.getMessage());
                 }
 
             }

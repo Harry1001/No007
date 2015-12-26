@@ -51,6 +51,6 @@ public class Images {
     public static final ImageIcon SHOURU_IMAGE=createIcon("ImageFiles/shouru.png");
     public static final ImageIcon USER_ACCOUNT_IMAGE=createIcon("ImageFiles/useraccount.png");
     public static final ImageIcon BACKGROUND_IMAGE=createIcon("ImageFiles/背景.jpg");
-     
-
+    public static final ImageIcon BACK_IMAGE=createIcon("ImageFiles/back.png");
+    public static final ImageIcon GO_IMAGE=createIcon("ImageFiles/go.png");
 }

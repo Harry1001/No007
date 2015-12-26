@@ -3,33 +3,39 @@ package presentation.contentpanel.financepanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
+import businessLogicService.infoblservice.BankAccountBLService;
+import constent.Constent;
 import myexceptions.TimeFormatException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.TimePanel;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.Images.Images;
+import presentation.commoncontainer.*;
 import typeDefinition.FeeType;
+import typeDefinition.MessageType;
 import typeDefinition.ReceiptState;
+import vo.infovo.BankAccountVO;
 import vo.receiptvo.PayReceiptVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by Harry on 2015/12/4.
  */
-public class PayReceiptPanel extends JPanel implements ActionListener{
+public class PayReceiptPanel extends JPanel implements ActionListener, FocusListener {
 
     FinanceBLService financeBLService;
+    BankAccountBLService bankAccountBLService;
 
     MainFrame parent;
     OutcomePanel outcomePanel;
@@ -43,26 +49,42 @@ public class PayReceiptPanel extends JPanel implements ActionListener{
     TimePanel timeP=new TimePanel();
     MyTextField feeT=new MyTextField();
     MyTextField personT=new MyTextField();
-    MyTextField accountT=new MyTextField();
+    JComboBox<String> accountT=new JComboBox<String>();
     MyTextField receiptIDT =new MyTextField();
-    MyButton submitbt=new MyButton("提交");
-    MyButton cancelbt=new MyButton("取消");
+    MyButton submitbt=new MyButton("Submit");
+    MyButton cancelbt=new MyButton("Clear");
+    MyButton backbt=new MyButton(" Back ", Images.BACK_IMAGE);
+    MyButton salarybt=new MyButton("Generate Salary");
 
-    JRadioButton salary = new JRadioButton("工资");
-    JRadioButton rent = new JRadioButton("租金");
-    JRadioButton carriage = new JRadioButton("运费");
-    JRadioButton bonus = new JRadioButton("奖金");
+    JRadioButton salary = new JRadioButton("工资 ");
+    JRadioButton rent = new JRadioButton("租金 ");
+    JRadioButton carriage = new JRadioButton("运费 ");
+    JRadioButton bonus = new JRadioButton("奖金 ");
 
     public PayReceiptPanel(MainFrame par, OutcomePanel outcomePanel){
         this.parent=par;
         this.outcomePanel=outcomePanel;
-        initUI();
+        initBL();
 
+        initUI();
+        sethotKey();
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
+        backbt.addActionListener(this);
+        salarybt.addActionListener(this);
 
-        initBL();
+        receiptIDT.addFocusListener(this);
+        feeT.addFocusListener(this);
+        personT.addFocusListener(this);
+
         refresh();
+    }
+
+    private void sethotKey(){
+        backbt.setMnemonic('B');
+        submitbt.setMnemonic('S');
+        cancelbt.setMnemonic('C');
+        salarybt.setMnemonic('G');
     }
 
     private void initUI(){
@@ -74,19 +96,34 @@ public class PayReceiptPanel extends JPanel implements ActionListener{
         salary.setSelected(true);
 
         JPanel btpanel=new JPanel();
+        btpanel.setOpaque(false);
         btpanel.setLayout(new BoxLayout(btpanel,BoxLayout.X_AXIS));
         btpanel.add(salary);
         btpanel.add(rent);
         btpanel.add(carriage);
         btpanel.add(bonus);
 
+        try {
+            ArrayList<BankAccountVO> bankAccountVOs=bankAccountBLService.getBankAccountList();
+            for (BankAccountVO vo:bankAccountVOs){
+                accountT.addItem(vo.getAccountUser());
+            }
+        } catch (RemoteException e) {
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.RED);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
-        gbc.insets=new Insets(10,10,10,10);
-        gbc.weightx=1.0;
-       // gbc.weighty=1.0;
+        gbc.insets=new Insets(0,10,10,10);
+        gbc.weightx=0.5;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.anchor=GridBagConstraints.CENTER;
 
         gbc.gridx=gbc.gridy=0;
+        this.add(backbt, gbc);
+        gbc.gridy++;
         this.add(timeL,gbc);
         gbc.gridy++;
         this.add(feeL,gbc);
@@ -99,8 +136,10 @@ public class PayReceiptPanel extends JPanel implements ActionListener{
         gbc.gridy++;
         this.add(receiptIDL,gbc);
 
+        gbc.anchor=GridBagConstraints.WEST;
         gbc.gridx=1;
-        gbc.gridy=0;
+        gbc.gridy=1;
+        gbc.gridwidth=2;
         this.add(timeP,gbc);
         gbc.gridy++;
         this.add(feeT,gbc);
@@ -113,36 +152,48 @@ public class PayReceiptPanel extends JPanel implements ActionListener{
         gbc.gridy++;
         this.add(receiptIDT,gbc);
 
-        gbc.anchor=GridBagConstraints.EAST;
+        gbc.anchor=GridBagConstraints.CENTER;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.gridwidth=1;
         gbc.gridy++;
-        this.add(cancelbt,gbc);
-        gbc.gridx=0;
         this.add(submitbt,gbc);
+        gbc.gridx=0;
+        this.add(salarybt,gbc);
+        gbc.anchor=GridBagConstraints.WEST;
+        gbc.gridx=2;
+        this.add(cancelbt,gbc);
 
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"付款单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
     }
 
     private void initBL(){
         try {
+            bankAccountBLService=BLFactory.getBankAccountBLService();
             financeBLService= BLFactory.getFinanceBLService();
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         } catch (NamingException e) {
-            new ErrorDialog(parent, "NamingException");
+            System.out.println(e.getMessage());
         }
     }
 
     public void refresh(){
         feeT.setText("");
         personT.setText(parent.getUserIdentity().getId());
-        accountT.setText("");
-        receiptIDT.setText("");
+
+        receiptIDT.setText(Constent.RECIEPT_NUM_FORMAT.format(new Date())+"+3位编号待输入");
         timeP.setPresentTime();
         salary.setSelected(true);
+
     }
+
+
 
     private FeeType getFeeType(){
         if (salary.isSelected()){
@@ -168,29 +219,45 @@ public class PayReceiptPanel extends JPanel implements ActionListener{
 
     private boolean checkMan(){
         String s=personT.getText();
-        return !s.isEmpty();
+        if (s.length()!= Constent.USER_ID_LENGTH) return false;
+        return isDigit(s);
     }
 
-    private boolean checkAcc(){
-        String s=accountT.getText();
-        return !s.isEmpty();
+    private boolean checkReceiptID(){
+        String s=receiptIDT.getText();
+        if (s.length()!=Constent.USER_ID_LENGTH){
+            return false;
+        }
+        else {
+            return isDigit(s);
+        }
+
+    }
+
+
+    private boolean isDigit(String s){
+        for (int i=0;i<s.length();i++){
+            if (s.charAt(i)<'0'||s.charAt(i)>'9'){
+                return false;
+            }
+        }
+        return true;
     }
 
 
     private boolean checkAll(){
         if (!checkMoney()){
-            new ErrorDialog(parent, "付款金额必须为正数");
+            new TranslucentFrame(this, "付款金额必须为正数", Color.RED);
             return false;
         }
 
         if (!checkMan()){
-            new ErrorDialog(parent, "付款人不可为空");
+            new TranslucentFrame(this, "请输入正确的付款人工号", Color.RED);
             return false;
         }
 
-        if (!checkAcc()){
-            new ErrorDialog(parent, "付款帐号不可为空");
-            return false;
+        if (!checkReceiptID()){
+            new TranslucentFrame(this, "付款单编号为"+Constent.PAY_RECEIPT_LENGTH+"位数字", Color.RED);
         }
 
         return true;
@@ -204,23 +271,24 @@ public class PayReceiptPanel extends JPanel implements ActionListener{
                         Date time=timeP.getDate();
                         double fee=Double.parseDouble(feeT.getText());
                         String man=personT.getText();
-                        String acc=accountT.getText();
+                        String acc=accountT.getSelectedItem().toString();
                         FeeType feeType=getFeeType();
                         String receiptID=receiptIDT.getText();
 
                         PayReceiptVO vo = new PayReceiptVO(time, fee, man, acc, feeType, ReceiptState.SUBMITTED,receiptID);
                         financeBLService.submitOut(vo);
                         refresh();
+                        new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                     } catch (TimeFormatException e1) {
-                        new ErrorDialog(parent, e1.getMessage());
+                        new TranslucentFrame(this, e1.getMessage(), Color.RED);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.RED);
                     } catch (SQLException e1) {
-                        new ErrorDialog(parent, "SQLException");
+                        System.out.println(e1.getMessage());
                     } catch (MalformedURLException e1) {
-                        new ErrorDialog(parent, "MalformedURLException");
+                        System.out.println(e1.getMessage());
                     } catch (NotBoundException e1) {
-                        new ErrorDialog(parent, "NotBoundException");
+                        System.out.println(e1.getMessage());
                     }
                 }
                 else {
@@ -230,6 +298,50 @@ public class PayReceiptPanel extends JPanel implements ActionListener{
         }
         else if (e.getSource()==cancelbt){
             refresh();
+        }
+        else if (e.getSource()==backbt){
+            outcomePanel.showList();
+        }
+        else if (e.getSource()==salarybt){
+            //todo
+        }
+    }
+
+    public void focusGained(FocusEvent e) {
+        if (e.getSource()==receiptIDT){
+            String s=receiptIDT.getText();
+            if (s.equals(Constent.RECIEPT_NUM_FORMAT.format(new Date())+"+3位编号待输入")){
+                receiptIDT.setText(Constent.RECIEPT_NUM_FORMAT.format(new Date()));
+            }
+        }
+    }
+
+    public void focusLost(FocusEvent e) {
+        if (e.getSource()==feeT){
+            if (checkMoney()){
+                feeT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                feeT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+
+        else if (e.getSource()==personT){
+            if (checkMan()){
+                personT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                personT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+
+        else if (e.getSource()==receiptIDT){
+            if (checkReceiptID()){
+                receiptIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                receiptIDT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
         }
     }
 }

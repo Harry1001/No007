@@ -11,7 +11,7 @@ public class BlankBlock extends JLabel {
 
     public BlankBlock(){
         this.setOpaque(false);
-        this.setSize(50, 50);
+        this.setSize(100, 100);
     }
 
     @Override

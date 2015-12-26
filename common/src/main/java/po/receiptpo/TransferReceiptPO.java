@@ -30,11 +30,11 @@ public class TransferReceiptPO extends ReceiptPO {
 	private ArrayList<String> orderID;//本次装箱所有货物的单号
 	private double transferFee;
 	private ReceiptState state;
-    private String id;
+    //private String id;
 	
 	public TransferReceiptPO(Vehicle transferType,Date transferDate,
 			String transferID,String vehicleID,String departLoc,String arriveLoc,
-			int counterID,ArrayList<String> orderID,double transferFee,ReceiptState state,String id) {
+			int counterID,ArrayList<String> orderID,double transferFee,ReceiptState state) {
 		super(ReceiptType.TRANSFER);
 		
 		this.transferType=transferType;
@@ -47,12 +47,12 @@ public class TransferReceiptPO extends ReceiptPO {
 		this.orderID=orderID;
 		this.transferFee=transferFee;
 		this.state=state;
-        this.id=id;
+
 	}
 
 	public TransferReceiptPO(TransferReceiptVO vo){
 		this(vo.getTransferType(),vo.getTransferDate(),vo.getTransferID(),vo.getVehicleID(),
-				vo.getDepartLoc(),vo.getArriveLoc(),vo.getCounterID(),vo.getOrderID(),vo.getTransferFee(),vo.getState(),vo.getId());
+				vo.getDepartLoc(),vo.getArriveLoc(),vo.getCounterID(),vo.getOrderID(),vo.getTransferFee(),vo.getState());
 	}
 
 	public Vehicle getTransferType() {
@@ -127,12 +127,5 @@ public class TransferReceiptPO extends ReceiptPO {
 		return state;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 }

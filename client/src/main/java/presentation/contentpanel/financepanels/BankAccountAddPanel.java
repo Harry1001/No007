@@ -3,10 +3,8 @@ package presentation.contentpanel.financepanels;
 import MainFrame.MainFrame;
 import businessLogicService.infoblservice.BankAccountBLService;
 import myexceptions.InfoBLException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.infovo.BankAccountVO;
 
 import javax.swing.*;
@@ -40,8 +38,15 @@ public class BankAccountAddPanel extends JPanel implements ActionListener {
         this.bankAccountBLService=service;
 
         initUI();
+        setHotKey();
         confirmbt.addActionListener(this);
         cancelbt.addActionListener(this);
+    }
+
+    private void setHotKey(){
+        confirmbt.setMnemonic('O');
+        cancelbt.setMnemonic('C');
+        dialog.getRootPane().setDefaultButton(confirmbt);
     }
 
     private void initUI(){
@@ -49,8 +54,8 @@ public class BankAccountAddPanel extends JPanel implements ActionListener {
         accountT=new MyTextField(25);
         balanceL=new MyLabel("当前余额");
         balanceT=new MyTextField(25);
-        confirmbt=new MyButton("确认");
-        cancelbt=new MyButton("取消");
+        confirmbt=new MyButton("OK");
+        cancelbt=new MyButton("Cancel");
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
@@ -59,14 +64,20 @@ public class BankAccountAddPanel extends JPanel implements ActionListener {
         this.add(accountL,gbc);
         gbc.gridy++;
         this.add(balanceL,gbc);
-        gbc.gridy++;
-        this.add(confirmbt,gbc);
-        gbc.gridx++;
-        this.add(cancelbt,gbc);
-        gbc.gridy--;
-        this.add(balanceT,gbc);
-        gbc.gridy--;
+
+        gbc.gridx=1;
+        gbc.gridy=0;
+        gbc.gridwidth=2;
         this.add(accountT,gbc);
+        gbc.gridy++;
+        this.add(balanceT,gbc);
+        gbc.gridwidth=1;
+        gbc.gridy++;
+        gbc.gridx=2;
+        this.add(cancelbt,gbc);
+        gbc.gridx--;
+        this.add(confirmbt,gbc);
+
     }
 
     private boolean checkAccount(){
@@ -96,12 +107,12 @@ public class BankAccountAddPanel extends JPanel implements ActionListener {
 
     private boolean checkAll(){
         if (!checkAccount()){
-            new ErrorDialog(parent, "请输入正确的银行帐号");
+            new TranslucentFrame(bankAccountPanel, "请输入正确的银行帐号", Color.RED);
             return false;
         }
 
         if (!checkBalance()){
-            new ErrorDialog(parent, "余额必须为非负数");
+            new TranslucentFrame(bankAccountPanel, "余额必须为非负数", Color.RED);
             return false;
         }
         return true;
@@ -116,13 +127,14 @@ public class BankAccountAddPanel extends JPanel implements ActionListener {
                 try {
                     bankAccountBLService.addBankAccount(vo);
                     bankAccountPanel.refresh();
+                    new TranslucentFrame(bankAccountPanel, MessageType.ADD_SUCCESS, Color.GREEN);
                     dialog.dispose();
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(bankAccountPanel, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(bankAccountPanel, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
-                    new ErrorDialog(parent, "SQLException");
+                    System.out.println(e1.getMessage());
                 }
 
             }

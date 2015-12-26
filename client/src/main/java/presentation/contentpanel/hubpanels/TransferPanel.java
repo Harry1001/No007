@@ -10,6 +10,7 @@ import presentation.commoncontainer.MyDefaultTableModel;
 import presentation.commoncontainer.MyLabel;
 import presentation.commoncontainer.MyTextField;
 import presentation.commoncontainer.ErrorDialog;
+import typeDefinition.ReceiptState;
 import typeDefinition.Vehicle;
 import vo.receiptvo.TransferReceiptVO;
 
@@ -332,7 +333,7 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
                 break;
         }
         Vehicle vehicle=Vehicle.values()[vehicleNum];
-        return new TransferReceiptVO(vehicle, null, null, null, fromLoc, toLoc, 0, null, 0.0);
+        return new TransferReceiptVO(vehicle, null, null, null, fromLoc, toLoc, 0, null, 0.0, ReceiptState.SUBMITTED);
     }
 
     /**
@@ -372,7 +373,7 @@ public class TransferPanel extends JPanel implements ActionListener, FocusListen
         }
 
         TransferReceiptVO vo = new TransferReceiptVO(vehicle, time, transID, vehicleID, fromLoc, toLoc,
-                counterID, orderIDs, fee);
+                counterID, orderIDs, fee, ReceiptState.SUBMITTED);
 
         return vo;
     }

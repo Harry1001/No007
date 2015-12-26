@@ -16,8 +16,10 @@ public class OutcomePanel extends JPanel {
     public OutcomePanel(MainFrame par){
         this.parent=par;
 
+        this.setOpaque(false);
         initInstance();
         initContentPane();
+        showList();
     }
 
     /**

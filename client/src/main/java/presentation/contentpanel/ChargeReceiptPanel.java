@@ -4,12 +4,9 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
 import constent.Constent;
+import myexceptions.InfoBLException;
 import myexceptions.TransportBLException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
 import vo.receiptvo.ChargeReceiptVO;
 
 import javax.naming.NamingException;
@@ -203,6 +200,8 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
                     new ErrorDialog(parent, "MalformedURLException");
                 } catch (NotBoundException e1) {
                     new ErrorDialog(parent, "NotBoundException");
+                } catch (InfoBLException e1) {
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 }
 
             }

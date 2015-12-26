@@ -3,10 +3,8 @@ package presentation.contentpanel.financepanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.infoblservice.BankAccountBLService;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyTable;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.infovo.BankAccountVO;
 
 import javax.swing.*;
@@ -30,8 +28,8 @@ public class BankAccountPanel extends JPanel implements ActionListener{
     private MainFrame parent;
     private MyDefaultTableModel defaultTableModel;
     private MyTable table;
-    private MyButton addbt=new MyButton("新增账户");
-    private MyButton deletebt=new MyButton("删除账户");
+    private MyButton addbt=new MyButton("New");
+    private MyButton deletebt=new MyButton("Delete");
 
     private BankAccountBLService bankAccountBLService;
 
@@ -44,6 +42,7 @@ public class BankAccountPanel extends JPanel implements ActionListener{
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         
         initUI();
+        setHotKey();
 
         addbt.addActionListener(this);
         deletebt.addActionListener(this);
@@ -52,15 +51,20 @@ public class BankAccountPanel extends JPanel implements ActionListener{
         refresh();
     }
 
+    private void setHotKey(){
+        addbt.setMnemonic('N');
+        deletebt.setMnemonic('D');
+    }
+
     private void initBL(){
         try {
             bankAccountBLService= BLFactory.getBankAccountBLService();
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -75,17 +79,25 @@ public class BankAccountPanel extends JPanel implements ActionListener{
         gbc.insets=new Insets(10,10,10,10);
         gbc.weightx=1.0;
         gbc.weighty=1.0;
+        gbc.fill=GridBagConstraints.BOTH;
 
         gbc.gridx=gbc.gridy=0;
         gbc.gridwidth=3;
         this.add(new JScrollPane(table),gbc);
 
-        gbc.weightx=gbc.weighty=0.0;
+        //gbc.weightx=gbc.weighty=0.0;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.anchor=GridBagConstraints.WEST;
         gbc.gridwidth=1;
         gbc.gridy++;
+        gbc.gridx=1;
         this.add(addbt, gbc);
         gbc.gridx++;
         this.add(deletebt,gbc);
+
+        gbc.gridy++;
+        gbc.gridx=0;
+        this.add(new BlankBlock(), gbc);
     }
 
     public void refresh(){
@@ -106,9 +118,9 @@ public class BankAccountPanel extends JPanel implements ActionListener{
             table.revalidate();
             table.updateUI();
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (SQLException e) {
-            new ErrorDialog(parent, "SQLException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -118,6 +130,7 @@ public class BankAccountPanel extends JPanel implements ActionListener{
                 JDialog dialog=new JDialog(parent,"新建银行账户", true);
                 dialog.getContentPane().add(new BankAccountAddPanel(parent, dialog, this, bankAccountBLService));
                 dialog.setLocationRelativeTo(parent);
+                dialog.setLocation(dialog.getX()/2, dialog.getY()/2);
                 dialog.pack();
                 dialog.setVisible(true);
             }
@@ -133,10 +146,11 @@ public class BankAccountPanel extends JPanel implements ActionListener{
                     try {
                         bankAccountBLService.deleteBankAccount(account);
                         refresh();
+                        new TranslucentFrame(this, MessageType.DELETE_SUCCESS, Color.GREEN);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
-                        new ErrorDialog(parent, "SQLException");
+                        System.out.println(e1.getMessage());
                     }
                 }
                 else{

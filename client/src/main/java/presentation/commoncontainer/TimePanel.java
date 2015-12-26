@@ -13,9 +13,9 @@ public class TimePanel extends JPanel {
     private MyLabel yearL=new MyLabel("年");
     private MyLabel monthL=new MyLabel("月");
     private MyLabel dateL=new MyLabel("日");
-    private JTextField yearT=new MyTextField(8);
-    private JTextField monthT=new MyTextField(4);
-    private JTextField dateT=new MyTextField(4);
+    private JTextField yearT=new MyTextField(4);
+    private JTextField monthT=new MyTextField(2);
+    private JTextField dateT=new MyTextField(2);
 
     public TimePanel(){
         super();
@@ -26,6 +26,7 @@ public class TimePanel extends JPanel {
         this.add(monthL);
         this.add(dateT);
         this.add(dateL);
+        this.setOpaque(false);
     }
 
     public Date getDate() throws TimeFormatException{

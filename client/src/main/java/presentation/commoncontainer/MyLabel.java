@@ -14,6 +14,7 @@ public class MyLabel extends JLabel {
     }
 
     private void initialize(){
-        this.setFont(new Font("",Font.PLAIN,15));
+        this.setFont(new Font("微软雅黑",Font.PLAIN,20));
+        this.setHorizontalAlignment(CENTER);
     }
 }

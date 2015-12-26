@@ -48,9 +48,9 @@ public class TransferReceiptDBManager extends DBManager {
 				int counterID = resultSet.getInt(7);
 				double transferFee = resultSet.getDouble(9);
 				ReceiptState state=ReceiptState.values()[resultSet.getInt(10)];
-				String id=resultSet.getString(11);
+
 				po = new TransferReceiptPO(transferType, transferDate, transferID, vehicleID, departLoc, arriveLoc,
-						counterID, null, transferFee,state,id);
+						counterID, null, transferFee,state);
 			}
 		}
 		stopconnection(connection);
@@ -68,8 +68,7 @@ public class TransferReceiptDBManager extends DBManager {
 		ArrayList<String> order = item.getOrderID();
 		double transferFee = item.getTransferFee();
 		int state=item.getState().ordinal();
-		String id=item.getId();
-		String add = "INSERT INTO TransferReceipt VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		String add = "INSERT INTO TransferReceipt VALUES (?,?,?,?,?,?,?,?,?,?)";
 		Connection connection = connectToDB();
 		PreparedStatement statement = connection.prepareStatement(add);
 		for (String orderID : order) {
@@ -83,7 +82,6 @@ public class TransferReceiptDBManager extends DBManager {
 			statement.setString(8, orderID);
 			statement.setDouble(9, transferFee);
 			statement.setInt(10, state);
-			statement.setString(11, id);
 			statement.executeUpdate();
 		}
 		stopconnection(connection);
@@ -98,7 +96,7 @@ public class TransferReceiptDBManager extends DBManager {
 	}
 
 	public ArrayList<TransferReceiptPO> getListByState(ReceiptState state) throws SQLException {
-		String find = "SELECT * FROM TransferReceipt WHERE state = '" + state + "'";
+		String find = "SELECT * FROM TransferReceipt WHERE state = '" + state.ordinal() + "'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(find);
@@ -127,9 +125,9 @@ public class TransferReceiptDBManager extends DBManager {
 				int counterID = resultSet.getInt(7);
 				double transferFee = resultSet.getDouble(9);
 				ReceiptState state1=ReceiptState.values()[resultSet.getInt(10)];
-				String id=resultSet.getString(11);
+
 				po = new TransferReceiptPO(transferType, transferDate, transferID, vehicleID, departLoc, arriveLoc,
-						counterID, null, transferFee,state1,id);
+						counterID, null, transferFee,state1);
 			}
 		}
 		stopconnection(connection);
@@ -138,7 +136,7 @@ public class TransferReceiptDBManager extends DBManager {
 
 	public void update(String orderID, ReceiptState state) throws SQLException {
 		String update = "UPDATE TransferReceipt"
-				+ " SET state = '" + state + "'state"
+				+ " SET state = '" + state.ordinal()
 				+ " WHERE id = '" + orderID + "'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();

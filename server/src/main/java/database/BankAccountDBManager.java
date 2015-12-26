@@ -49,7 +49,7 @@ public class BankAccountDBManager extends DBManager{
 		}
 		else {
 			String bankaccountupdate = "UPDATE Bankaccount"
-					+ " SET balance = " + balance.toString() + "balance"
+					+ " SET balance = " + balance.toString()
 					+ " WHERE accountuser = '" + accountuser + "'";
 			Connection connection = connectToDB();
 			Statement statement = connection.createStatement();
