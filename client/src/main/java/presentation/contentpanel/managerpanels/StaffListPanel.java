@@ -4,11 +4,9 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.infoblservice.StaffBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyTable;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
 import typeDefinition.Job;
+import typeDefinition.MessageType;
 import vo.infovo.StaffVO;
 
 import javax.swing.*;
@@ -31,9 +29,9 @@ import java.util.Vector;
  */
 public class StaffListPanel extends JPanel implements ActionListener{
     private MainFrame parent;
-    private MyButton addbt=new MyButton("新增");
-    private MyButton deletebt=new MyButton("删除");
-    private MyButton modifybt=new MyButton("修改");
+    private MyButton addbt=new MyButton("New");
+    private MyButton deletebt=new MyButton("Delete");
+    private MyButton modifybt=new MyButton("Modify");
 
     private MyDefaultTableModel defaultTableModel;
     private MyTable table;
@@ -44,6 +42,24 @@ public class StaffListPanel extends JPanel implements ActionListener{
     public StaffListPanel(MainFrame par) {
 
         this.parent=par;
+
+        initUI();
+        setHotKey();
+        addbt.addActionListener(this);
+        deletebt.addActionListener(this);
+        modifybt.addActionListener(this);
+
+        initBL();
+        refreshList();
+    }
+
+    private void setHotKey(){
+        addbt.setMnemonic('N');
+        deletebt.setMnemonic('D');
+        modifybt.setMnemonic('M');
+    }
+
+    private void initUI(){
         this.setOpaque(false);
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"人员管理",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
@@ -75,12 +91,9 @@ public class StaffListPanel extends JPanel implements ActionListener{
         gbc.gridx=2;
         this.add(modifybt,gbc);
 
-        addbt.addActionListener(this);
-        deletebt.addActionListener(this);
-        modifybt.addActionListener(this);
-
-        initBL();
-        refreshList();
+        gbc.gridx=0;
+        gbc.gridy++;
+        this.add(new BlankBlock(),gbc);
     }
 
     /**
@@ -100,11 +113,11 @@ public class StaffListPanel extends JPanel implements ActionListener{
         try {
             staffBLService= BLFactory.getStaffBLService();
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "网络连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -134,10 +147,9 @@ public class StaffListPanel extends JPanel implements ActionListener{
                 table.updateUI();
                 //System.out.println(""+defaultTableModel.getRowCount());
             } catch (RemoteException e) {
-                new ErrorDialog(parent, "网络连接超时");
+                new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
             } catch (SQLException e) {
                 System.out.println("刷新人员列表sql："+e.getMessage());
-                new ErrorDialog(parent, "SQLException");
             }
         }
         else {
@@ -152,6 +164,7 @@ public class StaffListPanel extends JPanel implements ActionListener{
                 JDialog dialog=new JDialog(parent,"新增人员信息",true);
                 dialog.getContentPane().add(new StaffInfoPanel(parent, dialog, staffBLService, this));
                 dialog.setLocationRelativeTo(parent);
+                dialog.setLocation(dialog.getX()/3, dialog.getY()/3);
                 dialog.pack();
                 dialog.setVisible(true);
             }
@@ -162,17 +175,18 @@ public class StaffListPanel extends JPanel implements ActionListener{
         else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
             if (row==-1){//没有选择任何行
-                new ErrorDialog(parent, "请选择一行待删除条目");
+                new TranslucentFrame(this, "请选择一行待删除信息", Color.RED);
             } else {//选择了待删除的行
                 if (staffBLService!=null){
                     String id= (String)table.getValueAt(row, 0);
                     try {
                         staffBLService.deleteStaff(id);
                         refreshList();
+                        new TranslucentFrame(this, MessageType.DELETE_SUCCESS, Color.GREEN);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "网络连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
-                        new ErrorDialog(parent, "SQLException");
+                        System.out.println(e1.getMessage());
                     }
                 }
                 else{
@@ -183,7 +197,7 @@ public class StaffListPanel extends JPanel implements ActionListener{
         else if (e.getSource()==modifybt){
             int row=table.getSelectedRow();
             if (row==-1){
-                new ErrorDialog(parent, "请选择待修改行");
+                new TranslucentFrame(this, "请选择待修改行", Color.RED);
             }
             else {
                 if (staffBLService!=null){
@@ -204,7 +218,7 @@ public class StaffListPanel extends JPanel implements ActionListener{
                     try {
                         birthday=Constent.BIRTHDAY_FORMAT.parse((String)table.getValueAt(row,3));
                     } catch (ParseException e1) {
-                        new ErrorDialog(parent, "不可能！");
+                        e1.printStackTrace();
                     }
 
                     StaffVO vo=new StaffVO(id, name, gender, birthday, job, 0, frequency);
@@ -212,6 +226,7 @@ public class StaffListPanel extends JPanel implements ActionListener{
                     JDialog dialog=new JDialog(parent,"修改人员信息",true);
                     dialog.getContentPane().add(new StaffModifyPanel(parent, dialog, staffBLService, this, vo));
                     dialog.setLocationRelativeTo(parent);
+                    dialog.setLocation(dialog.getX()/3, dialog.getY()/3);
                     dialog.pack();
                     dialog.setVisible(true);
                 }

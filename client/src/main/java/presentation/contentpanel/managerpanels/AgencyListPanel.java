@@ -3,10 +3,8 @@ package presentation.contentpanel.managerpanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.infoblservice.AgencyBLService;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyTable;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.infovo.AgencyVO;
 
 import javax.swing.*;
@@ -27,9 +25,9 @@ import java.util.Vector;
  */
 public class AgencyListPanel extends JPanel implements ActionListener {
     private MainFrame parent;
-    private MyButton addbt=new MyButton("新增");
-    private MyButton deletebt=new MyButton("删除");
-    private MyButton modifybt=new MyButton("修改");
+    private MyButton addbt=new MyButton("New");
+    private MyButton deletebt=new MyButton("Delete");
+    private MyButton modifybt=new MyButton("Modify");
 
     private MyDefaultTableModel defaultTableModel;
     private MyTable table;
@@ -41,10 +39,29 @@ public class AgencyListPanel extends JPanel implements ActionListener {
     public AgencyListPanel(MainFrame par) {
 
         this.parent=par;
+
+        initUI();
+        setHotKey();
+
+        addbt.addActionListener(this);
+        deletebt.addActionListener(this);
+        modifybt.addActionListener(this);
+
+        initBL();
+        refreshList();
+    }
+
+    private void setHotKey(){
+        addbt.setMnemonic('N');
+        deletebt.setMnemonic('D');
+        modifybt.setMnemonic('M');
+    }
+
+    private void initUI(){
         this.setOpaque(false);
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"机构管理",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
-        
+
         initNames();
         defaultTableModel=new MyDefaultTableModel(names,0);
         table=new MyTable(defaultTableModel);
@@ -72,12 +89,9 @@ public class AgencyListPanel extends JPanel implements ActionListener {
         gbc.gridx=2;
         this.add(modifybt,gbc);
 
-        addbt.addActionListener(this);
-        deletebt.addActionListener(this);
-        modifybt.addActionListener(this);
-
-        initBL();
-        refreshList();
+        gbc.gridx=0;
+        gbc.gridy++;
+        this.add(new BlankBlock(), gbc);
     }
 
     /**
@@ -97,11 +111,11 @@ public class AgencyListPanel extends JPanel implements ActionListener {
         try {
             agencyBLService= BLFactory.getAgencyBLService();
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "网络连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -130,9 +144,9 @@ public class AgencyListPanel extends JPanel implements ActionListener {
                 table.updateUI();
                 //System.out.println(""+defaultTableModel.getRowCount());
             } catch (RemoteException e) {
-                new ErrorDialog(parent, "网络连接超时");
+                new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
             } catch (SQLException e) {
-                new ErrorDialog(parent, "SQLException");
+                System.out.println(e.getMessage());
             }
         }
         else {
@@ -143,9 +157,10 @@ public class AgencyListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==addbt){
             if (agencyBLService!=null){
-                JDialog dialog=new JDialog(parent,"新增机构信息",false);
+                JDialog dialog=new JDialog(parent,"新增机构信息",true);
                 dialog.getContentPane().add(new AgencyInfoPanel(dialog, parent, this, agencyBLService));
                 dialog.setLocationRelativeTo(parent);
+                dialog.setLocation(dialog.getX()/3, dialog.getY()/3);
                 dialog.pack();
                 dialog.setVisible(true);
             }
@@ -156,17 +171,18 @@ public class AgencyListPanel extends JPanel implements ActionListener {
         else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
             if (row==-1){//没有选择任何行
-                new ErrorDialog(parent, "请选择一行待删除条目");
+                new TranslucentFrame(this, "请选择一行待删除条目", Color.RED);
             } else {//选择了待删除的行
                 if (agencyBLService!=null){
                     String id= (String)table.getValueAt(row, 0);
                     try {
                         agencyBLService.deleteAgency(id);
                         refreshList();
+                        new TranslucentFrame(this, MessageType.DELETE_SUCCESS, Color.GREEN);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "网络连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
-                        new ErrorDialog(parent, "SQLException");
+                        System.out.println(e1.getMessage());
                     }
                 }
                 else {
@@ -177,7 +193,7 @@ public class AgencyListPanel extends JPanel implements ActionListener {
         else if (e.getSource()==modifybt){
             int row=table.getSelectedRow();
             if (row==-1){//没有选择任何行
-                new ErrorDialog(parent, "请选择一行待修改条目");
+                new TranslucentFrame(this, "请选择一行待修改条目", Color.RED);
             } else {//选择了待修改的行
                 if (agencyBLService!=null){
                     String id=(String)table.getValueAt(row, 0);
@@ -191,6 +207,7 @@ public class AgencyListPanel extends JPanel implements ActionListener {
                     JDialog dialog=new JDialog(parent,"修改机构信息",false);
                     dialog.getContentPane().add(new AgencyModifyPanel(dialog, parent, this, agencyBLService, vo));
                     dialog.setLocationRelativeTo(parent);
+                    dialog.setLocation(dialog.getX()/3, dialog.getY()/3);
                     dialog.pack();
                     dialog.setVisible(true);
                 }

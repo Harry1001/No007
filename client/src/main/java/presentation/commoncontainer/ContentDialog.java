@@ -43,8 +43,8 @@ public class ContentDialog extends JDialog implements ActionListener {
         this.setLocationRelativeTo(parent);
         int x=this.getX();
         int y=this.getY();
-        x/=5;
-        y/=5;
+        x/=3;
+        y/=3;
         this.setLocation(x,y);
     }
 

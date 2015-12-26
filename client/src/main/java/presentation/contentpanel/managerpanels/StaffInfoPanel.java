@@ -5,12 +5,9 @@ import businessLogicService.infoblservice.StaffBLService;
 import constent.Constent;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.TimePanel;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
 import typeDefinition.Job;
+import typeDefinition.MessageType;
 import vo.infovo.StaffVO;
 
 import javax.swing.*;
@@ -30,19 +27,33 @@ public class StaffInfoPanel extends JPanel implements ActionListener{
     protected JDialog dialog;
     protected MainFrame parent;
     protected MyLabel[] labels=new MyLabel[5];
-    protected MyTextField idT=new MyTextField(20);
-    protected MyTextField nameT=new MyTextField(20);
+    protected MyTextField idT=new MyTextField();
+    protected MyTextField nameT=new MyTextField();
     protected JComboBox<String> genderC;
     protected JComboBox<String> jobC;
     protected TimePanel p1;
-    protected MyButton submitbt=new MyButton("提交");
-    protected MyButton cancelbt=new MyButton("取消");
+    protected MyButton submitbt=new MyButton("Submit");
+    protected MyButton cancelbt=new MyButton("Cancel");
 
     public StaffInfoPanel(MainFrame parent, JDialog dialog, StaffBLService bl, StaffListPanel panel) {
         this.parent = parent;
         this.dialog=dialog;
         this.staffBLService=bl;
         this.staffListPanel=panel;
+
+        initUI();
+        setHotKey();
+
+        submitbt.addActionListener(this);
+        cancelbt.addActionListener(this);
+    }
+
+    private void setHotKey(){
+        submitbt.setMnemonic('S');
+        cancelbt.setMnemonic('C');
+    }
+
+    private void initUI(){
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
@@ -80,9 +91,12 @@ public class StaffInfoPanel extends JPanel implements ActionListener{
         this.add(submitbt,gbc);
         gbc.gridx=1;
         this.add(cancelbt,gbc);
+    }
 
-        submitbt.addActionListener(this);
-        cancelbt.addActionListener(this);
+    protected void refresh(){
+        nameT.setText("");
+        idT.setText("");
+        p1.makeEmpty();
     }
 
     protected boolean checkID(){
@@ -105,12 +119,12 @@ public class StaffInfoPanel extends JPanel implements ActionListener{
 
     protected boolean checkAll(){
         if (!checkID()){
-            new ErrorDialog(parent, "工号必须为"+Constent.USER_ID_LENGTH+"位数字");
+            new TranslucentFrame(staffListPanel, "工号必须为"+Constent.USER_ID_LENGTH+"位数字", Color.RED);
             return false;
         }
 
         if (!checkName()){
-            new ErrorDialog(parent, "姓名不可为空");
+            new TranslucentFrame(staffListPanel, "姓名不可为空", Color.RED);
             return false;
         }
 
@@ -129,16 +143,16 @@ public class StaffInfoPanel extends JPanel implements ActionListener{
                     StaffVO vo=new StaffVO(id, name, gender, birthday, position, 0, 0);
                     staffBLService.addStaff(vo);
                     staffListPanel.refreshList();
-                    dialog.dispose();
+                    refresh();
+                    new TranslucentFrame(staffListPanel, MessageType.ADD_SUCCESS, Color.GREEN);
                 } catch (TimeFormatException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(staffListPanel, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(staffListPanel, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     System.out.println("新增人员sql："+e1.getMessage());
-                    new ErrorDialog(parent, "SQLException");
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(staffListPanel, e1.getMessage(), Color.RED);
                 }
             }
         }

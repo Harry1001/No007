@@ -4,10 +4,8 @@ import MainFrame.MainFrame;
 import businessLogicService.infoblservice.AgencyBLService;
 import constent.Constent;
 import myexceptions.InfoBLException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.infovo.AgencyVO;
 
 import javax.swing.*;
@@ -29,8 +27,8 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
     protected MyTextField[] textFields=new MyTextField[5];
     protected JComboBox<String> type;
 
-    protected MyButton submitbt=new MyButton("提交");
-    protected MyButton cancelbt=new MyButton("取消");
+    protected MyButton submitbt=new MyButton("Submit");
+    protected MyButton cancelbt=new MyButton("Cancel");
 
     public AgencyInfoPanel(JDialog dialog, MainFrame parent, AgencyListPanel panel, AgencyBLService agencyBLService) {
         this.agencyBLService=agencyBLService;
@@ -39,9 +37,15 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
         this.dialog=dialog;
 
         initUI();
+        setHotKey();
 
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
+    }
+
+    private void setHotKey(){
+        submitbt.setMnemonic('S');
+        cancelbt.setMnemonic('C');
     }
 
     /**
@@ -95,17 +99,17 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
      */
     protected boolean checkAll(){
         if (!checkAgencyID()){
-            new ErrorDialog(parent,"机构编号格式错误：中转中心4位，营业厅6位");
+            new TranslucentFrame(listPanel, "机构编号格式错误：中转中心4位，营业厅6位", Color.RED);
             return false;
         }
 
         if (!checkArea()){
-            new ErrorDialog(parent,"面积必须为正整数");
+            new TranslucentFrame(listPanel, "面积必须为正整数", Color.RED);
             return false;
         }
 
         if (!checkRent()){
-            new ErrorDialog(parent,"租金必须为正整数");
+            new TranslucentFrame(listPanel, "租金必须为正整数", Color.RED);
             return false;
         }
 
@@ -187,14 +191,13 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
                 try {
                     agencyBLService.addAgency(vo);
                     listPanel.refreshList();
-                    dialog.dispose();
+                    new TranslucentFrame(listPanel, MessageType.ADD_SUCCESS, Color.GREEN);
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(listPanel, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     System.out.println("agency sql:"+e1.getMessage());
-                    new ErrorDialog(parent, "SQLException");
                 }
             }
         }

@@ -42,6 +42,7 @@ public class RecordListPanel extends JPanel implements ActionListener{
         initBL();
 
         refreshbt.addActionListener(this);
+        refreshData();
     }
 
     private void initUI(){
@@ -106,7 +107,7 @@ public class RecordListPanel extends JPanel implements ActionListener{
                 }
                 table.revalidate();
                 table.updateUI();
-                new TranslucentFrame(this, "刷新成功", Color.GREEN);
+
             } catch (RemoteException e) {
                 new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
             } catch (SQLException e) {
@@ -120,6 +121,7 @@ public class RecordListPanel extends JPanel implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         refreshData();
+        new TranslucentFrame(this, "刷新成功", Color.GREEN);
     }
     
 }

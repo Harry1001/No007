@@ -3,9 +3,8 @@ package presentation.contentpanel.managerpanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.strategyblservice.SalaryStrategyBLService;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyTable;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.strategyvo.SalaryVO;
 
 import javax.swing.*;
@@ -25,8 +24,9 @@ import java.util.Vector;
  */
 public class SalaryListPanel extends JPanel implements ActionListener {
     protected MainFrame parent;
-    protected MyButton confirmbt=new MyButton("确认");
-    protected MyButton cancelbt=new MyButton("取消");
+    protected MyButton confirmbt=new MyButton("OK");
+    protected MyButton cancelbt=new MyButton("Refresh");
+    protected MyLabel tipL=new MyLabel("双击表格中的单元格可以修改薪水");
 
     protected EditableTableModel defaultTableModel;
     protected MyTable table;
@@ -38,43 +38,61 @@ public class SalaryListPanel extends JPanel implements ActionListener {
 
     public SalaryListPanel(MainFrame par){
         this.parent=par;
-        this.setOpaque(false);
-        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"薪水策略",
-                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
-        
-        //todo 读取数据后初始化表格data
-        defaultTableModel=new EditableTableModel(names,0);
-        table=new MyTable(defaultTableModel);
-        table.setRowSorter(null);//工资表格不可排序
 
-        this.setLayout(new GridBagLayout());
-        GridBagConstraints gbc=new GridBagConstraints();
-        gbc.insets=new Insets(10,10,10,10);
-        gbc.fill=GridBagConstraints.BOTH;
-
-        gbc.weightx=gbc.weighty=1.0;
-        gbc.gridwidth=6;
-        gbc.gridheight=10;
-        this.add(new JScrollPane(table),gbc);
-
-        gbc.weightx=gbc.weighty=0.0;
-        gbc.fill=GridBagConstraints.NONE;
-        gbc.anchor=GridBagConstraints.WEST;
-        gbc.gridheight=1;
-        gbc.gridwidth=1;
-
-        gbc.gridy=13;
-        gbc.gridx=3;
-        this.add(confirmbt,gbc);
-        gbc.gridx=3;
-        this.add(cancelbt,gbc);
-
+        initUI();
+        setHotKey();
 
         confirmbt.addActionListener(this);
         cancelbt.addActionListener(this);
 
         initBL();
         initData();
+    }
+
+    private void setHotKey(){
+        confirmbt.setMnemonic('O');
+        cancelbt.setMnemonic('R');
+    }
+
+    private void initUI(){
+        this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"薪水策略",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+
+
+        defaultTableModel=new EditableTableModel(names,0);
+        table=new MyTable(defaultTableModel);
+        table.setRowSorter(null);//工资表格不可排序
+        table.setPreferredScrollableViewportSize(new Dimension(500,150));
+
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints gbc=new GridBagConstraints();
+        gbc.insets=new Insets(10,10,10,10);
+        gbc.fill=GridBagConstraints.BOTH;
+
+        gbc.gridx=gbc.gridy=0;
+        gbc.weightx=gbc.weighty=1.0;
+        gbc.gridwidth=3;
+        gbc.gridheight=1;
+        this.add(new JScrollPane(table),gbc);
+
+        gbc.weightx=gbc.weighty=0.0;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.anchor=GridBagConstraints.WEST;
+        gbc.gridy++;
+        this.add(tipL, gbc);
+
+        gbc.gridwidth=1;
+        gbc.anchor=GridBagConstraints.CENTER;
+        gbc.gridy=2;
+        gbc.gridx=0;
+        this.add(confirmbt,gbc);
+        gbc.gridx=1;
+        this.add(cancelbt,gbc);
+
+        gbc.gridx=0;
+        gbc.gridy++;
+        this.add(new BlankBlock(), gbc);
     }
 
     /**
@@ -113,9 +131,9 @@ public class SalaryListPanel extends JPanel implements ActionListener {
             table.revalidate();
             table.updateUI();
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (SQLException e) {
-            new ErrorDialog(parent, "SQLException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -127,11 +145,11 @@ public class SalaryListPanel extends JPanel implements ActionListener {
         try {
             salaryService = BLFactory.getSalaryBLService();
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -155,13 +173,13 @@ public class SalaryListPanel extends JPanel implements ActionListener {
                     SalaryVO vo = new SalaryVO(finance, admin, driver, hub, mail, manager, depot, store, driverAl, mailAl);
                     salaryService.setSalary(vo);
                     initData();
+                    new TranslucentFrame(this, MessageType.MODIFY_SUCCESS, Color.GREEN);
                 } catch (NumberFormatException e1){
-                    new ErrorDialog(parent, "工资必须为正数");
+                    new TranslucentFrame(this, "工资必须为正整数", Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     System.out.println("salary sql"+e1.getMessage());
-                    new ErrorDialog(parent, "SQLException:");
                 }
             }
             else {
@@ -170,6 +188,7 @@ public class SalaryListPanel extends JPanel implements ActionListener {
         }
         else if (e.getSource()==cancelbt){//点击取消则重新载入数据
             initData();
+            new TranslucentFrame(this, "刷新成功", Color.GREEN);
         }
     }
 
@@ -202,11 +221,7 @@ public class SalaryListPanel extends JPanel implements ActionListener {
 
         @Override
         public boolean isCellEditable(int row, int column) {
-            if (column==0){
-                return false;
-            }else {
-                return true;
-            }
+            return column!=0;
         }
     }
 

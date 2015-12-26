@@ -4,10 +4,8 @@ package presentation.contentpanel.managerpanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.strategyblservice.FeeStrategyBLService;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.strategyvo.CarriageFeeVO;
 import vo.strategyvo.ExpressFeeVO;
 
@@ -32,17 +30,45 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
     protected JPanel chargepanel= new JPanel();
     protected MyLabel[] labels=new MyLabel[6];
     protected MyTextField[] textFields=new MyTextField[6];
-    protected MyButton confirmbt=new MyButton("确认");
-    protected MyButton cancelbt=new MyButton("取消");
+    protected MyButton confirmbt=new MyButton("OK");
+    protected MyButton cancelbt=new MyButton("Cancel");
 
     protected FeeStrategyBLService feeService;
 
     public FeeStrategyPanel(MainFrame par){
         this.parent=par;
+
+        initUI();
+        setHotKey();
+        confirmbt.addActionListener(this);
+        cancelbt.addActionListener(this);
+
+        initBL();
+        refreshData();
+    }
+
+    private void setHotKey(){
+        confirmbt.setMnemonic('O');
+        cancelbt.setMnemonic('C');
+    }
+
+    private void initBL(){
+        try {
+            feeService=BLFactory.getFeeBLService();
+        } catch (RemoteException e) {
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
+        } catch (NotBoundException e) {
+            System.out.println(e.getMessage());
+        } catch (MalformedURLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void initUI(){
         this.setOpaque(false);
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"价格距离策略",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
-        
+
         labels[0]=new MyLabel("汽车");
         labels[1]=new MyLabel("火车");
         labels[2]=new MyLabel("飞机");
@@ -66,6 +92,8 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
 
         chargepanel.setLayout(new GridBagLayout());
         paypanel.setLayout(new GridBagLayout());
+        paypanel.setOpaque(false);
+        chargepanel.setOpaque(false);
 
         for(gbc.gridx=0,gbc.gridy=0;gbc.gridy<3;gbc.gridy++){
             paypanel.add(labels[gbc.gridy],gbc);
@@ -88,24 +116,6 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
         this.add(confirmbt,gbc);
         gbc.gridx=1;
         this.add(cancelbt,gbc);
-
-        confirmbt.addActionListener(this);
-        cancelbt.addActionListener(this);
-
-        initBL();
-        refreshData();
-    }
-
-    private void initBL(){
-        try {
-            feeService=BLFactory.getFeeBLService();
-        } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
-        } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
-        } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
-        }
     }
 
     /**
@@ -123,9 +133,9 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
             textFields[5].setText(""+expressFeeVO.getSpePrice());
 
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (SQLException e) {
-            new ErrorDialog(parent, "SQLException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -165,20 +175,22 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
                     try {
                         feeService.setCarriage(carriageFeeVO);
                         feeService.setExpressFee(expressFeeVO);
+                        new TranslucentFrame(this, MessageType.MODIFY_SUCCESS, Color.GREEN);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
-                        new ErrorDialog(parent, "SQLException");
+                        System.out.println(e1.getMessage());
                     }
                 }
                 else {
                     initBL();
                 }
             } else {
-                new ErrorDialog(parent, "所有输入必须为正数");
+                new TranslucentFrame(this, "所有输入必须为正数", Color.RED);
             }
         } else if (e.getSource()==cancelbt){
             refreshData();//不保存，重新载入数据
+            new TranslucentFrame(this, "刷新成功", Color.GREEN);
         }
     }
 }

@@ -5,13 +5,12 @@ import blfactory.BLFactory;
 import businessLogicService.receiptblservice.PayReceiptBLService;
 import businessLogicService.transportblservice.TransferBLService;
 import javafx.scene.control.SelectionMode;
-import presentation.commoncontainer.ErrorDialog;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyTable;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import typeDefinition.ReceiptState;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,14 +30,15 @@ public class ShenPiPanel extends JPanel implements ActionListener {
     private MyTable table;
     private MyDefaultTableModel defaultTableModel;
     private Vector<String> names;
-    private MyButton approvebt=new MyButton("通过");
-    private MyButton disappbt=new MyButton("不通过");
-    private MyButton refreshbt=new MyButton("刷新");
+    private MyButton approvebt=new MyButton("Approve");
+    private MyButton disappbt=new MyButton("Disapprove");
+    private MyButton refreshbt=new MyButton("Refresh");
 
     public ShenPiPanel(MainFrame par){
         this.parent=par;
 
         initUI();
+        setHotKey();
 
         initBL();
 
@@ -46,6 +46,12 @@ public class ShenPiPanel extends JPanel implements ActionListener {
         disappbt.addActionListener(this);
         refreshbt.addActionListener(this);
         refreshList();
+    }
+
+    private void setHotKey(){
+        approvebt.setMnemonic('A');
+        disappbt.setMnemonic('D');
+        refreshbt.setMnemonic('R');
     }
 
     private void initBL(){
@@ -77,14 +83,17 @@ public class ShenPiPanel extends JPanel implements ActionListener {
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc =new GridBagConstraints();
-        gbc.fill=GridBagConstraints.NONE;
+        gbc.fill=GridBagConstraints.BOTH;
         gbc.insets=new Insets(10,10,10,10);
         gbc.anchor=GridBagConstraints.EAST;
 
+        gbc.weightx=gbc.weighty=1.0;
         gbc.gridx=gbc.gridy=0;
         gbc.gridwidth=3;
-        this.add(table, gbc);
+        this.add(new JScrollPane(table), gbc);
 
+        gbc.weightx=gbc.weighty=0.0;
+        gbc.fill=GridBagConstraints.NONE;
         gbc.gridwidth=1;
         gbc.gridy++;
         this.add(approvebt, gbc);
@@ -94,6 +103,8 @@ public class ShenPiPanel extends JPanel implements ActionListener {
         this.add(refreshbt,gbc);
 
         this.setOpaque(false);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"审批单据",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
     }
 
 
@@ -106,7 +117,7 @@ public class ShenPiPanel extends JPanel implements ActionListener {
         if (e.getSource()==approvebt){
             int [] rows = table.getSelectedRows();
             if (rows.length<=0){
-                new ErrorDialog(parent, "请选择待审批单据");
+                new TranslucentFrame(this, "请选择要审批的单据(按住ctrl可多选)", Color.RED);
             }
             else {//选择了行
                 if (isBLInited()){
@@ -121,9 +132,9 @@ public class ShenPiPanel extends JPanel implements ActionListener {
                             }
                             refreshList();
                         } catch (RemoteException e1) {
-                            new ErrorDialog(parent, "服务器连接超时");
+                            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                         } catch (SQLException e1) {
-                            new ErrorDialog(parent, "SQLException");
+                            System.out.println(e1.getMessage());
                         }
                     }
                 }
@@ -135,7 +146,7 @@ public class ShenPiPanel extends JPanel implements ActionListener {
         else if (e.getSource()==disappbt){
             int [] rows = table.getSelectedRows();
             if (rows.length<=0){
-                new ErrorDialog(parent, "请选择待审批单据");
+                new TranslucentFrame(this, "请选择要审批的单据(按住ctrl可多选)", Color.RED);
             }
             else {//选择了行
                 if (isBLInited()){
@@ -150,9 +161,9 @@ public class ShenPiPanel extends JPanel implements ActionListener {
                             }
                             refreshList();
                         } catch (RemoteException e1) {
-                            new ErrorDialog(parent, "服务器连接超时");
+                            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                         } catch (SQLException e1) {
-                            new ErrorDialog(parent, "SQLException");
+                            System.out.println(e1.getMessage());
                         }
                     }
                 }
@@ -163,6 +174,7 @@ public class ShenPiPanel extends JPanel implements ActionListener {
         }
         else if (e.getSource()==refreshbt){
             refreshList();
+            new TranslucentFrame(this, "刷新成功", Color.GREEN);
         }
     }
 }

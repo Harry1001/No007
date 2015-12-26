@@ -5,10 +5,13 @@ import businessLogicService.infoblservice.StaffBLService;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
 import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.TranslucentFrame;
 import typeDefinition.Job;
+import typeDefinition.MessageType;
 import vo.infovo.StaffVO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -56,16 +59,16 @@ public class StaffModifyPanel extends StaffInfoPanel {
                     StaffVO vo=new StaffVO(id, name, gender, birthday, position, 0, this.frequecy);
                     staffBLService.modifyStaff(originID, vo);
                     staffListPanel.refreshList();
+                    new TranslucentFrame(staffListPanel, MessageType.MODIFY_SUCCESS, Color.GREEN);
                     dialog.dispose();
                 } catch (TimeFormatException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     System.out.println("修改人员信息sql："+e1.getMessage());
-                    new ErrorDialog(parent, "SQLException");
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 }
             }
         }
