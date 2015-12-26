@@ -8,7 +8,7 @@ import presentation.contentpanel.RecordListPanel;
 import presentation.contentpanel.financepanels.BankAccountPanel;
 import presentation.contentpanel.financepanels.IncomePanel;
 import presentation.contentpanel.financepanels.MakeBillPanel;
-import presentation.contentpanel.financepanels.OutcomePanel;
+import presentation.contentpanel.financepanels.PayReceiptPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +46,7 @@ public class FinanceGuidePanel extends GuidePanel implements ActionListener{
     @Override
     protected void initContentPanels() {
         content.add("one",new IncomePanel(parent));
-        content.add("two",new OutcomePanel(parent));
+        content.add("two",new PayReceiptPanel(parent));
         content.add("three",new MakeBillPanel(parent));
         content.add("four",new BaobiaoPanel(parent));
         content.add("five",new BankAccountPanel(parent));

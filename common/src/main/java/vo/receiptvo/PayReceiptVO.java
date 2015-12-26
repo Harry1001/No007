@@ -21,8 +21,8 @@ public class PayReceiptVO extends ReceiptVO {
     private String payMan;//付款人
     private String payAccount;//付款帐号
     private FeeType payType;//付款条目
-    private ReceiptState state;
-    private String id;
+    private ReceiptState state;//单据状态
+    private String id;//付款单编号
 
     public PayReceiptVO(Date time, double money, String man, String account, FeeType type,ReceiptState state,String id) {
         super(ReceiptType.PAY);

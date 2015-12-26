@@ -134,16 +134,8 @@ public class Constent {
     public static final String[] CITY_ID={"010", "021", "020", "025"};
 
     /**
-     * 根据区号获得城市名称
-     * @param cityID 城市区号
-     * @return 如果找到，返回城市名，否则返回null
+     * 常用提示消息，与MessageType枚举类中的顺序相对应，不可颠倒！
      */
-    public static String getLocationByCityID(String cityID){
-        for (int i=0;i<CITY_ID.length;i++){
-            if (CITY_ID[i].equals(cityID)){
-                return LOCATIONS[i];
-            }
-        }
-        return null;
-    }
+    public static final String[] TIP_MESSAGE= {"网络连接超时，请检查网络","该单据已存在","该员工已存在","该机构已存在",
+            "该司机已存在","该车辆已存在","该账户已存在","该订单不存在"};
 }
