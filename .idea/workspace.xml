@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71302fa9-7a8e-4e93-b6b4-92c0ab607ecd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/typeDefinition/ReceiptState.class" afterPath="$PROJECT_DIR$/common/target/classes/typeDefinition/ReceiptState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/MainFrame/MainFrame.java" afterPath="$PROJECT_DIR$/client/src/main/java/MainFrame/MainFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/TransferReceiptPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/TransferReceiptPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/dataService/_RMI.java" afterPath="$PROJECT_DIR$/client/src/main/java/dataService/_RMI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="71302fa9-7a8e-4e93-b6b4-92c0ab607ecd" name="Default" comment="" />
     <ignored path="No007.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/client/target/" />
