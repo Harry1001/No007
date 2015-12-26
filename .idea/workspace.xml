@@ -2,35 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71302fa9-7a8e-4e93-b6b4-92c0ab607ecd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/BankAccountAddPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/BankAccountAddPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/database/BankAccountDBManager.java" afterPath="$PROJECT_DIR$/server/src/main/java/database/BankAccountDBManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/BankAccountPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/BankAccountPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/BaobiaoPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/BaobiaoPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/BlankBlock.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/BlankBlock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/ChargeReceiptPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/ChargeReceiptPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/constent/Constent.java" afterPath="$PROJECT_DIR$/common/src/main/java/constent/Constent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/ContentDialog.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/ContentDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/businessLogic/financebl/FinanceController.java" afterPath="$PROJECT_DIR$/client/src/main/java/businessLogic/financebl/FinanceController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/GuideLabel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/GuideLabel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/GuidePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/GuidePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/Images/Images.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/Images/Images.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/IncomePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/IncomePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/LoginPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commonpanel/LoginPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/MakeBillPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/MakeBillPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/typeDefinition/MessageType.java" afterPath="$PROJECT_DIR$/common/src/main/java/typeDefinition/MessageType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/MyButton.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/MyButton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/MyLabel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/MyLabel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomeListPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomeListPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/database/PayReceiptDBManager.java" afterPath="$PROJECT_DIR$/server/src/main/java/database/PayReceiptDBManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/PayReceiptPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/PayReceiptPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/RecordListPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/RecordListPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/TimePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/TimePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/TransferPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/hubpanels/TransferPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/database/TransferReceiptDBManager.java" afterPath="$PROJECT_DIR$/server/src/main/java/database/TransferReceiptDBManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/po/receiptpo/TransferReceiptPO.java" afterPath="$PROJECT_DIR$/common/src/main/java/po/receiptpo/TransferReceiptPO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/vo/receiptvo/TransferReceiptVO.java" afterPath="$PROJECT_DIR$/common/src/main/java/vo/receiptvo/TransferReceiptVO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/TranslucentFrame.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/TranslucentFrame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="No007.iws" />
@@ -1586,7 +1557,13 @@
       <option name="project" value="LOCAL" />
       <updated>1451103488863</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="大改特改！">
+      <created>1451123725532</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1451123725532</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1599,7 +1576,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1655,7 +1632,8 @@
     <MESSAGE value="tongbuwenjian" />
     <MESSAGE value="tongbu" />
     <MESSAGE value="ddd" />
-    <option name="LAST_COMMIT_MESSAGE" value="ddd" />
+    <MESSAGE value="大改特改！" />
+    <option name="LAST_COMMIT_MESSAGE" value="大改特改！" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
