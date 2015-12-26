@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71302fa9-7a8e-4e93-b6b4-92c0ab607ecd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/BlankBlock.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/src/main/java/typeDefinition/MessageType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomeListPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/PayReceiptPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/TranslucentFrame.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/test/java/testUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/constent/Constent.java" afterPath="$PROJECT_DIR$/common/src/main/java/constent/Constent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/target/classes/typeDefinition/ReceiptState.class" afterPath="$PROJECT_DIR$/common/target/classes/typeDefinition/ReceiptState.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/FinanceGuidePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/FinanceGuidePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/src/main/java/vo/receiptvo/PayReceiptVO.java" afterPath="$PROJECT_DIR$/common/src/main/java/vo/receiptvo/PayReceiptVO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/ShenPiPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/managerpanels/ShenPiPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="No007.iws" />
@@ -48,10 +39,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PayReceiptPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PayReceiptPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/PayReceiptPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49506903">
+            <state vertical-scroll-proportion="0.0">
               <caret line="210" column="121" selection-start-line="210" selection-start-column="121" selection-end-line="210" selection-end-column="121" />
               <folding />
             </state>
@@ -92,31 +83,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BlankBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/BlankBlock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-              <folding>
-                <element signature="e#350#351#0" expanded="true" />
-                <element signature="e#379#380#0" expanded="true" />
-                <element signature="e#422#423#0" expanded="true" />
-                <element signature="e#450#451#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MessageType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/src/main/java/typeDefinition/MessageType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="OutcomePanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomePanel.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -129,6 +95,16 @@
                 <element signature="e#638#639#0" expanded="true" />
                 <element signature="e#702#703#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FinanceGuidePanel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/FinanceGuidePanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.43392506">
+              <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -173,7 +149,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/MyTable.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/JingYingPanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/businessLogicService/strategyblservice/CarriageStrategyPattern.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/businessLogicService/strategyblservice/StrategyPattern/CarriageStrategyPattern.java" />
@@ -224,6 +199,7 @@
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/BlankBlock.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/commoncontainer/TranslucentFrame.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/PayReceiptPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/FinanceGuidePanel.java" />
       </list>
     </option>
   </component>
@@ -1536,7 +1512,13 @@
       <option name="project" value="LOCAL" />
       <updated>1451047244697</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="tongbu">
+      <created>1451103111964</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1451103111964</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1623,7 +1605,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/RecordListPanel.java</url>
-          <line>79</line>
+          <line>84</line>
           <properties />
           <option name="timeStamp" value="51" />
         </line-breakpoint>
@@ -1676,22 +1658,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/database/FinanceSerial.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18604651">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/database/AgencyDBManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5116279">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/database/CarriageStrategyDBManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.744186">
@@ -1999,35 +1965,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#506#507#0" expanded="true" />
-            <element signature="e#570#571#0" expanded="true" />
-            <element signature="e#638#639#0" expanded="true" />
-            <element signature="e#702#703#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/javax/swing/AbstractButton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.4454757">
           <caret line="1573" column="16" selection-start-line="1573" selection-start-column="16" selection-end-line="1573" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomeListPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="12" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2068,14 +2010,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/src/main/java/vo/receiptvo/PayReceiptVO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/Window.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5700197">
@@ -2096,8 +2030,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/PayReceiptPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49506903">
+        <state vertical-scroll-proportion="0.0">
           <caret line="210" column="121" selection-start-line="210" selection-start-column="121" selection-end-line="210" selection-end-column="121" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/vo/receiptvo/PayReceiptVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomeListPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="12" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/uifactory/UIFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/contentpanel/financepanels/OutcomePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#506#507#0" expanded="true" />
+            <element signature="e#570#571#0" expanded="true" />
+            <element signature="e#638#639#0" expanded="true" />
+            <element signature="e#702#703#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/guidepanel/FinanceGuidePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43392506">
+          <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
           <folding />
         </state>
       </provider>
