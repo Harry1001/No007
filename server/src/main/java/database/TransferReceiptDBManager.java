@@ -24,11 +24,30 @@ public class TransferReceiptDBManager extends DBManager {
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(find);
 		ArrayList<TransferReceiptPO> pos = new ArrayList<TransferReceiptPO>();
-		String formertransferID = "";
+		String formertransferID = "#";
 		ArrayList<String> orderIDs = null;
 		TransferReceiptPO po = null;
 		while (resultSet.next()) {
 			String transferID = resultSet.getString(3);
+			if (formertransferID.equals("#")){
+				orderIDs = new ArrayList<String>();
+				String orderID = resultSet.getString(8);
+				orderIDs.add(orderID);
+
+				Vehicle transferType = Vehicle.values()[resultSet.getInt(1)];
+				Date transferDate = new Date(resultSet.getTimestamp(2).getTime());
+				String vehicleID = resultSet.getString(4);
+				String departLoc = resultSet.getString(5);
+				String arriveLoc = resultSet.getString(6);
+				int counterID = resultSet.getInt(7);
+				double transferFee = resultSet.getDouble(9);
+				ReceiptState state=ReceiptState.values()[resultSet.getInt(10)];
+
+				po = new TransferReceiptPO(transferType, transferDate, transferID, vehicleID, departLoc, arriveLoc,
+						counterID, null, transferFee,state);
+				formertransferID=transferID;
+				continue;
+			}
 			if (transferID.equals(formertransferID)) {
 				String orderID = resultSet.getString(8);
 				orderIDs.add(orderID);
@@ -51,7 +70,13 @@ public class TransferReceiptDBManager extends DBManager {
 
 				po = new TransferReceiptPO(transferType, transferDate, transferID, vehicleID, departLoc, arriveLoc,
 						counterID, null, transferFee,state);
+				formertransferID=transferID;
 			}
+
+		}
+		if (po!=null){
+			po.setOrderID(orderIDs);
+			pos.add(po);
 		}
 		stopconnection(connection);
 		return pos;
@@ -101,11 +126,31 @@ public class TransferReceiptDBManager extends DBManager {
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(find);
 		ArrayList<TransferReceiptPO> pos = new ArrayList<TransferReceiptPO>();
-		String formertransferID = "";
+		String formertransferID = "#";
 		ArrayList<String> orderIDs = null;
 		TransferReceiptPO po = null;
 		while (resultSet.next()) {
 			String transferID = resultSet.getString(3);
+			if (formertransferID.equals("#")){
+				orderIDs = new ArrayList<String>();
+				String orderID = resultSet.getString(8);
+				orderIDs.add(orderID);
+
+				Vehicle transferType = Vehicle.values()[resultSet.getInt(1)];
+				Date transferDate = new Date(resultSet.getTimestamp(2).getTime());
+				String vehicleID = resultSet.getString(4);
+				String departLoc = resultSet.getString(5);
+				String arriveLoc = resultSet.getString(6);
+				int counterID = resultSet.getInt(7);
+				double transferFee = resultSet.getDouble(9);
+				ReceiptState state1=ReceiptState.values()[resultSet.getInt(10)];
+
+				po = new TransferReceiptPO(transferType, transferDate, transferID, vehicleID, departLoc, arriveLoc,
+						counterID, null, transferFee,state1);
+				formertransferID=transferID;
+				continue;
+			}
+
 			if (transferID.equals(formertransferID)) {
 				String orderID = resultSet.getString(8);
 				orderIDs.add(orderID);
@@ -128,7 +173,12 @@ public class TransferReceiptDBManager extends DBManager {
 
 				po = new TransferReceiptPO(transferType, transferDate, transferID, vehicleID, departLoc, arriveLoc,
 						counterID, null, transferFee,state1);
+				formertransferID=transferID;
 			}
+		}
+		if (po!=null){
+			po.setOrderID(orderIDs);
+			pos.add(po);
 		}
 		stopconnection(connection);
 		return pos;
@@ -136,8 +186,8 @@ public class TransferReceiptDBManager extends DBManager {
 
 	public void update(String orderID, ReceiptState state) throws SQLException {
 		String update = "UPDATE TransferReceipt"
-				+ " SET state = '" + state.ordinal()
-				+ " WHERE id = '" + orderID + "'";
+				+ " SET state = " + state.ordinal()
+				+ " WHERE transferID = '"+ orderID + "'";
 		Connection connection = connectToDB();
 		Statement statement = connection.createStatement();
 		statement.executeUpdate(update);

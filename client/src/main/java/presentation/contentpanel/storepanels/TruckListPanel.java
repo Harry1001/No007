@@ -4,10 +4,8 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.infoblservice.TruckBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyTable;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.infovo.TruckVO;
 
 import javax.swing.*;
@@ -31,9 +29,9 @@ public class TruckListPanel extends JPanel implements ActionListener {
     TruckBLService truckBLService;
 
     MainFrame parent;
-    MyButton addbt=new MyButton("新增");
-    MyButton deletebt=new MyButton("删除");
-    MyButton modifybt=new MyButton("修改");
+    MyButton addbt=new MyButton("New");
+    MyButton deletebt=new MyButton("Delete");
+    MyButton modifybt=new MyButton("Modify");
 
     MyDefaultTableModel defaultTableModel;
     MyTable table;
@@ -74,12 +72,19 @@ public class TruckListPanel extends JPanel implements ActionListener {
         gbc.gridx=5;
         this.add(modifybt,gbc);
 
+        setHotKey();
         addbt.addActionListener(this);
         deletebt.addActionListener(this);
         modifybt.addActionListener(this);
 
         initBL();
         refreshList();
+    }
+
+    private void setHotKey(){
+        addbt.setMnemonic('N');
+        deletebt.setMnemonic('D');
+        modifybt.setMnemonic('M');
     }
 
     private void initNames(){
@@ -96,7 +101,7 @@ public class TruckListPanel extends JPanel implements ActionListener {
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
             new ErrorDialog(parent, "NotBoundException");
         }
@@ -134,7 +139,7 @@ public class TruckListPanel extends JPanel implements ActionListener {
                 table.revalidate();
                 table.updateUI();
             } catch (RemoteException e) {
-                new ErrorDialog(parent, "服务器连接超时");
+                new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
             } catch (SQLException e) {
                 System.out.println("车辆信息："+e.getMessage());
                 new ErrorDialog(parent, "SQLException");
@@ -151,6 +156,7 @@ public class TruckListPanel extends JPanel implements ActionListener {
                 JDialog dialog=new JDialog(parent,"新增车辆信息",true);
                 dialog.getContentPane().add(new TruckInfoPanel(parent, dialog, this, truckBLService));
                 dialog.setLocationRelativeTo(parent);
+                dialog.setLocation(dialog.getX()/3, dialog.getY()/3);
                 dialog.pack();
                 dialog.setVisible(true);
             }
@@ -161,15 +167,16 @@ public class TruckListPanel extends JPanel implements ActionListener {
         else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
             if (row==-1){//没有选择任何行
-                new ErrorDialog(parent, "请选择一行待删除条目");
+                new TranslucentFrame(this, "请选择待删除行", Color.RED);
             } else {//选择了待删除的行
                 if (truckBLService!=null){
                     String id= (String)table.getValueAt(row, 0);
                     try {
                         truckBLService.deleteTruck(id);
                         refreshList();
+                        new TranslucentFrame(this, MessageType.DELETE_SUCCESS, Color.GREEN);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "网络连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
                         new ErrorDialog(parent, "SQLException");
                     }
@@ -182,7 +189,7 @@ public class TruckListPanel extends JPanel implements ActionListener {
         else if (e.getSource()==modifybt){
             int row=table.getSelectedRow();
             if (row==-1){//没有选择任何行
-                new ErrorDialog(parent, "请选择一行待修改条目");
+                new TranslucentFrame(this, "请选择待修改行", Color.RED);
             } else {//选择了待修改的行
                 if (truckBLService!=null){
                     String id=(String)table.getValueAt(row, 0);
@@ -202,6 +209,7 @@ public class TruckListPanel extends JPanel implements ActionListener {
                     JDialog dialog=new JDialog(parent,"修改车辆信息",false);
                     dialog.getContentPane().add(new TruckModifyPanel(parent,dialog, this, truckBLService, vo));
                     dialog.setLocationRelativeTo(parent);
+                    dialog.setLocation(dialog.getX()/3, dialog.getY()/3);
                     dialog.pack();
                     dialog.setVisible(true);
                 }

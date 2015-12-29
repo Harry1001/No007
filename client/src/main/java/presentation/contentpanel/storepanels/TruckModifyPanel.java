@@ -5,9 +5,12 @@ import businessLogicService.infoblservice.TruckBLService;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
 import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.TranslucentFrame;
+import typeDefinition.MessageType;
 import vo.infovo.TruckVO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -53,14 +56,15 @@ public class TruckModifyPanel extends TruckInfoPanel {
                 truckBLService.modifyTruck(originID, vo);
                 listPanel.refreshList();
                 dialog.dispose();
+                new TranslucentFrame(listPanel, MessageType.MODIFY_SUCCESS, Color.GREEN);
             } catch (TimeFormatException e1) {
-                new ErrorDialog(parent, "时间格式错误");
+                new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
             } catch (RemoteException e1) {
-                new ErrorDialog(parent, "服务器连接超时");
+                new TranslucentFrame(listPanel, MessageType.RMI_LAG, Color.ORANGE);
             } catch (SQLException e1) {
                 new ErrorDialog(parent, "SQLException");
             } catch (InfoBLException e1) {
-                new ErrorDialog(parent, e1.getMessage());
+                new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
             }
         } else if (e.getSource()==cancelbt){
             dialog.dispose();

@@ -5,10 +5,8 @@ import blfactory.BLFactory;
 import businessLogicService.infoblservice.DriverBLService;
 import businessLogicService.recordblservice.RecordBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyTable;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.infovo.DriverVO;
 import vo.recordvo.RecordVO;
 
@@ -30,9 +28,9 @@ import java.util.Vector;
  */
 public class DriverListPanel extends JPanel implements ActionListener{
     private MainFrame parent;
-    MyButton addbt=new MyButton("新增");
-    MyButton deletebt=new MyButton("删除");
-    MyButton modifybt=new MyButton("修改");
+    MyButton addbt=new MyButton("New");
+    MyButton deletebt=new MyButton("Delete");
+    MyButton modifybt=new MyButton("Modify");
 
     MyDefaultTableModel defaultTableModel;
     MyTable table;
@@ -50,6 +48,7 @@ public class DriverListPanel extends JPanel implements ActionListener{
         
         this.storeID=parent.getUserIdentity().getId().substring(0,6);
         initUI();
+        setHotKey();
 
         addbt.addActionListener(this);
         deletebt.addActionListener(this);
@@ -59,6 +58,12 @@ public class DriverListPanel extends JPanel implements ActionListener{
         refreshList();
     }
 
+    private void setHotKey(){
+        addbt.setMnemonic('N');
+        deletebt.setMnemonic('D');
+        modifybt.setMnemonic('M');
+    }
+
     private void initBL(){
         try {
             rb= BLFactory.getRecordBLService();
@@ -66,7 +71,7 @@ public class DriverListPanel extends JPanel implements ActionListener{
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.orange);
         } catch (NotBoundException e) {
             new ErrorDialog(parent, "NotBoundException");
         }
@@ -102,7 +107,7 @@ public class DriverListPanel extends JPanel implements ActionListener{
                 table.revalidate();
                 table.updateUI();
             } catch (RemoteException e) {
-                new ErrorDialog(parent, "服务器连接超时");
+                new TranslucentFrame(this, MessageType.RMI_LAG, Color.orange);
             } catch (SQLException e) {
                 new ErrorDialog(parent, "SQLException");
             }
@@ -118,6 +123,7 @@ public class DriverListPanel extends JPanel implements ActionListener{
                 JDialog dialog=new JDialog(parent,"新增司机信息",true);
                 dialog.getContentPane().add(new DriverInfoPanel(parent, dialog, this, driverBLService));
                 dialog.setLocationRelativeTo(parent);
+                dialog.setLocation(dialog.getX()/3, dialog.getY()/3);
                 dialog.pack();
                 dialog.setVisible(true);
             }
@@ -128,7 +134,7 @@ public class DriverListPanel extends JPanel implements ActionListener{
         else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
             if (row==-1){
-                new ErrorDialog(parent, "请选择待删除条目");
+                new TranslucentFrame(this, "请选择待删除行", Color.RED);
             }
             else {
                 if (driverBLService!=null){
@@ -152,7 +158,7 @@ public class DriverListPanel extends JPanel implements ActionListener{
         else if (e.getSource()==modifybt){
             int row=table.getSelectedRow();
             if (row==-1){
-                new ErrorDialog(parent, "请选择待删除条目");
+                new TranslucentFrame(this, "请选择待修改行", Color.RED);
             }
             else {
                 if (driverBLService!=null){
@@ -176,6 +182,7 @@ public class DriverListPanel extends JPanel implements ActionListener{
                     JDialog dialog=new JDialog(parent,"修改司机信息",false);
                     dialog.getContentPane().add(new DriverModifyPanel(parent,dialog, this, driverBLService, vo));
                     dialog.setLocationRelativeTo(parent);
+                    dialog.setLocation(dialog.getX()/3, dialog.getY()/3);
                     dialog.pack();
                     dialog.setVisible(true);
                 }

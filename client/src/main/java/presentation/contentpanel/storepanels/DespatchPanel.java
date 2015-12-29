@@ -5,13 +5,12 @@ import javax.swing.border.TitledBorder;
 
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
+import businessLogicService.infoblservice.StaffBLService;
 import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.transportblservice.DespatchBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.receiptvo.DespatchReceiptVO;
 
 import java.awt.*;
@@ -26,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Harry on 2015/11/27.
+ * 新建派件单
  */
 public class DespatchPanel extends JPanel implements ActionListener{
     MyLabel timeL;
@@ -46,10 +45,26 @@ public class DespatchPanel extends JPanel implements ActionListener{
 
     DespatchBLService despatchBLService;
     LogisticBLService logisticBLService;
+    StaffBLService staffBLService;
     
     public DespatchPanel(MainFrame par){
         this.parent=par;
-         
+
+        initUI();
+
+        setHotKey();
+
+        submitBT.addActionListener(this);
+        cancelBT.addActionListener(this);
+
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"派件单",
+                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+
+        initBL();
+        
+    }
+
+    private void initUI(){
         timeL=new MyLabel("到达日期");
         numL=new MyLabel("订单条形码号");
         courierL=new MyLabel("派送员");
@@ -61,8 +76,8 @@ public class DespatchPanel extends JPanel implements ActionListener{
         //设置时间框里自动生成系统时间
         timeT.setText(df.format(new Date()));
 
-        submitBT=new MyButton("提交");
-        cancelBT=new MyButton("清空输入");
+        submitBT=new MyButton("Submit");
+        cancelBT=new MyButton("Refresh");
 
         this.setLayout(new GridBagLayout());
         this.setOpaque(false);
@@ -89,28 +104,25 @@ public class DespatchPanel extends JPanel implements ActionListener{
         this.add(submitBT,gbc);
         gbc.gridx=1;
         this.add(cancelBT,gbc);
+    }
 
-        submitBT.addActionListener(this);
-        cancelBT.addActionListener(this);
-
-        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"派件单",
-                TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
-        
-        initBL();
-        
+    private void setHotKey(){
+        submitBT.setMnemonic('S');
+        cancelBT.setMnemonic('R');
     }
 
     
     private void initBL() {
     	despatchBLService=BLFactory.getDespatchBLService();
         try {
+            staffBLService=BLFactory.getStaffBLService();
             logisticBLService=BLFactory.getLogisticBLService();
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.GREEN);
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         }
 	}
 
@@ -127,10 +139,13 @@ public class DespatchPanel extends JPanel implements ActionListener{
                 try {
                     date = df.parse(timeT.getText());
                 } catch (ParseException e1) {
-                    new ErrorDialog(parent, "到达日期必须为2015-01-01格式");
+                    new TranslucentFrame(this, "到达日期必须为2015-01-01格式", Color.RED);
                 }
                 String num=numT.getText();
                 boolean isTrue=checkOrderID(num);
+                if (!isTrue){
+                    new TranslucentFrame(this, "订单条形码号必须是"+Constent.ORDER_ID_LENGTH+"位数字", Color.RED);
+                }
                 String courier=courierT.getText()+"";
                 DespatchReceiptVO vo=new DespatchReceiptVO(date,num,courier);
                 if(date!=null&&isTrue){
@@ -138,15 +153,15 @@ public class DespatchPanel extends JPanel implements ActionListener{
                         despatchBLService.submit(vo);
                         logisticBLService.update(parent.getUserIdentity().getId(), vo);
                         refresh();
+                        new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent,"服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (MalformedURLException e1) {
-                        new ErrorDialog(parent,"MalformedURLException");
+                        System.out.println(e1.getMessage());
                     } catch (NotBoundException e1) {
-                        new ErrorDialog(parent,"NotBoundException");
+                        System.out.println(e1.getMessage());
                     } catch (SQLException e1) {
                         System.out.println("派件单sql："+e1.getMessage());
-                        new ErrorDialog(parent,"数据库异常");
                     }
                 }
             }

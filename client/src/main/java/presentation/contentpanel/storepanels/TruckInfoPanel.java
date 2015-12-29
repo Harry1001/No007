@@ -5,11 +5,8 @@ import businessLogicService.infoblservice.TruckBLService;
 import constent.Constent;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.TimePanel;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.infovo.TruckVO;
 
 import javax.swing.*;
@@ -36,8 +33,8 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
     MyLabel dipanL=new MyLabel("底盘号");
     MyLabel goumaiL=new MyLabel("购买时间");
     MyLabel fuyiL=new MyLabel("服役时间");
-    MyButton submitbt=new MyButton("提交");
-    MyButton cancelbt=new MyButton("取消");
+    MyButton submitbt=new MyButton("Submit");
+    MyButton cancelbt=new MyButton("Cancel");
 
     MyTextField[] textFields=new MyTextField[5];
     TimePanel timePanel=new TimePanel();
@@ -83,8 +80,15 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
         gbc.gridx++;
         this.add(cancelbt,gbc);
 
+        setHotKey();
+
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
+    }
+
+    private void setHotKey(){
+        submitbt.setMnemonic('S');
+        cancelbt.setMnemonic('C');
     }
 
     private boolean isDigit(String s){
@@ -140,32 +144,32 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
 
     protected boolean checkAll(){
         if (!checkTruckID()){
-            new ErrorDialog(parent, "车辆代号必须为"+Constent.TRUCK_ID_LENGTH+"位数字");
+            new TranslucentFrame(listPanel, "车辆代号必须为"+Constent.TRUCK_ID_LENGTH+"位数字", Color.RED);
             return false;
         }
 
         if (!checkEngineID()){
-            new ErrorDialog(parent, "发动机号不得为空");
+            new TranslucentFrame(listPanel, "发动机号不得为空", Color.RED);
             return false;
         }
 
         if (!checkChePai()){
-            new ErrorDialog(parent, "车牌号不得为空");
+            new TranslucentFrame(listPanel, "车牌号不得为空", Color.RED);
             return false;
         }
 
         if (!checkDiPan()){
-            new ErrorDialog(parent, "底盘号不得为空");
+            new TranslucentFrame(listPanel, "底盘号不得为空", Color.RED);
             return false;
         }
 
         if (!checkServeTime()){
-            new ErrorDialog(parent, "服役时间必须为正整数");
+            new TranslucentFrame(listPanel, "服役时间必须为正整数", Color.RED);
             return false;
         }
 
         if (!checkBuyTime()){
-            new ErrorDialog(parent, "请填写正确的时间格式，时间必须早于当前系统时间");
+            new TranslucentFrame(listPanel, "请填写正确的时间格式，时间必须早于当前系统时间", Color.RED);
             return false;
         }
 
@@ -194,14 +198,15 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
                     truckBLService.addTruck(vo);
                     listPanel.refreshList();
                     refresh();
+                    new TranslucentFrame(listPanel, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                 } catch (TimeFormatException e1) {
-                    new ErrorDialog(parent, "时间格式错误");
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(listPanel, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     new ErrorDialog(parent, "SQLException");
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
                 }
             }
         }

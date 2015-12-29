@@ -56,7 +56,7 @@ public class CarriageStrategyDBManager extends DBManager{
 		ResultSet resultset=statement.executeQuery(carriageGet);
 		resultset.next();
 		
-		CarriageFeePO po=new CarriageFeePO(resultset.getDouble(1), resultset.getDouble(2), resultset.getDouble(3));
+		CarriageFeePO po=new CarriageFeePO(resultset.getDouble(3), resultset.getDouble(2), resultset.getDouble(1));
 		return po;
 	}
 }

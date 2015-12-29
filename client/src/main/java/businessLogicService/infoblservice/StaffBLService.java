@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public interface StaffBLService {
 
     /**
-     * 获取司机信息列表，用于期初建账
+     * 获取员工信息列表，用于期初建账
      * @return
      * @throws SQLException 
      */

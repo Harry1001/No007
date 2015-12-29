@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by Harry on 2015/12/26.
+ * 新建中转单面板
  */
 public class TransferReceiptPanel extends JPanel implements ActionListener, FocusListener {
     TransferBLService transferBLService;
@@ -75,6 +75,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
     }
 
     private void setHotKey(){
+        backbt.setMnemonic('B');
         calfeebt.setMnemonic('C');
         addbt.setMnemonic('A');
         deletebt.setMnemonic('D');
@@ -187,7 +188,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
     }
 
     private boolean checkFee(){
-        String s=textFields[3].getText();
+        String s=textFields[6].getText();
         try{
             double fee=Double.parseDouble(s);
             return (fee>0);
@@ -197,7 +198,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
     }
 
     private boolean checkFromLoc(){
-        String s1=textFields[4].getText();
+        String s1=textFields[3].getText();
         if (s1.length()<2){
             return false;
         }
@@ -211,7 +212,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
     }
 
     private boolean checkToLoc(){
-        String s1=textFields[5].getText();
+        String s1=textFields[4].getText();
         if (s1.length()<2){
             return false;
         }
@@ -225,7 +226,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
     }
 
     private boolean checkCounterID(){
-        String s=textFields[6].getText();
+        String s=textFields[5].getText();
         try{
             int x=Integer.parseInt(s);
             return (x>0);
@@ -250,7 +251,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
                     double fee=0;
                     try {
                         fee = carriageService.calCarriage(vo);
-                        textFields[3].setText(fee+"");
+                        textFields[6].setText(fee+"");
                     } catch (SQLException e1) {
                         System.out.println(e1.getMessage());
                     } catch (ClassNotFoundException e1) {
@@ -276,6 +277,9 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
                 new TranslucentFrame(this, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位整数", Color.RED);
             }
         }
+        else if(e.getSource()==backbt){
+            transferPanel.showList();
+        }
         else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
             if (row>=0) {
@@ -289,6 +293,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
                     try {
                         transferBLService.submit(vo);
                         refresh();
+                        new TranslucentFrame(transferPanel, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                     } catch (RemoteException e1) {
                         new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
@@ -333,8 +338,8 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
     }
 
     private TransferReceiptVO getTempVO(){
-        String fromLoc=textFields[4].getText();
-        String toLoc=textFields[5].getText();
+        String fromLoc=textFields[3].getText();
+        String toLoc=textFields[4].getText();
         int vehicleNum=0;
         for (; vehicleNum<3;vehicleNum++){
             if (vehicles[vehicleNum].isSelected())
@@ -359,7 +364,7 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
         double fee=0;
         try{
             time=Constent.DATE_FORMAT.parse(textFields[0].getText());
-            fee=Double.parseDouble(textFields[3].getText());
+            fee=Double.parseDouble(textFields[6].getText());
         } catch (ParseException e) {
             new TranslucentFrame(this, "日期格式必须为：yyyy-MM-dd HH:mm:ss", Color.RED);
         } catch (NumberFormatException e){
@@ -367,9 +372,9 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
         }
         String transID=textFields[1].getText();
         String vehicleID=textFields[2].getText();
-        String fromLoc=textFields[4].getText();
-        String toLoc=textFields[5].getText();
-        int counterID=Integer.parseInt(textFields[6].getText());
+        String fromLoc=textFields[3].getText();
+        String toLoc=textFields[4].getText();
+        int counterID=Integer.parseInt(textFields[5].getText());
         ArrayList<String> orderIDs=new ArrayList<String>();
 
         //从表格中读取所有单号
@@ -391,10 +396,10 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
         labels[1]=new MyLabel("中转日期");
         labels[2]=new MyLabel("中转单编号");
         labels[3]=new MyLabel("班次/车牌号");
-        labels[4]=new MyLabel("运费");
-        labels[5]=new MyLabel("出发地");
-        labels[6]=new MyLabel("目的地");
-        labels[7]=new MyLabel("货柜号");
+        labels[4]=new MyLabel("出发地");
+        labels[5]=new MyLabel("目的地");
+        labels[6]=new MyLabel("货柜号");
+        labels[7]=new MyLabel("运费");
 
         for(int i=0;i<7;i++){
             textFields[i]=new MyTextField();
@@ -420,77 +425,63 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
         defaultTableModel=new MyDefaultTableModel(names, 0);
         table=new JTable(defaultTableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setPreferredScrollableViewportSize(new Dimension(300,200));
+        table.setPreferredScrollableViewportSize(new Dimension(300,450));
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
+        gbc.fill=GridBagConstraints.NONE;
+
+        gbc.gridx=gbc.gridy=0;
+        this.add(backbt, gbc);
+
         gbc.fill=GridBagConstraints.BOTH;
 
-
-        for(gbc.gridx=0,gbc.gridy=0;gbc.gridy<5;gbc.gridy++){
-            this.add(labels[gbc.gridy],gbc);
+        for(gbc.gridx=0,gbc.gridy=1;gbc.gridy<=8;gbc.gridy++){
+            this.add(labels[gbc.gridy-1],gbc);
         }
 
-        gbc.gridy=0;
+        gbc.gridy=1;
         gbc.gridx=1;
         this.add(transferWay,gbc);
 
 
         gbc.weightx=1.0;
-        for(gbc.gridx=1,gbc.gridy=1;gbc.gridy<5;gbc.gridy++){
-            this.add(textFields[gbc.gridy-1],gbc);
+        for(gbc.gridx=1,gbc.gridy=2;gbc.gridy<=8;gbc.gridy++){
+            this.add(textFields[gbc.gridy-2],gbc);
         }
 
         gbc.weightx=0.0;
         gbc.gridx=2;
-        gbc.gridy=4;
+        gbc.gridy=8;
         gbc.fill=GridBagConstraints.NONE;
         this.add(calfeebt,gbc);
 
-        gbc.fill=GridBagConstraints.BOTH;
-        for(gbc.gridx=3,gbc.gridy=1;gbc.gridy<4;gbc.gridy++){
-            this.add(labels[gbc.gridy+4],gbc);
-        }
 
         gbc.weightx=1.0;
-        gbc.gridx=4;
+        gbc.gridx=3;
         gbc.gridy=1;
-        //gbc.anchor=GridBagConstraints.WEST;
-        //this.add(fromCombo,gbc);
-        //gbc.gridx=5;
-        this.add(textFields[4],gbc);
-        //gbc.gridx=4;
-        gbc.gridy=2;
-        //this.add(toCombo,gbc);
-        //gbc.gridx=5;
-        this.add(textFields[5],gbc);
-
-        gbc.gridy=3;
-        this.add(textFields[6],gbc);
-
-        gbc.gridx=0;
-        gbc.gridy=6;
-        gbc.gridwidth=3;
-        gbc.gridheight=4;
+        gbc.gridwidth=2;
+        gbc.gridheight=5;
+        gbc.fill=GridBagConstraints.BOTH;
         this.add(new JScrollPane(table),gbc);
-        gbc.gridx=4;
-        gbc.gridy=6;
-        gbc.gridwidth=1;
+
         gbc.gridheight=1;
+        gbc.gridy=6;
         this.add(orderT,gbc);
 
         gbc.weightx=0.0;
         gbc.anchor=GridBagConstraints.WEST;
         gbc.fill=GridBagConstraints.NONE;
-        gbc.gridy=7;
+        gbc.gridwidth=1;
+        gbc.gridy++;
         this.add(addbt,gbc);
-        gbc.gridy=8;
+        gbc.gridx++;
         this.add(deletebt,gbc);
 
         gbc.gridx=0;
-        gbc.gridy=10;
-        gbc.gridwidth=6;
+        gbc.gridy=9;
+        gbc.gridwidth=5;
         this.add(new JSeparator(),gbc);
         gbc.gridx=2;
         gbc.gridy++;

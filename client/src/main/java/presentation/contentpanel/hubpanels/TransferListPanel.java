@@ -185,6 +185,7 @@ public class TransferListPanel extends JPanel implements ActionListener {
 
                 }
                 refreshList();
+                new TranslucentFrame(this, "单据已处理", Color.GREEN);
             } catch (RemoteException e) {
                 new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
             } catch (SQLException e) {
@@ -196,13 +197,14 @@ public class TransferListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==refreshbt){
             refreshList();
+            new TranslucentFrame(this, "刷新成功", Color.GREEN);
         }
         else if (e.getSource()==addbt){
-            //todo
-         //   outcomePanel.showPayReceipt();
+            transferPanel.showTransferReceipt();
         }
         else if (e.getSource()==handlebt){
             setReceiptHandled();
+
         }
     }
 }

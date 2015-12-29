@@ -6,11 +6,8 @@ import businessLogicService.strategyblservice.CalCarriageService;
 import businessLogicService.transportblservice.EntruckBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.loginvo.LoginResultVO;
 import vo.receiptvo.EntruckReceiptVO;
 
@@ -33,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by Harry on 2015/11/27.
+ * 新建装车单
  */
 public class EntruckPanel extends JPanel implements ActionListener, FocusListener {
 
@@ -47,20 +44,19 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
     MyLabel destiL=new MyLabel("到达地");
     MyLabel truckIDL=new MyLabel("车辆代号");
     MyLabel feeL=new MyLabel("运费");
-    //MyLabel orderNumL=new MyLabel("本次装箱所有订单条形码号");
 
-    MyTextField timeT=new MyTextField(15);
-    MyTextField numT=new MyTextField(15);
-    MyTextField destiT=new MyTextField(15);
-    MyTextField truckIDT=new MyTextField(15);
-    MyTextField feeT=new MyTextField(15);
-    MyTextField orderNumText=new MyTextField(15);
+    MyTextField timeT=new MyTextField();
+    MyTextField numT=new MyTextField();
+    MyTextField destiT=new MyTextField();
+    MyTextField truckIDT=new MyTextField();
+    MyTextField feeT=new MyTextField();
+    MyTextField orderNumText=new MyTextField();
 
-    MyButton feebt=new MyButton("生成运费");
-    MyButton submitbt=new MyButton("提交");
-    MyButton cancelbt=new MyButton("取消");
-    MyButton appendbt=new MyButton("添加");
-    MyButton deletebt=new MyButton("删除");
+    MyButton feebt=new MyButton("CalFee");
+    MyButton submitbt=new MyButton("Submit");
+    MyButton cancelbt=new MyButton("Refresh");
+    MyButton appendbt=new MyButton("Add");
+    MyButton deletebt=new MyButton("Delete");
 
     MyDefaultTableModel defaultTableModel;
     JTable table;//此处表格和人员管理等表格大小不同，故不使用MyTable
@@ -71,6 +67,8 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"装车单",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         initUI();
+        setHotKey();
+
         setPresentTime();
 
         feebt.addActionListener(this);
@@ -78,12 +76,27 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
         cancelbt.addActionListener(this);
         appendbt.addActionListener(this);
         deletebt.addActionListener(this);
+        orderNumText.addActionListener(this);
+
+        timeT.addFocusListener(this);
+        numT.addFocusListener(this);
+        destiT.addFocusListener(this);
+        truckIDT.addFocusListener(this);
+        feeT.addFocusListener(this);
 
         numT.addFocusListener(this);
         truckIDT.addFocusListener(this);
 
         initBL();
         refresh();
+    }
+
+    private void setHotKey(){
+        feebt.setMnemonic('F');
+        submitbt.setMnemonic('S');
+        cancelbt.setMnemonic('R');
+        appendbt.setMnemonic('A');
+        deletebt.setMnemonic('D');
     }
 
     /**
@@ -95,11 +108,11 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
             entruckBLService= BLFactory.getEntruckBLService();
             calCarriageService=BLFactory.getCalCarriageService();
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -184,17 +197,17 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
             }
 
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (SQLException e) {
-            new ErrorDialog(parent, "SQLException");
+            System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
-            new ErrorDialog(parent, "ClassNotFoundException");
-        } catch (FileNotFoundException e1) {
-            new ErrorDialog(parent, "FileNotFoundException");
-        } catch (IOException e1) {
-            new ErrorDialog(parent, "IOException");
+            System.out.println(e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         }
 
     }
@@ -253,6 +266,12 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
         defaultTableModel.getDataVector().clear();
         table.revalidate();
         table.updateUI();
+        timeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        numT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        destiT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        truckIDT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        feeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+
     }
 
     private void setPresentTime(){
@@ -366,18 +385,19 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
                     EntruckReceiptVO vo=new EntruckReceiptVO(date,num,desti,truckID,orderList, fee);
                     entruckBLService.submit(vo);
                     refresh();
+                    new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                 } catch (TransportBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 } catch (ParseException e1) {
-                    new ErrorDialog(parent, "时间格式必须为 yyyy-MM-dd HH:MM:ss");
+                    System.out.println(e1.getMessage());
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
-                    new ErrorDialog(parent, "SQLException");
+                    System.out.println(e1.getMessage());
                 } catch (MalformedURLException e1) {
-                    new ErrorDialog(parent, "MalformedURLException");
+                    System.out.println(e1.getMessage());
                 } catch (NotBoundException e1) {
-                    new ErrorDialog(parent, "NotBoundException");
+                    System.out.println(e1.getMessage());
                 }
             } else{
                 initBL();
@@ -385,18 +405,25 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
         } else if (e.getSource()==cancelbt){
             refresh();
         } else if (e.getSource()==appendbt){
-            if (checkOrderNum()){
-                String[] id={orderNumText.getText()};
-                defaultTableModel.addRow(id);
-                orderNumText.setText("");
-            } else{
-                new ErrorDialog(parent, "订单条形码号必须为"+Constent.ORDER_ID_LENGTH+"位数字");
-            }
+            appendOrder();
         } else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
             if (row>=0){//如果没选择任何行为-1
                 defaultTableModel.removeRow(row);
             }
+        }
+        else if (e.getSource()==orderNumText){
+            appendOrder();
+        }
+    }
+
+    private void appendOrder(){
+        if (checkOrderNum()){
+            String[] id={orderNumText.getText()};
+            defaultTableModel.addRow(id);
+            orderNumText.setText("");
+        } else{
+            new TranslucentFrame(this, "订单条形码号必须为"+Constent.ORDER_ID_LENGTH+"位数字", Color.RED);
         }
     }
 
@@ -418,6 +445,45 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
     }
 
     public void focusLost(FocusEvent e) {
-
+        if (e.getSource()==timeT){
+            if (checkTime()){
+                timeT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                timeT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if(e.getSource()==numT){
+            if (checkQiYunNum()){
+                numT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                numT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if(e.getSource()==destiT){
+            if (checkDestination()){
+                destiT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                destiT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if(e.getSource()==truckIDT){
+            if (checkTruckID()){
+                truckIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                truckIDT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if(e.getSource()==feeT){
+            if (checkFee()){
+                feeT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                feeT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
     }
 }

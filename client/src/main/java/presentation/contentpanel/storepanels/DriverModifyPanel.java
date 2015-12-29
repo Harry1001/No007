@@ -7,10 +7,13 @@ import businessLogicService.recordblservice.RecordBLService;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
 import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.TranslucentFrame;
+import typeDefinition.MessageType;
 import vo.infovo.DriverVO;
 import vo.recordvo.RecordVO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -55,14 +58,15 @@ public class DriverModifyPanel extends DriverInfoPanel {
                     RecordBLService rb= BLFactory.getRecordBLService();
                     rb.add(rvo);
                     dialog.dispose();
+                    new TranslucentFrame(listPanel, MessageType.MODIFY_SUCCESS, Color.GREEN);
                 } catch (TimeFormatException e1) {
-                    new ErrorDialog(parent, "时间格式错误");
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(listPanel, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     new ErrorDialog(parent, "SQLException");
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());//数据库中已经包含该司机编号
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);//数据库中已经包含该司机编号
                 } catch (MalformedURLException e1) {
                     new ErrorDialog(parent, "MalformedURLException");
                 } catch (NotBoundException e1) {

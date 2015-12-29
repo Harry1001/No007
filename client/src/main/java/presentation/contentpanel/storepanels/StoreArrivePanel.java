@@ -9,16 +9,16 @@ import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.transportblservice.ArriveStoreBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import typeDefinition.PackArrivalState;
 import vo.receiptvo.StoreArrivalReceiptVO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -28,9 +28,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Harry on 2015/11/27.
+ * 新建营业厅到达单
  */
-public class StoreArrivePanel extends JPanel implements ActionListener{
+public class StoreArrivePanel extends JPanel implements ActionListener, FocusListener {
 
     MainFrame parent;
 
@@ -47,10 +47,9 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 
     JComboBox stateC;
 
-    MyButton submitbt=new MyButton("提交");
-    MyButton cancelbt=new MyButton("取消");
+    MyButton submitbt=new MyButton("Submit");
+    MyButton cancelbt=new MyButton("Refresh");
 
-    SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
     
     ArriveStoreBLService arriveStore;
 	LogisticBLService logisticBLService;
@@ -64,7 +63,7 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
         stateC=new JComboBox(s);
 
       //设置时间框里自动生成系统时间
-        timeT.setText(df.format(new Date()));
+        timeT.setText(Constent.DATE_FORMAT.format(new Date()));
         
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
@@ -99,32 +98,49 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
         this.add(submitbt,gbc);
         gbc.gridx=1;
         this.add(cancelbt,gbc);
+
+		setHotKey();
         
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
+
+		orderT.addFocusListener(this);
+		timeT.addFocusListener(this);
+		numT.addFocusListener(this);
+		fromT.addFocusListener(this);
         
         initBL();
     }
+
+	private void setHotKey(){
+		submitbt.setMnemonic('S');
+		cancelbt.setMnemonic('R');
+	}
 
 	private void initBL() {
 		arriveStore=BLFactory.getArriveStoreBLService();
 		try {
 			logisticBLService=BLFactory.getLogisticBLService();
 		} catch (MalformedURLException e) {
-			new ErrorDialog(parent, "MalformedURLException");
+			System.out.println(e.getMessage());
 		} catch (RemoteException e) {
-			new ErrorDialog(parent, "服务器连接超时");
+			new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
 		} catch (NotBoundException e) {
-			new ErrorDialog(parent, "NotBoundException");
+			System.out.println(e.getMessage());
 		}
 	}
 
 	private void refresh() {
 		orderT.setText("");
-		timeT.setText(df.format(new Date()));
+		timeT.setText(Constent.DATE_FORMAT.format(new Date()));
         numT.setText("");
         fromT.setText("");
         stateC.setSelectedIndex(0);
+		orderT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		timeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		numT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		fromT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -132,7 +148,7 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 			if ( (arriveStore!=null) && (logisticBLService!=null)){
 				Date date = null;
 				try {
-					date = df.parse(timeT.getText());
+					date = Constent.DATE_FORMAT.parse(timeT.getText());
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
@@ -152,7 +168,7 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 				try {
 					isChecked=checkAllFormat();
 				} catch (TransportBLException e1) {
-					new ErrorDialog(parent, e1.getMessage());
+					new TranslucentFrame(this, e1.getMessage(), Color.RED);
 				}
 				if(isChecked){
 					try {
@@ -160,16 +176,17 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 						arriveStore.submit(vo);
 						logisticBLService.update(parent.getUserIdentity().getId(), vo);
 						refresh();
+						new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
 					} catch (RemoteException e1) {
-						new ErrorDialog(parent,"服务器连接超时");
+						new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
 					} catch (MalformedURLException e1) {
-						new ErrorDialog(parent,"MalformedURLException");
+						System.out.println(e1.getMessage());
 					} catch (NotBoundException e1) {
-						new ErrorDialog(parent,"NotBoundException");
+						System.out.println(e1.getMessage());
 					} catch (SQLException e1) {
-						new ErrorDialog(parent,"数据库异常");
+						System.out.println(e1.getMessage());
 					} catch (TransportBLException e1) {
-						new ErrorDialog(parent, e1.getMessage());
+						new TranslucentFrame(this, e1.getMessage(), Color.RED);
 					}
 				}
 			}
@@ -225,10 +242,49 @@ public class StoreArrivePanel extends JPanel implements ActionListener{
 	private boolean checkDate(){
 		String s=timeT.getText();
 		try {
-			df.parse(s);
+			Constent.DATE_FORMAT.parse(s);
 		} catch (ParseException e1) {
 			return false;
 		}
 		return true;
+	}
+
+	public void focusGained(FocusEvent e) {
+
+	}
+
+	public void focusLost(FocusEvent e) {
+		if (e.getSource()==orderT){
+			if (checkOrderID()){
+				orderT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+			}
+			else {
+				orderT.setBorder(BorderFactory.createLineBorder(Color.RED));
+			}
+		}
+		else if (e.getSource()==timeT){
+			if (checkDate()){
+				timeT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+			}
+			else {
+				timeT.setBorder(BorderFactory.createLineBorder(Color.RED));
+			}
+		}
+		else if (e.getSource()==numT){
+			if (checkNumID()){
+				numT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+			}
+			else {
+				numT.setBorder(BorderFactory.createLineBorder(Color.RED));
+			}
+		}
+		else if (e.getSource()==fromT){
+			if (checkFrom()){
+				fromT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+			}
+			else {
+				fromT.setBorder(BorderFactory.createLineBorder(Color.RED));
+			}
+		}
 	}
 }

@@ -24,7 +24,7 @@ public class ChargeReceiptDBManager extends DBManager{
 		ResultSet resultSet = statement.executeQuery(find);
 		ArrayList<ChargeReceiptPO> pos = new ArrayList<ChargeReceiptPO>();
 		String formercourier = "#";
-		ArrayList<String> orderIDs = new ArrayList<String>();
+		ArrayList<String> orderIDs = null;
 		ChargeReceiptPO po = null;
 		while(resultSet.next()){
 			String courier = resultSet.getString(3);
@@ -54,11 +54,14 @@ public class ChargeReceiptDBManager extends DBManager{
 				Date chargeTime = new Date(resultSet.getTimestamp(1).getTime());
 				double fee = resultSet.getDouble(2);
 				po = new ChargeReceiptPO(chargeTime, fee, courier, null);
+				formercourier=courier;
 			}
-			formercourier=courier;
+
 		}
-		po.setOrderIDs(orderIDs);
-		pos.add(po);
+		if (po!=null){
+			po.setOrderIDs(orderIDs);
+			pos.add(po);
+		}
 		stopconnection(connection);
 		return pos;
 	}

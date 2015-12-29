@@ -3,10 +3,14 @@ package presentation.contentpanel;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
+import businessLogicService.infoblservice.StaffBLService;
 import constent.Constent;
 import myexceptions.InfoBLException;
 import myexceptions.TransportBLException;
 import presentation.commoncontainer.*;
+import typeDefinition.Job;
+import typeDefinition.MessageType;
+import vo.infovo.StaffVO;
 import vo.receiptvo.ChargeReceiptVO;
 
 import javax.naming.NamingException;
@@ -23,9 +27,10 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 
 /**
- * Created by Harry on 2015/11/27.
+ * 新建收款单
  */
 public class ChargeReceiptPanel extends JPanel implements ActionListener{
     MainFrame parent;
@@ -36,25 +41,30 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
 
     MyTextField timeT=new MyTextField();
     MyTextField moneyT=new MyTextField();
-    MyTextField courierT=new MyTextField();
+    JComboBox<String> courierT;
     MyTextField orderNumT=new MyTextField();
 
-    MyButton appendbt=new MyButton("添加");
-    MyButton deletebt=new MyButton("删除");
-    MyButton submitbt=new MyButton("提交");
-    MyButton cleanbt=new MyButton("清空输入");
+    MyButton appendbt=new MyButton("Append");
+    MyButton deletebt=new MyButton("Delete");
+    MyButton submitbt=new MyButton("Submit");
+    MyButton cleanbt=new MyButton("Refresh");
 
     MyDefaultTableModel defaultTableModel;
     JTable table;
 
     FinanceBLService financeBLService;
+    StaffBLService staffBLService;
 
     public ChargeReceiptPanel(MainFrame par){
         this.parent=par;
         this.setOpaque(false);
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"收款单",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
+        initBL();
+
         initUI();
+
+        setHotKey();
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//单选模式
 
@@ -63,21 +73,31 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         submitbt.addActionListener(this);
         cleanbt.addActionListener(this);
 
-        initBL();
+        orderNumT.addActionListener(this);
+
         setPresentTime();
+    }
+
+    private void setHotKey(){
+        appendbt.setMnemonic('A');
+        deletebt.setMnemonic('D');
+        submitbt.setMnemonic('S');
+        cleanbt.setMnemonic('R');
+
     }
 
     private void initBL(){
         try {
+            staffBLService=BLFactory.getStaffBLService();
             financeBLService=BLFactory.getFinanceBLService();
         } catch (MalformedURLException e) {
-            new ErrorDialog(parent, "MalformedURLException");
+            System.out.println(e.getMessage());
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
-            new ErrorDialog(parent, "NotBoundException");
+            System.out.println(e.getMessage());
         } catch (NamingException e) {
-            new ErrorDialog(parent, "NamingException");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -122,16 +142,8 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         return true;
     }
 
-    private boolean checkCourier(){
-        String person=courierT.getText();
-        if (person.length()<=0){
-            return false;
-        }
-        return true;
-    }
 
     private void checkAll() throws TransportBLException {
-        if (!checkCourier()) throw new TransportBLException("快递员信息不可为空");
 
         if (!checkMoney()) throw new TransportBLException("收款金额必须为正数");
 
@@ -145,23 +157,26 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
     private void refresh(){
         setPresentTime();
         moneyT.setText("");
-        courierT.setText("");
         orderNumT.setText("");
         defaultTableModel.getDataVector().clear();
         table.revalidate();
         table.updateUI();
     }
 
+    private void appendOrder(){
+        if (checkOrderID()){
+            String [] s={orderNumT.getText()};
+            defaultTableModel.addRow(s);
+        }
+        else {
+            new TranslucentFrame(this, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位整数", Color.RED);
+        }
+    }
+
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==appendbt){
-            if (checkOrderID()){
-                String [] s={orderNumT.getText()};
-                defaultTableModel.addRow(s);
-            }
-            else {
-                new ErrorDialog(parent, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位整数");
-            }
-           // System.out.println(defaultTableModel.getRowCount());
+            appendOrder();
+
         }
         else if (e.getSource()==deletebt){
             int row=table.getSelectedRow();
@@ -177,7 +192,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
                     checkAll();
                     Date time=Constent.BIRTHDAY_FORMAT.parse(timeT.getText());
                     double money=Double.parseDouble(moneyT.getText());
-                    String courier=courierT.getText();
+                    String courier=courierT.getSelectedItem().toString();
                     ArrayList<String> orderIDs=new ArrayList<String>();
                     {
                         int row=table.getRowCount();
@@ -188,12 +203,13 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
                     ChargeReceiptVO vo=new ChargeReceiptVO(time, money, courier, orderIDs);
                     financeBLService.submitIn(vo);
                     refresh();
+                    new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                 } catch (ParseException e1) {
-                    new ErrorDialog(parent, "时间格式为: yy-MM-dd");
+                    new TranslucentFrame(this, "时间格式为: yy-MM-dd", Color.RED);
                 } catch (TransportBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     new ErrorDialog(parent, "SQLException");
                 } catch (MalformedURLException e1) {
@@ -212,10 +228,38 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         else if (e.getSource()==cleanbt){
             refresh();
         }
+        else if (e.getSource()==orderNumT){
+            appendOrder();
+        }
 
     }
 
+    private String getMyStoreID(){
+        return parent.getUserIdentity().getId().substring(0, 6);
+    }
+
+    private void loadCourier(){
+        ArrayList<StaffVO> staffVOs;
+        Vector<String> vector=new Vector<String>();
+        try {
+            staffVOs=staffBLService.getStaffList();
+
+            for (StaffVO vo:staffVOs){
+                if (vo.getPosition()== Job.COURIER && vo.getStaffID().substring(0, 6).equals(getMyStoreID())){
+                    vector.add(vo.getStaffID());
+                }
+            }
+        } catch (RemoteException e) {
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        courierT=new JComboBox<String>(vector);
+    }
+
     private void initUI(){
+        loadCourier();
         String [] names={"订单条形码号"};
         String [][] data={};
         defaultTableModel=new MyDefaultTableModel(data, names);
@@ -225,7 +269,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.NONE;
-        gbc.anchor=GridBagConstraints.EAST;
+        gbc.anchor=GridBagConstraints.CENTER;
 
         this.add(timeL,gbc);
         gbc.gridy=1;
@@ -237,6 +281,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         this.add(timeT,gbc);
         gbc.gridy=1;
         this.add(moneyT,gbc);
+        gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.gridy=2;
         this.add(courierT,gbc);
 

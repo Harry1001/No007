@@ -5,7 +5,6 @@ import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
 import myexceptions.TimeFormatException;
 import presentation.commoncontainer.*;
-import presentation.contentpanel.storepanels.BankInfoPanel;
 import typeDefinition.MessageType;
 import vo.financevo.FinanceVO;
 import vo.financevo.ProfitVO;

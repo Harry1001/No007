@@ -9,11 +9,8 @@ import businessLogicService.recordblservice.RecordBLService;
 import constent.Constent;
 import myexceptions.InfoBLException;
 import myexceptions.TimeFormatException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.TimePanel;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.infovo.DriverVO;
 import vo.recordvo.RecordVO;
 
@@ -40,8 +37,8 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
     JComboBox<String> genderC;
     TimePanel birthday;
     TimePanel limitTime;
-    MyButton submitbt=new MyButton("提交");
-    MyButton cancelbt=new MyButton("取消");
+    MyButton submitbt=new MyButton("Submit");
+    MyButton cancelbt=new MyButton("Cancel");
 
     public DriverInfoPanel(MainFrame par, JDialog dialog, DriverListPanel listPanel, DriverBLService blService) {
         this.parent = par;
@@ -50,8 +47,14 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
         this.driverBLService=blService;
 
         initUI();
+        setHotKey();
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
+    }
+
+    private void setHotKey(){
+        submitbt.setMnemonic('S');
+        cancelbt.setMnemonic('C');
     }
 
     private boolean checkID(){
@@ -107,32 +110,32 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
 
     protected boolean checkAll(){
         if (!checkID()){
-            new ErrorDialog(parent, "司机编号必须为"+Constent.DRIVER_ID_LENGTH+"位数字");
+            new TranslucentFrame(listPanel, "司机编号必须为"+Constent.DRIVER_ID_LENGTH+"位数字", Color.RED);
             return false;
         }
 
         if (!checkName()){
-            new ErrorDialog(parent, "名称不可为空");
+            new TranslucentFrame(listPanel, "名称不可为空", Color.RED);
             return false;
         }
 
         if (!checkBirthday()){
-            new ErrorDialog(parent, "出生日期必须在当前时间之前");
+            new TranslucentFrame(listPanel, "出生日期必须在当前时间之前", Color.RED);
             return false;
         }
 
         if (!checkPersonID()){
-            new ErrorDialog(parent, "请输入正确的身份证号");
+            new TranslucentFrame(listPanel, "请输入正确的身份证号", Color.RED);
             return false;
         }
 
         if (!checkPhone()){
-            new ErrorDialog(parent, "手机号必须为"+Constent.PHONE_LENGTH+"位数字");
+            new TranslucentFrame(listPanel, "手机号必须为"+Constent.PHONE_LENGTH+"位数字", Color.RED);
             return false;
         }
 
         if (!checkLimitTime()){
-            new ErrorDialog(parent, "请输入正确的行驶证期限");
+            new TranslucentFrame(listPanel, "请输入正确的行驶证期限", Color.RED);
             return false;
         }
         return true;
@@ -160,14 +163,15 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
                     RecordBLService rb= BLFactory.getRecordBLService();
                     rb.add(rvo);
                     refresh();
+                    new TranslucentFrame(listPanel, MessageType.ADD_SUCCESS, Color.GREEN);
                 } catch (TimeFormatException e1) {
-                    new ErrorDialog(parent, "时间格式错误");
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(listPanel, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     new ErrorDialog(parent, "SQLException");
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());//数据库中已经包含该司机编号
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);//数据库中已经包含该司机编号
                 } catch (MalformedURLException e1) {
                     new ErrorDialog(parent, "MalformedURLException");
                 } catch (NotBoundException e1) {
@@ -176,7 +180,7 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
             }
         }
         else if (e.getSource()==cancelbt){
-            parent.dispose();
+            dialog.dispose();
         }
     }
 
@@ -201,6 +205,7 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
             this.add(labels[gbc.gridy],gbc);
         }
 
+        gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.gridx=1;
         gbc.gridy=0;
         this.add(textFields[0],gbc);
@@ -217,6 +222,7 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
         gbc.gridy++;
         this.add(limitTime,gbc);
 
+        gbc.fill=GridBagConstraints.NONE;
         gbc.gridx=0;
         gbc.gridy=8;
         this.add(submitbt,gbc);

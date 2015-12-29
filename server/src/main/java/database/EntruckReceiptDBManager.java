@@ -22,11 +22,24 @@ public class EntruckReceiptDBManager extends DBManager{
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(find);
 		ArrayList<EntruckReceiptPO> pos = new ArrayList<EntruckReceiptPO>();
-		String transportID = "";//存储上一个货运编号
+		String transportID = "#";//存储上一个货运编号
 		ArrayList<String> orderNums = null;//存储上一个货运编号对应的许多快递单号
 		EntruckReceiptPO po = null;
 		while(resultSet.next()){
 			String presentID = resultSet.getString(2);
+			if (transportID.equals("#")){
+				orderNums = new ArrayList<String>();
+				String orderNum = resultSet.getString(5);
+				orderNums.add(orderNum);
+
+				Date entruckDate = new Date(resultSet.getTimestamp(1).getTime());
+				String arriveLoc = resultSet.getString(3);
+				String truckID = resultSet.getString(4);
+				double transportFee = resultSet.getDouble(6);
+				po = new EntruckReceiptPO(entruckDate, presentID, arriveLoc, truckID, null, transportFee);
+				transportID=presentID;
+				continue;
+			}
 			if(presentID.equals(transportID)){//如果货运编号相同，则增加快递单号
 				String orderNum = resultSet.getString(5);
 				orderNums.add(orderNum);
@@ -43,8 +56,13 @@ public class EntruckReceiptDBManager extends DBManager{
 				String arriveLoc = resultSet.getString(3);
 				String truckID = resultSet.getString(4);
 				double transportFee = resultSet.getDouble(6);
-				po = new EntruckReceiptPO(entruckDate, presentID, arriveLoc, truckID, null, transportFee);				
+				po = new EntruckReceiptPO(entruckDate, presentID, arriveLoc, truckID, null, transportFee);
+				transportID=presentID;
 			}
+		}
+		if (po!=null){
+			po.setOrderNum(orderNums);
+			pos.add(po);
 		}
 		stopconnection(connection);
 		return pos;		

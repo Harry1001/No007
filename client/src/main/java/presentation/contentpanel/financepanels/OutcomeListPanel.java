@@ -187,7 +187,8 @@ public class OutcomeListPanel extends JPanel implements ActionListener {
                             payReceiptBLService.updateState(id, ReceiptState.HANDLED);
 
                             //银行扣钱
-                            bankAccountBLService.modifyBankAccount(id, -(Double)table.getValueAt(i, 1));//负号不能丢！
+                            String bankacc=(String)table.getValueAt(i, 3);
+                            bankAccountBLService.modifyBankAccount(bankacc, -(Double)table.getValueAt(i, 1));//负号不能丢！
 
                         }
                     }
@@ -210,6 +211,7 @@ public class OutcomeListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==refreshbt){
             refreshList();
+            new TranslucentFrame(this, "刷新成功", Color.GREEN);
         }
         else if (e.getSource()==addbt){
             outcomePanel.showPayReceipt();

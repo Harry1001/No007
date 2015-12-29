@@ -1,4 +1,4 @@
-package presentation.contentpanel.storepanels;
+package presentation.contentpanel;
 
 import vo.financevo.FinanceVO;
 
