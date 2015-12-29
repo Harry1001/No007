@@ -23,6 +23,7 @@ public class BankInfoPanel extends JPanel {
         textArea.append(vo.printBankAccount());
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
+        textArea.setEditable(false);
         this.add(new JScrollPane(textArea));
     }
 }
