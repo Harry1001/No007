@@ -4,10 +4,8 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.commodityblservice.CommodityBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import typeDefinition.Vehicle;
 import vo.loginvo.LoginResultVO;
 import vo.receiptvo.DepotOutReceiptVO;
@@ -50,8 +48,8 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
     JRadioButton rbt2=new JRadioButton("火车");
     JRadioButton rbt3=new JRadioButton("飞机");
 
-    MyButton submitbt=new MyButton("提交");
-    MyButton cancelbt=new MyButton("取消");
+    MyButton submitbt=new MyButton("提交(S)");
+    MyButton cancelbt=new MyButton("取消(C)");
 
     public DepotOutPanel(MainFrame par){
         this.parent=par;
@@ -102,18 +100,30 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
         gbc.gridx++;
         this.add(cancelbt,gbc);
 
+        setHotKey();
+
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
+
+        packIDT.addFocusListener(this);
         transIDT.addFocusListener(this);
+        destiT.addFocusListener(this);
+        timeT.addFocusListener(this);
+
         refresh();
         initBL();
+    }
+
+    private void setHotKey(){
+        submitbt.setMnemonic('S');
+        cancelbt.setMnemonic('C');
     }
 
     private void initBL(){
         try {
             commodityBLService= BLFactory.getCommodityBLService();
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
         } catch (NotBoundException e) {
@@ -181,22 +191,22 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
 
     private boolean checkAll(){
         if (!checkPackID()){
-            new ErrorDialog(parent, "快递编号必须为"+Constent.ORDER_ID_LENGTH+"位数字");
+            new TranslucentFrame(this, "快递编号必须为"+Constent.ORDER_ID_LENGTH+"位数字", Color.RED);
             return false;
         }
 
         if (!checkTime()){
-            new ErrorDialog(parent, "时间格式必须为: yyyy-MM-dd HH:mm:ss");
+            new TranslucentFrame(this, "时间格式必须为: yyyy-MM-dd HH:mm:ss", Color.RED);
             return false;
         }
 
         if (!checkLoc()){
-            new ErrorDialog(parent, "目的地前两位必须为城市名");
+            new TranslucentFrame(this, "目的地前两位必须为城市名", Color.RED);
             return false;
         }
 
         if (!checkTransID()){
-            new ErrorDialog(parent, "中转单编号或汽运单编号必须为"+Constent.Transfer_ID_LENGTH+"位数字");
+            new TranslucentFrame(this, "中转单编号或汽运单编号必须为"+Constent.Transfer_ID_LENGTH+"位数字", Color.RED);
             return false;
         }
 
@@ -221,6 +231,12 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
         String hubID=getMyHubID();
         String timeNum=Constent.RECIEPT_NUM_FORMAT.format(new Date());
         transIDT.setText(hubID+timeNum+"+7位数字");
+
+        packIDT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        destiT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        timeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        transIDT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+
     }
 
     private Vehicle getSelectedVehicle(){
@@ -247,13 +263,14 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
                         DepotOutReceiptVO vo=new DepotOutReceiptVO(packID,time,desti,vehicle,transID);
                         commodityBLService.submitOut(vo);
                         refresh();
+                        new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                     } catch (ParseException e1) {
-                        new ErrorDialog(parent, "请不要改变默认时间格式");
+                        new TranslucentFrame(this, "请不要改变默认时间格式", Color.RED);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
                         System.out.println("库存出库："+e1.getMessage());
-                        new ErrorDialog(parent, "SQLException");
+
                     } catch (MalformedURLException e1) {
                         new ErrorDialog(parent, "MalformedURLException");
                     } catch (NotBoundException e1) {
@@ -282,6 +299,37 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
     }
 
     public void focusLost(FocusEvent e) {
-
+        if (e.getSource()==packIDT){
+            if (checkPackID()){
+                packIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else{
+                packIDT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if (e.getSource()==destiT){
+            if (checkLoc()){
+                destiT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else{
+                destiT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if (e.getSource()==timeT){
+            if (checkTime()){
+                timeT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else{
+                timeT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if(e.getSource()==transIDT){
+            if (checkTransID()){
+                transIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else{
+                transIDT.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
     }
 }

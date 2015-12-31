@@ -4,11 +4,9 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.commodityblservice.CommodityBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyTable;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
 import typeDefinition.Location;
+import typeDefinition.MessageType;
 import vo.commodityvo.CommodityVO;
 
 import javax.naming.NamingException;
@@ -30,7 +28,7 @@ import java.util.Vector;
  */
 public class DepotPanDianPanel extends JPanel implements ActionListener{
     MainFrame parent;
-    MyButton refreshbt=new MyButton("刷新数据");
+    MyButton refreshbt=new MyButton("刷新(R)");
     CommodityBLService commodityBLService;
 
     MyDefaultTableModel defaultTableModel;
@@ -71,16 +69,22 @@ public class DepotPanDianPanel extends JPanel implements ActionListener{
         gbc.gridy=2;
         this.add(refreshbt,gbc);
 
+        setHotKey();
+
 
         refreshbt.addActionListener(this);
         initBL();
+    }
+
+    private void setHotKey(){
+        refreshbt.setMnemonic('R');
     }
 
     private void initBL(){
         try {
             commodityBLService= BLFactory.getCommodityBLService();
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
         } catch (NotBoundException e) {
@@ -114,8 +118,9 @@ public class DepotPanDianPanel extends JPanel implements ActionListener{
                 defaultTableModel.setDataVector(data,names);
                 table.revalidate();
                 table.updateUI();
+
             } catch (RemoteException e) {
-                new ErrorDialog(parent, "服务器连接超时");
+                new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
             } catch (SQLException e) {
                 System.out.println("库存盘点sql："+e.getMessage());
                 new ErrorDialog(parent, "SQLException");
@@ -131,6 +136,7 @@ public class DepotPanDianPanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==refreshbt){
             refreshData();
+            new TranslucentFrame(this, "刷新成功", Color.GREEN);
         }
     }
 

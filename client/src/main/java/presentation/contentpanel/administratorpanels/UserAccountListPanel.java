@@ -4,11 +4,9 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.infoblservice.UserAccoutBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyDefaultTableModel;
-import presentation.commoncontainer.MyTable;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
 import typeDefinition.Job;
+import typeDefinition.MessageType;
 import vo.infovo.UserAccountVO;
 
 import javax.swing.*;
@@ -30,10 +28,10 @@ import java.util.Vector;
  */
 public class UserAccountListPanel extends JPanel implements ActionListener {
     private MainFrame parent;
-    private MyButton addbt=new MyButton("新增");
-    private MyButton deletebt=new MyButton("删除");
-    private MyButton modifybt=new MyButton("修改");
-    private MyButton refreshbt=new MyButton("刷新");
+    private MyButton addbt=new MyButton("新增(N)");
+    private MyButton deletebt=new MyButton("删除(D)");
+    private MyButton modifybt=new MyButton("修改(M)");
+    private MyButton refreshbt=new MyButton("刷新(R)");
     private UserAccoutBLService userAccoutBLService;//逻辑层引用
 
     private MyDefaultTableModel defaultTableModel;
@@ -51,6 +49,8 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
         
         initUI();
 
+        setHotKey();
+
         //为组件添加监听
         addbt.addActionListener(this);
         deletebt.addActionListener(this);
@@ -62,6 +62,13 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
         refreshList();
     }
 
+    private void setHotKey(){
+        addbt.setMnemonic('N');
+        deletebt.setMnemonic('D');
+        modifybt.setMnemonic('M');
+        refreshbt.setMnemonic('R');
+    }
+
     /**
      * 创建逻辑层引用，并对可能产生的异常进行处理
      */
@@ -71,7 +78,7 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "URL格式错误");
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
             new ErrorDialog(parent, "URL未绑定");
         }
@@ -141,7 +148,7 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
                 table.revalidate();
                 table.updateUI();
             } catch (RemoteException e) {
-                new ErrorDialog(parent, "服务器连接超时");
+                new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
             } catch (SQLException e) {
                 new ErrorDialog(parent, "数据库异常");
             }
@@ -171,8 +178,9 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
                     try {
                         userAccoutBLService.deleteUserAccount(id);
                         refreshList();
+                        new TranslucentFrame(this, MessageType.DELETE_SUCCESS, Color.GREEN);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
                         new ErrorDialog(parent, "SQLException");
                     }
@@ -182,12 +190,12 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
                 }
             }
             else {
-                new ErrorDialog(parent, "请选择待删除行");
+                new TranslucentFrame(this, "请选择待删除行", Color.RED);
             }
         } else if (e.getSource()==modifybt){
             int row=table.getSelectedRow();
             if (row==-1){//没有选择任何行
-                new ErrorDialog(parent, "请选择一行待修改条目");
+                new TranslucentFrame(this, "请选择待修改账户", Color.RED);
             } else {//选择了待修改的行
                 if (userAccoutBLService!=null){
                     String id=(String)table.getValueAt(row, 0);
@@ -215,6 +223,7 @@ public class UserAccountListPanel extends JPanel implements ActionListener {
             }
         } else if (e.getSource()==refreshbt){
             refreshList();
+            new TranslucentFrame(this, "刷新成功", Color.GREEN);
         }
     }
 }

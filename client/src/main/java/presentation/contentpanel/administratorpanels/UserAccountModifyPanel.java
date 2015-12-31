@@ -4,10 +4,13 @@ import MainFrame.MainFrame;
 import businessLogicService.infoblservice.UserAccoutBLService;
 import myexceptions.InfoBLException;
 import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.TranslucentFrame;
 import typeDefinition.Job;
+import typeDefinition.MessageType;
 import vo.infovo.UserAccountVO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -43,10 +46,11 @@ public class UserAccountModifyPanel extends UserAccountInfoPanel {
                     userAccoutBLService.modifyUserAccount(originUserID, vo);
                     listPanel.refreshList();
                     dialog.dispose();
+                    new TranslucentFrame(listPanel, MessageType.MODIFY_SUCCESS, Color.GREEN);
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(listPanel, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     new ErrorDialog(parent, "数据库异常");
                 }

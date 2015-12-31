@@ -4,11 +4,9 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.commodityblservice.CommodityBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
 import typeDefinition.Location;
+import typeDefinition.MessageType;
 import vo.receiptvo.DepotInReceiptVO;
 
 import javax.naming.NamingException;
@@ -18,6 +16,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -52,8 +52,8 @@ public class DepotInPanel extends JPanel implements ActionListener {
     MyTextField jiahaoT=new MyTextField(5);
     MyTextField weihaoT=new MyTextField(5);
 
-    MyButton submitbt=new MyButton("提交");
-    MyButton cancelbt=new MyButton("取消");
+    MyButton submitbt=new MyButton("提交(S)");
+    MyButton cancelbt=new MyButton("取消(C)");
 
     public DepotInPanel(MainFrame par){
         this.parent=par;
@@ -109,12 +109,22 @@ public class DepotInPanel extends JPanel implements ActionListener {
         this.add(submitbt,gbc);
         gbc.gridx++;
         this.add(cancelbt,gbc);
+
+        setHotKey();
         
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
+
+        initFocus();
+
         setPresentTime();
         initBL();
         refresh();
+    }
+
+    private void setHotKey(){
+        submitbt.setMnemonic('S');
+        cancelbt.setMnemonic('C');
     }
 
 	private void initBL() {
@@ -123,7 +133,7 @@ public class DepotInPanel extends JPanel implements ActionListener {
 		} catch (MalformedURLException e) {
 			new ErrorDialog(parent, "MalformedURLException");
 		} catch (RemoteException e) {
-			new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
 		} catch (NamingException e) {
 			new ErrorDialog(parent, "NamingException");
 		} catch (NotBoundException e) {
@@ -136,37 +146,37 @@ public class DepotInPanel extends JPanel implements ActionListener {
 
 	private boolean checkAllFormat() {
 		if(!checkPackID(packIDT.getText())) {
-            new ErrorDialog(parent, "快递编号必须为"+Constent.ORDER_ID_LENGTH+"位数字");
+            new TranslucentFrame(this, "快递编号必须为"+Constent.ORDER_ID_LENGTH+"位数字", Color.RED);
             return false;
         }
 
         if (!checkLoc(destiT.getText())){
-            new ErrorDialog(parent, "目的地前两位必须为城市名");
+            new TranslucentFrame(this, "目的地前两位必须为城市名", Color.RED);
             return false;
         }
 
         if (!checkTime(timeT.getText())){
-            new ErrorDialog(parent, "时间格式为：yyyy-MM-dd HH:mm:ss");
+            new TranslucentFrame(this, "时间格式为：yyyy-MM-dd HH:mm:ss", Color.RED);
             return false;
         }
 
 		if(!checkNumber(quhaoT.getText())) {
-            new ErrorDialog(parent, "区号必须为正整数");
+            new TranslucentFrame(this, "区号必须为正整数", Color.RED);
             return false;
         }
 
         if(!checkNumber(paihaoT.getText())) {
-            new ErrorDialog(parent, "排号必须为正整数");
+            new TranslucentFrame(this, "排号必须为正整数", Color.RED);
             return false;
         }
 
         if(!checkNumber(jiahaoT.getText())) {
-            new ErrorDialog(parent, "架号必须为正整数");
+            new TranslucentFrame(this, "架号必须为正整数", Color.RED);
             return false;
         }
 
         if(!checkNumber(weihaoT.getText())) {
-            new ErrorDialog(parent, "位号必须为正整数");
+            new TranslucentFrame(this, "位号必须为正整数", Color.RED);
             return false;
         }
 
@@ -247,6 +257,121 @@ public class DepotInPanel extends JPanel implements ActionListener {
         jiahaoT.setText("");
         weihaoT.setText("");
         //hubIDT.setText("");
+
+        packIDT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        destiT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        timeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        quhaoT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        paihaoT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        jiahaoT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        weihaoT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+    }
+
+    public void initFocus(){
+        packIDT.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (checkPackID(packIDT.getText())){
+                    packIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                }
+                else {
+                    packIDT.setBorder(BorderFactory.createLineBorder(Color.RED));
+                }
+            }
+        });
+
+        destiT.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (checkLoc(destiT.getText())){
+                    destiT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                }
+                else {
+                    destiT.setBorder(BorderFactory.createLineBorder(Color.RED));
+                }
+            }
+        });
+
+        timeT.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (checkTime(timeT.getText())){
+                    timeT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                }
+                else {
+                    timeT.setBorder(BorderFactory.createLineBorder(Color.RED));
+                }
+            }
+        });
+
+        quhaoT.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (checkNumber(quhaoT.getText())){
+                    quhaoT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                }
+                else {
+                    quhaoT.setBorder(BorderFactory.createLineBorder(Color.RED));
+                }
+            }
+        });
+
+        paihaoT.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (checkNumber(paihaoT.getText())){
+                    paihaoT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                }
+                else {
+                    paihaoT.setBorder(BorderFactory.createLineBorder(Color.RED));
+                }
+            }
+        });
+
+        jiahaoT.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (checkNumber(jiahaoT.getText())){
+                    jiahaoT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                }
+                else {
+                    jiahaoT.setBorder(BorderFactory.createLineBorder(Color.RED));
+                }
+            }
+        });
+
+        weihaoT.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (checkNumber(weihaoT.getText())){
+                    weihaoT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                }
+                else {
+                    weihaoT.setBorder(BorderFactory.createLineBorder(Color.RED));
+                }
+            }
+        });
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -267,15 +392,16 @@ public class DepotInPanel extends JPanel implements ActionListener {
                         DepotInReceiptVO vo=new DepotInReceiptVO(packID,time, desti, loc);
                         commodityBLService.submitIn(vo);
                         refresh();
+                        new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                     } catch (ParseException e1) {
-                        new ErrorDialog(parent, "时间格式为：yyyy-MM-dd HH:mm:ss");
+                        new TranslucentFrame(this, "时间格式为：yyyy-MM-dd HH:mm:ss", Color.RED);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
                         System.out.println("库存入库："+e1.getMessage());
                         String s=e1.getMessage();
                         if ((s.length()>=15)&&(s.substring(0,15).equals("Duplicate entry"))){
-                            new ErrorDialog(parent, "该入库单已存在");
+                            new TranslucentFrame(this, "该入库单已存在", Color.RED);
                         }
                         else {
                             new ErrorDialog(parent, "SQLException");

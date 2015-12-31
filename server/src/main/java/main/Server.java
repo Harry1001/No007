@@ -152,11 +152,34 @@ public class Server {
 		recordServer.register();
 
 		JFrame frame=new JFrame("服务器端启动程序");
-		JLabel label=new JLabel("点击退出按钮关闭服务器");
+		JLabel label1=new JLabel("点击退出按钮关闭服务器");
+		JLabel label2=new JLabel("服务器已启动");
+		label1.setFont(new Font("微软雅黑",Font.PLAIN,20));
+		label2.setFont(new Font("微软雅黑",Font.PLAIN,20));
 		JButton exitbt=new JButton("退出");
-		frame.getContentPane().add(label, BorderLayout.CENTER);
-		frame.getContentPane().add(exitbt, BorderLayout.SOUTH);
+
+		frame.setLayout(new GridBagLayout());
+		GridBagConstraints gbc=new GridBagConstraints();
+		gbc.fill=GridBagConstraints.NONE;
+		gbc.anchor=GridBagConstraints.CENTER;
+		gbc.gridx=gbc.gridy=0;
+		gbc.insets=new Insets(10,10,10,10);
+
+		frame.getContentPane().add(label2, gbc);
+		gbc.gridy++;
+		frame.getContentPane().add(label1, gbc);
+		gbc.gridy++;
+		frame.getContentPane().add(exitbt, gbc);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+		try{
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			SwingUtilities.updateComponentTreeUI(frame);
+		}catch (Exception e){
+			System.out.println("look and feel set fail");
+		}
+
 		frame.setSize(300, 200);
 
 		exitbt.addActionListener(new ActionListener() {

@@ -4,10 +4,8 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.commodityblservice.CommodityBLService;
 import myexceptions.TimeFormatException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.TimePanel;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.commodityvo.CheckResultVO;
 
 import javax.naming.NamingException;
@@ -46,17 +44,22 @@ public class DepotChaKanPanel extends JPanel implements ActionListener{
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"库存查看",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
         initUI();
+        setHotKey();
 
         confirmbt.addActionListener(this);
 
         initBL();
     }
 
+    private void setHotKey(){
+        confirmbt.setMnemonic('O');
+    }
+
     private void initBL(){
         try {
             commodityBLService= BLFactory.getCommodityBLService();
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
         } catch (NotBoundException e) {
@@ -77,14 +80,15 @@ public class DepotChaKanPanel extends JPanel implements ActionListener{
                         CheckResultVO resultVO=commodityBLService.getList(hubID, from, to);
                         inNum.setText(" "+resultVO.getDepotinnum());
                         outNum.setText(" "+resultVO.getDepotoutnum());
+                        new TranslucentFrame(this, "数据已更新", Color.GREEN);
                     }
                     else {
-                        new ErrorDialog(parent, "开始时间必须早于结束时间");
+                        new TranslucentFrame(this, "开始时间必须早于结束时间", Color.RED);
                     }
                 } catch (TimeFormatException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     System.out.println("库存查看sql："+e1.getMessage());
                     new ErrorDialog(parent, "SQLException");
@@ -111,7 +115,7 @@ public class DepotChaKanPanel extends JPanel implements ActionListener{
         outNum=new MyLabel("");
         fromTimePanel=new TimePanel();
         toTimePanel=new TimePanel();
-        confirmbt=new MyButton("确认");
+        confirmbt=new MyButton("确认(O)");
 
         this.setLayout(new GridBagLayout());
         this.setOpaque(false);

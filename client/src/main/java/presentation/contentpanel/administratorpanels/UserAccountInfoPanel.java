@@ -4,11 +4,9 @@ import MainFrame.MainFrame;
 import businessLogicService.infoblservice.UserAccoutBLService;
 import constent.Constent;
 import myexceptions.InfoBLException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
 import typeDefinition.Job;
+import typeDefinition.MessageType;
 import vo.infovo.UserAccountVO;
 
 import javax.swing.*;
@@ -35,8 +33,8 @@ public class UserAccountInfoPanel extends JPanel implements ActionListener {
     MyTextField nameT=new MyTextField(15);
     JComboBox<String> jobC;
     JPasswordField passwordField=new JPasswordField(15);
-    MyButton submitbt=new MyButton("提交");
-    MyButton cancelbt=new MyButton("取消");
+    MyButton submitbt=new MyButton("提交(S)");
+    MyButton cancelbt=new MyButton("取消(C)");
 
     public UserAccountInfoPanel( MainFrame parent,JDialog dialog, UserAccountListPanel listPanel,
                                  UserAccoutBLService userAccoutBL) {
@@ -81,8 +79,15 @@ public class UserAccountInfoPanel extends JPanel implements ActionListener {
         gbc.gridy--;
         this.add(idT,gbc);
 
+        setHotKey();
+
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
+    }
+
+    private void setHotKey(){
+        submitbt.setMnemonic('S');
+        cancelbt.setMnemonic('C');
     }
 
     protected boolean checkID(){
@@ -117,17 +122,17 @@ public class UserAccountInfoPanel extends JPanel implements ActionListener {
     protected boolean checkFormat(){
 
         if(!checkID()){
-            new ErrorDialog(parent, "请输入"+Constent.USER_ID_LENGTH+"位数字工号");
+            new TranslucentFrame(listPanel, "请输入"+Constent.USER_ID_LENGTH+"位数字工号", Color.RED);
             return false;
         }
 
         if (!checkPassword()){
-            new ErrorDialog(parent, "密码位数不可小于8");
+            new TranslucentFrame(listPanel, "密码位数不可小于8", Color.RED);
             return false;
         }
 
         if (!checkName()){
-            new ErrorDialog(parent, "姓名不可为空");
+            new TranslucentFrame(listPanel, "姓名不可为空", Color.RED);
             return  false;
         }
         return true;
@@ -149,10 +154,11 @@ public class UserAccountInfoPanel extends JPanel implements ActionListener {
                     userAccoutBLService.addUserAccount(vo);
                     listPanel.refreshList();
                     refresh();
+                    new TranslucentFrame(listPanel, MessageType.ADD_SUCCESS, Color.GREEN);
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(listPanel, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     System.out.println("增加账户sql异常："+e1.getMessage());
                     new ErrorDialog(parent, "数据库异常");
