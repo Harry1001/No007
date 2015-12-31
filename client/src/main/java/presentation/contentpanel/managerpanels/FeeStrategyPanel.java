@@ -30,8 +30,8 @@ public class FeeStrategyPanel extends JPanel implements ActionListener {
     protected JPanel chargepanel= new JPanel();
     protected MyLabel[] labels=new MyLabel[6];
     protected MyTextField[] textFields=new MyTextField[6];
-    protected MyButton confirmbt=new MyButton("OK");
-    protected MyButton cancelbt=new MyButton("Cancel");
+    protected MyButton confirmbt=new MyButton("确定(O)");
+    protected MyButton cancelbt=new MyButton("取消(C)");
 
     protected FeeStrategyBLService feeService;
 

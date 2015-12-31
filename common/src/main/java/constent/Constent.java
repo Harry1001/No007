@@ -143,4 +143,9 @@ public class Constent {
      * 付款单编号默认11位
      */
     public static final int PAY_RECEIPT_LENGTH = 11;
+
+    /**
+     * 中转方式表，顺序不可变
+     */
+    public static final String [] VEHICLE_TYPE_STR = {"汽车","火车","飞机"};
 }

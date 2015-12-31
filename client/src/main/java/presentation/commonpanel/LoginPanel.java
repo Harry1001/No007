@@ -107,6 +107,8 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         gbc.anchor=GridBagConstraints.EAST;
         this.add(logisticbt, gbc);
 
+        setHotKey();
+
         //numText.setText("请输入"+ Constent.USER_ID_LENGTH+"位数字");
 
         //注册监听事件
@@ -116,6 +118,11 @@ public class LoginPanel extends JPanel implements ActionListener, FocusListener{
         passwordField.addActionListener(this);
 
         //this.getRootPane().setDefaultButton(logButton);//设置默认按钮
+    }
+
+    private void setHotKey(){
+        logButton.setMnemonic('L');
+        logisticbt.setMnemonic('I');
     }
 
     protected void paintComponent(Graphics g){

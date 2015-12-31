@@ -15,7 +15,7 @@ public class ContentDialog extends JDialog implements ActionListener {
     public ContentDialog(JFrame parent, String title, JPanel panel) {
         super(parent, title, false);
         this.parent = parent;
-        confirmbt = new MyButton("OK");
+        confirmbt = new MyButton("确定(O)");
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

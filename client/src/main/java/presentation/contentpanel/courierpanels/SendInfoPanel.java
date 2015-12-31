@@ -4,10 +4,8 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.transportblservice.SendBLService;
 import constent.Constent;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.receiptvo.SendReceiptVO;
 
 import javax.swing.*;
@@ -28,7 +26,7 @@ public class SendInfoPanel extends JPanel implements ActionListener {
     MyTextField[] texts=new MyTextField[16];
     MyLabel inputL=new MyLabel("请输入订单号");
     MyTextField inputT=new MyTextField(15);
-    MyButton confirmbt=new MyButton("确认");
+    MyButton confirmbt=new MyButton("确认(S)");
 
     SendBLService sendBLService;
 
@@ -129,8 +127,14 @@ public class SendInfoPanel extends JPanel implements ActionListener {
         gbc.gridwidth=4;
         this.add(panel3,gbc);
 
+        setHotKey();
+
         confirmbt.addActionListener(this);
         initBL();
+    }
+
+    private void setHotKey(){
+        confirmbt.setMnemonic('S');
     }
 
     /**
@@ -184,12 +188,12 @@ public class SendInfoPanel extends JPanel implements ActionListener {
                         if (vo!=null)
                             loadData(vo);
                         else
-                            new ErrorDialog(parent, "此订单不存在");
+                            new TranslucentFrame(this, "此订单不存在", Color.RED);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
                         System.out.println("查询寄件单信息sql："+e1.getMessage());
-                        new ErrorDialog(parent, "SQLException");
+
                     } catch (MalformedURLException e1) {
                         e1.printStackTrace();
                     } catch (NotBoundException e1) {
@@ -197,7 +201,7 @@ public class SendInfoPanel extends JPanel implements ActionListener {
                     }
                 }
                 else {
-                    new ErrorDialog(parent, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位数字");
+                    new TranslucentFrame(this, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位数字", Color.RED);
                 }
             }
             else {

@@ -13,6 +13,7 @@ import typeDefinition.MessageType;
 import typeDefinition.ReceiptState;
 import vo.infovo.BankAccountVO;
 import vo.receiptvo.PayReceiptVO;
+import vo.salaryfeevo.SalaryFeeVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
@@ -51,10 +52,10 @@ public class PayReceiptPanel extends JPanel implements ActionListener, FocusList
     MyTextField personT=new MyTextField();
     JComboBox<String> accountT=new JComboBox<String>();
     MyTextField receiptIDT =new MyTextField();
-    MyButton submitbt=new MyButton("Submit");
-    MyButton cancelbt=new MyButton("Clear");
-    MyButton backbt=new MyButton(" Back ", Images.BACK_IMAGE);
-    MyButton salarybt=new MyButton("Generate Salary");
+    MyButton submitbt=new MyButton("提交(S)");
+    MyButton cancelbt=new MyButton("取消(C)");
+    MyButton backbt=new MyButton("返回(B)", Images.BACK_IMAGE);
+    MyButton salarybt=new MyButton("生成工资(G)");
 
     JRadioButton salary = new JRadioButton("工资 ");
     JRadioButton rent = new JRadioButton("租金 ");
@@ -303,7 +304,27 @@ public class PayReceiptPanel extends JPanel implements ActionListener, FocusList
             outcomePanel.showList();
         }
         else if (e.getSource()==salarybt){
-            //todo
+            if (financeBLService!=null){
+                double totalFee=0.0;
+                try {
+                    ArrayList<SalaryFeeVO> salaryFeeVOs=financeBLService.calSalary();
+                    for (SalaryFeeVO vo:salaryFeeVOs){
+                        totalFee+=vo.getSalary();
+                    }
+                    feeT.setText(totalFee+"");
+                } catch (RemoteException e1) {
+                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
+                } catch (SQLException e1) {
+                    System.out.println(e1.getMessage());
+                } catch (MalformedURLException e1) {
+                    e1.printStackTrace();
+                } catch (NotBoundException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            else {
+                initBL();
+            }
         }
     }
 

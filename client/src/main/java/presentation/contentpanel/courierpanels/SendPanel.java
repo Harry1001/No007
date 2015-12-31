@@ -9,10 +9,8 @@ import businessLogicService.transportblservice.SendBLService;
 import constent.Constent;
 import myexceptions.InfoBLException;
 import myexceptions.TransportBLException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.receiptvo.SendReceiptVO;
 
 import javax.swing.*;
@@ -135,8 +133,8 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
 
         this.add(panel3,gbc);
 
-        calFeebt=new MyButton("计算运费");
-        submitbt=new MyButton(" 提交");
+        calFeebt=new MyButton("计算运费(F)");
+        submitbt=new MyButton(" 提交(S)");
         gbc.gridx=0;
         gbc.gridy=3;
         gbc.fill=GridBagConstraints.NONE;
@@ -145,6 +143,8 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         this.add(calFeebt,gbc);
         gbc.gridx=1;
         this.add(submitbt,gbc);
+
+        setHotKey();
 
         //按钮注册监听
         calFeebt.addActionListener(this);
@@ -171,6 +171,11 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         initBL();//初始化逻辑层对象
     }
 
+    private void setHotKey(){
+        submitbt.setMnemonic('S');
+        calFeebt.setMnemonic('F');
+    }
+
     /**
      * 为界面层建立逻辑层对象引用
      */
@@ -183,7 +188,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
             new ErrorDialog(parent, "NotBoundException");
         }
@@ -210,7 +215,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                         weight=Double.parseDouble(texts[9].getText());
                         volumn=Double.parseDouble(texts[10].getText());
                         if (weight<=0||volumn<=0){
-                            new ErrorDialog(parent, "重量或体积必须是正整数或小数");
+                            new TranslucentFrame(this, "重量或体积必须是正整数或小数", Color.RED);
                         }
 
                         SendReceiptVO vo=new SendReceiptVO("",fromLoc,"","","",toLoc,"","",1,weight,volumn,"",
@@ -222,11 +227,11 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                         texts[13].setText(df.format(fee));
 
                     }catch (NumberFormatException e1){
-                        new ErrorDialog(parent, "重量或体积必须是正整数或小数");
+                        new TranslucentFrame(this, "重量或体积必须是正整数或小数", Color.RED);
                     } catch (RemoteException e1) {
-                        new ErrorDialog(parent, "服务器连接超时");
+                        new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                     } catch (SQLException e1) {
-                        new ErrorDialog(parent, "SQLException: "+e1.getMessage());
+                        e1.printStackTrace();
                     } catch (ClassNotFoundException e1) {
                         new ErrorDialog(parent, "ClassNotFoundException");
                     } catch (FileNotFoundException e1) {
@@ -238,7 +243,7 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                     }
 
                 } else {
-                    new ErrorDialog(parent, "地址前两位必须为市名");
+                    new TranslucentFrame(this, "地址前两位必须为市名", Color.RED);
                 }
             }
             else {
@@ -260,19 +265,22 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
                     logisticBLService.update(parent.getUserIdentity().getId(), vo);
                     staffBLService.addWorkFrequency(parent.getUserIdentity().getId());
                     refresh();
+                    new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                 } catch (TransportBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (MalformedURLException e1) {
                     new ErrorDialog(parent, "MalformedURLException");
                 } catch (SQLException e1) {
                     System.out.println("提交寄件单sql："+e1.getMessage());
-                    new ErrorDialog(parent, "SQLException");
+                    if (e1.getMessage().substring(0,9).equals("Duplicate")){
+                        new TranslucentFrame(this, "该订单已存在", Color.RED);
+                    }
                 } catch (NotBoundException e1) {
                     new ErrorDialog(parent, "NotBoundException");
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 }
             }
             else {
@@ -290,6 +298,9 @@ public class SendPanel extends JPanel implements ActionListener, FocusListener{
         }
         comboBox1.setSelectedIndex(0);
         comboBox2.setSelectedIndex(0);
+        for (int i=0;i<texts.length;i++){
+            texts[i].setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        }
     }
 
     //此方法暂时没用

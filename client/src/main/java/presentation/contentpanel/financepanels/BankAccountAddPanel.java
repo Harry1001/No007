@@ -54,8 +54,8 @@ public class BankAccountAddPanel extends JPanel implements ActionListener {
         accountT=new MyTextField(25);
         balanceL=new MyLabel("当前余额");
         balanceT=new MyTextField(25);
-        confirmbt=new MyButton("OK");
-        cancelbt=new MyButton("Cancel");
+        confirmbt=new MyButton("确认(O)");
+        cancelbt=new MyButton("取消(C)");
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc=new GridBagConstraints();
         gbc.insets=new Insets(10,10,10,10);

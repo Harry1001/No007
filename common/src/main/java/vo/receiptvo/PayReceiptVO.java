@@ -2,6 +2,7 @@ package vo.receiptvo;
 
 import java.util.Date;
 
+import constent.Constent;
 import po.receiptpo.PayReceiptPO;
 import typeDefinition.FeeType;
 import typeDefinition.ReceiptState;
@@ -90,5 +91,11 @@ public class PayReceiptVO extends ReceiptVO {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+    public String print(){
+        String s="付款原因:"+ Constent.FEE_TYPE_STR[payType.ordinal()]+"，付款金额:"+fee+"元，付款日期："
+                +Constent.DATE_FORMAT.format(payTime);
+        return s;
+    }
 
 }

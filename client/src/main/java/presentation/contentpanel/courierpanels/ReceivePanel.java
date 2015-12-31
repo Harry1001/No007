@@ -8,10 +8,8 @@ import businessLogicService.transportblservice.ReceiveBLService;
 import constent.Constent;
 import myexceptions.InfoBLException;
 import myexceptions.TransportBLException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import vo.receiptvo.ReceiveReceiptVO;
 
 import javax.swing.*;
@@ -57,7 +55,7 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
         this.parent=par;
         l1=new MyLabel("是否为代收");
         l2=new MyLabel("收件人姓名");
-        l3=new MyLabel("收件人电话");
+        l3=new MyLabel("代收人电话");
         l4=new MyLabel("收件编号");
         l5=new MyLabel("收件时间");
         t1=new MyTextField(15);
@@ -66,8 +64,8 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
         t4=new MyTextField(15);
         rbt1=new JRadioButton("是");
         rbt2=new JRadioButton("否");
-        submitbt=new MyButton("提交");
-        refreshbt=new MyButton("清空输入");
+        submitbt=new MyButton("提交(S)");
+        refreshbt=new MyButton("清空(R)");
         ButtonGroup btgroup=new ButtonGroup();
         btgroup.add(rbt1);
         btgroup.add(rbt2);
@@ -114,6 +112,8 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
         gbc.gridx=1;
         this.add(submitbt,gbc);
 
+        setHotKey();
+
         this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(ALLBITS),"收件单",
                 TitledBorder.LEFT,TitledBorder.TOP,new Font("",Font.BOLD, 25)));
 
@@ -129,6 +129,11 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
 
     }
 
+    private void setHotKey(){
+        submitbt.setMnemonic('S');
+        refreshbt.setMnemonic('R');
+    }
+
     /**
      * 为界面层创建逻辑层引用
      */
@@ -140,7 +145,7 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
             new ErrorDialog(parent, "NotBoundException");
         }
@@ -198,21 +203,24 @@ public class ReceivePanel extends JPanel implements ItemListener, ActionListener
                     logisticBLService.update(parent.getUserIdentity().getId(), vo);
                     staffBLService.addWorkFrequency(parent.getUserIdentity().getId());
                     refresh();
+                    new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                 } catch (TransportBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new ErrorDialog(parent, "服务器连接超时");
+                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (MalformedURLException e1) {
                     new ErrorDialog(parent, "MalformedURLException");
                 } catch (SQLException e1) {
                     System.out.println("提交收件单sql："+e1.getMessage());
-                    new ErrorDialog(parent, "SQLException");
+                    if (e1.getMessage().substring(0,9).equals("Duplicate")){
+                        new TranslucentFrame(this, "该订单已存在", Color.RED);
+                    }
                 } catch (NotBoundException e1) {
                     new ErrorDialog(parent, "NotBoundException");
                 } catch (ParseException e1) {
-                    new ErrorDialog(parent, "请不要改变默认时间格式");
+                    new TranslucentFrame(this, "请不要改变默认时间格式", Color.RED);
                 } catch (InfoBLException e1) {
-                    new ErrorDialog(parent, e1.getMessage());
+                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
                 }
             }
             else {

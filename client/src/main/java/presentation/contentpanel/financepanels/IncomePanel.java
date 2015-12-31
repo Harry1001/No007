@@ -92,7 +92,7 @@ public class IncomePanel extends JPanel implements ActionListener{
         table=new MyTable(defaultTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(270, 100));
         //totalbt=new MyButton("合计");
-        timebt=new MyButton("OK");
+        timebt=new MyButton("确定(O)");
         fromTimeP=new TimePanel();
         toTimeP=new TimePanel();
         fromTimeL=new MyLabel("起始时间");
@@ -208,7 +208,7 @@ public class IncomePanel extends JPanel implements ActionListener{
                 } catch (RemoteException e1) {
                     new TranslucentFrame(this, MessageType.RMI_LAG, Color.RED);
                 } catch (SQLException e1) {
-                    System.out.println("成本管理sql:"+e1.getMessage());
+                    System.out.println("收入管理sql:"+e1.getMessage());
 
                 } catch (MalformedURLException e1) {
                     System.out.println(e1.getMessage());

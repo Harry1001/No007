@@ -4,9 +4,11 @@ import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.logisticblservice.LogisticBLService;
 import constent.Constent;
+import presentation.Images.Images;
 import presentation.commoncontainer.*;
 import presentation.commoncontainer.ErrorDialog;
 import presentation.uifactory.UIFactory;
+import typeDefinition.MessageType;
 import vo.logisticvo.LogisticVO;
 
 import javax.swing.*;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 /**
- * Created by Harry on 2015/11/25.
+ * 物流信息查询界面
  */
 public class LogisticPanel extends JPanel implements ActionListener{
 
@@ -45,8 +47,8 @@ public class LogisticPanel extends JPanel implements ActionListener{
         names.add("到达地点");
         this.parent=par;
         label=new MyLabel("请输入10位订单号:");
-        button=new MyButton("查询");
-        backbt=new MyButton("返回");
+        button=new MyButton("Search");
+        backbt=new MyButton(" Back", Images.BACK_IMAGE);
         textField=new MyTextField();
 
         this.setLayout(new GridBagLayout());
@@ -54,17 +56,21 @@ public class LogisticPanel extends JPanel implements ActionListener{
 
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.NONE;
+        gbc.anchor=GridBagConstraints.CENTER;
         gbc.weightx=gbc.weighty=0.0;
-        gbc.gridx=0;
-        this.add(label, gbc);
-        gbc.gridx=1;
-        this.add(textField,gbc);
-        gbc.gridx=2;
-        this.add(button,gbc);
-        gbc.gridx=3;
-        this.add(backbt,gbc);
 
-        gbc.weightx=gbc.weighty=1.0;
+        gbc.gridx=gbc.gridy=0;
+        this.add(backbt, gbc);
+        gbc.gridx++;
+        gbc.gridy++;
+        this.add(label, gbc);
+        gbc.gridx++;
+        this.add(textField,gbc);
+        gbc.gridx++;
+        this.add(button,gbc);
+
+
+
         defaultTableModel=new MyDefaultTableModel(names, 0);
         table=new MyTable(defaultTableModel);
         //table.setRowSorter(null);
@@ -74,16 +80,23 @@ public class LogisticPanel extends JPanel implements ActionListener{
         table.getColumnModel().getColumn(1).setPreferredWidth(150);
 
 
-        gbc.gridx=0;
-        gbc.gridy=1;
-        gbc.gridwidth=4;
-        gbc.gridheight=3;
+        gbc.gridx=1;
+        gbc.gridy++;
+        gbc.gridwidth=3;
+        gbc.gridheight=1;
         this.add(s, gbc);
+
+        setHotKey();
 
         button.addActionListener(this);
         backbt.addActionListener(this);
 
         initBL();
+    }
+
+    private void setHotKey(){
+        button.setMnemonic('S');
+        backbt.setMnemonic('B');
     }
 
     private void initBL(){
@@ -92,7 +105,7 @@ public class LogisticPanel extends JPanel implements ActionListener{
         } catch (MalformedURLException e) {
             new ErrorDialog(parent, "MalformedURLException");
         } catch (RemoteException e) {
-            new ErrorDialog(parent, "服务器连接超时");
+            new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (NotBoundException e) {
             new ErrorDialog(parent, "NotBoundException");
         }
@@ -107,7 +120,7 @@ public class LogisticPanel extends JPanel implements ActionListener{
                 ArrayList<LogisticVO> logisticVOs=logisticBLService.getLogistic(id);
                 int len=logisticVOs.size();
                 if (len<=0){
-                    new ErrorDialog(parent, "无此订单信息");
+                    new TranslucentFrame(this, "无此订单信息", Color.RED);
                 }
                 else {
                     Vector<Vector> data=new Vector<Vector>();
@@ -123,7 +136,7 @@ public class LogisticPanel extends JPanel implements ActionListener{
                     table.updateUI();
                 }
             } catch (RemoteException e1) {
-                new ErrorDialog(parent, "服务器连接超时");
+                new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
             } catch (SQLException e1) {
                 new ErrorDialog(parent, "SQLException");
             }

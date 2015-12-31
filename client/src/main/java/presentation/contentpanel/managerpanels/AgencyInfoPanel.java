@@ -27,8 +27,8 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
     protected MyTextField[] textFields=new MyTextField[5];
     protected JComboBox<String> type;
 
-    protected MyButton submitbt=new MyButton("Submit");
-    protected MyButton cancelbt=new MyButton("Cancel");
+    protected MyButton submitbt=new MyButton("提交(S)");
+    protected MyButton cancelbt=new MyButton("取消(C)");
 
     public AgencyInfoPanel(JDialog dialog, MainFrame parent, AgencyListPanel panel, AgencyBLService agencyBLService) {
         this.agencyBLService=agencyBLService;

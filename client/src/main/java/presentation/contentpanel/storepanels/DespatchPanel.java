@@ -76,8 +76,8 @@ public class DespatchPanel extends JPanel implements ActionListener{
         //设置时间框里自动生成系统时间
         timeT.setText(df.format(new Date()));
 
-        submitBT=new MyButton("Submit");
-        cancelBT=new MyButton("Refresh");
+        submitBT=new MyButton("提交(S)");
+        cancelBT=new MyButton("取消(R)");
 
         this.setLayout(new GridBagLayout());
         this.setOpaque(false);

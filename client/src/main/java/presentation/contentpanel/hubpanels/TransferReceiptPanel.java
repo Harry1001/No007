@@ -40,12 +40,12 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
     MyLabel[] labels=new MyLabel[8];
     MyTextField[] textFields=new MyTextField[7];
     JRadioButton[] vehicles=new JRadioButton[3];
-    MyButton calfeebt=new MyButton("CalFee");
-    MyButton addbt=new MyButton("Add");
-    MyButton deletebt=new MyButton("Delete");
-    MyButton submitbt=new MyButton("Submit");
-    MyButton cancelbt=new MyButton("Refresh");
-    MyButton backbt=new MyButton(" Back ", Images.BACK_IMAGE);
+    MyButton calfeebt=new MyButton("计算运费(F)");
+    MyButton addbt=new MyButton("添加(A)");
+    MyButton deletebt=new MyButton("删除(D)");
+    MyButton submitbt=new MyButton("提交(S)");
+    MyButton cancelbt=new MyButton("取消(C)");
+    MyButton backbt=new MyButton("返回(B)", Images.BACK_IMAGE);
 
     MyDefaultTableModel defaultTableModel;
     JTable table;
@@ -68,7 +68,10 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
         backbt.addActionListener(this);
-        textFields[1].addFocusListener(this);
+
+        for (int i=0;i<7;i++){
+            textFields[i].addFocusListener(this);
+        }
 
         refresh();
         initBL();
@@ -76,11 +79,11 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
 
     private void setHotKey(){
         backbt.setMnemonic('B');
-        calfeebt.setMnemonic('C');
+        calfeebt.setMnemonic('F');
         addbt.setMnemonic('A');
         deletebt.setMnemonic('D');
         submitbt.setMnemonic('S');
-        cancelbt.setMnemonic('R');
+        cancelbt.setMnemonic('C');
     }
 
     private void initBL(){
@@ -109,6 +112,10 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
         defaultTableModel.getDataVector().clear();
         table.revalidate();
         table.updateUI();
+
+        for (int i=0;i<textFields.length;i++){
+            textFields[i].setBorder(BorderFactory.createLoweredBevelBorder());
+        }
     }
 
     private boolean checkAll(){
@@ -325,7 +332,62 @@ public class TransferReceiptPanel extends JPanel implements ActionListener, Focu
     }
 
     public void focusLost(FocusEvent e) {
-
+        if (e.getSource()==textFields[0]){
+            if (checkTime()){
+                textFields[0].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                textFields[0].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if (e.getSource()==textFields[1]){
+            if (checkTransID()){
+                textFields[1].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                textFields[1].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if (e.getSource()==textFields[2]){
+            if (checkVehicleID()){
+                textFields[2].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                textFields[2].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if (e.getSource()==textFields[3]){
+            if (checkFromLoc()){
+                textFields[3].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                textFields[3].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if (e.getSource()==textFields[4]){
+            if (checkToLoc()){
+                textFields[4].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                textFields[4].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if (e.getSource()==textFields[5]){
+            if (checkCounterID()){
+                textFields[5].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                textFields[5].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
+        else if (e.getSource()==textFields[6]){
+            if (checkFee()){
+                textFields[6].setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            }
+            else {
+                textFields[6].setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+        }
     }
 
     private boolean isDigit(String s){

@@ -32,8 +32,8 @@ public class StaffInfoPanel extends JPanel implements ActionListener{
     protected JComboBox<String> genderC;
     protected JComboBox<String> jobC;
     protected TimePanel p1;
-    protected MyButton submitbt=new MyButton("Submit");
-    protected MyButton cancelbt=new MyButton("Cancel");
+    protected MyButton submitbt=new MyButton("提交(S)");
+    protected MyButton cancelbt=new MyButton("取消(C)");
 
     public StaffInfoPanel(MainFrame parent, JDialog dialog, StaffBLService bl, StaffListPanel panel) {
         this.parent = parent;

@@ -28,8 +28,9 @@ public class BankAccountPanel extends JPanel implements ActionListener{
     private MainFrame parent;
     private MyDefaultTableModel defaultTableModel;
     private MyTable table;
-    private MyButton addbt=new MyButton("New");
-    private MyButton deletebt=new MyButton("Delete");
+    private MyButton addbt=new MyButton("新建(N)");
+    private MyButton deletebt=new MyButton("删除(D)");
+    private MyButton refreshbt=new MyButton("刷新(R)");
 
     private BankAccountBLService bankAccountBLService;
 
@@ -46,6 +47,7 @@ public class BankAccountPanel extends JPanel implements ActionListener{
 
         addbt.addActionListener(this);
         deletebt.addActionListener(this);
+        refreshbt.addActionListener(this);
 
         initBL();
         refresh();
@@ -54,6 +56,7 @@ public class BankAccountPanel extends JPanel implements ActionListener{
     private void setHotKey(){
         addbt.setMnemonic('N');
         deletebt.setMnemonic('D');
+        refreshbt.setMnemonic('R');
     }
 
     private void initBL(){
@@ -82,7 +85,7 @@ public class BankAccountPanel extends JPanel implements ActionListener{
         gbc.fill=GridBagConstraints.BOTH;
 
         gbc.gridx=gbc.gridy=0;
-        gbc.gridwidth=3;
+        gbc.gridwidth=4;
         this.add(new JScrollPane(table),gbc);
 
         //gbc.weightx=gbc.weighty=0.0;
@@ -94,9 +97,11 @@ public class BankAccountPanel extends JPanel implements ActionListener{
         this.add(addbt, gbc);
         gbc.gridx++;
         this.add(deletebt,gbc);
+        gbc.gridx++;
+        this.add(refreshbt, gbc);
 
         gbc.gridy++;
-        gbc.gridx=0;
+        gbc.gridx=1;
         this.add(new BlankBlock(), gbc);
     }
 
@@ -157,6 +162,10 @@ public class BankAccountPanel extends JPanel implements ActionListener{
                     initBL();
                 }
             }
+        }
+        else if (e.getSource()==refreshbt){
+            refresh();
+            new TranslucentFrame(this, "刷新成功", Color.GREEN);
         }
     }
 }

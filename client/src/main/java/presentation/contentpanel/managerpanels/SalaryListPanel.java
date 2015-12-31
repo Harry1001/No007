@@ -24,9 +24,9 @@ import java.util.Vector;
  */
 public class SalaryListPanel extends JPanel implements ActionListener {
     protected MainFrame parent;
-    protected MyButton confirmbt=new MyButton("OK");
-    protected MyButton cancelbt=new MyButton("Refresh");
-    protected MyLabel tipL=new MyLabel("双击表格中的单元格可以修改薪水");
+    protected MyButton confirmbt=new MyButton("确定(O)");
+    protected MyButton cancelbt=new MyButton("刷新(R)");
+    protected MyLabel tipL=new MyLabel("注：双击表格中的单元格可以修改薪水");
 
     protected EditableTableModel defaultTableModel;
     protected MyTable table;

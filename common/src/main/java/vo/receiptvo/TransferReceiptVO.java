@@ -1,5 +1,6 @@
 package vo.receiptvo;
 
+import constent.Constent;
 import po.receiptpo.TransferReceiptPO;
 import typeDefinition.ReceiptState;
 import typeDefinition.ReceiptType;
@@ -122,5 +123,11 @@ public class TransferReceiptVO extends ReceiptVO {
 	public ReceiptState getState() {
 		return state;
 	}
+
+    public String print(){
+        String s="出发地:"+departLoc+"，到达地:"+arriveLoc+"，中转方式:"+ Constent.VEHICLE_TYPE_STR[transferType.ordinal()]
+                +"，日期:"+Constent.DATE_FORMAT.format(transferDate);
+        return s;
+    }
 
 }

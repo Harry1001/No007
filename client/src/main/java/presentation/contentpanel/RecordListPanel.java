@@ -30,7 +30,7 @@ public class RecordListPanel extends JPanel implements ActionListener{
     MainFrame parent;
     MyDefaultTableModel defaultTableModel;
     MyTable table;
-    MyButton refreshbt=new MyButton("Refresh");
+    MyButton refreshbt=new MyButton("刷新(R)");
 
     public RecordListPanel(MainFrame par) {
 

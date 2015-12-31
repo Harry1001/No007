@@ -47,8 +47,8 @@ public class StoreArrivePanel extends JPanel implements ActionListener, FocusLis
 
     JComboBox stateC;
 
-    MyButton submitbt=new MyButton("Submit");
-    MyButton cancelbt=new MyButton("Refresh");
+    MyButton submitbt=new MyButton("提交(S)");
+    MyButton cancelbt=new MyButton("取消(R)");
 
     
     ArriveStoreBLService arriveStore;

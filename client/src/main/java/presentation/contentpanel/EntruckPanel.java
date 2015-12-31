@@ -52,11 +52,11 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
     MyTextField feeT=new MyTextField();
     MyTextField orderNumText=new MyTextField();
 
-    MyButton feebt=new MyButton("CalFee");
-    MyButton submitbt=new MyButton("Submit");
-    MyButton cancelbt=new MyButton("Refresh");
-    MyButton appendbt=new MyButton("Add");
-    MyButton deletebt=new MyButton("Delete");
+    MyButton feebt=new MyButton("计算运费(F)");
+    MyButton submitbt=new MyButton("提交(S)");
+    MyButton cancelbt=new MyButton("取消(R)");
+    MyButton appendbt=new MyButton("添加(A)");
+    MyButton deletebt=new MyButton("删除(D)");
 
     MyDefaultTableModel defaultTableModel;
     JTable table;//此处表格和人员管理等表格大小不同，故不使用MyTable
@@ -132,6 +132,7 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.NONE;
         gbc.anchor=GridBagConstraints.NORTH;
+        //gbc.weightx=gbc.weighty=1.0;
 
         this.add(timeL, gbc);
         gbc.gridy=1;
@@ -143,6 +144,7 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
         gbc.gridy=4;
         this.add(feeL, gbc);
 
+        gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.gridx=1;
         gbc.gridy=0;
         this.add(timeT,gbc);
@@ -155,24 +157,26 @@ public class EntruckPanel extends JPanel implements ActionListener, FocusListene
         gbc.gridy=4;
         this.add(feeT,gbc);
 
+        gbc.fill=GridBagConstraints.NONE;
         gbc.gridx=2;
         gbc.gridy=0;
-        gbc.gridwidth=4;
+        gbc.gridwidth=2;
         gbc.gridheight=6;
         this.add(new JScrollPane(table),gbc);
 
+        //gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.gridheight=1;
         gbc.gridwidth=2;
-        gbc.gridy=5;
+        gbc.gridy=6;
         this.add(orderNumText,gbc);
 
-        gbc.gridx=4;
-        gbc.gridy=5;
+        gbc.gridx=2;
+        gbc.gridy=7;
         gbc.gridwidth=1;
-        //gbc.fill=GridBagConstraints.BOTH;
-        gbc.anchor=GridBagConstraints.EAST;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.anchor=GridBagConstraints.CENTER;
         this.add(appendbt,gbc);
-        gbc.gridx=5;
+        gbc.gridx=3;
         this.add(deletebt,gbc);
 
         gbc.gridx=1;

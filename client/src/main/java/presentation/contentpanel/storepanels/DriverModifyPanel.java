@@ -75,7 +75,7 @@ public class DriverModifyPanel extends DriverInfoPanel {
             }
         }
         else if (e.getSource()==cancelbt){
-            parent.dispose();
+            dialog.dispose();
         }
     }
 }

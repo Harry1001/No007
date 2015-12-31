@@ -26,7 +26,7 @@ public class MakeBillPanel extends JPanel implements ActionListener {
     private MainFrame parent;
     private MyLabel yearL = new MyLabel("保存年份");
     private JComboBox<Integer> yearT = new JComboBox<Integer>();
-    private MyButton submitbt=new MyButton("Submit");
+    private MyButton submitbt=new MyButton("提交(S)");
 
     private FinanceBLService financeBLService;
 

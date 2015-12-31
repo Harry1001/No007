@@ -29,6 +29,8 @@ import dataService.FinanceDataService;
 import dataService._RMI;
 import myexceptions.InfoBLException;
 import po.financepo.FinancePO;
+import sun.management.snmp.jvmmib.JvmOSMBean;
+import typeDefinition.Job;
 import vo.commodityvo.CommodityVO;
 import vo.financevo.AddUpResultVO;
 import vo.financevo.FinanceVO;
@@ -123,14 +125,31 @@ public class FinanceBL implements FinanceBLService{
 		CalSalaryService strategy=BLFactory.getCalSalaryService();
 		ArrayList<SalaryFeeVO> salaryList = new ArrayList<SalaryFeeVO>();
 		StaffBLService staff = BLFactory.getStaffBLService();
-		for(StaffVO s : staff.getStaffList()){
+		DriverBLService driverBLService=BLFactory.getDriverBLService();
+		ArrayList<StaffVO> staffVOs=staff.getStaffList();
+		ArrayList<DriverVO> driverVOs=driverBLService.getDriverList();
+		for(StaffVO s : staffVOs){
 			SalaryFeeVO salary = new SalaryFeeVO();
 			salary.setName(s.getName());
 			salary.setPosition(s.getPosition());
 			salary.setStaffID(s.getStaffID());
 			salary.setSalary(strategy.calSalary(s.getPosition(), s.getWorkFrequency()));
+			try {
+				staff.refreshWorkFrequency(s.getStaffID());
+			} catch (InfoBLException e) {
+				e.printStackTrace();
+			}
 			salaryList.add(salary);
 		}
+		for (DriverVO vo:driverVOs){
+			SalaryFeeVO salaryFeeVO=new SalaryFeeVO();
+			salaryFeeVO.setName(vo.getName());
+			salaryFeeVO.setPosition(Job.DRIVER);
+			salaryFeeVO.setStaffID(vo.getDriverID());
+			salaryFeeVO.setSalary(strategy.calSalary(Job.DRIVER, 0));
+			salaryList.add(salaryFeeVO);
+		}
+
 		return salaryList;
 	}
 

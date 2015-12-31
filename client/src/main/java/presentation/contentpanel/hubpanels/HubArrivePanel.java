@@ -9,16 +9,16 @@ import businessLogicService.logisticblservice.LogisticBLService;
 import businessLogicService.transportblservice.ArriveHubBLService;
 import constent.Constent;
 import myexceptions.TransportBLException;
-import presentation.commoncontainer.MyButton;
-import presentation.commoncontainer.MyLabel;
-import presentation.commoncontainer.MyTextField;
-import presentation.commoncontainer.ErrorDialog;
+import presentation.commoncontainer.*;
+import typeDefinition.MessageType;
 import typeDefinition.PackArrivalState;
 import vo.receiptvo.HubArrivalReceiptVO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -29,7 +29,7 @@ import java.util.Date;
 /**
  * Created by Harry on 2015/11/28.
  */
-public class HubArrivePanel extends JPanel implements ActionListener{
+public class HubArrivePanel extends JPanel implements ActionListener, FocusListener {
     MainFrame parent;
 
     MyLabel orderL=new MyLabel("订单编号");
@@ -46,8 +46,8 @@ public class HubArrivePanel extends JPanel implements ActionListener{
     MyTextField fromT=new MyTextField(25);
     JComboBox<String> stateC;
 
-    MyButton submitbt=new MyButton("提交");
-    MyButton cancelbt=new MyButton("取消");
+    MyButton submitbt=new MyButton("提交(S)");
+    MyButton cancelbt=new MyButton("取消(C)");
 
     //SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");//设置时间格式
     
@@ -104,12 +104,25 @@ public class HubArrivePanel extends JPanel implements ActionListener{
         gbc.gridx=1;
         this.add(cancelbt,gbc);
 
+		setHotKey();
+
         submitbt.addActionListener(this);
         cancelbt.addActionListener(this);
+
+		orderT.addFocusListener(this);
+		hubIDT.addFocusListener(this);
+		timeT.addFocusListener(this);
+		numT.addFocusListener(this);
         
         initBL();
 		refresh();
     }
+
+
+	private void setHotKey(){
+		submitbt.setMnemonic('M');
+		cancelbt.setMnemonic('C');
+	}
 
 	private void initBL() {
 		arriveHubBLService=BLFactory.getArriveHubBLService();
@@ -118,7 +131,7 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 		} catch (MalformedURLException e) {
 			new ErrorDialog(parent, "MalformedURLException");
 		} catch (RemoteException e) {
-			new ErrorDialog(parent, "服务器连接超时");
+			new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
 		} catch (NotBoundException e) {
 			new ErrorDialog(parent, "NotBoundException");
 		}
@@ -151,16 +164,15 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 					arriveHubBLService.submit(vo);
 					logisticBLService.update(parent.getUserIdentity().getId(), vo);
 					refresh();
-
+					new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
 				} catch (TransportBLException e1) {
-					new ErrorDialog(parent, e1.getMessage());
+					new TranslucentFrame(this, e1.getMessage(), Color.RED);
 				} catch (ParseException e1) {
 					new ErrorDialog(parent, "不可能");
 				} catch (RemoteException e1) {
-					new ErrorDialog(parent, "服务器连接超时");
+					new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
 				} catch (SQLException e1) {
 					System.out.println(e1.getMessage());
-					new ErrorDialog(parent, "SQLException");
 				} catch (NotBoundException e1) {
 					new ErrorDialog(parent, "NotBoundException");
 				} catch (MalformedURLException e1) {
@@ -184,6 +196,11 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 	    numT.setText("");
 	    fromT.setText("");
 	    stateC.setSelectedIndex(0);
+		orderT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		hubIDT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		timeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		numT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		fromT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
 	}
 
 	private boolean checkAllFormat() throws TransportBLException {		
@@ -246,5 +263,52 @@ public class HubArrivePanel extends JPanel implements ActionListener{
 			return false;
 		}
 		return true;
+	}
+
+	public void focusGained(FocusEvent e) {
+
+	}
+
+	public void focusLost(FocusEvent e) {
+		if (e.getSource()==orderT){
+			if (checkOrderID()){
+				orderT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+			}
+			else {
+				orderT.setBorder(BorderFactory.createLineBorder(Color.RED));
+			}
+		}
+		else if (e.getSource()==hubIDT){
+			if (checkHubID()){
+				hubIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+			}
+			else {
+				hubIDT.setBorder(BorderFactory.createLineBorder(Color.RED));
+			}
+		}
+		else if (e.getSource()==timeT){
+			if (checkDate()){
+				timeT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+			}
+			else {
+				timeT.setBorder(BorderFactory.createLineBorder(Color.RED));
+			}
+		}
+		else if (e.getSource()==numT){
+			if (checkNumID()){
+				numT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+			}
+			else {
+				numT.setBorder(BorderFactory.createLineBorder(Color.RED));
+			}
+		}
+		else if (e.getSource()==fromT){
+			if (checkFrom()){
+				fromT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+			}
+			else {
+				fromT.setBorder(BorderFactory.createLineBorder(Color.RED));
+			}
+		}
 	}
 }

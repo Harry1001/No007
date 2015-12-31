@@ -33,8 +33,8 @@ public class TruckInfoPanel extends JPanel implements ActionListener {
     MyLabel dipanL=new MyLabel("底盘号");
     MyLabel goumaiL=new MyLabel("购买时间");
     MyLabel fuyiL=new MyLabel("服役时间");
-    MyButton submitbt=new MyButton("Submit");
-    MyButton cancelbt=new MyButton("Cancel");
+    MyButton submitbt=new MyButton("提交(S)");
+    MyButton cancelbt=new MyButton("取消(C)");
 
     MyTextField[] textFields=new MyTextField[5];
     TimePanel timePanel=new TimePanel();

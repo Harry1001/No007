@@ -52,6 +52,7 @@ public class AgencyModifyPanel extends AgencyInfoPanel {
                     agencyBLService.modifyAgency(originID, vo);
                     listPanel.refreshList();
                     dialog.dispose();
+                    new TranslucentFrame(listPanel, MessageType.MODIFY_SUCCESS, Color.GREEN);
                 } catch (InfoBLException e1) {
                     new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {

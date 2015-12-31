@@ -34,9 +34,9 @@ public class OutcomeListPanel extends JPanel implements ActionListener {
 
     private MyTable table;
     private MyDefaultTableModel defaultTableModel;
-    private MyButton addbt = new MyButton(" New Receipt", Images.GO_IMAGE);//新建单据按钮
-    private MyButton handlebt=new MyButton("Handle");//处理已被审批的单据按钮
-    private MyButton refreshbt=new MyButton("Refresh");//刷新通知按钮
+    private MyButton addbt = new MyButton("新建单据(N)", Images.GO_IMAGE);//新建单据按钮
+    private MyButton handlebt=new MyButton("处理(H)");//处理已被审批的单据按钮
+    private MyButton refreshbt=new MyButton("刷新(R)");//刷新通知按钮
 
     private Vector<String> names;//表格列名
 

@@ -25,9 +25,9 @@ import java.util.Vector;
  */
 public class AgencyListPanel extends JPanel implements ActionListener {
     private MainFrame parent;
-    private MyButton addbt=new MyButton("New");
-    private MyButton deletebt=new MyButton("Delete");
-    private MyButton modifybt=new MyButton("Modify");
+    private MyButton addbt=new MyButton("新建(N)");
+    private MyButton deletebt=new MyButton("删除(D)");
+    private MyButton modifybt=new MyButton("修改(M)");
 
     private MyDefaultTableModel defaultTableModel;
     private MyTable table;

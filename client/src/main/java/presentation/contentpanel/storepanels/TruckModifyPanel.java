@@ -43,30 +43,33 @@ public class TruckModifyPanel extends TruckInfoPanel {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (checkAll()){
-            try {
-                String id = textFields[0].getText();
-                String chepai = textFields[1].getText();
-                String engine = textFields[2].getText();
-                String dipan = textFields[3].getText();
-                int fuyiTime = Integer.parseInt(textFields[4].getText());
-                Date buyTime = timePanel.getDate();
+        if (e.getSource()==submitbt){
+            if (checkAll()){
+                try {
+                    String id = textFields[0].getText();
+                    String chepai = textFields[1].getText();
+                    String engine = textFields[2].getText();
+                    String dipan = textFields[3].getText();
+                    int fuyiTime = Integer.parseInt(textFields[4].getText());
+                    Date buyTime = timePanel.getDate();
 
-                TruckVO vo = new TruckVO(id, chepai, engine, dipan, buyTime, fuyiTime);
-                truckBLService.modifyTruck(originID, vo);
-                listPanel.refreshList();
-                dialog.dispose();
-                new TranslucentFrame(listPanel, MessageType.MODIFY_SUCCESS, Color.GREEN);
-            } catch (TimeFormatException e1) {
-                new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
-            } catch (RemoteException e1) {
-                new TranslucentFrame(listPanel, MessageType.RMI_LAG, Color.ORANGE);
-            } catch (SQLException e1) {
-                new ErrorDialog(parent, "SQLException");
-            } catch (InfoBLException e1) {
-                new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
+                    TruckVO vo = new TruckVO(id, chepai, engine, dipan, buyTime, fuyiTime);
+                    truckBLService.modifyTruck(originID, vo);
+                    listPanel.refreshList();
+                    dialog.dispose();
+                    new TranslucentFrame(listPanel, MessageType.MODIFY_SUCCESS, Color.GREEN);
+                } catch (TimeFormatException e1) {
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
+                } catch (RemoteException e1) {
+                    new TranslucentFrame(listPanel, MessageType.RMI_LAG, Color.ORANGE);
+                } catch (SQLException e1) {
+                    new ErrorDialog(parent, "SQLException");
+                } catch (InfoBLException e1) {
+                    new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);
+                }
             }
-        } else if (e.getSource()==cancelbt){
+        }
+        else if (e.getSource()==cancelbt){
             dialog.dispose();
         }
 

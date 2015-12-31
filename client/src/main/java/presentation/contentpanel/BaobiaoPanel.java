@@ -40,7 +40,7 @@ public class BaobiaoPanel extends JPanel implements ActionListener {
     private TimePanel fromTimeP=new TimePanel();
     private TimePanel toTimeP=new TimePanel();
     private MyTextField yearT=new MyTextField();
-    private MyButton confirmbt=new MyButton("OK");
+    private MyButton confirmbt=new MyButton("确定(O)");
 
     private FinanceBLService financeBLService;
 

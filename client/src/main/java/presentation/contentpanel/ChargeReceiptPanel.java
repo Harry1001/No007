@@ -44,10 +44,10 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
     JComboBox<String> courierT;
     MyTextField orderNumT=new MyTextField();
 
-    MyButton appendbt=new MyButton("Append");
-    MyButton deletebt=new MyButton("Delete");
-    MyButton submitbt=new MyButton("Submit");
-    MyButton cleanbt=new MyButton("Refresh");
+    MyButton appendbt=new MyButton("添加(A)");
+    MyButton deletebt=new MyButton("删除(D)");
+    MyButton submitbt=new MyButton("提交(S)");
+    MyButton cleanbt=new MyButton("取消(R)");
 
     MyDefaultTableModel defaultTableModel;
     JTable table;
@@ -167,6 +167,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         if (checkOrderID()){
             String [] s={orderNumT.getText()};
             defaultTableModel.addRow(s);
+            orderNumT.setText("");
         }
         else {
             new TranslucentFrame(this, "订单号必须为"+Constent.ORDER_ID_LENGTH+"位整数", Color.RED);
@@ -270,6 +271,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         gbc.insets=new Insets(10,10,10,10);
         gbc.fill=GridBagConstraints.NONE;
         gbc.anchor=GridBagConstraints.CENTER;
+        //gbc.weightx=gbc.weighty=1.0;
 
         this.add(timeL,gbc);
         gbc.gridy=1;
@@ -278,13 +280,14 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         this.add(courierL,gbc);
         gbc.gridx=1;
         gbc.gridy=0;
+        gbc.fill=GridBagConstraints.HORIZONTAL;
         this.add(timeT,gbc);
         gbc.gridy=1;
         this.add(moneyT,gbc);
-        gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.gridy=2;
         this.add(courierT,gbc);
 
+        gbc.fill=GridBagConstraints.BOTH;
         gbc.gridx=2;
         gbc.gridy=0;
         gbc.gridwidth=2;
@@ -297,7 +300,7 @@ public class ChargeReceiptPanel extends JPanel implements ActionListener{
         gbc.gridy=3;
         gbc.gridwidth=2;
         gbc.gridheight=1;
-        gbc.fill=GridBagConstraints.BOTH;
+        gbc.fill=GridBagConstraints.HORIZONTAL;
         this.add(orderNumT,gbc);
         gbc.fill=GridBagConstraints.NONE;
         gbc.gridy=4;

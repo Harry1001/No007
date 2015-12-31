@@ -28,9 +28,9 @@ import java.util.Vector;
  */
 public class DriverListPanel extends JPanel implements ActionListener{
     private MainFrame parent;
-    MyButton addbt=new MyButton("New");
-    MyButton deletebt=new MyButton("Delete");
-    MyButton modifybt=new MyButton("Modify");
+    MyButton addbt=new MyButton("新建(N)");
+    MyButton deletebt=new MyButton("删除(D)");
+    MyButton modifybt=new MyButton("修改(M)");
 
     MyDefaultTableModel defaultTableModel;
     MyTable table;
