@@ -153,7 +153,7 @@ public class Server {
 
 		JFrame frame=new JFrame("服务器端启动程序");
 		JLabel label1=new JLabel("点击退出按钮关闭服务器");
-		JLabel label2=new JLabel("服务器已启动");
+		JLabel label2=new JLabel("快递物流系统服务器已启动");
 		label1.setFont(new Font("微软雅黑",Font.PLAIN,20));
 		label2.setFont(new Font("微软雅黑",Font.PLAIN,20));
 		JButton exitbt=new JButton("退出");
