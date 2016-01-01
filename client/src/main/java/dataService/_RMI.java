@@ -20,13 +20,16 @@ public class _RMI {
 		File file = new File("RMI_.txt");
 		try {
 			@SuppressWarnings("resource")
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 			ip = bufferedReader.readLine();
 		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
