@@ -72,7 +72,7 @@ public class JingYingPanel extends JPanel{
         payModel=new MyDefaultTableModel(payNames,0);
         chargeTable=new MyTable(chargeModel);
         payTable=new MyTable(payModel);
-        //todo 修改表格尺寸
+
         chargeTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
         payTable.setPreferredScrollableViewportSize(new Dimension(500,200));
 
@@ -92,11 +92,16 @@ public class JingYingPanel extends JPanel{
         gbc.anchor=GridBagConstraints.EAST;
         gbc.fill=GridBagConstraints.BOTH;
 
-        this.add(new JScrollPane(chargeTable),gbc);
+        JScrollPane scrollPane1=new JScrollPane(chargeTable);
+        JScrollPane scrollPane2=new JScrollPane(payTable);
+        scrollPane1.setBorder(BorderFactory.createTitledBorder("收款单"));
+        scrollPane2.setBorder(BorderFactory.createTitledBorder("付款单"));
+
+        this.add(scrollPane1,gbc);
         gbc.gridy++;
         this.add(new JSeparator(),gbc);
         gbc.gridy++;
-        this.add(new JScrollPane(payTable),gbc);
+        this.add(scrollPane2,gbc);
     }
 
 }

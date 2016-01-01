@@ -182,6 +182,12 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
         return true;
     }
 
+    protected void refresh(){
+        for (int i=0;i<textFields.length;i++){
+            textFields[i].setText("");
+        }
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==submitbt){
             if (checkAll()){
@@ -191,6 +197,7 @@ public class AgencyInfoPanel extends JPanel implements ActionListener{
                 try {
                     agencyBLService.addAgency(vo);
                     listPanel.refreshList();
+                    refresh();
                     new TranslucentFrame(listPanel, MessageType.ADD_SUCCESS, Color.GREEN);
                 } catch (InfoBLException e1) {
                     new TranslucentFrame(listPanel, e1.getMessage(), Color.RED);

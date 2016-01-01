@@ -62,11 +62,11 @@ public class UserAccountInfoPanel extends JPanel implements ActionListener {
         gbc.gridy++;
 
 
-        gbc.gridx=1;
+        gbc.gridx=0;
         gbc.anchor=GridBagConstraints.CENTER;
 
         this.add(submitbt,gbc);
-        gbc.anchor=GridBagConstraints.EAST;
+        //gbc.anchor=GridBagConstraints.EAST;
         gbc.gridx=1;
         this.add(cancelbt,gbc);
         gbc.gridy--;

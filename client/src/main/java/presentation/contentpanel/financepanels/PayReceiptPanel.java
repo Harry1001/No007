@@ -5,6 +5,7 @@ import blfactory.BLFactory;
 import businessLogicService.financeblservice.FinanceBLService;
 import businessLogicService.infoblservice.BankAccountBLService;
 import constent.Constent;
+import javafx.scene.layout.BorderRepeat;
 import myexceptions.TimeFormatException;
 import presentation.Images.Images;
 import presentation.commoncontainer.*;
@@ -17,6 +18,7 @@ import vo.salaryfeevo.SalaryFeeVO;
 
 import javax.naming.NamingException;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -192,6 +194,9 @@ public class PayReceiptPanel extends JPanel implements ActionListener, FocusList
         timeP.setPresentTime();
         salary.setSelected(true);
 
+        feeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        personT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        receiptIDT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
     }
 
 
@@ -226,7 +231,7 @@ public class PayReceiptPanel extends JPanel implements ActionListener, FocusList
 
     private boolean checkReceiptID(){
         String s=receiptIDT.getText();
-        if (s.length()!=Constent.USER_ID_LENGTH){
+        if (s.length()!=Constent.PAY_RECEIPT_LENGTH){
             return false;
         }
         else {
@@ -286,6 +291,10 @@ public class PayReceiptPanel extends JPanel implements ActionListener, FocusList
                         new TranslucentFrame(this, MessageType.RMI_LAG, Color.RED);
                     } catch (SQLException e1) {
                         System.out.println(e1.getMessage());
+                        if (e1.getMessage().substring(0,9).equals("Duplicate")){
+                            new TranslucentFrame(this, "该单号已存在", Color.RED);
+                        }
+
                     } catch (MalformedURLException e1) {
                         System.out.println(e1.getMessage());
                     } catch (NotBoundException e1) {

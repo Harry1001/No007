@@ -62,13 +62,13 @@ public class StaffModifyPanel extends StaffInfoPanel {
                     new TranslucentFrame(staffListPanel, MessageType.MODIFY_SUCCESS, Color.GREEN);
                     dialog.dispose();
                 } catch (TimeFormatException e1) {
-                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
+                    new TranslucentFrame(staffListPanel, e1.getMessage(), Color.RED);
                 } catch (RemoteException e1) {
-                    new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
+                    new TranslucentFrame(staffListPanel, MessageType.RMI_LAG, Color.ORANGE);
                 } catch (SQLException e1) {
                     System.out.println("修改人员信息sql："+e1.getMessage());
                 } catch (InfoBLException e1) {
-                    new TranslucentFrame(this, e1.getMessage(), Color.RED);
+                    new TranslucentFrame(staffListPanel, e1.getMessage(), Color.RED);
                 }
             }
         }
