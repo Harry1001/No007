@@ -142,6 +142,8 @@ public class DriverListPanel extends JPanel implements ActionListener{
                     String id=(String)table.getValueAt(row, 0);
                     try {
                         driverBLService.deleteDriver(id);
+                        refreshList();
+                        new TranslucentFrame(this, MessageType.DELETE_SUCCESS, Color.GREEN);
                         RecordVO rvo=new RecordVO(new Date(),parent.getUserIdentity().getName(),"删除司机信息:"+name);
                         rb.add(rvo);
                     } catch (RemoteException e1) {

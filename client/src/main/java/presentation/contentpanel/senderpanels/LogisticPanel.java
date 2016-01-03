@@ -47,8 +47,8 @@ public class LogisticPanel extends JPanel implements ActionListener{
         names.add("到达地点");
         this.parent=par;
         label=new MyLabel("请输入10位订单号:");
-        button=new MyButton("Search");
-        backbt=new MyButton(" Back", Images.BACK_IMAGE);
+        button=new MyButton("搜索(S)");
+        backbt=new MyButton("返回(B)", Images.BACK_IMAGE);
         textField=new MyTextField();
 
         this.setLayout(new GridBagLayout());

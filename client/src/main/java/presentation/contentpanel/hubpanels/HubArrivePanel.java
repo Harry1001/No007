@@ -120,7 +120,7 @@ public class HubArrivePanel extends JPanel implements ActionListener, FocusListe
 
 
 	private void setHotKey(){
-		submitbt.setMnemonic('M');
+		submitbt.setMnemonic('S');
 		cancelbt.setMnemonic('C');
 	}
 

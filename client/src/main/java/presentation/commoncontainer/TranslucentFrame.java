@@ -95,7 +95,7 @@ public class TranslucentFrame implements Runnable {
             opacity=opacity-2;
             AWTUtilities.setWindowOpacity(frame, opacity/100);
             try {
-                Thread.sleep(20);
+                Thread.sleep(10);
             } catch (Exception e1) {}
         }
         frame.dispose();
@@ -106,7 +106,7 @@ public class TranslucentFrame implements Runnable {
         print();
         show();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(700);
         } catch (Exception e) {}
         hide();
     }

@@ -10,6 +10,7 @@ import vo.infovo.BankAccountVO;
 import vo.infovo.DriverVO;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import po.commoditypo.CommodityPO;
@@ -185,10 +186,11 @@ public class FinanceVO implements Serializable{
 	}
 
 	public String printBankAccount(){
+		DecimalFormat df=new DecimalFormat("#.00");
 		int accNum=bankAccounts.size();
 		String result="\r\n公司共有"+accNum+"个银行账户, 分别为:";
 		for(BankAccountVO vo:bankAccounts){
-			result=result+"帐号:"+vo.getAccountUser()+", 余额:"+vo.getBalance()+"; ";
+			result=result+"帐号:"+vo.getAccountUser()+", 余额:"+df.format(vo.getBalance())+"; ";
 		}
 		return result;
 	}

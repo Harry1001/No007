@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -107,6 +108,9 @@ public class BankAccountPanel extends JPanel implements ActionListener{
 
     public void refresh(){
         try {
+
+            DecimalFormat df=new DecimalFormat("#.00");
+
             ArrayList<BankAccountVO> vos=bankAccountBLService.getBankAccountList();
            // defaultTableModel.getDataVector().clear();
             Vector<Vector> data=new Vector<Vector>();
@@ -115,7 +119,7 @@ public class BankAccountPanel extends JPanel implements ActionListener{
                 BigDecimal balance=vo.getBalance();
                 Vector<Object> item=new Vector<Object>();
                 item.add(acc);
-                item.add(balance);
+                item.add(df.format(balance));
                 data.add(item);
                 //defaultTableModel.addRow(data);
             }

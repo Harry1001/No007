@@ -47,8 +47,8 @@ public class TruckModifyPanel extends TruckInfoPanel {
             if (checkAll()){
                 try {
                     String id = textFields[0].getText();
-                    String chepai = textFields[1].getText();
-                    String engine = textFields[2].getText();
+                    String engine = textFields[1].getText();
+                    String chepai = textFields[2].getText();
                     String dipan = textFields[3].getText();
                     int fuyiTime = Integer.parseInt(textFields[4].getText());
                     Date buyTime = timePanel.getDate();

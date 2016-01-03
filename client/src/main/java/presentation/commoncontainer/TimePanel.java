@@ -47,7 +47,7 @@ public class TimePanel extends JPanel {
     public void setPresentTime(){
         Calendar ca = Calendar.getInstance();
         yearT.setText(""+ca.get(Calendar.YEAR));
-        monthT.setText(""+ca.get(Calendar.MONTH));
+        monthT.setText(""+ca.get(Calendar.MONTH)+1);
         dateT.setText(""+ca.get(Calendar.DATE));
     }
 

@@ -37,7 +37,7 @@ public class DriverInfoPanel extends JPanel implements ActionListener{
     JComboBox<String> genderC;
     TimePanel birthday;
     TimePanel limitTime;
-    MyButton submitbt=new MyButton("新建(N)");
+    MyButton submitbt=new MyButton("提交(S)");
     MyButton cancelbt=new MyButton("取消(C)");
 
     public DriverInfoPanel(MainFrame par, JDialog dialog, DriverListPanel listPanel, DriverBLService blService) {
