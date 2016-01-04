@@ -1,5 +1,6 @@
 package dataService;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Date;
 import po.receiptpo.TransferReceiptPO;
 import typeDefinition.ReceiptState;
 
-public interface TransferReceiptDataService {
+public interface TransferReceiptDataService extends Remote {
 
 	/**
 	 * 按对应time返回相应TransferReceiptPO列表
