@@ -3,7 +3,9 @@ package presentation.contentpanel.depotpanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.commodityblservice.CommodityBLService;
+import businessLogicService.receiptblservice.SendReceiptBLService;
 import constent.Constent;
+import po.receiptpo.SendReceiptPO;
 import presentation.commoncontainer.*;
 import typeDefinition.Location;
 import typeDefinition.MessageType;
@@ -32,6 +34,7 @@ import java.text.ParseException;
 public class DepotInPanel extends JPanel implements ActionListener {
 
     CommodityBLService commodityBLService;
+    SendReceiptBLService sendReceiptBLService;
 
     MainFrame parent;
     MyLabel packIDL=new MyLabel("快递编号");
@@ -129,6 +132,7 @@ public class DepotInPanel extends JPanel implements ActionListener {
 
 	private void initBL() {
 		try {
+            sendReceiptBLService=BLFactory.getSendReceiptBLService();
 			commodityBLService=BLFactory.getCommodityBLService();
 		} catch (MalformedURLException e) {
 			new ErrorDialog(parent, "MalformedURLException");
@@ -275,7 +279,32 @@ public class DepotInPanel extends JPanel implements ActionListener {
 
             public void focusLost(FocusEvent e) {
                 if (checkPackID(packIDT.getText())){
-                    packIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                    //packIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
+                    //自动生成目的地
+                    try {
+
+                        if (sendReceiptBLService!=null){
+                            SendReceiptPO po = sendReceiptBLService.getSendReceipt(packIDT.getText());
+                            if(po!=null){
+                                packIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                                destiT.setText(po.getReceiverLoc());
+                                destiT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                            }
+                            else {
+                                packIDT.setBorder(BorderFactory.createLineBorder(Color.RED));
+                                destiT.setText("");
+                                destiT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+                            }
+                        }
+                        else{
+                            initBL();
+                        }
+                    } catch (RemoteException e1) {
+                        e1.printStackTrace();
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
                 }
                 else {
                     packIDT.setBorder(BorderFactory.createLineBorder(Color.RED));

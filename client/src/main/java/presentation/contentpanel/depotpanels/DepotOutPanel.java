@@ -3,7 +3,9 @@ package presentation.contentpanel.depotpanels;
 import MainFrame.MainFrame;
 import blfactory.BLFactory;
 import businessLogicService.commodityblservice.CommodityBLService;
+import businessLogicService.receiptblservice.SendReceiptBLService;
 import constent.Constent;
+import po.receiptpo.SendReceiptPO;
 import presentation.commoncontainer.*;
 import typeDefinition.MessageType;
 import typeDefinition.Vehicle;
@@ -32,6 +34,7 @@ import java.util.Date;
 public class DepotOutPanel extends JPanel implements ActionListener, FocusListener {
 
     CommodityBLService commodityBLService;
+    SendReceiptBLService sendReceiptBLService;
 
     MainFrame parent;
     MyLabel packIDL=new MyLabel("快递编号");
@@ -122,6 +125,7 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
     private void initBL(){
         try {
             commodityBLService= BLFactory.getCommodityBLService();
+            sendReceiptBLService=BLFactory.getSendReceiptBLService();
         } catch (RemoteException e) {
             new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);
         } catch (MalformedURLException e) {
@@ -239,6 +243,16 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
 
     }
 
+    private void subRefresh(){
+        packIDT.setText("");
+        destiT.setText("");
+        setPresentTime();
+
+        packIDT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        destiT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+        timeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+    }
+
     private Vehicle getSelectedVehicle(){
         if (rbt1.isSelected()){
             return Vehicle.TRUCK;
@@ -262,7 +276,7 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
                         Vehicle vehicle=getSelectedVehicle();
                         DepotOutReceiptVO vo=new DepotOutReceiptVO(packID,time,desti,vehicle,transID);
                         commodityBLService.submitOut(vo);
-                        refresh();
+                        subRefresh();
                         new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
                     } catch (ParseException e1) {
                         new TranslucentFrame(this, "请不要改变默认时间格式", Color.RED);
@@ -301,7 +315,28 @@ public class DepotOutPanel extends JPanel implements ActionListener, FocusListen
     public void focusLost(FocusEvent e) {
         if (e.getSource()==packIDT){
             if (checkPackID()){
-                packIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                //packIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                if (sendReceiptBLService!=null){
+                    try {
+                        SendReceiptPO po = sendReceiptBLService.getSendReceipt(packIDT.getText());
+                        if (po!=null){
+                            packIDT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                            destiT.setText(po.getReceiverLoc());
+                            destiT.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                        }
+                        else {
+                            packIDT.setBorder(BorderFactory.createLineBorder(Color.RED));
+                            destiT.setText("");
+                            destiT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+                        }
+                    } catch (RemoteException e1) {
+                        e1.printStackTrace();
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                } else{
+                    initBL();
+                }
             }
             else{
                 packIDT.setBorder(BorderFactory.createLineBorder(Color.RED));

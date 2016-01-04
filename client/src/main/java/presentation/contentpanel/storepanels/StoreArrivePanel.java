@@ -142,6 +142,16 @@ public class StoreArrivePanel extends JPanel implements ActionListener, FocusLis
 		fromT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
 
 	}
+
+	private void subRefresh(){
+		orderT.setText("");
+		timeT.setText(Constent.DATE_FORMAT.format(new Date()));
+		orderT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		timeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		numT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		fromT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+
+	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==submitbt){
@@ -175,7 +185,7 @@ public class StoreArrivePanel extends JPanel implements ActionListener, FocusLis
 						arriveStore.verify(vo);
 						arriveStore.submit(vo);
 						logisticBLService.update(parent.getUserIdentity().getId(), vo);
-						refresh();
+						subRefresh();
 						new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
 					} catch (RemoteException e1) {
 						new TranslucentFrame(this, MessageType.RMI_LAG, Color.ORANGE);

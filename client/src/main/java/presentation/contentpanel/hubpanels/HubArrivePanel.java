@@ -163,7 +163,7 @@ public class HubArrivePanel extends JPanel implements ActionListener, FocusListe
 						//arriveHubBLService.verify(vo);
 					arriveHubBLService.submit(vo);
 					logisticBLService.update(parent.getUserIdentity().getId(), vo);
-					refresh();
+					subRefresh();
 					new TranslucentFrame(this, MessageType.SUBMIT_SUCCESS, Color.GREEN);
 				} catch (TransportBLException e1) {
 					new TranslucentFrame(this, e1.getMessage(), Color.RED);
@@ -196,6 +196,16 @@ public class HubArrivePanel extends JPanel implements ActionListener, FocusListe
 	    numT.setText("");
 	    fromT.setText("");
 	    stateC.setSelectedIndex(0);
+		orderT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		hubIDT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		timeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		numT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		fromT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+	}
+
+	private void subRefresh(){
+		orderT.setText("");
+		timeT.setText(Constent.DATE_FORMAT.format(new Date()));
 		orderT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
 		hubIDT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
 		timeT.setBorder(BorderFactory.createLoweredSoftBevelBorder());
